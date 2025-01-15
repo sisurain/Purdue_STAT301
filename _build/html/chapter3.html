@@ -1,0 +1,906 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. Chapter 1: Looking at Data – Distributions &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="3. Chapter 3: Producing Data" href="chapter2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter0.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapter3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Looking at Data – Distributions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-distributions-with-graphs">4.1. Displaying Distributions with Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-distributions-with-numbers">4.2. Describing Distributions with Numbers</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-looking-at-data-distributions">
+<h1><span class="section-number">4. </span>Chapter 1: Looking at Data – Distributions<a class="headerlink" href="#chapter-1-looking-at-data-distributions" title="Link to this heading">#</a></h1>
+<p>Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. In some textbooks, this is referred to as <span style="color:#cfb991"><strong>descriptive statistics</strong></span>. However, statistics goes far beyond simply describing data—this is a statistics class, not a drawing class!</p>
+<p>Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span style="color:#cfb991"><strong>inferential statistics</strong></span>, which we will spend more time on throughout the course.</p>
+<p>For this course, our primary focus will be learning statistical procedures to make generalizations about the population from the sample. However, in this chapter, we will focus on describing our datasets using calculated values (statistics) and visual representations (graphs). Hence the title: <em>Looking at Data—Distributions</em>.<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>Before we dive into the types of graphs, let’s first look at the types of data we can obtain from a particular variable. Broadly, data can be categorized into two main types: <strong>quantitative</strong> and <strong>categorical</strong>.</p>
+<ul class="simple">
+<li><p><strong>Categorical variables</strong> take categories as values, as the name suggests. Each category is called a <strong>level</strong>:</p>
+<ul>
+<li><p>If the levels do not have a natural order, the variable is a <strong>nominal categorical variable</strong> (e.g., fruit categories like “Apple” or “Orange”).</p></li>
+<li><p>If the levels have a natural order, the variable is an <strong>ordinal categorical variable</strong> (e.g., academic letter grades like “A,” “B,” “C”).</p></li>
+</ul>
+</li>
+<li><p><strong>Quantitative variables</strong> take numbers as values. The magnitude and differences between numbers have quantitative meanings:</p>
+<ul>
+<li><p>If the values can be any number within an interval on the real line (continuous values), it is a <strong>continuous quantitative variable</strong> (e.g., income measured in dollars).</p></li>
+<li><p>If the values have jumps (discrete values), it is a <strong>discrete quantitative variable</strong> (e.g., the number of cars per household).</p></li>
+</ul>
+</li>
+</ul>
+<p>A dataset typically contains information on a number of <strong>cases</strong>. Cases are the objects or subjects in a study. For each case, we have measurements for different types of variables, such as height, gender, and age. Additionally, there is often a <strong>label</strong>, which is a special variable used to identify cases in the dataset (e.g., a VIN number to identify a specific car).</p>
+<section id="displaying-distributions-with-graphs">
+<h2><span class="section-number">4.1. </span>Displaying Distributions with Graphs<a class="headerlink" href="#displaying-distributions-with-graphs" title="Link to this heading">#</a></h2>
+<p>Two frequently used graphs to describe categorical variables are <strong>bar graphs</strong> and <strong>pie charts</strong>.</p>
+<ul class="simple">
+<li><p>A <strong>bar graph</strong> shows the count for each level of the categorical variable.</p></li>
+<li><p>A <strong>pie chart</strong> shows the proportion of each level relative to the total.</p></li>
+</ul>
+<p>Both are easy to understand, and you can refer to Wikipedia or your textbook for examples. For a visual representation, you can explore <a class="reference external" href="https://www.chartjs.org/docs/latest/charts/bar.html">this website</a>.</p>
+<p>Now let’s turn our focus to graphs for quantitative variables: <strong>stemplots</strong> and <strong>histograms</strong>.</p>
+<p>A <strong>stemplot</strong> provides a quick visual representation of the shape of a distribution while also including the actual numerical values. Stemplots work best when the number of observations is small, and all values are greater than zero.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Making a Stemplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Making a Stemplot" src="_images/0401.png" />
+</figure>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Step by step guide</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Step by step guide" src="_images/0402.png" />
+</figure>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Back-back Stemplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Back-back Stemplot" src="_images/0403.png" />
+</figure>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Stemplot with split stems</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Stemplot with split stems" src="_images/0404.png" />
+</figure>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Time tables in Japanese train station</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Time tables in Japanese train station" src="_images/0405.jpg" />
+</figure>
+</div>
+</div>
+<p>For a large number of observations, a <strong>histogram</strong> is often a better choice. A histogram divides the range of values of a variable into <strong>classes</strong> or <strong>bins</strong> and displays the count or percentage of observations that fall into each class. You can choose a convenient number of classes based on your data and the level of detail you wish to represent.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+IQ data</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="IQ data" src="_images/0406.png" />
+</figure>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Histogram Step 1</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Histogram Step 1" src="_images/0407.png" />
+</figure>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Histogram Step 2</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Histogram Step 2" src="_images/0408.png" />
+</figure>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+Histogram Step 3</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Histogram Step 3" src="_images/0409.png" />
+</figure>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+Types of Histograms</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Types of Histograms" src="_images/0410.png" />
+</figure>
+</div>
+</div>
+<p>Histograms and bar charts may look similar at first glance, but there are key differences:</p>
+<ul class="simple">
+<li><p>The horizontal axis of a <strong>bar chart</strong> does not require a measurement scale; it simply identifies categories, which is why there are blank spaces between the bars.</p></li>
+<li><p>In contrast, a <strong>histogram</strong> has no spaces between bars, as it represents data over a continuous interval, covering the entire range.</p></li>
+</ul>
+<p>Another observation is the use of a <strong>density curve</strong> or a <strong>density histogram</strong> based on relative frequency. The rationale behind using a smoothed curve is that it can often be parameterized by simple mathematical functions, making it easier to model the distribution mathematically.</p>
+<p>The purpose of these graphs is to help us better understand our datasets. After graphing, we can examine the <strong>overall pattern</strong> and identify <strong>striking deviations</strong> from that pattern in the graphs or distributions. We describe the overall pattern of a distribution using its <strong>shape</strong>, <strong>center</strong>, and <strong>spread</strong>.</p>
+<p>An important kind of deviation is an <strong>outlier</strong>—an individual value that falls outside the overall pattern and warrants further investigation to uncover its cause. Later, we will learn how to summarize these characteristics with numerical measures to describe the pattern more precisely.</p>
+<p>For describing the shape of a distribution, we have the following:</p>
+<ul class="simple">
+<li><p><strong>Tails of the distribution</strong>: Extreme values are in the tails. High values are in the upper/right tail, and low values are in the lower/left tail.</p></li>
+<li><p><strong>Modes</strong>:</p>
+<ul>
+<li><p>A distribution with one major peak is called <strong>unimodal</strong>.</p></li>
+<li><p>A distribution with two major peaks is called <strong>bimodal</strong>.</p></li>
+<li><p>A distribution with three major peaks is called <strong>trimodal</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Symmetry and Skewness</strong>:</p>
+<ul>
+<li><p>A distribution is <strong>symmetric</strong> if the patterns of smaller and larger values around the midpoint are mirror images.</p></li>
+<li><p>A distribution is <strong>skewed</strong> if it is not symmetric:</p>
+<ul>
+<li><p><strong>Skewed to the right</strong>: The right tail (larger values) is longer than the left tail.</p></li>
+<li><p><strong>Skewed to the left</strong>: The left tail (smaller values) is longer than the right tail.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
+Skewed Left</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0411.png"><img alt="Skewed Left" src="_images/0411.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-11">
+Skewed Right</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0412.png"><img alt="Skewed Right" src="_images/0412.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Of course, there are many other types of graphs we can create to visualize datasets. For example, a <strong>time plot</strong> displays each observation against the time at which it was measured, making it easier to observe trends or patterns over time. As the number of data points increases, the utility of such graphs becomes even more apparent for understanding temporal relationships.</p>
+</section>
+<section id="describing-distributions-with-numbers">
+<h2><span class="section-number">4.2. </span>Describing Distributions with Numbers<a class="headerlink" href="#describing-distributions-with-numbers" title="Link to this heading">#</a></h2>
+<p>When you have a quantitative variable-like the heights of Purdue students-you want to <strong>summarize its distribution</strong>. A distribution can be described by its <strong>shape</strong>, its <strong>center</strong>, and its <strong>spread</strong>. This section focuses on the <strong>numerical ways</strong> to measure center and spread, and how to handle outliers.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-12">
+Measures of Center</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p>The Mean <span class="math notranslate nohighlight">\(\bar{x}\)</span></p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: The <strong>mean</strong> (arithmetic average) is found by summing all the values and then dividing by the number of observations. Mathematically,</p>
+<div class="math notranslate nohighlight">
+\[\bar{x} = \frac{x_1 + x_2 + \dots + x_n}{n}\]</div>
+</li>
+<li><p><strong>Illustration (Purdue Students’ Heights)</strong>: Suppose we sample 5 Purdue students with heights 66, 70, 71, 72, and 75 inches. The mean would be <span class="math notranslate nohighlight">\(\bar{x} = (66 + 70 + 71 + 72 + 75)/5 = 70.8\)</span> inches.</p></li>
+<li><p><strong>Key Points</strong>:</p>
+<ul class="simple">
+<li><p>The mean is the “balance point” of the distribution.</p></li>
+<li><p><strong>Not</strong> a <em>resistant</em> (or <em>robust</em>) measure: a <strong>very tall</strong> or <strong>very short</strong> outlier in the data can pull the mean up or down.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>The Median <span class="math notranslate nohighlight">\(M\)</span></p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The <strong>median</strong> is the midpoint of the distribution when the data are ordered from smallest to largest.</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(n\)</span> (the number of data points) is <strong>odd</strong>, the median is the single middle value.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(n\)</span> is <strong>even</strong>, the median is the average of the two middle values.</p></li>
+</ul>
+</li>
+<li><p><strong>Illustration (Purdue Students’ Heights)</strong>: From the same sample [66, 70, 71, 72, 75], the ordered data are 66, 70, 71, 72, 75. Since <span class="math notranslate nohighlight">\(n=5\)</span> is odd, the median is the 3rd value -&gt; <strong>71</strong> inches.</p></li>
+<li><p><strong>Key Points</strong>:</p>
+<ul>
+<li><p>The median is more <strong>resistant</strong> to outliers because it depends on the <strong>order</strong> of the data rather than the actual numeric magnitude of extreme observations.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Comparing Mean and Median</p></li>
+</ol>
+<ul class="simple">
+<li><p>If the distribution is <strong>symmetric</strong> (like a “bell” shape for heights), the mean and median tend to be close.</p></li>
+<li><p>If the distribution is <strong>skewed</strong> (long tail on one side), the mean is pulled toward the tail more than the median.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-13">
+Measures of Spread</label><div class="sd-tab-content docutils">
+<p>A single measure of center (mean or median) doesn’t capture how <strong>spread out</strong> the data are. We also need measures of <strong>variability</strong>.</p>
+<ol class="arabic simple">
+<li><p>Quartiles and the Interquartile Range (IQR)</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Quartiles</strong>:</p>
+<ul>
+<li><p><strong>First Quartile <span class="math notranslate nohighlight">\(Q_1\)</span></strong>: The median of the lower half of the data (25th percentile).</p></li>
+<li><p><strong>Third Quartile <span class="math notranslate nohighlight">\(Q_3\)</span></strong>: The median of the upper half of the data (75th percentile).</p></li>
+</ul>
+</li>
+<li><p><strong>IQR</strong> = <span class="math notranslate nohighlight">\(Q_3 - Q_1\)</span></p>
+<ul>
+<li><p><strong>Definition</strong>: The IQR measures the range of the <strong>middle 50%</strong> of the data.</p></li>
+<li><p><strong>Resistant</strong> measure of spread because quartiles (like the median) are not heavily influenced by extreme values.</p></li>
+</ul>
+</li>
+<li><p><strong>Illustration (Purdue Students’ Heights)</strong>: If we have these 8 sorted heights in inches: 60, 62, 66, 70, 71, 72, 75, 77,</p>
+<ul>
+<li><p>The median <span class="math notranslate nohighlight">\(M\)</span> is between the 4th and 5th values <span class="math notranslate nohighlight">\(\rightarrow \frac{70 + 71}{2} = 70.5\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_1\)</span> is the median of the lower half <span class="math notranslate nohighlight">\([60, 62, 66, 70]\)</span> -&gt; between 62 and 66 -&gt; 64.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_3\)</span> is the median of the upper half <span class="math notranslate nohighlight">\([71, 72, 75, 77]\)</span> -&gt; between 72 and 75 -&gt; 73.5.</p></li>
+<li><p><strong>IQR</strong> = <span class="math notranslate nohighlight">\(Q_3 - Q_1 = 73.5 - 64 = 9.5\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>The Five-Number Summary</p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: A quick numerical snapshot of a distribution made up of:</p>
+<div class="math notranslate nohighlight">
+\[\text{Minimum}, \quad Q_1, \quad M, \quad Q_3, \quad \text{Maximum}\]</div>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Boxplots</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Definition</strong>: A <strong>boxplot</strong> (sometimes called a “box-and-whisker plot”) graphically shows the <strong>five-number summary</strong>.</p>
+<ul>
+<li><p>The “box” covers <span class="math notranslate nohighlight">\(Q_1\)</span> to <span class="math notranslate nohighlight">\(Q_3\)</span>.</p></li>
+<li><p>A line inside the box marks the median <span class="math notranslate nohighlight">\(M\)</span>. The mean can be represented using either a cross or an asterisk.</p></li>
+<li><p>“Whiskers” extend out to the minimum and maximum (or to the most extreme points that aren’t flagged as outliers in a <strong>modified boxplot</strong>).</p></li>
+<li><p><strong>Use</strong>: Quickly visualize center, spread (the length of the box), and potential outliers.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Outliers and the 1.5 <span class="math notranslate nohighlight">\(\times\)</span> IQR Rule</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Definition</strong>: A value is called a <strong>suspected outlier</strong> if it falls <strong>more than 1.5 <span class="math notranslate nohighlight">\(\times\)</span> IQR</strong> above <span class="math notranslate nohighlight">\(Q_3\)</span> or below <span class="math notranslate nohighlight">\(Q_1\)</span>.</p>
+<ul>
+<li><p><strong>Lower Bound</strong> = <span class="math notranslate nohighlight">\(Q_1 - 1.5 \times \mathrm{IQR}\)</span>.</p></li>
+<li><p><strong>Upper Bound</strong> = <span class="math notranslate nohighlight">\(Q_3 + 1.5 \times \mathrm{IQR}\)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Illustration</strong>: If <span class="math notranslate nohighlight">\(Q_1=64\)</span>, <span class="math notranslate nohighlight">\(Q_3=73.5\)</span>, and <span class="math notranslate nohighlight">\(\mathrm{IQR}=9.5\)</span>,</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(1.5 \times \mathrm{IQR} = 1.5 \times 9.5 = 14.25\)</span>.</p></li>
+<li><p><strong>Lower Bound</strong>: <span class="math notranslate nohighlight">\(64 - 14.25 = 49.75\)</span>.</p></li>
+<li><p><strong>Upper Bound</strong>: <span class="math notranslate nohighlight">\(73.5 + 14.25 = 87.75\)</span>.</p></li>
+<li><p>Any height below 49.75 or above 87.75 would be a flagged outlier.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-14" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-14">
+<span class="math notranslate nohighlight">\(P\)</span>th Percentile</label><div class="sd-tab-content docutils">
+<p>In general, we can calculate the <span class="math notranslate nohighlight">\(P\)</span>th percentile by following these steps:</p>
+<ol class="arabic">
+<li><p><strong>Find the Position</strong>:
+Use the following formula to determine the position in the sorted dataset:</p>
+<div class="math notranslate nohighlight">
+\[\text{Position} = \frac{P}{100} \times (n + 1)\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is the desired percentile (for example, (25)th percentile for (Q_1), (50)th percentile for the median).</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span> is the number of data points in the dataset.</p></li>
+</ul>
+</li>
+<li><p><strong>Whole Number Position</strong>:</p>
+<ul class="simple">
+<li><p>If the position is a whole number, use the corresponding data point at that position directly.</p></li>
+</ul>
+</li>
+<li><p><strong>Fractional Position</strong>:</p>
+<ul class="simple">
+<li><p>If the position is a fraction (that is, <strong>not</strong> a whole number), find the two adjacent data points in the <strong>sorted</strong> dataset.</p></li>
+<li><p>Use the values at these adjacent positions and take their average to calculate the percentile<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Example:</strong></p>
+<p>To find the median (50th percentile) in a dataset with <span class="math notranslate nohighlight">\((n = 8)\)</span> data points, use the formula:</p>
+<div class="math notranslate nohighlight">
+\[\text{Position} = \frac{50}{100} \times (8 + 1) = 4.5\]</div>
+<p>Since <span class="math notranslate nohighlight">\(4.5\)</span> is a fraction, find the 4th and 5th data points in the sorted dataset and take their average. For this textbook, the median is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\text{Median} = \frac{x_4 + x_5}{2}\]</div>
+<p>This method can be applied to any percentile by changing the value of <span class="math notranslate nohighlight">\(P\)</span>. For example, to find the 25th percentile, use <span class="math notranslate nohighlight">\((P = 25)\)</span>.</p>
+</div>
+<input id="sd-tab-item-15" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-15">
+Standard Deviation and Variance</label><div class="sd-tab-content docutils">
+<p>While the five-number summary is quite resistant to outliers, many statistical methods rely on the <strong>mean</strong> and <strong>standard deviation</strong>.</p>
+<ol class="arabic simple">
+<li><p>Variance <span class="math notranslate nohighlight">\(s^2\)</span></p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: The average of the squared deviations from the mean:</p>
+<div class="math notranslate nohighlight">
+\[s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2\]</div>
+</li>
+<li><p><strong>Intuition</strong>: Each data point’s “deviation” from <span class="math notranslate nohighlight">\(\bar{x}\)</span> is squared and then averaged (using <span class="math notranslate nohighlight">\(n-1\)</span> in the denominator for <strong>degrees of freedom</strong>).</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Standard Deviation <span class="math notranslate nohighlight">\(s\)</span></p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: The square root of the variance:</p>
+<div class="math notranslate nohighlight">
+\[s = \sqrt{s^2}\]</div>
+</li>
+<li><p><strong>Interpretation</strong>: Measures how far (on average) data points lie from their mean. A large <span class="math notranslate nohighlight">\(s\)</span> indicates the data are more spread out.</p></li>
+<li><p><strong>Key Points</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s\)</span> is always <span class="math notranslate nohighlight">\(\ge 0\)</span>; <span class="math notranslate nohighlight">\(s=0\)</span> only if all data points are identical.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span> is <strong>not</strong> resistant to outliers, because outliers can dramatically increase the average squared deviation.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span> is most informative when the distribution is reasonably <strong>symmetric</strong> and has no extreme outliers.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-16" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-16">
+Resistant and Choosing a Summary</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p>Resistant vs. Non-Resistant Measures</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Resistant (Robust)</strong> measures: The <strong>median</strong>, <strong>quartiles</strong>, <strong>IQR</strong>. They are not strongly affected by a few extreme values.</p></li>
+<li><p><strong>Non-Resistant</strong> measures: The <strong>mean</strong> and <strong>standard deviation</strong> can shift substantially if there are outliers or skewness.</p></li>
+<li><p><strong>Example</strong>: If 3 or 4 extremely tall Purdue basketball players (say 7-footers) happen to be in your sample, the mean (and standard deviation) of heights will jump notably. The median or IQR might change only a little.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Choosing a Summary: Five-Number Summary vs. <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s\)</span></p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Five-Number Summary</strong> (Min, <span class="math notranslate nohighlight">\(Q_1\)</span>, Median, <span class="math notranslate nohighlight">\(Q_3\)</span>, Max) is best when:</p>
+<ul>
+<li><p>The distribution is <strong>skewed</strong> or has <strong>strong outliers</strong>.</p></li>
+<li><p>You want a quick, robust snapshot of center and spread.</p></li>
+</ul>
+</li>
+<li><p><strong>Mean and Standard Deviation</strong> (<span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s\)</span>) are best when:</p>
+<ul>
+<li><p>The distribution is <strong>fairly symmetric</strong> with no major outliers.</p></li>
+<li><p>You plan to use statistical methods that assume normality or revolve around the mean.</p></li>
+</ul>
+</li>
+<li><p><strong>Reminder</strong>: Always <strong>plot your data</strong> (histogram, stemplot, or boxplot) to see shape, outliers, or clusters. A single numeric summary never tells the full story (e.g., multiple modes or gaps).</p></li>
+</ul>
+</div>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-17" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-17">
+Boxplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0413.png"><img alt="Boxplot" src="_images/0413.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-18" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-18">
+Side by side Boxplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0414.png"><img alt="Side by side Boxplot" src="_images/0414.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Sometimes, we change the <strong>units</strong> of our measurements. For example, if your heights are measured in <strong>inches</strong> and you convert them to <strong>centimeters</strong> using the formula, <span class="math notranslate nohighlight">\(\text{cm} = 2.54 \times \text{inches}\)</span>, the new mean in centimeters becomes <span class="math notranslate nohighlight">\(2.54 \times \bar{x}\)</span>. This kind of conversion is known as a <strong>linear transformation</strong>, represented by <span class="math notranslate nohighlight">\(x_{\text{new}} = a + b \times x\)</span>, which <strong>shifts</strong> the data by (a) and/or <strong>scales</strong> it by (b). Specifically:</p>
+<ul class="simple">
+<li><p><strong>Adding</strong> <span class="math notranslate nohighlight">\(a\)</span> to each observation shifts measures of center (mean, median) by <span class="math notranslate nohighlight">\(a\)</span> but does <strong>not</strong> affect measures of spread (IQR, <span class="math notranslate nohighlight">\(s\)</span>).</p></li>
+<li><p><strong>Multiplying</strong> <span class="math notranslate nohighlight">\(b\)</span> scales <strong>both</strong> the measures of center <strong>and</strong> the measures of spread by <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+</ul>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote01" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>In this course, you will create some graphs using SPSS software. If you are familiar with R programming, you can also explore the <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> package in R.</p>
+</aside>
+<aside class="footnote brackets" id="footnote02" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>The most common approach is a simple average (the “midpoint” method) between the two adjacent data points in the sorted list. Alternative methods, such as linear interpolation between adjacent ranks, can also be employed.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Chapter 3: Producing Data</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-distributions-with-graphs">4.1. Displaying Distributions with Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-distributions-with-numbers">4.2. Describing Distributions with Numbers</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

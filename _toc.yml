@@ -1,0 +1,20 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: At the beginning
+    numbered: True
+    maxdepth: 2
+    chapters:
+    - file: chapter0
+
+  - caption: Working with data
+    numbered: True
+    maxdepth: 2
+    chapters:
+    - file: chapter1
+    - file: chapter2
+    - file: chapter3
+
