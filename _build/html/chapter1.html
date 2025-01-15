@@ -179,6 +179,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Some Important Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter2.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">4. Chapter 1: Looking at Data – Distributions</a></li>
 </ul>
 
     </div>
@@ -445,11 +446,11 @@
 <li><p>If we have a dataset containing observed values, a <strong>variable</strong> (typically a column in the dataset) has an <strong>empirical distribution</strong> (the frequencies of the observed values).</p></li>
 <li><p>If we have a <strong>random variable</strong>, in probability theory it has a <strong>theoretical probability distribution</strong> (theoretical probabilities of values). In this course, we will also encounter some famous probability distributions.</p></li>
 </ul>
-<p>In our height example, once we have a dataset of 1,000 samples, we have 1,000 height measurements for the students in the sample. These values form an <strong>empirical distribution</strong>. Meanwhile, if we consider the aforementioned <span class="math notranslate nohighlight">\(Height\)</span> random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank"><strong>Normal (Gaussian) distribution</strong></a>. Thus, the <strong>theoretical distribution</strong> of <span class="math notranslate nohighlight">\(Height\)</span> is a normal distribution.</p>
+<p>In our height example, once we have a dataset of 1,000 samples, we have 1,000 height measurements for the students in the sample. These values form an <strong>empirical distribution</strong>. Meanwhile, if we consider the aforementioned <span class="math notranslate nohighlight">\(Height\)</span> random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank"><strong>Normal (Gaussian) distribution</strong></a>. Thus, the <strong>theoretical distribution</strong> of <span class="math notranslate nohighlight">\(Height\)</span> is a normal distribution<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="population-parameters">
 <h2><span class="section-number">2.4. </span>Population Parameters<a class="headerlink" href="#population-parameters" title="Link to this heading">#</a></h2>
-<p>Once we have learned the concept of a <strong>distribution</strong> and assume that the <span class="math notranslate nohighlight">\(Height\)</span> random variable follows a normal distribution, we can use a mathematical function to define the shape of the normal distribution. This function has two <strong>parameters</strong>: the mean <span class="math notranslate nohighlight">\(\mu\)</span> and the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span><a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>Once we have learned the concept of a <strong>distribution</strong> and assume that the <span class="math notranslate nohighlight">\(Height\)</span> random variable follows a normal distribution, we can use a mathematical function to define the shape of the normal distribution. This function has two <strong>parameters</strong>: the mean <span class="math notranslate nohighlight">\(\mu\)</span> and the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span><a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <p>Our population consists of all Purdue students, each with a height value. These height values in the population are considered <strong>realizations</strong> of the random variable <span class="math notranslate nohighlight">\(Height\)</span>.</p>
 <p>In the textbook and this course, the mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> are referred to as the <span style="color:#cfb991"><strong>parameters</strong></span> associated with the <strong>population</strong>.</p>
 <div class="proof definition admonition" id="parameter-definition">
@@ -464,6 +465,10 @@
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote01" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>You can also visit <a class="reference external" href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html">this website</a> to explore the basic distributions developed to model real-world phenomena and how they are interconnected. Yes, things are connected!</p>
+</aside>
+<aside class="footnote brackets" id="footnote02" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>We can also use the variance, <span class="math notranslate nohighlight">\(\sigma^2\)</span>, as an alternative parameter.</p>
 </aside>
 </aside>

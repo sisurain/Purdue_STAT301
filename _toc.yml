@@ -16,4 +16,5 @@ parts:
     chapters:
     - file: chapter1
     - file: chapter2
+    - file: chapter3
 

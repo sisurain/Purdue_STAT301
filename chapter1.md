@@ -78,15 +78,17 @@ In the previous section, we learned about **variables** and **random variables**
 * If we have a dataset containing observed values, a **variable** (typically a column in the dataset) has an **empirical distribution** (the frequencies of the observed values).
 * If we have a **random variable**, in probability theory it has a **theoretical probability distribution** (theoretical probabilities of values). In this course, we will also encounter some famous probability distributions.
 
-In our height example, once we have a dataset of 1,000 samples, we have 1,000 height measurements for the students in the sample. These values form an **empirical distribution**. Meanwhile, if we consider the aforementioned $Height$ random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">**Normal (Gaussian) distribution**</a>. Thus, the **theoretical distribution** of $Height$ is a normal distribution.
+In our height example, once we have a dataset of 1,000 samples, we have 1,000 height measurements for the students in the sample. These values form an **empirical distribution**. Meanwhile, if we consider the aforementioned $Height$ random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">**Normal (Gaussian) distribution**</a>. Thus, the **theoretical distribution** of $Height$ is a normal distribution[^footnote01].
+
+[^footnote01]: You can also visit [this website](https://www.math.wm.edu/~leemis/chart/UDR/UDR.html) to explore the basic distributions developed to model real-world phenomena and how they are interconnected. Yes, things are connected!
 
 ## Population Parameters
 
-Once we have learned the concept of a **distribution** and assume that the $Height$ random variable follows a normal distribution, we can use a mathematical function to define the shape of the normal distribution. This function has two **parameters**: the mean $\mu$ and the standard deviation $\sigma$[^footnote01].
+Once we have learned the concept of a **distribution** and assume that the $Height$ random variable follows a normal distribution, we can use a mathematical function to define the shape of the normal distribution. This function has two **parameters**: the mean $\mu$ and the standard deviation $\sigma$[^footnote02].
 
 Our population consists of all Purdue students, each with a height value. These height values in the population are considered **realizations** of the random variable $Height$.
 
-[^footnote01]: We can also use the variance, $\sigma^2$, as an alternative parameter.
+[^footnote02]: We can also use the variance, $\sigma^2$, as an alternative parameter.
 
 In the textbook and this course, the mean $\mu$ and standard deviation $\sigma$ are referred to as the <span style="color:#cfb991">**parameters**</span> associated with the **population**.
 

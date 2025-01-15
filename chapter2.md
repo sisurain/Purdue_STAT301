@@ -233,7 +233,11 @@ By including a placebo group, researchers can control for the impact of particip
   * Example: If men and women might respond differently, we block by gender, then randomize within each gender block.
 :::
 
-For all designs, random assignment is essential at some stage. To implement randomization, we can use tools such as computer software, a table of random digits, or other similar methods.
+For all designs, random assignment is essential at some stage. To implement randomization, we can use tools such as computer software, a table of random digits, or other similar methods. 
+
+One important strategy to note is that we can first block certain factors and then randomly assign treatments to groups within each block to control for lurking variables. This approach follows the principle: **control what you can, block what you cannot control (i.e., form blocks), and randomize to create comparable groups**—provided you have the luxury of a relatively large sample size. 
+
+We block these factors because they are not the focus of the study and can be observed by the researchers.
 
 :::{dropdown} Core Principles of Experimental Design
 :open: 
