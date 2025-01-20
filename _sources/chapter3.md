@@ -1,6 +1,6 @@
 # Chapter 1: Looking at Data -- Distributions
 
-Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. In some textbooks, this is referred to as <span style="color:#cfb991">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data—this is a statistics class, not a drawing class! 
+Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span style="color:#cfb991">**exploratory data analysis**</span>. In some textbooks, this is referred to as <span style="color:#cfb991">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data—this is a statistics class, not a drawing class! 
 
 Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span style="color:#cfb991">**inferential statistics**</span>, which we will spend more time on throughout the course. 
 
@@ -327,4 +327,178 @@ Sometimes, we change the **units** of our measurements. For example, if your hei
 * **Adding** $a$ to each observation shifts measures of center (mean, median) by $a$ but does **not** affect measures of spread (IQR, $s$).
 * **Multiplying** $b$ scales **both** the measures of center **and** the measures of spread by $b$.
 
+
+## Density Curves and Normal Distributions
+
+For **histograms**, the *y*-axis typically shows frequency or relative frequency. If we **divide** the relative frequency by the corresponding bin or class width, we obtain **densities**. Connecting these densities with a smooth line or curve creates what is called a **density curve**.
+
+The main reason for dividing by bin width is to ensure the total area under the density curve is **1**, allowing it to represent the *probability distribution function* of our random variable. A smooth curve is often easier to **parameterize** with just a few parameters compared to an irregular shape.
+
+This **density curve** describes the overall pattern of a distribution, where the **area** under the curve and **above** any range of values equals the **proportion** of all observations in that range. Consequently, the probability that our random variable falls within a particular range corresponds to this area or proportion.
+
+Mentally, you can consider the density curve to be the **theoretical distribution** of the random variable, whereas the histogram is the **empirical distribution** derived from sample data. As we gather more and more data, our histogram will more closely approximate the density curve.
+
+
+```{figure} _image/0415.png
+:alt: Histogram and Density Curve
+:align: center
+
+Histogram and Density Curve
+```
+
+`````{tab-set}
+````{tab-item} Area under density 01
+```{figure} _image/0416.png
+:alt: Area under density 01
+:align: center
+:width: 50%
+```
+````
+
+````{tab-item} Area under density 02
+```{figure} _image/0417.png
+:alt: Area under density 02
+:align: center
+:width: 50%
+```
+````
+
+`````
+
+One famous type of density curve is the <span style="color:#cfb991">**normal density curve**</span>. It is used in many real-world applications (such as modeling heights or the birthweights of babies). **Normal distributions** are described by bell-shaped, symmetric, unimodal density curves. This density curve function only has two parameters: the mean $\mu$ and the standard deviation $\sigma$. Depending on their values, the shape of the distribution may vary, but it still retains the aforementioned bell-shaped and symmetric features.
+
+
+`````{tab-set}
+````{tab-item} Normal $\mu=0$ 
+```{figure} _image/0418.png
+:alt: Normal $\mu=0$
+:align: center
+:width: 70%
+```
+````
+
+````{tab-item} Normal $\sigma=1$
+```{figure} _image/0419.png
+:alt: Normal $\sigma=1$
+:align: center
+:width: 70%
+```
+````
+
+````{tab-item} Properties
+Here are five properties of normal densities:
+* **Symmetry:** The normal distribution is **symmetric** around its mean ($\mu$). The left half of the curve is a mirror image of the right half.
+* **Mean, Median, and Mode are Equal:** In a normal distribution, the **mean, median, and mode** are identical and located at the same point ($\mu$).
+* **Bell-Shaped Curve:** The graph of the normal distribution is a smooth, **bell-shaped curve**. Most data points are concentrated around the mean, with frequencies decreasing as you move away from the center.
+* **Defined by Two Parameters:** The normal distribution is completely determined by:
+    * **Mean** ($\mu$): Determines the center of the distribution.
+    * **Variance** ($\sigma^2$): Controls the spread of the distribution.
+* **Asymptotic Behavior:** The tails of the normal distribution extend infinitely in both directions but never touch the horizontal axis (asymptotic to the $x$-axis).
+
+
+````
+
+````{tab-item} Standard Normal
+
+We start with the simplest normal distribution, the **standard normal distribution**, because any normal distribution can be obtained from it by **shifting and scaling**. 
+
+A standard normal distribution has a mean of 0 and a variance of 1. We denote a standard normal random variable by $Z \sim \mathcal{N}(0, 1)$.
+
+The PDF (probability density function) of the standard normal distribution is:
+
+$$\varphi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2}, \quad -\infty < z < \infty.$$
+
+Let $Z \sim \mathcal{N}(0,1)$ be a standard normal random variable. Then
+
+$$X = \mu + \sigma Z$$
+is said to have a **Normal distribution** with mean $\mu$ and variance $\sigma^2$. We denote this by $X \sim \mathcal{N}(\mu, \sigma^2)$. To transform $X \sim \mathcal{N}(\mu, \sigma^2)$ to a standard normal distribution, we use:
+
+$$\frac{X - \mu}{\sigma} \sim \mathcal{N}(0, 1)$$
+The PDF of $X$ can be expressed as:
+
+$$f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{(x - \mu)^2}{2 \sigma^2} \right)$$
+
+````
+
+`````
+
+Remember, **densities** are quite useful because they tell us the probability of statements like $\mathbb{P}(X < x)$ or $\mathbb{P}(\text{Height} < 70).$ If our variable of interest is a **standard Normal** variable (i.e., a variable with a standard Normal density), then probabilities such as $\mathbb{P}(Z < z) \text{or} \mathbb{P}(Z < 1)$ can be found directly using a **z-table**.
+
+Theoretically, we could create a similar table for **each** Normal distribution to tell us these probabilities, but that’s not practical. Instead, we keep a **single** z-table for the standard Normal distribution. If our variable of interest is Normal (but **not** standard Normal), we can still find probabilities by **standardizing**:
+
+$$Z = \frac{X - \mu}{\sigma}.$$
+So, if $X \sim N(\mu, \sigma),$ then $Z \sim N(0, 1),$ and we can use the z-table for calculations and finding the probabilities.
+
+$$P(X \leq x) = P \left( \frac{X - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right) = \Phi \left( \frac{x - \mu}{\sigma} \right)$$
+Since we have this relationship, the only thing left is to become **familiar** with the areas under the **standard Normal** density and how to use the **z-table**.  
+
+For **any** Normal density, there is the **68–95–99.5** empirical rule that we can use for quick approximations.
+ 
+
+```{prf:definition} The 68-95-99.7 Rule
+:label: empiricalrule-definition
+
+In the Normal distribution with mean $\mu$ and standard deviation $\sigma$:
+* Approximately $68\%$ of the observations fall within $\sigma$ of the mean $\mu$.
+* Approximately $95\%$ of the observations fall within $2\sigma$ of the mean $\mu$.
+* Approximately $99.7\%$ of the observations fall within $3\sigma$ of the mean $\mu$.
+```
+
+`````{tab-set}
+````{tab-item} Area under $Z$
+```{figure} _image/0420.png
+:alt: Area under $Z$
+:align: center
+:width: 1000%
+```
+````
+
+````{tab-item} 68-95-99.5 for $Z$
+```{figure} _image/0421.png
+:alt: 68-95-99.5 for $Z$
+:align: center
+:width: 100%
+```
+````
+
+````{tab-item} 68-95-99.5 for $X$
+```{figure} _image/0422.png
+:alt: 68-95-99.5 for $X$
+:align: center
+:width: 100%
+```
+````
+
+````{tab-item} 68-95-99.5 for $Height$
+```{figure} _image/0423.png
+:alt: 68-95-99.5 for $Height$
+:align: center
+:width: 100%
+```
+````
+
+`````
+
+Now, you should be able to use a **z-table** to handle several types of probability statements, such as:
+
+* **Given** $X \sim \mathcal{N}(4, 1.5)$:  
+  * $P(X < 3)$
+  * $P(X > 4.5)$  
+  * $P\bigl(3 < X < 4.56\bigr)$  
+  * and so on.
+
+* **Backwards Normal Problems** (Inverse Normal Calculations): finding $x_0$ such that  
+  * $P(X < x_0) = 0.95$
+  * $P(X > x_0) = 0.9236$
+
+One last thing to mention is how to use **Normal Quantile Plots** to check Normality for your datasets. Here are the steps to construct such a plot:
+* **Definition**: A Normal quantile plot (sometimes called a normal probability plot) is a diagnostic tool. You:
+  * Sort the data from smallest to largest. **Rank the data** $(i=1)$ is smallest, $(i=20)$ largest. 
+  * Assign each data value a percentile (like 5%, 10%, etc.). **Assign percentiles** via $\frac{i}{n}$.
+  * Find the corresponding z-score for each percentile (from the Standard Normal). **Convert percentiles** to z-scores.
+  * Plot each data value vs. its matched z-score. **Plot** (z-score on x axis, data value on y axis).
+* **Interpretation**:
+  * If the resulting plot is roughly a straight line, then the data follow a Normal pattern.  
+  * Systematic curvature in the plot indicates non-Normal data.  
+  * Outliers appear as points that deviate noticeably from the pattern.
 
