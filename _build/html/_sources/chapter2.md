@@ -142,8 +142,8 @@ Here are two more complex sampling methods:
 Even with well-designed sampling methods, we cannot entirely eliminate **bias**. Below is a list of common sources of bias and errors.
 
 * **Undercoverage**: Some groups in the population are left out of the process (e.g., homeless, dorm students in telephone polls).
-* **Nonresponse**: Individuals chosen for the sample can’t be contacted or refuse to cooperate (often 50%+ in phone polls).
-* **Response Bias**: Behaviors of interviewer or respondent can influence answers (e.g., lying about sensitive topics, interviewer’s tone, memory errors).
+* **Nonresponse**: Individuals chosen for the sample can't be contacted or refuse to cooperate (often 50%+ in phone polls).
+* **Response Bias**: Behaviors of interviewer or respondent can influence answers (e.g., lying about sensitive topics, interviewer's tone, memory errors).
 * **Wording of Questions**: Minor changes in phrasing can drastically change results. Leading or confusing questions create strong bias.
 * **Measurement Bias**: When your measurement process systematically mismeasures the target, consistently favoring one direction (e.g., a scale that overestimates weight).
 
@@ -162,10 +162,10 @@ Before diving into the design aspect, we first need to understand the definition
 
 **Experiment**: A study in which **researchers impose treatments** (or interventions) on experimental units (which can be people, animals, or objects) in order to observe their responses (outcomes).
 
-**Why We Do Experiments**: They’re our best shot at establishing **cause-and-effect** because by randomly assigning treatments and controlling conditions, we can reduce or eliminate **confounding** influences that otherwise might bias our conclusions.
+**Why We Do Experiments**: They're our best shot at establishing **cause-and-effect** because by randomly assigning treatments and controlling conditions, we can reduce or eliminate **confounding** influences that otherwise might bias our conclusions.
 ```
 
-* **Experimental units**: The individuals in an experiment (called **subjects** if they are human).
+* **Experimental units**: The individuals in an experiment (called **subjects** if they are human). The smallest unit to which a treatment is independently assigned. 
 * **Factors**: The explanatory variables in an experiment.
   * Example: A factor could be "Type of Class" (small vs. regular) in an education experiment, or "Ad Length" in an advertising study.
 * **Outcomes (Response variables)**: The measured results (what we compare across treatments).

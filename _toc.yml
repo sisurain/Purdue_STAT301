@@ -17,4 +17,11 @@ parts:
     - file: chapter1
     - file: chapter2
     - file: chapter3
+  
+  - caption: Making statistical inference
+    numbered: True
+    maxdepth: 2
+    chapters:
+    - file: chapter4
+
 
