@@ -40,6 +40,9 @@ sphinx:
   extra_extensions:
     - sphinx_proof
 
+# myst_enable_extensions:
+  # - amsmath
+
 license:
   content:
     id: CC BY-NC 4.0

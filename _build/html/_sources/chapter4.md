@@ -1,152 +1,504 @@
-# Chapter 5: Sampling Distributions
+# Chapter 1: Looking at Data -- Distributions
 
+Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span style="color:#cfb991">**exploratory data analysis**</span>. In some textbooks, this is referred to as <span style="color:#cfb991">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data-this is a statistics class, not a drawing class! 
 
-In this chapter, we will begin to study **statistical inference**-the process of drawing conclusions about the population from the sample dataset. This involves a directional arrow from the **sample dataset** to the **population**. Typically, we are interested in either the **values of population parameters** or in addressing **claims/statements** about the population. Using information from the sample and following specific statistical procedures, we aim to:
+Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span style="color:#cfb991">**inferential statistics**</span>, which we will spend more time on throughout the course. 
 
-1. Estimate population parameters.
-2. Make conclusions about claims or statements related to the population.
+For this course, our primary focus will be learning statistical procedures to make generalizations about the population from the sample. However, in this chapter, we will focus on describing our datasets using calculated values (statistics) and visual representations (graphs). Hence the title: *Looking at Data-Distributions*.[^footnote01]
 
-Our goal is not merely to describe the sample dataset but to answer deeper questions such as:
+[^footnote01]: In this course, you will create some graphs using SPSS software. If you are familiar with R programming, you can also explore the ``ggplot2`` package in R.
 
-* **What is our best guess?** - This is referred to as <span style="color:#cfb991">**estimation**</span>.
-* **Does the data strongly contradict a proposed claim?** - This is referred to as <span style="color:#cfb991">**hypothesis testing**</span>.
+Before we dive into the types of graphs, let's first look at the types of data we can obtain from a particular variable. Broadly, data can be categorized into two main types: **quantitative** and **categorical**.
 
-Together, **estimation** and **hypothesis testing** form the two major pillars of **frequentist[^footnote01] statistical inference**.[^footnote02]
+* **Categorical variables** take categories as values, as the name suggests. Each category is called a **level**:
+  * If the levels do not have a natural order, the variable is a **nominal categorical variable** (e.g., fruit categories like "Apple" or "Orange").
+  * If the levels have a natural order, the variable is an **ordinal categorical variable** (e.g., academic letter grades like "A," "B," "C").
+  
+* **Quantitative variables** take numbers as values. The magnitude and differences between numbers have quantitative meanings:
+  * If the values can be any number within an interval on the real line (continuous values), it is a **continuous quantitative variable** (e.g., income measured in dollars).
+  * If the values have jumps (discrete values), it is a **discrete quantitative variable** (e.g., the number of cars per household).
 
-[^footnote01]: Besides frequentist inference, the primary alternative is **Bayesian inference**, where parameters are treated as random variables instead of fixed but unknown quantities.
-[^footnote02]: There are other inferential frameworks and goals as well, such as **prediction**, **model selection**, and more.
+A dataset typically contains information on a number of **cases**. Cases are the objects or subjects in a study. For each case, we have measurements for different types of variables, such as height, gender, and age. Additionally, there is often a **label**, which is a special variable used to identify cases in the dataset (e.g., a VIN number to identify a specific car).
 
+## Displaying Distributions with Graphs
 
-In both **estimation** and **hypothesis testing**, the process typically begins with computing a **sample statistic**-for example, a sample mean, a sample proportion, or a more elaborate function of the data.
+Two frequently used graphs to describe categorical variables are **bar graphs** and **pie charts**. 
 
-For **estimation**, the goal is to estimate unknown **population parameters** (e.g., the population mean $\mu$ or population proportion $p$). 
-* You designate a particular **statistic** as your **estimator** for the corresponding population parameter.
-* When you plug in your observed data into that estimator, you obtain the **estimate**-a numerical result that provides your best guess for the parameter.
+* A **bar graph** shows the count for each level of the categorical variable.
+* A **pie chart** shows the proportion of each level relative to the total.
 
-For **hypothesis testing**, the process starts with a claim or assumption about the population, called the **null hypothesis** ($H_0$). The goal is to determine if the data provide enough evidence to reject $H_0$.
-* You compute a **test statistic** from the sample.
-* The test statistic is used to assess whether the observed data are consistent with the null hypothesis.
+Both are easy to understand, and you can refer to Wikipedia or your textbook for examples. For a visual representation, you can explore [this website](https://www.chartjs.org/docs/latest/charts/bar.html).
 
-Details of hypothesis testing will be explored further in later chapters.
+Now let's turn our focus to graphs for quantitative variables: **stemplots** and **histograms**.
 
+A **stemplot** provides a quick visual representation of the shape of a distribution while also including the actual numerical values. Stemplots work best when the number of observations is small, and all values are greater than zero.
 
-## Toward Statistical Inference
-
-Since a **statistic** is a central concept in the whole process, let's revisit it and delve deeper into its meaning—like peeling an onion. 
-
-Let's use our friend, the **sample mean**, as an example. In the previous chapter, we introduced the formula to calculate the sample mean $\bar{x}$ using observed sample observations:
-
-$$\bar{x} = \frac{x_1 + x_2 + \dots + x_n}{n}$$
-This can be thought of as **Stage 2** (Post-data, symbolic) in the analysis of a statistic. At this stage, you substitute the observed sample values (denoted by lowercase letters) into the function defined in Stage 1. It becomes a computed expression using the actual sample data.
-
-**Stage 1** (Pre-data): At this stage, a statistic is considered a function of *random variables* (denoted by uppercase letters) and is itself a **random variable** in theoretical probability. For the sample mean, the function is:
-
-$$\bar{X} = \frac{X_1 + X_2 + \dots + X_n}{n}$$
-The last stage, **Stage 3** (A final numeric result), is where you obtain a concrete, single value from your particular dataset. The term **statistic** can refer to all these stages. So, it's the same object conceptually-just viewed at three points in time: 
-1. **Before sampling** (theory): The statistic is a random variable.
-2. **After sampling** (the formula with observed data): The statistic is computed symbolically.
-3. **Ultimate numeric realization**: The statistic becomes a single numeric value.
-
-In summary, a statistic evolves through these three stages as part of the analysis process.
-
-
-An **estimator** corresponds to **Stage 1**, and the **estimate** corresponds to **Stage 3**. There is another term, **estimand**, which refers to the quantity or parameter in the population that we aim to estimate using data. The estimand represents the true but unknown value of interest, such as a mean, proportion, variance, difference, or another statistical measure describing the population.
-
-Now that we know the three stages, let's revisit **Stage 1**. At this stage, a statistic is actually a **random variable**, and as a random variable, it has a distribution. Imagine a thought experiment where we take one sample repeatedly, and each time, we calculate the statistic. These values form a distribution both empirically (based on repeated sampling) and hypothetically (what the statistic would look like if we had taken a different sample). This distribution is called the <span style="color:#cfb991">**Sampling Distribution**</span>.
-
-For a **sampling distribution**, we can also measure its center (mean) and its spread (variability). A statistic is an **unbiased estimator** of a parameter if the mean of its sampling distribution equals the true value of the population parameter. In other words, the statistic, on average, is correct. 
-
-We have already discussed the sources of bias in the sampling design section. Using **random sampling** can help reduce bias.
-
-
-Variability describes the spread of the sampling distribution. It quantifies how much the statistic (e.g., sample mean, sample proportion) fluctuates from sample to sample. Larger samples have less variability because the sampling distribution becomes narrower as $n$ increases. Variability usually comes from two sources:
-
-* **Sampling variability**: The value of a statistic varies in repeated random sampling.
-* **Measurement variability**: The same object could be drawn into different samples, but measurements of the object may vary.
-
-A numerical measure of the spread of a sampling distribution is often calculated, called the **margin of error**. It provides bounds on the likely error when using the statistic as an estimator of a population parameter. The margin of error relates to the **standard error**, which is simply the standard deviation of the sampling distribution.
-
-Ideally, we want an estimator to be both **unbiased** (accurate on average) and **reliable** (low variability).
-
-
-```{figure} _image/0501.png
-:alt: bias and variability
-:align: center
-:width: 70%
-
-Bias and Variability
-```
-
-## The Sampling Distribution of a Sample Mean
-
-From the sample mean formula presented in the previous chapter, we can see that the sample mean, $\bar{X}$, is a sum of random variables. These random variables, $X_1$ to $X_n$, come from the same population distribution. If the sample size $n$ is large, then the sampling distribution of $\bar{X}$ is approximately normal, regardless of the shape of the population distribution[^footnote03]. 
-
-This powerful result is one of the most central mathematical results in statistics, the <span style="color:#cfb991">**Central Limit Theorem (CLT)**</span>. In simple terms, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">**CLT**</a> states that the sum (or mean) of random variables follows a normal distribution as the sample size grows large. 
-
-For normal distributions, there are two parameters-mean $\mu$ and variance $\sigma^2$-that govern the shape of the distribution. Using basic algebra and knowledge of probability, we can derive these two parameters for the sampling distribution.
-
-
-[^footnote03]: The **population distribution** of a variable is the distribution of its values for all members of the population. The population distribution is also the probability distribution of the variable when we choose one individual at random from the population. Theoretically, all data points in the population are generated by this distribution.
 
 `````{tab-set}
-````{tab-item} mean of $\bar{x}$
-If the population has mean $\mu$, then $\mu$ is the mean of the distribution of each observation $X_i$. To get the mean of $\bar{x}$, we use the rules for means of random variables. Specifically,
+````{tab-item} Making a Stemplot
+```{figure} _image/0401.png
+:alt: Making a Stemplot
+:align: center
 
-$$
-\mu_{\bar{x}} = \frac{1}{n} (\mu_{X_1} + \mu_{X_2} + \cdots + \mu_{X_n}) \\
-= \frac{1}{n} (\mu + \mu + \cdots + \mu) \\
-= \mu
-$$
-
-That is, the **mean of $\bar{x}$ is the same as the mean of the population**. The sample mean $\bar{x}$ is, therefore, an unbiased estimator of the unknown population mean $\mu$.
+```
 ````
 
-````{tab-item} variance of $\bar{x}$
-Because the observations are independent, the addition rule for variances also applies:
+````{tab-item} Step by step guide
+```{figure} _image/0402.png
+:alt: Step by step guide
+:align: center
 
-$$
-\sigma_{\bar{x}}^2 = \left(\frac{1}{n}\right)^2 \left(\sigma_{X_1}^2 + \sigma_{X_2}^2 + \cdots + \sigma_{X_n}^2\right) \\
-= \left(\frac{1}{n}\right)^2 \left(\sigma^2 + \sigma^2 + \cdots + \sigma^2\right) \\
-= \frac{\sigma^2}{n}
-$$
-
-With $n$ in the denominator, the variability of $\bar{x}$ about its mean decreases as the sample size grows. Thus, a sample mean from a large sample will usually be very close to the true population mean $\mu$.
-
+```
 ````
 
-````{tab-item} Central Limit Theorem
-Draw an SRS of size $n$ from any population with mean \( \mu \) and finite standard deviation $\sigma$. When $n$ is large, the **Central Limit Theorem** states that the sampling distribution of the sample mean $\bar{x}$ is approximately Normal:
+````{tab-item} Back-back Stemplot
+```{figure} _image/0403.png
+:alt: Back-back Stemplot
+:align: center
 
-$$
-\bar{x} \text{ is approximately } N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
-$$
-
+```
 ````
 
-````{tab-item} Sampling Distribution of a Sample Mean
-If a population has the $\mathcal{N}(\mu, \sigma)$ distribution, then the sample mean $\bar{x}$ of $n$ independent observations has the $\mathcal{N}(\mu, \sigma / \sqrt{n})$ distribution.
+````{tab-item} Stemplot with split stems
+```{figure} _image/0404.png
+:alt: Stemplot with split stems
+:align: center
+
+```
+````
+
+````{tab-item} Time tables in Japanese train station
+```{figure} _image/0405.jpg
+:alt: Time tables in Japanese train station
+:align: center
+
+```
 ````
 
 `````
 
-## Sampling Distributions for Counts and Proportions
+For a large number of observations, a **histogram** is often a better choice. A histogram divides the range of values of a variable into **classes** or **bins** and displays the count or percentage of observations that fall into each class. You can choose a convenient number of classes based on your data and the level of detail you wish to represent.
 
-Before we dive into this section's material, let us explore a new random variable and its associated distributions. The setting, with its list of requirements, is as follows. This setting appears frequently in many applications or experiments:
-1. The experiment consists of a sequence of $n$ smaller experiments called **trials**, where $n$ is fixed in advance of the experiment. You can think of $n$ data points as being drawn from the same population.
-2. Each trial can result in one of the same two possible outcomes (**dichotomous trials**), which we generically denote by success ($S$) and failure ($F$). The assignment of the $S$ and $F$ labels to the two sides of the dichotomy is arbitrary. Often, we use the numerical value 1 to indicate $S$ and 0 to indicate $F$.
-3. The trials are independent, meaning the outcome of any particular trial does not influence the outcome of any other trial.
-4. The probability of success $\mathbb{P}(S)$ is constant from trial to trial, denoted by $p$, which represents the population proportion.
-
-
-```{prf:definition} Binomial Experiment
-:label: binexp-definition
-
-An experiment that satisfies the above conditions-**Condition 1**, **Condition 2**, **Condition 3**, and **Condition 4** (a fixed number of **dichotomous**, independent, and homogeneous trials)-is called a **binomial experiment**.
+`````{tab-set}
+````{tab-item} IQ data
+```{figure} _image/0406.png
+:alt: IQ data
+:align: center
 
 ```
+````
 
-So, here we have a sample of $n$ dichotomous data points, where each $x_i$ in the sample takes a value of 1 or 0. The sum of these points represents the **count of successes** in the sample. If we calculate the sample mean $\bar{x}$, it is simply the **sample proportion**. Depending on the context, we can define what constitutes a "success."
+````{tab-item} Histogram Step 1
+```{figure} _image/0407.png
+:alt: Histogram Step 1
+:align: center
 
-From the results in the previous section, we know that the sampling distribution of the sample mean $\bar{x}$ is approximately **normal** for large $n$, with the following parameters:
-* **Mean**: $\mu_{\bar{x}} = \mu_{\text{population}} = p$
-* **Standard deviation**: $\sigma_{\bar{x}} = \frac{\sigma_{\text{population}}}{\sqrt{n}} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}$
+```
+````
+
+````{tab-item} Histogram Step 2
+```{figure} _image/0408.png
+:alt: Histogram Step 2
+:align: center
+
+```
+````
+
+````{tab-item} Histogram Step 3
+```{figure} _image/0409.png
+:alt: Histogram Step 3
+:align: center
+
+```
+````
+
+````{tab-item} Types of Histograms
+```{figure} _image/0410.png
+:alt: Types of Histograms
+:align: center
+
+```
+````
+
+`````
+
+Histograms and bar charts may look similar at first glance, but there are key differences:
+
+* The horizontal axis of a **bar chart** does not require a measurement scale; it simply identifies categories, which is why there are blank spaces between the bars. 
+* In contrast, a **histogram** has no spaces between bars, as it represents data over a continuous interval, covering the entire range.
+
+Another observation is the use of a **density curve** or a **density histogram** based on relative frequency. The rationale behind using a smoothed curve is that it can often be parameterized by simple mathematical functions, making it easier to model the distribution mathematically.
+
+The purpose of these graphs is to help us better understand our datasets. After graphing, we can examine the **overall pattern** and identify **striking deviations** from that pattern in the graphs or distributions. We describe the overall pattern of a distribution using its **shape**, **center**, and **spread**. 
+
+An important kind of deviation is an **outlier**-an individual value that falls outside the overall pattern and warrants further investigation to uncover its cause. Later, we will learn how to summarize these characteristics with numerical measures to describe the pattern more precisely.
+
+For describing the shape of a distribution, we have the following:
+
+* **Tails of the distribution**: Extreme values are in the tails. High values are in the upper/right tail, and low values are in the lower/left tail.
+
+* **Modes**:
+  * A distribution with one major peak is called **unimodal**.
+  * A distribution with two major peaks is called **bimodal**.
+  * A distribution with three major peaks is called **trimodal**.
+
+* **Symmetry and Skewness**:
+  * A distribution is **symmetric** if the patterns of smaller and larger values around the midpoint are mirror images.
+  * A distribution is **skewed** if it is not symmetric:
+    * **Skewed to the right**: The right tail (larger values) is longer than the left tail.
+    * **Skewed to the left**: The left tail (smaller values) is longer than the right tail.
+
+`````{tab-set}
+````{tab-item} Skewed Left
+```{figure} _image/0411.png
+:alt: Skewed Left
+:align: center
+:width: 70%
+```
+````
+
+````{tab-item} Skewed Right
+```{figure} _image/0412.png
+:alt: Skewed Right
+:align: center
+:width: 70%
+```
+````
+
+`````
+
+Of course, there are many other types of graphs we can create to visualize datasets. For example, a **time plot** displays each observation against the time at which it was measured, making it easier to observe trends or patterns over time. As the number of data points increases, the utility of such graphs becomes even more apparent for understanding temporal relationships.
+
+## Describing Distributions with Numbers
+
+When you have a quantitative variable-like the heights of Purdue students-you want to **summarize its distribution**. A distribution can be described by its **shape**, its **center**, and its **spread**. This section focuses on the **numerical ways** to measure center and spread, and how to handle outliers.
+
+`````{tab-set} 
+````{tab-item} Measures of Center
+
+1. The Mean $\bar{x}$
+  * **Definition**: The **mean** (arithmetic average) is found by summing all the values and then dividing by the number of observations. Mathematically,  
+
+    $$\bar{x} = \frac{x_1 + x_2 + \dots + x_n}{n}$$
+  * **Illustration (Purdue Students' Heights)**: Suppose we sample 5 Purdue students with heights 66, 70, 71, 72, and 75 inches. The mean would be $\bar{x} = (66 + 70 + 71 + 72 + 75)/5 = 70.8$ inches.
+  * **Key Points**:
+    * The mean is the "balance point" of the distribution.  
+    * **Not** a *resistant* (or *robust*) measure: a **very tall** or **very short** outlier in the data can pull the mean up or down.
+2. The Median $M$
+  * **Definition**: The **median** is the midpoint of the distribution when the data are ordered from smallest to largest. 
+    * If $n$ (the number of data points) is **odd**, the median is the single middle value.  
+    * If $n$ is **even**, the median is the average of the two middle values.
+  * **Illustration (Purdue Students' Heights)**: From the same sample [66, 70, 71, 72, 75], the ordered data are 66, 70, 71, 72, 75. Since $n=5$ is odd, the median is the 3rd value -> **71** inches.
+  * **Key Points**:
+    * The median is more **resistant** to outliers because it depends on the **order** of the data rather than the actual numeric magnitude of extreme observations.
+3. Comparing Mean and Median
+  * If the distribution is **symmetric** (like a "bell" shape for heights), the mean and median tend to be close.  
+  * If the distribution is **skewed** (long tail on one side), the mean is pulled toward the tail more than the median.  
+````
+
+````{tab-item} Measures of Spread
+A single measure of center (mean or median) doesn't capture how **spread out** the data are. We also need measures of **variability**.
+1. Quartiles and the Interquartile Range (IQR)
+  * **Quartiles**: 
+    * **First Quartile $Q_1$**: The median of the lower half of the data (25th percentile). 
+    * **Third Quartile $Q_3$**: The median of the upper half of the data (75th percentile).
+  * **IQR** = $Q_3 - Q_1$
+    * **Definition**: The IQR measures the range of the **middle 50%** of the data.  
+    * **Resistant** measure of spread because quartiles (like the median) are not heavily influenced by extreme values.
+  * **Illustration (Purdue Students' Heights)**: If we have these 8 sorted heights in inches: 60, 62, 66, 70, 71, 72, 75, 77,
+    * The median $M$ is between the 4th and 5th values $\rightarrow \frac{70 + 71}{2} = 70.5$. 
+    * $Q_1$ is the median of the lower half $[60, 62, 66, 70]$ -> between 62 and 66 -> 64. 
+    * $Q_3$ is the median of the upper half $[71, 72, 75, 77]$ -> between 72 and 75 -> 73.5. 
+    * **IQR** = $Q_3 - Q_1 = 73.5 - 64 = 9.5$.
+2. The Five-Number Summary
+  * **Definition**: A quick numerical snapshot of a distribution made up of:
+
+    $$\text{Minimum}, \quad Q_1, \quad M, \quad Q_3, \quad \text{Maximum}$$
+3. Boxplots
+  * **Definition**: A **boxplot** (sometimes called a "box-and-whisker plot") graphically shows the **five-number summary**. 
+    * The "box" covers $Q_1$ to $Q_3$.
+    * A line inside the box marks the median $M$. The mean can be represented using either a cross or an asterisk.
+    * "Whiskers" extend out to the minimum and maximum (or to the most extreme points that aren't flagged as outliers in a **modified boxplot**).
+    * **Use**: Quickly visualize center, spread (the length of the box), and potential outliers.
+4. Outliers and the 1.5 $\times$ IQR Rule
+  * **Definition**: A value is called a **suspected outlier** if it falls **more than 1.5 $\times$ IQR** above $Q_3$ or below $Q_1$.
+    * **Lower Bound** = $Q_1 - 1.5 \times \mathrm{IQR}$.
+    * **Upper Bound** = $Q_3 + 1.5 \times \mathrm{IQR}$.
+  * **Illustration**: If $Q_1=64$, $Q_3=73.5$, and $\mathrm{IQR}=9.5$,
+    * $1.5 \times \mathrm{IQR} = 1.5 \times 9.5 = 14.25$.  
+    * **Lower Bound**: $64 - 14.25 = 49.75$.  
+    * **Upper Bound**: $73.5 + 14.25 = 87.75$.  
+    * Any height below 49.75 or above 87.75 would be a flagged outlier.
+````
+
+````{tab-item} $P$th Percentile
+In general, we can calculate the $P$th percentile by following these steps:
+1. **Find the Position**:
+   Use the following formula to determine the position in the sorted dataset:
+
+   $$\text{Position} = \frac{P}{100} \times (n + 1)$$
+   where:
+   * $P$ is the desired percentile (for example, $25$th percentile for $Q_1$, $50$th percentile for the median).
+   * $n$ is the number of data points in the dataset.
+2. **Whole Number Position**:
+   * If the position is a whole number, use the corresponding data point at that position directly.
+3. **Fractional Position**:
+   * If the position is a fraction (that is, **not** a whole number), find the two adjacent data points in the **sorted** dataset.
+   * Use the values at these adjacent positions and take their average to calculate the percentile[^footnote02].
+
+[^footnote02]: The most common approach is a simple average (the "midpoint" method) between the two adjacent data points in the sorted list. Alternative methods, such as linear interpolation between adjacent ranks, can also be employed.
+
+**Example:**
+
+To find the median (50th percentile) in a dataset with $(n = 8)$ data points, use the formula:
+
+$$\text{Position} = \frac{50}{100} \times (8 + 1) = 4.5$$
+
+Since $4.5$ is a fraction, find the 4th and 5th data points in the sorted dataset and take their average. For this textbook, the median is calculated as:
+
+$$\text{Median} = \frac{x_4 + x_5}{2}$$
+
+This method can be applied to any percentile by changing the value of $P$. For example, to find the 25th percentile, use $(P = 25)$.
+
+````
+
+````{tab-item} Standard Deviation and Variance
+
+While the five-number summary is quite resistant to outliers, many statistical methods rely on the **mean** and **standard deviation**.
+
+1. Variance $s^2$
+  * **Definition**: The average of the squared deviations from the mean:
+  
+    $$s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2$$
+
+  * **Intuition**: Each data point's "deviation" from $\bar{x}$ is squared and then averaged (using $n-1$ in the denominator for **degrees of freedom**).
+2. Standard Deviation $s$
+  * **Definition**: The square root of the variance:
+  
+    $$s = \sqrt{s^2}$$
+  * **Interpretation**: Measures how far (on average) data points lie from their mean. A large $s$ indicates the data are more spread out.
+  * **Key Points**:
+    * $s$ is always $\ge 0$; $s=0$ only if all data points are identical.  
+    * $s$ is **not** resistant to outliers, because outliers can dramatically increase the average squared deviation.  
+    * $s$ is most informative when the distribution is reasonably **symmetric** and has no extreme outliers.
+
+
+````
+
+````{tab-item} Resistant and Choosing a Summary
+1. Resistant vs. Non-Resistant Measures
+  * **Resistant (Robust)** measures: The **median**, **quartiles**, **IQR**. They are not strongly affected by a few extreme values.  
+  * **Non-Resistant** measures: The **mean** and **standard deviation** can shift substantially if there are outliers or skewness.
+  * **Example**: If 3 or 4 extremely tall Purdue basketball players (say 7-footers) happen to be in your sample, the mean (and standard deviation) of heights will jump notably. The median or IQR might change only a little.
+2. Choosing a Summary: Five-Number Summary vs. $\bar{x}$ and $s$
+  * **Five-Number Summary** (Min, $Q_1$, Median, $Q_3$, Max) is best when:
+    * The distribution is **skewed** or has **strong outliers**.  
+    * You want a quick, robust snapshot of center and spread.
+  * **Mean and Standard Deviation** ($\bar{x}$, $s$) are best when:
+    * The distribution is **fairly symmetric** with no major outliers.  
+    * You plan to use statistical methods that assume normality or revolve around the mean.
+  * **Reminder**: Always **plot your data** (histogram, stemplot, or boxplot) to see shape, outliers, or clusters. A single numeric summary never tells the full story (e.g., multiple modes or gaps).
+
+
+````
+
+`````
+
+`````{tab-set}
+````{tab-item} Boxplot
+```{figure} _image/0413.png
+:alt: Boxplot
+:align: center
+:width: 70%
+```
+````
+
+````{tab-item} Side by side Boxplot
+```{figure} _image/0414.png
+:alt: Side by side Boxplot
+:align: center
+:width: 70%
+```
+````
+
+`````
+
+Sometimes, we change the **units** of our measurements. For example, if your heights are measured in **inches** and you convert them to **centimeters** using the formula, $\text{cm} = 2.54 \times \text{inches}$, the new mean in centimeters becomes $2.54 \times \bar{x}$. This kind of conversion is known as a **linear transformation**, represented by $x_{\text{new}} = a + b \times x$, which **shifts** the data by \(a\) and/or **scales** it by \(b\). Specifically:
+* **Adding** $a$ to each observation shifts measures of center (mean, median) by $a$ but does **not** affect measures of spread (IQR, $s$).
+* **Multiplying** $b$ scales **both** the measures of center **and** the measures of spread by $b$.
+
+
+## Density Curves and Normal Distributions
+
+For **histograms**, the *y*-axis typically shows frequency or relative frequency. If we **divide** the relative frequency by the corresponding bin or class width, we obtain **densities**. Connecting these densities with a smooth line or curve creates what is called a **density curve**.
+
+The main reason for dividing by bin width is to ensure the total area under the density curve is **1**, allowing it to represent the *probability distribution function* of our random variable. A smooth curve is often easier to **parameterize** with just a few parameters compared to an irregular shape.
+
+This **density curve** describes the overall pattern of a distribution, where the **area** under the curve and **above** any range of values equals the **proportion** of all observations in that range. Consequently, the probability that our random variable falls within a particular range corresponds to this area or proportion.
+
+Mentally, you can consider the density curve to be the **theoretical distribution** of the random variable, whereas the histogram is the **empirical distribution** derived from sample data. As we gather more and more data, our histogram will more closely approximate the density curve.
+
+
+```{figure} _image/0415.png
+:alt: Histogram and Density Curve
+:align: center
+
+Histogram and Density Curve
+```
+
+`````{tab-set}
+````{tab-item} Area under density 01
+```{figure} _image/0416.png
+:alt: Area under density 01
+:align: center
+:width: 50%
+```
+````
+
+````{tab-item} Area under density 02
+```{figure} _image/0417.png
+:alt: Area under density 02
+:align: center
+:width: 50%
+```
+````
+
+`````
+
+One famous type of density curve is the <span style="color:#cfb991">**normal density curve**</span>. It is used in many real-world applications (such as modeling heights or the birthweights of babies). **Normal distributions** are described by bell-shaped, symmetric, unimodal density curves. This density curve function only has two parameters: the mean $\mu$ and the standard deviation $\sigma$. Depending on their values, the shape of the distribution may vary, but it still retains the aforementioned bell-shaped and symmetric features.
+
+
+`````{tab-set}
+````{tab-item} Normal $\mu=0$ 
+```{figure} _image/0418.png
+:alt: Normal $\mu=0$
+:align: center
+:width: 70%
+```
+````
+
+````{tab-item} Normal $\sigma=1$
+```{figure} _image/0419.png
+:alt: Normal $\sigma=1$
+:align: center
+:width: 70%
+```
+````
+
+````{tab-item} Properties
+Here are five properties of normal densities:
+* **Symmetry:** The normal distribution is **symmetric** around its mean ($\mu$). The left half of the curve is a mirror image of the right half.
+* **Mean, Median, and Mode are Equal:** In a normal distribution, the **mean, median, and mode** are identical and located at the same point ($\mu$).
+* **Bell-Shaped Curve:** The graph of the normal distribution is a smooth, **bell-shaped curve**. Most data points are concentrated around the mean, with frequencies decreasing as you move away from the center.
+* **Defined by Two Parameters:** The normal distribution is completely determined by:
+    * **Mean** ($\mu$): Determines the center of the distribution.
+    * **Variance** ($\sigma^2$): Controls the spread of the distribution.
+* **Asymptotic Behavior:** The tails of the normal distribution extend infinitely in both directions but never touch the horizontal axis (asymptotic to the $x$-axis).
+
+
+````
+
+````{tab-item} Standard Normal
+
+We start with the simplest normal distribution, the **standard normal distribution**, because any normal distribution can be obtained from it by **shifting and scaling**. 
+
+A standard normal distribution has a mean of 0 and a variance of 1. We denote a standard normal random variable by $Z \sim \mathcal{N}(0, 1)$.
+
+The PDF (probability density function) of the standard normal distribution is:
+
+$$\varphi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2}, \quad -\infty < z < \infty.$$
+
+Let $Z \sim \mathcal{N}(0,1)$ be a standard normal random variable. Then
+
+$$X = \mu + \sigma Z$$
+is said to have a **Normal distribution** with mean $\mu$ and variance $\sigma^2$. We denote this by $X \sim \mathcal{N}(\mu, \sigma^2)$. To transform $X \sim \mathcal{N}(\mu, \sigma^2)$ to a standard normal distribution, we use:
+
+$$\frac{X - \mu}{\sigma} \sim \mathcal{N}(0, 1)$$
+The PDF of $X$ can be expressed as:
+
+$$f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{(x - \mu)^2}{2 \sigma^2} \right)$$
+
+````
+
+`````
+
+Remember, **densities** are quite useful because they tell us the probability of statements like $\mathbb{P}(X < x)$ or $\mathbb{P}(\text{Height} < 70).$ If our variable of interest is a **standard Normal** variable (i.e., a variable with a standard Normal density), then probabilities such as $\mathbb{P}(Z < z) \text{or} \mathbb{P}(Z < 1)$ can be found directly using a **z-table**.
+
+Theoretically, we could create a similar table for **each** Normal distribution to tell us these probabilities, but that’s not practical. Instead, we keep a **single** z-table for the standard Normal distribution. If our variable of interest is Normal (but **not** standard Normal), we can still find probabilities by **standardizing**:
+
+$$Z = \frac{X - \mu}{\sigma}.$$
+So, if $X \sim N(\mu, \sigma),$ then $Z \sim N(0, 1),$ and we can use the z-table for calculations and finding the probabilities.
+
+$$P(X \leq x) = P \left( \frac{X - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right) = \Phi \left( \frac{x - \mu}{\sigma} \right)$$
+Since we have this relationship, the only thing left is to become **familiar** with the areas under the **standard Normal** density and how to use the **z-table**.  
+
+For **any** Normal density, there is the **68–95–99.5** empirical rule that we can use for quick approximations.
+ 
+
+```{prf:definition} The 68-95-99.7 Rule
+:label: empiricalrule-definition
+
+In the Normal distribution with mean $\mu$ and standard deviation $\sigma$:
+* Approximately $68\%$ of the observations fall within $\sigma$ of the mean $\mu$.
+* Approximately $95\%$ of the observations fall within $2\sigma$ of the mean $\mu$.
+* Approximately $99.7\%$ of the observations fall within $3\sigma$ of the mean $\mu$.
+```
+
+`````{tab-set}
+````{tab-item} Area under $Z$
+```{figure} _image/0420.png
+:alt: Area under $Z$
+:align: center
+:width: 1000%
+```
+````
+
+````{tab-item} 68-95-99.5 for $Z$
+```{figure} _image/0421.png
+:alt: 68-95-99.5 for $Z$
+:align: center
+:width: 100%
+```
+````
+
+````{tab-item} 68-95-99.5 for $X$
+```{figure} _image/0422.png
+:alt: 68-95-99.5 for $X$
+:align: center
+:width: 100%
+```
+````
+
+````{tab-item} 68-95-99.5 for $Height$
+```{figure} _image/0423.png
+:alt: 68-95-99.5 for $Height$
+:align: center
+:width: 100%
+```
+````
+
+`````
+
+Now, you should be able to use a **z-table** to handle several types of probability statements, such as:
+
+* **Given** $X \sim \mathcal{N}(4, 1.5)$:  
+  * $P(X < 3)$
+  * $P(X > 4.5)$  
+  * $P\bigl(3 < X < 4.56\bigr)$  
+  * and so on.
+
+* **Backwards Normal Problems** (Inverse Normal Calculations): finding $x_0$ such that  
+  * $P(X < x_0) = 0.95$
+  * $P(X > x_0) = 0.9236$
+
+One last thing to mention is how to use **Normal Quantile Plots** to check Normality for your datasets. Here are the steps to construct such a plot:
+* **Definition**: A Normal quantile plot (sometimes called a normal probability plot) is a diagnostic tool. You:
+  * Sort the data from smallest to largest. **Rank the data** $(i=1)$ is smallest, $(i=20)$ largest. 
+  * Assign each data value a percentile (like 5%, 10%, etc.). **Assign percentiles** via $\frac{i}{n}$.
+  * Find the corresponding z-score for each percentile (from the Standard Normal). **Convert percentiles** to z-scores.
+  * Plot each data value vs. its matched z-score. **Plot** (z-score on x axis, data value on y axis).
+* **Interpretation**:
+  * If the resulting plot is roughly a straight line, then the data follow a Normal pattern.  
+  * Systematic curvature in the plot indicates non-Normal data.  
+  * Outliers appear as points that deviate noticeably from the pattern.
+

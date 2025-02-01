@@ -1,106 +1,54 @@
-# Some Important Concepts
+# At the Beginning
 
-% ```{contents}
-% :depth: 2
-% ```
+Let me be more transparent here. Every student wishes to achieve a better grade when it comes to college courses. To obtain a grade, we still follow the standard test or exam-based evaluation system for most courses, especially introductory-level ones. In terms of **learning, understanding, and mastering knowledge**, this exam-based approach might not always be the best way to assess a student's understanding of the material. But that is a topic for another discussion.
 
-The textbook we will reference is **Introduction to the Practice of Statistics by Moore, McCabe, and Craig**. Past editions are fine; the major difference in the latest edition is the inclusion of new examples and scenarios to illustrate the concepts and ideas. However, the core material remains the same.
+In the test or exam, you will be given several well-defined questions. For example, you might be given A, B, and C, and you need to solve for D. In class, you will learn the step-by-step procedure to find D when you have A, B, and C. You only need to understand <span style="color:#cfb991">**what**</span> A, B, C, and D are, and remember <span style="color:#cfb991">**what**</span> the procedure to get D from A, B, and C is. 
 
-Before we dive into data, there are some important concepts I would like to discuss. You can regard these as foundational knowledge for this course. To understand the materials more clearly, it is essential to have a precise and clear understanding of these concepts. That’s why I have placed this discussion at the beginning of the course.
+If your goal is just to pass the course, this level of understanding will likely suffice for most questions in the assignments and exams. To achieve this, you need to practice with example questions so you can memorize the material and become familiar with variations of the questions that might be asked. For example, another question might give you A, B, and D, and require you to solve for C. 
 
-## Population and Sample
+**Practice** and **repetition** are key to solving these types of problems. If you ask an experienced taxi or Uber driver, they can memorize the routes and maps for an entire city-something that might seem impossible when they first started. For instance, navigating the complex layers of Lower and Lower Lower Wacker Drive in Chicago becomes second nature with enough experience.
 
-Let’s use a simple scenario to facilitate our discussion. Suppose we want to determine the **average height** of all Purdue students. One way to find this out is by measuring the height of every student at Purdue, recording the data, and then calculating the average. However, this method might be time-consuming, costly, or even infeasible because the total number of students might be too large or constantly changing while we’re conducting the measurements.
+But if you wish to have a **true learning experience** and more fun, you need to aim to achieve the second level of understanding of the materials. In addition to understanding <span style="color:#cfb991">**what**</span>, you need to understand <span style="color:#cfb991">**why**</span>. Most of the teaching materials will focus on explaining the <span style="color:#cfb991">**why**</span> aspect. This is the true learning process. 
 
-An alternative approach is to **randomly select** a specific number of students from the entire Purdue student body to form a <span style="color:#cfb991">**SAMPLE**</span>. For instance, let’s say we select 1,000 students. Once we have the height measurements for these 1,000 students, we can calculate the **sample average**. 
+The majority of learning happens at this level because it allows us to practice critical thinking rather than just receiving knowledge. Using the above example, suppose the procedure to get D contains three steps. Why do we have these three steps, and why can we move to step 2 after obtaining the results from step 1? These are the types of questions that deepen understanding and foster real learning.
 
-For now, let’s not worry about the new terminologies and focus on the big picture. In this setting, we are curious about something related to all Purdue students. This group of all Purdue students is referred to as the <span style="color:#cfb991">**POPULATION**</span>. Since it is impractical to gather measurements for the entire **population**, we instead draw a **sample** from the population to make our observations and calculations.
+Let me use another recent example I encountered: Sudoku. If you don't use logic, you could still solve a Sudoku puzzle by trial and error. In this case, you don't need to know why a particular number should go in an empty square-you only need to know the rules of Sudoku. However, to achieve the second level of understanding, you need to use logic. By doing so, you will understand why you can or cannot place a particular number in a certain empty square. This approach is not only much more fun but also more efficient for solving the puzzle.
 
-When you encounter a scenario or question in this course, always remember that the concept of a population is present in the background, whether it is mentioned explicitly or implicitly. In most cases, we do not, or cannot, have all the measurements for the population. If we did, there would be no need to learn most of the statistical techniques introduced later in this course. Instead, we typically form a **sample** from the population and use the information and measurements (data) obtained from the sample to infer or make statements about what we are interested in within the population.
+Lastly, I want to talk about the third level of understanding the materials, using the A, B, C, and D example. To fully master the materials, in addition to knowing <span style="color:#cfb991">**what**</span> and <span style="color:#cfb991">**why**</span>, you need to understand <span style="color:#cfb991">**what if ..., and then what?**</span>-this involves conditional forward thinking[^footnote01]. 
 
-## Variable and Random Variable
+[^footnote01]: Conditioning is often regarded as the essence of statistics.
 
-We use these terms so often that we may not have a precise definition of them. The term <span style="color:#cfb991">**variable**</span> will appear as early as the first week of this course. The term <span style="color:#cfb991">**random variable**</span>, on the other hand, is central to probability. Often, we simply refer to it as a **variable** for short. Because these two terms are closely related, students often find them confusing.
+For example, what if we have A, B, and E? Can we still get D or something else? Or if we drop C, can we still get D? Once you reach this level of understanding, you will gain a glimpse of the entire picture of the materials. However, due to the nature of this course, this level is not our primary focus, and no questions at this level of understanding will be tested.
 
-Using the Purdue students' height example, once we have the measurements from the sample, we have our data or dataset. Let’s assume that in addition to **height**, we also collect **age** measurements. Each student in the sample is described by this dataset. In the textbook, the term **cases** is used to refer to the objects described by a set of data. You can think of cases as individual units of observation in the dataset. From this, we can derive a definition for **variable**.
+## Pass the Course
 
-```{prf:definition} Variable
-:label: variable-definition
+Again, this is an introductory-level course, which means the tests and exams are not designed to select or filter students. The number one reason students **fail this course** is that they do not complete the assignments on time. There are both individual assignments and group assignments, managed through different learning systems. These assignments come with detailed instructions (e.g., some assignments require the use of SPSS software) and examples, all accessible on Brightspace. 
 
-A **variable** is a characteristic or feature of a case.
+To <span style="color:#cfb991">pass the course</span>, students must read and understand all the instructions and complete all the assignments on time. This is especially important for group assignments and milestone assignments. Missing deadlines for these assignments can result in significant penalties, including heavy penalties for late submissions that carry over to future assessments. For example, if you miss the deadline for group assignment 1, it may prevent you from completing assignments 2 or 3, either because assignment 1 was not submitted or was submitted late.
+
+```{admonition} Remember!
+:class: warning
+
+Complete all the assignments **on time**! Please **check the due dates** and the different learning systems every day!
+```
+```{admonition} Remember!
+:class: warning
+
+Make sure to **participate** in the group assignments. If you don't, there will be **heavy penalties** at the end of the group project!
 ```
 
-In our example, **height** can be regarded as a variable, and **age** is another. The recorded measurements for these two variables may vary from case to case. This variability is why they are called variables. However, this sometimes causes confusion with the concept of a **random variable**.
+The assignments serve as checkpoints to determine if you need to spend **additional time** outside the classroom or lectures to digest the course materials or practice further in order to pass the course. Naturally, this additional time will vary based on your background and how much you need to catch up. If you need help, you are always welcome to attend office hours or email me. I will explicitly point out where you may be lacking and guide you accordingly.
 
-Throughout the course, you will frequently encounter the concept of a **random variable**, especially in probability statements such as $\mathbb{P}(X < x)$ or simply $\mathrm{P}(X < x)$. While this course skips the probability part, we still hope students gain a precise understanding of this concept and the associated notations.
+## Build the Foundation
 
-A naive definition of a **random variable** might be "a variable that takes on random values." However, this definition can lead to confusion and fails to capture the essence of the concept. Before we delve into the meaning of a **random variable**, we need to first understand two foundational concepts: one familiar, **function**, and the other from probability, **sample space**.
+If your goal is not just to pass the course but to build a solid foundation and gain a strong understanding of the course materials (know the <span style="color:#cfb991">**what**</span> and <span style="color:#cfb991">**why**</span>), you should not only complete the assignments on time but also spend time reading and digesting all the course materials on your own or with the help of other resources.[^footnote02] Attending lectures will aid your understanding of the materials. 
 
-In simple terms, a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)" target="_blank">**function**</a> is a rule that takes an input and produces an output. You can also click the term to view a more detailed explanation on Wikipedia.
+If you are a good reader, you simply need to allocate sufficient time and might require occasional outside help. Please don't hesitate to reach out if you struggle. If reading is more challenging for you, one effective strategy is to divide the materials into smaller, logical sections, with each section focusing on one main idea. Then, try to read and digest these smaller sections one by one. Use the corresponding assignment questions to check your understanding. However, since this approach involves dividing the materials into smaller pieces, it requires revisiting them more frequently, so try to plan and review daily. 
 
-```{prf:definition} Function
-:label: function-definition
+[^footnote02]: I fully support using ChatGPT or other AI models as study aids, whether you are studying alone or with friends.
 
-A **function** $f: A \longrightarrow B$ means that for every element $a$ in set $A$, there is exactly one element $b$ in set $B$ such that $f(a) = b$.
-```
+## Master the Materials
 
-A <a href="https://en.wikipedia.org/wiki/Sample_space" target="_blank">**sample space**</a> $\Omega$ is the set of all possible outcomes in a random experiment. Using the Purdue students' height example, we define a random variable $X$ (or $Height$) that takes a randomly chosen Purdue student as input and produces an output, which is the height of that student—a real number. 
+Due to the time constraints and scope of this course, most of the materials are not designed or developed to facilitate full mastery of the subject. However, I will highlight which core concepts and ideas are essential to master or worth exploring further. Additionally, I may post some bonus or supplementary topics for further reading.
 
-In this random process or experiment, $\Omega$ represents all Purdue students who could potentially be chosen. The outcome, $\omega$, is a specific individual student in $\Omega$. Often, we simply write $X$ instead of $X(\omega)$ for simplicity.
-
-```{prf:definition} Random Variable
-:label: rv-definition
-
-A **random variable** $X$ is a function that maps the sample space $\Omega$ to the real line $\mathbb{R}$:
-
-$$X : \Omega \longrightarrow \mathbb{R}$$
-```
-
-When you see a random variable or a probability statement, you need to consider the sample space context in the background. Now, let’s break down the meaning of $\mathbb{P}(X < x)$:
-
-* $\mathbb{P}(\cdot)$: This denotes _the probability of_.
-* $X$: This is a **random variable**, meaning it can take on different values based on some random process or experiment.
-* $x$: This is a **specific value** (a number) you are comparing $X$ to.
-* $X < x$: This is the **event** (or condition) that the random variable $X$ takes on a value **less than** $x$. An event can be thought of as a subset of the sample space.
-
-```{prf:definition} $\mathbb{P}(X < x)$
-:label: ps-definition
-
-$\mathbb{P}(X < x)$: The probability that the random variable $X$ takes on a value less than $x$.
-```
-
-For example, $\mathbb{P}(X < 65)$ or $\mathbb{P}(Height < 65)$ represents the probability that, if you pick a student at random, their height will be under 65 inches. While we have not yet defined the meaning of _at random_ mathematically, we can assume that every Purdue student has an equal chance of being selected.
-
-## Distribution
-
-In the previous section, we learned about **variables** and **random variables**. For both concepts, we can also discuss their **distribution**. In simple terms, a <span style="color:#cfb991">**distribution**</span> describes **how values are spread out** (or how likely different values are) for a given variable or random variable. It defines the **probabilities** associated with different ranges of values that the variable or random variable can take.
-
-* If we have a dataset containing observed values, a **variable** (typically a column in the dataset) has an **empirical distribution** (the frequencies of the observed values).
-* If we have a **random variable**, in probability theory it has a **theoretical probability distribution** (theoretical probabilities of values). In this course, we will also encounter some famous probability distributions.
-
-In our height example, once we have a dataset of 1,000 samples, we have 1,000 height measurements for the students in the sample. These values form an **empirical distribution**. Meanwhile, if we consider the aforementioned $Height$ random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">**Normal (Gaussian) distribution**</a>. Thus, the **theoretical distribution** of $Height$ is a normal distribution[^footnote01].
-
-[^footnote01]: You can also visit [this website](https://www.math.wm.edu/~leemis/chart/UDR/UDR.html) to explore the basic distributions developed to model real-world phenomena and how they are interconnected. Yes, things are connected!
-
-## Population Parameters
-
-Once we have learned the concept of a **distribution** and assume that the $Height$ random variable follows a normal distribution, we can use a mathematical function to define the shape of the normal distribution. This function has two **parameters**: the mean $\mu$ and the standard deviation $\sigma$[^footnote02].
-
-Our population consists of all Purdue students, each with a height value. These height values in the population are considered **realizations** of the random variable $Height$.
-
-[^footnote02]: We can also use the variance, $\sigma^2$, as an alternative parameter.
-
-In the textbook and this course, the mean $\mu$ and standard deviation $\sigma$ are referred to as the <span style="color:#cfb991">**parameters**</span> associated with the **population**.
-
-```{prf:definition} Parameter
-:label: parameter-definition
-
-A **parameter** is a number that describes the **population**. 
-
-While it is a fixed value, its true value is typically unknown in practice.
-```
-
-Since these parameters are unknown, except in cases where the question explicitly provides a fixed value, we need to use our **sample** to estimate the unknown parameter or make inferences about it.
-
-There is one subtle gap to bridge. In the first section, we mentioned the _**average height** of all Purdue students_ and treated it as unknown, linking it to the population. We can think of this as the **empirical population parameter**. When the population size $N$ is very large, this **empirical population parameter** should be very close to the **theoretical population parameter**, $\mu$. The textbook does not distinguish between these two perspectives.
 

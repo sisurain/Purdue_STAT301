@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>6. Chapter 6: Confidence Intervals and Significance Tests &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter6';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Chapter 7: Inference for Means" href="chapter7.html" />
+    <link rel="prev" title="5. Chapter 5: Sampling Distributions" href="chapter5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro0.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro0.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapter6.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter6.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 6: Confidence Intervals and Significance Tests</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-with-confidence">6.1. Estimating with Confidence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-of-significance">6.2. Tests of Significance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-as-a-decision">6.3. Inference as a Decision</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-6-confidence-intervals-and-significance-tests">
+<h1><span class="section-number">6. </span>Chapter 6: Confidence Intervals and Significance Tests<a class="headerlink" href="#chapter-6-confidence-intervals-and-significance-tests" title="Link to this heading">#</a></h1>
+<p>Last chapter, we learned that the sampling distribution of the sample mean <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately <span class="math notranslate nohighlight">\(\mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)\)</span> under mild conditions, thanks to the Central Limit Theorem (CLT). The mean of this sampling distribution is <span class="math notranslate nohighlight">\(\mu\)</span>, making the sample mean <span class="math notranslate nohighlight">\(\bar{X}\)</span> an excellent candidate for a <em>point estimator</em> of the population mean <span class="math notranslate nohighlight">\(\mu\)</span>.<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>However, in reality, we typically only observe <strong>one sample</strong>, and the sample mean <span class="math notranslate nohighlight">\(\bar{X}\)</span> itself is <strong>random</strong>. Using our knowledge of the sampling distribution, we want to assess how far the observed <span class="math notranslate nohighlight">\(\bar{x}\)</span> is from the population mean <span class="math notranslate nohighlight">\(\mu\)</span>, or equivalently, how far the population mean <span class="math notranslate nohighlight">\(\mu\)</span> might be from our observed <span class="math notranslate nohighlight">\(\bar{x}\)</span>. This motivates the need to address <strong>uncertainty</strong> in our estimates of population parameters.</p>
+<p>One effective way to quantify this uncertainty is by constructing a <span style="color:#cfb991"><strong>confidence interval</strong></span>, which provides an <span style="color:#cfb991"><strong>interval estimate</strong></span> for the population mean. A typical confidence interval for the population mean is expressed as:</p>
+<div class="math notranslate nohighlight">
+\[(\bar{x} - \text{Margin of Error}, \bar{x} + \text{Margin of Error}),\]</div>
+<p>and we interpret it as:</p>
+<blockquote>
+<div><p>“Given the data, we are 95% confident that the true mean <span class="math notranslate nohighlight">\(\mu\)</span> lies within this range.”</p>
+</div></blockquote>
+<p>The <strong>Margin of Error</strong> is a calculable value that reflects the range within which the true population mean <span class="math notranslate nohighlight">\(\mu\)</span> is likely to lie, based on the observed <a class="reference external" href="http://sample.An">sample.An</a> important clarification involves two equivalent perspectives when interpreting the range:</p>
+<ol class="arabic simple">
+<li><p>We say <span class="math notranslate nohighlight">\(\mu\)</span> lies within the interval <span class="math notranslate nohighlight">\((\bar{x} - \text{Margin of Error}, \bar{x} + \text{Margin of Error})\)</span>, or</p></li>
+<li><p>We equivalently say that <span class="math notranslate nohighlight">\(\bar{x}\)</span> lies within the interval <span class="math notranslate nohighlight">\((\mu - \text{Margin of Error}, \mu + \text{Margin of Error})\)</span>.
+The second perspective arises from our understanding of the sampling distribution and the variability inherent in the sample mean.</p></li>
+</ol>
+<div class="proof admonition" id="proof">
+<p>Proof. The two statements are logically equivalent.</p>
+<p><strong>Claim</strong>: The two statements <span class="math notranslate nohighlight">\(\bar{x} - \text{margin} &lt; \mu &lt; \bar{x} + \text{margin} \text{and} \mu - \text{margin} &lt; \bar{x} &lt; \mu + \text{margin}\)</span> are logically equivalent.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\bar{x} - \text{margin} &lt; \mu &lt; \bar{x} + \text{margin}
+&amp;\iff (\bar{x} - \text{margin} &lt; \mu)\ \text{and}\ (\mu &lt; \bar{x} + \text{margin}) \\[6pt]
+&amp;\iff (\mu - \bar{x} &gt; -\text{margin})\ \text{and}\ (\mu - \bar{x} &lt; \text{margin}) \\[6pt]
+&amp;\iff -\text{margin} &lt; (\mu - \bar{x}) &lt; \text{margin} \\[6pt]
+&amp;\iff \mu - \text{margin} &lt; \bar{x} &lt; \mu + \text{margin}.
+\end{aligned}\end{split}\]</div>
+<p>Hence the intervals <span class="math notranslate nohighlight">\(\bar{x} \pm \text{margin}\)</span> around <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\mu \pm \text{margin}\)</span> around <span class="math notranslate nohighlight">\(\bar{x}\)</span> represent the same set of inequalities.</p>
+</div>
+<p>The first perspective focuses on <span class="math notranslate nohighlight">\(\mu\)</span> (the true population parameter) as the unknown, while the second perspective focuses on <span class="math notranslate nohighlight">\(\bar{x}\)</span> (the sample statistic) as a random variable. Recognizing that these two perspectives are equivalent, we can construct the confidence interval in the first perspective using the knowledge of the sampling distribution from the second perspective. Since we understand the distribution of the sampling statistic, we can make probability claims about the range within which the random variable <span class="math notranslate nohighlight">\(\bar{x}\)</span> would fall if we repeatedly sampled from the population-this range forms the confidence interval.</p>
+<p>The probability associated with this range is called the <strong>confidence level</strong> (e.g., 95%). I will discuss the interpretation of this level in detail in the next section. For now, I want to briefly introduce a new concept: the <span style="color:#cfb991"><strong>Pivot</strong></span> or <span style="color:#cfb991"><strong>Pivotal Quantity</strong></span>.</p>
+<p>A <strong>pivot</strong>, such as <span class="math notranslate nohighlight">\(Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}\)</span>, is a function of the sample and parameters that has a distribution independent of the unknown parameter. Its distribution remains invariant regardless of the value of <span class="math notranslate nohighlight">\(\mu\)</span>. This property allows us to connect the sample statistic and the population parameter with probability statements, as the distribution of the pivot is known even if the parameter values are not.</p>
+<p>Designing or identifying appropriate pivots is a non-trivial task, but they are essential tools for statistical inference. In this course, we will encounter several examples of pivotal quantities, each playing a crucial role in hypothesis testing and confidence interval construction.</p>
+<section id="estimating-with-confidence">
+<h2><span class="section-number">6.1. </span>Estimating with Confidence<a class="headerlink" href="#estimating-with-confidence" title="Link to this heading">#</a></h2>
+<p>Let’s begin with the simplest case: we are working with the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, and our goal is to construct a confidence interval for the population mean <span class="math notranslate nohighlight">\(\mu\)</span>. Additionally, we assume that the population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is known-a scenario that is rarely true in practice.</p>
+<p>Using our knowledge of the sampling distribution of sample means, we know that <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately distributed as <span class="math notranslate nohighlight">\(\mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)\)</span> under the Central Limit Theorem. Leveraging our understanding of probability and the properties of the normal distribution (such as the 68-95-99.7 rule), we can determine the probability of <span class="math notranslate nohighlight">\(\bar{x}\)</span> falling within specific intervals under the normal density curve.</p>
+<p>For example, the 68-95-99.7 rule tells us that 95% of the area under the normal curve lies within 2 standard deviations from the mean. Therefore, if we repeatedly took samples and calculated <span class="math notranslate nohighlight">\(\bar{x}\)</span> for each sample, approximately 95% of these <span class="math notranslate nohighlight">\(\bar{x}\)</span> values would lie within the interval:</p>
+<div class="math notranslate nohighlight">
+\[(\mu - 2 \cdot \frac{\sigma}{\sqrt{n}}, \mu + 2 \cdot \frac{\sigma}{\sqrt{n}}).\]</div>
+<p>This illustrates the <strong>second perspective</strong>, where we view <span class="math notranslate nohighlight">\(\bar{x}\)</span> as a random variable distributed around the true mean <span class="math notranslate nohighlight">\(\mu\)</span>. This perspective allows us to build confidence intervals using probability derived from the sampling distribution.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/0601.png"><img alt="Example 6.3" src="_images/0601.png" style="width: 60%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.1 </span><span class="caption-text">Example 6.3</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Now, let’s shift to the <strong>first perspective</strong>, where our focus is on the population parameter <span class="math notranslate nohighlight">\(\mu\)</span>. Given each sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, we can construct a confidence interval for <span class="math notranslate nohighlight">\(\mu\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\bar{x} - 2 \cdot \frac{\sigma}{\sqrt{n}} &lt; \mu &lt; \bar{x} + 2 \cdot \frac{\sigma}{\sqrt{n}}.\]</div>
+<p>We call these <strong>95% confidence intervals</strong> for <span class="math notranslate nohighlight">\(\mu\)</span>. Since <span class="math notranslate nohighlight">\(\bar{x}\)</span> is a random variable, the confidence interval itself is also random-its endpoints change depending on the sample we obtain.</p>
+<p><strong>Interpretation of Confidence Intervals:</strong></p>
+<ul class="simple">
+<li><p>In the long run, if we repeatedly take samples and construct confidence intervals using the formula above, approximately <strong>95% of these intervals will contain</strong> the true population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>However, for any <strong>specific confidence interval</strong> derived from one sample, we do not know whether that particular interval actually contains <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>More importantly, we <strong>cannot assign a probability</strong> to whether this specific interval covers <span class="math notranslate nohighlight">\(\mu\)</span> or not.</p></li>
+</ul>
+<p>This last point is where many people misinterpret confidence levels-thinking that an individual confidence interval has a <strong>95% probability of containing <span class="math notranslate nohighlight">\(\mu\)</span></strong>, when in reality, the <strong>probability statement applies to the process</strong>, not a single interval.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/0602.png"><img alt="Example 6.3, 25 Samples" src="_images/0602.png" style="width: 50%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.2 </span><span class="caption-text">Example 6.3, 25 Samples</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Of course, we are not limited to a <strong>95% confidence level</strong>-we can choose any other confidence level. However, adjusting the confidence level requires modifying our interval. Instead of using:</p>
+<div class="math notranslate nohighlight">
+\[\text{Margin of Error} = 2 \cdot \frac{\sigma}{\sqrt{n}},\]</div>
+<p>we replace the value 2 with a more general critical value, denoted as <span class="math notranslate nohighlight">\(z^*\)</span>.</p>
+<p><strong>Key Observations:</strong></p>
+<ul class="simple">
+<li><p>If we increase the confidence level, the value of becomes <span class="math notranslate nohighlight">\(z^*\)</span> larger, resulting in a wider confidence interval.</p></li>
+<li><p>If the <strong>sample size</strong> increases, the confidence interval becomes <strong>narrower</strong>, reflecting increased precision in our estimate.</p></li>
+</ul>
+<p><strong>Determining the Required Sample Size:</strong></p>
+<ul>
+<li><p>If we want to achieve a <strong>desired margin of error</strong>, denoted as <span class="math notranslate nohighlight">\(m\)</span>, while keeping the confidence level fixed, we can solve for the necessary sample size <span class="math notranslate nohighlight">\(n\)</span>. Rearranging the margin of error formula, we obtain:</p>
+<div class="math notranslate nohighlight">
+\[n = \left(\frac{z^* \sigma}{m}\right)^2.\]</div>
+</li>
+<li><p>This equation helps us determine the required <strong>sample size</strong> to achieve a specified margin of error for a given confidence level.</p></li>
+</ul>
+<div class="proof definition admonition" id="ci-population-mean">
+<p class="admonition-title"><span class="caption-number">Definition 6.1 </span> (Confidence Interval for a Population Mean)</p>
+<section class="definition-content" id="proof-content">
+<p>Choose an SRS of size <span class="math notranslate nohighlight">\(n\)</span> from a population having unknown mean <span class="math notranslate nohighlight">\(\mu\)</span> and known standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. The level <span class="math notranslate nohighlight">\(C\)</span> <strong>margin of error</strong> of <span class="math notranslate nohighlight">\(\bar{x}\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[m = z^* \cdot \frac{\sigma}{\sqrt{n}}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(z^*\)</span> is the value on the standard Normal curve with area <span class="math notranslate nohighlight">\(C\)</span> between the points <span class="math notranslate nohighlight">\(-z^*\)</span> and <span class="math notranslate nohighlight">\(z^*\)</span>. The level <span class="math notranslate nohighlight">\(C\)</span> confidence interval for <span class="math notranslate nohighlight">\(\mu\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\bar{x} \pm m\]</div>
+<p>The confidence level of this interval is exactly <span class="math notranslate nohighlight">\(C\)</span> when the population distribution is Normal and is approximately <span class="math notranslate nohighlight">\(C\)</span> when <span class="math notranslate nohighlight">\(n\)</span> is large in other cases</p>
+</section>
+</div><figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/0603.png"><img alt="$C$ level CI" src="_images/0603.png" style="width: 60%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.3 </span><span class="caption-text"><span class="math notranslate nohighlight">\(C\)</span> level CI</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="tests-of-significance">
+<h2><span class="section-number">6.2. </span>Tests of Significance<a class="headerlink" href="#tests-of-significance" title="Link to this heading">#</a></h2>
+<p>The second classical statistical method for using sample information to make inferences about the population-<strong>generalization</strong>-is the <span style="color:#cfb991"><strong>hypothesis test</strong></span>. This method is also closely related to the <strong>pivotal quantity</strong> mentioned earlier. However, in this context, we refer to it as a <strong>pivot statistic</strong>, <strong>test statistic</strong>, or <strong>observed pivot</strong>.</p>
+<p><strong>Logic of Hypothesis Testing:</strong></p>
+<ul class="simple">
+<li><p>The reasoning behind <strong>hypothesis testing</strong> can feel counterintuitive because we begin by assuming an explanation for how the dataset is generated. In this framework, we act as if we are the <strong>Oracle</strong>, knowing the true value of the parameter of interest under the <strong>null hypothesis</strong>, denoted as <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>We <strong>assume</strong> <span class="math notranslate nohighlight">\(H_0\)</span>, which specifies a fixed value for the parameter.</p></li>
+<li><p>We <strong>calculate</strong> a test statistic using sample data and the assumed parameter value from <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p>We <strong>evaluate</strong> whether the observed test statistic provides sufficient evidence to reject <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+</ol>
+<p>A common choice for <span class="math notranslate nohighlight">\(H_0\)</span> represents a <strong>“nothing interesting is happening”</strong> scenario/a <strong>“business as usual”</strong> hypothesis, or a hypothesis which something we seek to <strong>refute</strong> using sample data.</p>
+<ol class="arabic simple">
+<li><p><strong>Scenario 1:</strong> Suppose we are studying the heights of Purdue students and it is generally believed that the average height of Purdue students has historically been <strong>70 inches</strong>. The null hypothesis here would reflect the “business as usual” assumption:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Null hypothesis (<span class="math notranslate nohighlight">\(H_0\)</span>): The average height of Purdue students is 70 inches (<span class="math notranslate nohighlight">\(\mu_0 = 70\)</span>).</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p><strong>Scenario 2:</strong> A researcher claims that Purdue’s new student population has an average height of at least <strong>72 inches</strong>, suggesting a significant increase in height due to some unknown factor (e.g., recruitment policies). Here, the null hypothesis reflects the claim that the researcher tries to refute using data:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Null hypothesis (<span class="math notranslate nohighlight">\(H_0\)</span>): The average height of Purdue students is at least 72 inches (<span class="math notranslate nohighlight">\(\mu_0 = 72\)</span>).</p></li>
+</ul>
+<p>Once we have formed our Null hypothesis, we can form our <strong>alternative hypothesis</strong> which assert that a mechanism other than the null hypothesis generated the datasets.</p>
+<div class="proof definition admonition" id="null-hypo">
+<p class="admonition-title"><span class="caption-number">Definition 6.2 </span> (Null Hypothesis)</p>
+<section class="definition-content" id="proof-content">
+<p>The statement being tested in a test of significance is called the <strong>null hypothesis</strong>. The test of significance is designed to assess the strength of the evidence <em>against</em> the null hypothesis. Usually, the null hypothesis is a statement of “no effect” or “no difference.”</p>
+</section>
+</div><p>We still rely on our knowledge of <strong>sampling distributions</strong> and <strong>pivotal quantities</strong>. Here, we substitute the hypothesized parameter value <span class="math notranslate nohighlight">\(\mu_0\)</span> from <span class="math notranslate nohighlight">\(H_0\)</span> (which we assume to be known) into the test statistic formula to calculate the <strong>test statistic</strong>.</p>
+<p>By conditioning on the assumption that the <strong>null hypothesis is true</strong>, meaning that <span class="math notranslate nohighlight">\(\mu_0\)</span> is the actual population mean, we can determine the probability of obtaining a test statistic <strong>as extreme or more extreme</strong> than the observed value. This probability is known as the <strong>p-value</strong>.</p>
+<p><strong>Interpreting the p-value:</strong></p>
+<ul class="simple">
+<li><p>The <strong>p-value</strong> represents the probability of observing data as extreme as (or more extreme than) the sample data, given that <span class="math notranslate nohighlight">\(H_0\)</span> is true.</p></li>
+<li><p>If this probability is <strong>small</strong> (i.e., the p-value is <strong>less than</strong> a preset significance level <span class="math notranslate nohighlight">\(\alpha\)</span>), we <strong>reject</strong> the null hypothesis <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p>A small p-value suggests <strong>evidence against <span class="math notranslate nohighlight">\(H_0\)</span></strong>, indicating that the observed data are <strong>unlikely</strong> under the null hypothesis.</p></li>
+</ul>
+<blockquote>
+<div><p>“The <strong>p-value</strong> is the probability of observing a test statistic as extreme as, or more extreme than, the one computed from your sample data, <strong>assuming the null hypothesis is true</strong>.”</p>
+</div></blockquote>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+<strong>p-value</strong></label><div class="sd-tab-content docutils">
+<p>The <strong>p-value</strong> is the probability of observing a test statistic as extreme as, or more extreme than, the one computed from your sample data, <strong>assuming the null hypothesis is true</strong>.</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Misinterpretations</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p><strong>p-value <span class="math notranslate nohighlight">\(\neq\)</span> Probability that <span class="math notranslate nohighlight">\(H_0\)</span> is true</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>The p-value is conditional on <span class="math notranslate nohighlight">\(H_0\)</span> being true; it does not tell us the probability of <span class="math notranslate nohighlight">\(H_0\)</span> itself.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p><strong>p-value <span class="math notranslate nohighlight">\(\neq\)</span> Strength of the alternative hypothesis (<span class="math notranslate nohighlight">\(H_a\)</span>)</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>A small p-value suggests <span class="math notranslate nohighlight">\(H_0\)</span> is unlikely, but it doesn’t measure how true <span class="math notranslate nohighlight">\(H_a\)</span> is.</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><strong>“Failing to reject <span class="math notranslate nohighlight">\(H_0\)</span>” <span class="math notranslate nohighlight">\(\neq\)</span> Proving <span class="math notranslate nohighlight">\(H_0\)</span></strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>A high p-value means the data are consistent with <span class="math notranslate nohighlight">\(H_0\)</span>, but it doesn’t prove <span class="math notranslate nohighlight">\(H_0\)</span> is correct.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Statistical Significance</label><div class="sd-tab-content docutils">
+<p>If the <em>p-value</em> is as small or smaller than <span class="math notranslate nohighlight">\(\alpha\)</span>, we say that the data are <strong>statistically significant at level <span class="math notranslate nohighlight">\(\alpha\)</span></strong>.</p>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+<span class="math notranslate nohighlight">\(z\)</span>-Statistic and Probability Statement</label><div class="sd-tab-content docutils">
+<p>The formula for the test statistic is as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+z = \frac{\text{estimate} - \text{hypothesized value}}{\text{standard deviation of the estimate}}
+\]</div>
+<p>Recall from Chapter 5 that the standard deviation of the sample mean, <span class="math notranslate nohighlight">\(\bar{x}\)</span>, is given by: <span class="math notranslate nohighlight">\(\frac{\sigma}{\sqrt{n}}\)</span></p>
+<p>Therefore, the test statistic becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}
+\]</div>
+<p>Then, we can use a z-table to find the probability statements like, <span class="math notranslate nohighlight">\(\mathbb{P}(Z \geq z)\)</span> or <span class="math notranslate nohighlight">\(\mathbb{P}(Z \leq z)\)</span>.</p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Different <span class="math notranslate nohighlight">\(H_a\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0604.png"><img alt="Different $H_a$" src="_images/0604.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+Two-sided Significance Tests and Confidence Intervals</label><div class="sd-tab-content docutils">
+<p>A level <span class="math notranslate nohighlight">\(\alpha\)</span> two-sided significance test rejects a hypothesis <span class="math notranslate nohighlight">\(H_0: \mu = \mu_0\)</span> exactly when the value <span class="math notranslate nohighlight">\(\mu_0\)</span> falls outside a level <span class="math notranslate nohighlight">\(1 - \alpha\)</span> confidence interval for <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Cautions When Using p-values</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p><strong>P-values provide more information than simple reject/not-reject decisions</strong>:</p>
+<ul class="simple">
+<li><p>P-values are more informative than the reject-or-not result of a level <span class="math notranslate nohighlight">\(\alpha\)</span> test. Beware of placing too much weight on traditional values of <span class="math notranslate nohighlight">\(\alpha\)</span>, such as <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Statistical significance does not imply practical significance</strong>:</p>
+<ul class="simple">
+<li><p>Very small effects can be highly significant (small <span class="math notranslate nohighlight">\(P\)</span>), especially when a test is based on a large sample. A statistically significant effect need not have practical significance.</p></li>
+<li><p>Always plot the data to display the effect you are seeking and use confidence intervals to estimate the actual values of parameters.</p></li>
+</ul>
+</li>
+<li><p><strong>Lack of significance does not mean the null hypothesis (<span class="math notranslate nohighlight">\(H_0\)</span>) is true</strong>:</p>
+<ul class="simple">
+<li><p>Lack of significance does not imply that <span class="math notranslate nohighlight">\(H_0\)</span> is true, especially when the test has a low probability of detecting an effect (low power).</p></li>
+</ul>
+</li>
+<li><p><strong>Significance tests are not always valid</strong>:</p>
+<ul class="simple">
+<li><p>Faulty data collection, outliers in the data, and testing a hypothesis on the same data that suggested the hypothesis can invalidate a test.</p></li>
+</ul>
+</li>
+<li><p><strong>Beware of multiple comparisons</strong>:</p>
+<ul class="simple">
+<li><p>Many tests run at once will probably produce some significant results by chance alone, even if all the null hypotheses are true.</p></li>
+<li><p><strong>p-hacking</strong>, <em>“If you torture the data long enough, it will confess to anything”</em> (attributed to Ronald Coase) humorously critiques the misuse of statistical methods, such as <strong>p-hacking</strong>, where researchers manipulate data or analysis methods to find statistically significant results, often leading to misleading or invalid conclusions.</p></li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="inference-as-a-decision">
+<h2><span class="section-number">6.3. </span>Inference as a Decision<a class="headerlink" href="#inference-as-a-decision" title="Link to this heading">#</a></h2>
+<p>From the last section, we saw that after conducting a <strong>hypothesis test</strong>, we must make a <strong>binary decision</strong> based on the p-value:</p>
+<ul class="simple">
+<li><p><strong>Reject</strong> <span class="math notranslate nohighlight">\(H_0\)</span></p></li>
+<li><p><strong>Fail to reject</strong> <span class="math notranslate nohighlight">\(H_0\)</span></p></li>
+</ul>
+<p>This type of binary decision-making also appears in many important real-life applications. For example, in the <strong>court system</strong>, a judge must decide whether to <strong>reject</strong> <span class="math notranslate nohighlight">\(H_0\)</span> (i.e., declare the suspect guilty) or <strong>fail to reject</strong> <span class="math notranslate nohighlight">\(H_0\)</span> (i.e., maintain the assumption of innocence) based on the available evidence.</p>
+<p><strong>The Possibility of Errors:</strong></p>
+<ul class="simple">
+<li><p>However, given our understanding of <strong>random sampling</strong> and <strong>sampling distributions</strong>, we recognize an <strong>inherent limitation</strong> in this statistical decision-making process. Even if we follow the hypothesis testing procedure <strong>correctly</strong>, there is always the <strong>possibility of making a wrong decision</strong> due to the <strong>randomness of the test statistic</strong>.</p></li>
+</ul>
+<p>This means that the conclusion we draw from the statistical test <strong>might contradict the true state of the population</strong>. These discrepancies are known as <strong>statistical errors</strong>. For example:</p>
+<ul class="simple">
+<li><p><strong>Type I Error</strong>: Rejecting <span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_0\)</span> is actually true.</p>
+<ul>
+<li><p><em>In court terms</em>: Convicting (finding guilty) someone who is actually innocent.</p></li>
+<li><p>Due to sheer misfortune, Mother Nature provides you with a rare dataset that yields an unusually extreme test statistic.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\text{Type I Error}) = \mathbb{P}(\text{rejecting } H_0 \text{ when } H_0 \text{ is true}) = \mathbb{P}(\text{rejecting } H_0 \mid H_0 \text{ true}) = \alpha\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Type II Error</strong>: Failing to reject <span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_0\)</span> is false.</p>
+<ul>
+<li><p><em>In court terms</em>: Acquitting (finding not guilty) someone who is actually guilty.</p></li>
+<li><p>You are unlucky, and Mother Nature hands you a dataset that fails to reveal the real effect.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\text{Type II Error}) = \mathbb{P}(\text{failing to reject } H_0 \text{ when } H_0 \text{ is false}) = \beta\)</span>, and <span class="math notranslate nohighlight">\(1-\beta\)</span> is called the <strong>power</strong> of the test.</p></li>
+<li><p>To calculate the probability of a <strong>Type II error</strong> <span class="math notranslate nohighlight">\(\beta\)</span>, we must specify the <em>true</em> value of the parameter under the alternative hypothesis. For instance, if our null hypothesis states <span class="math notranslate nohighlight">\(\mu = \mu_0\)</span>, we must assume a particular value <span class="math notranslate nohighlight">\(\mu = \mu_0 + \delta\)</span> (for some <span class="math notranslate nohighlight">\(\delta \neq 0\)</span>) to compute <span class="math notranslate nohighlight">\(\beta\)</span>.<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p>Finally, let’s consider a few remarks on the significance-test perspective and the decision-theory perspective for making inferences.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>1. Significance Tests (Fisher’s Perspective)</strong></p>
+<ul class="simple">
+<li><p><strong>Focus</strong>: A <em>single hypothesis</em> <span class="math notranslate nohighlight">\(H_0\)</span> and a single probability (the <em>p-value</em>).</p></li>
+<li><p><strong>Goal</strong>: Assess the strength of evidence <em>against</em> <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p><strong>Outcome</strong>:</p>
+<ul>
+<li><p>If data are sufficiently against <span class="math notranslate nohighlight">\(H_0\)</span>, <em>reject</em> <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p>Otherwise, conclude only that the <em>evidence is insufficient</em> to reject <span class="math notranslate nohighlight">\(H_0\)</span>, <strong>not</strong> that <span class="math notranslate nohighlight">\(H_0\)</span> is <em>actually true</em>.</p></li>
+</ul>
+</li>
+<li><p><strong>Power</strong>: Calculated to check how <em>sensitive</em> the test is to departures from <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>2. Decision Theory (Neyman-Pearson Perspective)</strong></p>
+<ul class="simple">
+<li><p><strong>Focus</strong>: Two hypotheses, <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(H_a\)</span>, with <em>both</em> Type I and Type II errors considered.</p></li>
+<li><p><strong>Decision Rule</strong>:</p>
+<ul>
+<li><p>We choose one hypothesis based on the sample, and <em>cannot</em> simply abstain for lack of evidence.</p></li>
+<li><p>We set <span class="math notranslate nohighlight">\(\alpha\)</span> to control Type I error and strive to minimize Type II error (maximize power).</p></li>
+</ul>
+</li>
+<li><p><strong>Common Practice</strong>:</p>
+<ol class="arabic simple">
+<li><p>State <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(H_a\)</span>.</p></li>
+<li><p>Treat it as a decision problem, so Type I (<span class="math notranslate nohighlight">\(\alpha\)</span>) and Type II (<span class="math notranslate nohighlight">\(\beta\)</span>) errors matter.</p></li>
+<li><p>Fix <span class="math notranslate nohighlight">\(\alpha\)</span> such that Type I error probability <span class="math notranslate nohighlight">\(\leq \alpha\)</span>.</p></li>
+<li><p>Among tests meeting the <span class="math notranslate nohighlight">\(\alpha\)</span> criterion, choose one that <em>minimizes</em> <span class="math notranslate nohighlight">\(\beta\)</span> (i.e., maximizes power).</p></li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>3. Historical Context</strong></p>
+<ul class="simple">
+<li><p><strong>Neyman-Pearson</strong> framework (1920s-1930s) laid the foundation for decision-oriented hypothesis testing.</p></li>
+<li><p><strong>Fisher</strong> emphasized significance testing (p-values) over rigid decision rules.</p></li>
+<li><p>The combined approach (“testing hypotheses”) is often seen in modern practice, balancing both:</p>
+<ul>
+<li><p>Significance level (<span class="math notranslate nohighlight">\(\alpha\)</span>) to control Type I error.</p></li>
+<li><p><strong>Power</strong> (<span class="math notranslate nohighlight">\(1-\beta\)</span>) to reduce Type II error.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote01" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>We can also say <span class="math notranslate nohighlight">\(\bar{X}\)</span> is an <em>unbiased estimator</em> of <span class="math notranslate nohighlight">\(\mu\)</span>, because <span class="math notranslate nohighlight">\(\mathbb{E}[\bar{X}] = \mu\)</span>. Among all unbiased estimators, the sample mean has the smallest variance, meaning it has low variability.</p>
+</aside>
+<aside class="footnote brackets" id="footnote02" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>For a helpful <strong>visual representation</strong> of Type I and Type II errors, you can refer to the
+<a class="reference external" href="https://online.stat.psu.edu/stat415/book/export/html/845">PSU STAT 415 resource</a>.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Chapter 5: Sampling Distributions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter7.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Chapter 7: Inference for Means</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-with-confidence">6.1. Estimating with Confidence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-of-significance">6.2. Tests of Significance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-as-a-decision">6.3. Inference as a Decision</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

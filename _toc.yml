@@ -2,26 +2,29 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: intro0
 parts:
   - caption: At the beginning
     numbered: True
     maxdepth: 2
     chapters:
-    - file: chapter0
+    - file: chapter1
 
   - caption: Working with data
     numbered: True
     maxdepth: 2
     chapters:
-    - file: chapter1
     - file: chapter2
     - file: chapter3
+    - file: chapter4
   
   - caption: Making statistical inference
     numbered: True
     maxdepth: 2
     chapters:
-    - file: chapter4
+    - file: chapter5
+    - file: chapter6
+    - file: chapter7
+
 
 

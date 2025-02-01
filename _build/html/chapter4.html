@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5. Chapter 5: Sampling Distributions &#8212; STAT301@Purdue</title>
+    <title>4. Chapter 1: Looking at Data – Distributions &#8212; STAT301@Purdue</title>
   
   
   
@@ -66,7 +66,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapter4';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="4. Chapter 1: Looking at Data – Distributions" href="chapter3.html" />
+    <link rel="next" title="5. Chapter 5: Sampling Distributions" href="chapter5.html" />
+    <link rel="prev" title="3. Chapter 3: Producing Data" href="chapter3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -137,7 +138,7 @@
     
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="intro0.html">
   
   
   
@@ -165,24 +166,26 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
+                <a class="reference internal" href="intro0.html">
                     STAT 301 Introduction
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter0.html">1. At the Beginning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter1.html">2. Some Important Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter2.html">3. Chapter 3: Producing Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter3.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Chapter 1: Looking at Data – Distributions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Chapter 5: Sampling Distributions</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
 </ul>
 
     </div>
@@ -365,7 +368,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 5: Sampling Distributions</h1>
+    <h1>Chapter 1: Looking at Data – Distributions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -375,9 +378,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toward-statistical-inference">5.1. Toward Statistical Inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-distribution-of-a-sample-mean">5.2. The Sampling Distribution of a Sample Mean</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions-for-counts-and-proportions">5.3. Sampling Distributions for Counts and Proportions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-distributions-with-graphs">4.1. Displaying Distributions with Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-distributions-with-numbers">4.2. Describing Distributions with Numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density-curves-and-normal-distributions">4.3. Density Curves and Normal Distributions</a></li>
 </ul>
             </nav>
         </div>
@@ -389,145 +392,573 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-sampling-distributions">
-<h1><span class="section-number">5. </span>Chapter 5: Sampling Distributions<a class="headerlink" href="#chapter-5-sampling-distributions" title="Link to this heading">#</a></h1>
-<p>In this chapter, we will begin to study <strong>statistical inference</strong>-the process of drawing conclusions about the population from the sample dataset. This involves a directional arrow from the <strong>sample dataset</strong> to the <strong>population</strong>. Typically, we are interested in either the <strong>values of population parameters</strong> or in addressing <strong>claims/statements</strong> about the population. Using information from the sample and following specific statistical procedures, we aim to:</p>
-<ol class="arabic simple">
-<li><p>Estimate population parameters.</p></li>
-<li><p>Make conclusions about claims or statements related to the population.</p></li>
-</ol>
-<p>Our goal is not merely to describe the sample dataset but to answer deeper questions such as:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-looking-at-data-distributions">
+<h1><span class="section-number">4. </span>Chapter 1: Looking at Data – Distributions<a class="headerlink" href="#chapter-1-looking-at-data-distributions" title="Link to this heading">#</a></h1>
+<p>Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span style="color:#cfb991"><strong>exploratory data analysis</strong></span>. In some textbooks, this is referred to as <span style="color:#cfb991"><strong>descriptive statistics</strong></span>. However, statistics goes far beyond simply describing data-this is a statistics class, not a drawing class!</p>
+<p>Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span style="color:#cfb991"><strong>inferential statistics</strong></span>, which we will spend more time on throughout the course.</p>
+<p>For this course, our primary focus will be learning statistical procedures to make generalizations about the population from the sample. However, in this chapter, we will focus on describing our datasets using calculated values (statistics) and visual representations (graphs). Hence the title: <em>Looking at Data-Distributions</em>.<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>Before we dive into the types of graphs, let’s first look at the types of data we can obtain from a particular variable. Broadly, data can be categorized into two main types: <strong>quantitative</strong> and <strong>categorical</strong>.</p>
 <ul class="simple">
-<li><p><strong>What is our best guess?</strong> - This is referred to as <span style="color:#cfb991"><strong>estimation</strong></span>.</p></li>
-<li><p><strong>Does the data strongly contradict a proposed claim?</strong> - This is referred to as <span style="color:#cfb991"><strong>hypothesis testing</strong></span>.</p></li>
+<li><p><strong>Categorical variables</strong> take categories as values, as the name suggests. Each category is called a <strong>level</strong>:</p>
+<ul>
+<li><p>If the levels do not have a natural order, the variable is a <strong>nominal categorical variable</strong> (e.g., fruit categories like “Apple” or “Orange”).</p></li>
+<li><p>If the levels have a natural order, the variable is an <strong>ordinal categorical variable</strong> (e.g., academic letter grades like “A,” “B,” “C”).</p></li>
 </ul>
-<p>Together, <strong>estimation</strong> and <strong>hypothesis testing</strong> form the two major pillars of <strong>frequentist<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> statistical inference</strong>.<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
-<p>In both <strong>estimation</strong> and <strong>hypothesis testing</strong>, the process typically begins with computing a <strong>sample statistic</strong>-for example, a sample mean, a sample proportion, or a more elaborate function of the data.</p>
-<p>For <strong>estimation</strong>, the goal is to estimate unknown <strong>population parameters</strong> (e.g., the population mean <span class="math notranslate nohighlight">\(\mu\)</span> or population proportion <span class="math notranslate nohighlight">\(p\)</span>).</p>
+</li>
+<li><p><strong>Quantitative variables</strong> take numbers as values. The magnitude and differences between numbers have quantitative meanings:</p>
+<ul>
+<li><p>If the values can be any number within an interval on the real line (continuous values), it is a <strong>continuous quantitative variable</strong> (e.g., income measured in dollars).</p></li>
+<li><p>If the values have jumps (discrete values), it is a <strong>discrete quantitative variable</strong> (e.g., the number of cars per household).</p></li>
+</ul>
+</li>
+</ul>
+<p>A dataset typically contains information on a number of <strong>cases</strong>. Cases are the objects or subjects in a study. For each case, we have measurements for different types of variables, such as height, gender, and age. Additionally, there is often a <strong>label</strong>, which is a special variable used to identify cases in the dataset (e.g., a VIN number to identify a specific car).</p>
+<section id="displaying-distributions-with-graphs">
+<h2><span class="section-number">4.1. </span>Displaying Distributions with Graphs<a class="headerlink" href="#displaying-distributions-with-graphs" title="Link to this heading">#</a></h2>
+<p>Two frequently used graphs to describe categorical variables are <strong>bar graphs</strong> and <strong>pie charts</strong>.</p>
 <ul class="simple">
-<li><p>You designate a particular <strong>statistic</strong> as your <strong>estimator</strong> for the corresponding population parameter.</p></li>
-<li><p>When you plug in your observed data into that estimator, you obtain the <strong>estimate</strong>-a numerical result that provides your best guess for the parameter.</p></li>
+<li><p>A <strong>bar graph</strong> shows the count for each level of the categorical variable.</p></li>
+<li><p>A <strong>pie chart</strong> shows the proportion of each level relative to the total.</p></li>
 </ul>
-<p>For <strong>hypothesis testing</strong>, the process starts with a claim or assumption about the population, called the <strong>null hypothesis</strong> (<span class="math notranslate nohighlight">\(H_0\)</span>). The goal is to determine if the data provide enough evidence to reject <span class="math notranslate nohighlight">\(H_0\)</span>.</p>
-<ul class="simple">
-<li><p>You compute a <strong>test statistic</strong> from the sample.</p></li>
-<li><p>The test statistic is used to assess whether the observed data are consistent with the null hypothesis.</p></li>
-</ul>
-<p>Details of hypothesis testing will be explored further in later chapters.</p>
-<section id="toward-statistical-inference">
-<h2><span class="section-number">5.1. </span>Toward Statistical Inference<a class="headerlink" href="#toward-statistical-inference" title="Link to this heading">#</a></h2>
-<p>Since a <strong>statistic</strong> is a central concept in the whole process, let’s revisit it and delve deeper into its meaning—like peeling an onion.</p>
-<p>Let’s use our friend, the <strong>sample mean</strong>, as an example. In the previous chapter, we introduced the formula to calculate the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> using observed sample observations:</p>
-<div class="math notranslate nohighlight">
-\[\bar{x} = \frac{x_1 + x_2 + \dots + x_n}{n}\]</div>
-<p>This can be thought of as <strong>Stage 2</strong> (Post-data, symbolic) in the analysis of a statistic. At this stage, you substitute the observed sample values (denoted by lowercase letters) into the function defined in Stage 1. It becomes a computed expression using the actual sample data.</p>
-<p><strong>Stage 1</strong> (Pre-data): At this stage, a statistic is considered a function of <em>random variables</em> (denoted by uppercase letters) and is itself a <strong>random variable</strong> in theoretical probability. For the sample mean, the function is:</p>
-<div class="math notranslate nohighlight">
-\[\bar{X} = \frac{X_1 + X_2 + \dots + X_n}{n}\]</div>
-<p>The last stage, <strong>Stage 3</strong> (A final numeric result), is where you obtain a concrete, single value from your particular dataset. The term <strong>statistic</strong> can refer to all these stages. So, it’s the same object conceptually-just viewed at three points in time:</p>
-<ol class="arabic simple">
-<li><p><strong>Before sampling</strong> (theory): The statistic is a random variable.</p></li>
-<li><p><strong>After sampling</strong> (the formula with observed data): The statistic is computed symbolically.</p></li>
-<li><p><strong>Ultimate numeric realization</strong>: The statistic becomes a single numeric value.</p></li>
-</ol>
-<p>In summary, a statistic evolves through these three stages as part of the analysis process.</p>
-<p>An <strong>estimator</strong> corresponds to <strong>Stage 1</strong>, and the <strong>estimate</strong> corresponds to <strong>Stage 3</strong>. There is another term, <strong>estimand</strong>, which refers to the quantity or parameter in the population that we aim to estimate using data. The estimand represents the true but unknown value of interest, such as a mean, proportion, variance, difference, or another statistical measure describing the population.</p>
-<p>Now that we know the three stages, let’s revisit <strong>Stage 1</strong>. At this stage, a statistic is actually a <strong>random variable</strong>, and as a random variable, it has a distribution. Imagine a thought experiment where we take one sample repeatedly, and each time, we calculate the statistic. These values form a distribution both empirically (based on repeated sampling) and hypothetically (what the statistic would look like if we had taken a different sample). This distribution is called the <span style="color:#cfb991"><strong>Sampling Distribution</strong></span>.</p>
-<p>For a <strong>sampling distribution</strong>, we can also measure its center (mean) and its spread (variability). A statistic is an <strong>unbiased estimator</strong> of a parameter if the mean of its sampling distribution equals the true value of the population parameter. In other words, the statistic, on average, is correct.</p>
-<p>We have already discussed the sources of bias in the sampling design section. Using <strong>random sampling</strong> can help reduce bias.</p>
-<p>Variability describes the spread of the sampling distribution. It quantifies how much the statistic (e.g., sample mean, sample proportion) fluctuates from sample to sample. Larger samples have less variability because the sampling distribution becomes narrower as <span class="math notranslate nohighlight">\(n\)</span> increases. Variability usually comes from two sources:</p>
-<ul class="simple">
-<li><p><strong>Sampling variability</strong>: The value of a statistic varies in repeated random sampling.</p></li>
-<li><p><strong>Measurement variability</strong>: The same object could be drawn into different samples, but measurements of the object may vary.</p></li>
-</ul>
-<p>A numerical measure of the spread of a sampling distribution is often calculated, called the <strong>margin of error</strong>. It provides bounds on the likely error when using the statistic as an estimator of a population parameter. The margin of error relates to the <strong>standard error</strong>, which is simply the standard deviation of the sampling distribution.</p>
-<p>Ideally, we want an estimator to be both <strong>unbiased</strong> (accurate on average) and <strong>reliable</strong> (low variability).</p>
-<figure class="align-center" id="id4">
-<a class="reference internal image-reference" href="_images/0501.png"><img alt="bias and variability" src="_images/0501.png" style="width: 70%;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Bias and Variability</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
-<section id="the-sampling-distribution-of-a-sample-mean">
-<h2><span class="section-number">5.2. </span>The Sampling Distribution of a Sample Mean<a class="headerlink" href="#the-sampling-distribution-of-a-sample-mean" title="Link to this heading">#</a></h2>
-<p>From the sample mean formula presented in the previous chapter, we can see that the sample mean, <span class="math notranslate nohighlight">\(\bar{X}\)</span>, is a sum of random variables. These random variables, <span class="math notranslate nohighlight">\(X_1\)</span> to <span class="math notranslate nohighlight">\(X_n\)</span>, come from the same population distribution. If the sample size <span class="math notranslate nohighlight">\(n\)</span> is large, then the sampling distribution of <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately normal, regardless of the shape of the population distribution<a class="footnote-reference brackets" href="#footnote03" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
-<p>This powerful result is one of the most central mathematical results in statistics, the <span style="color:#cfb991"><strong>Central Limit Theorem (CLT)</strong></span>. In simple terms, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank"><strong>CLT</strong></a> states that the sum (or mean) of random variables follows a normal distribution as the sample size grows large.</p>
-<p>For normal distributions, there are two parameters-mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>-that govern the shape of the distribution. Using basic algebra and knowledge of probability, we can derive these two parameters for the sampling distribution.</p>
+<p>Both are easy to understand, and you can refer to Wikipedia or your textbook for examples. For a visual representation, you can explore <a class="reference external" href="https://www.chartjs.org/docs/latest/charts/bar.html">this website</a>.</p>
+<p>Now let’s turn our focus to graphs for quantitative variables: <strong>stemplots</strong> and <strong>histograms</strong>.</p>
+<p>A <strong>stemplot</strong> provides a quick visual representation of the shape of a distribution while also including the actual numerical values. Stemplots work best when the number of observations is small, and all values are greater than zero.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
-mean of <span class="math notranslate nohighlight">\(\bar{x}\)</span></label><div class="sd-tab-content docutils">
-<p>If the population has mean <span class="math notranslate nohighlight">\(\mu\)</span>, then <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of the distribution of each observation <span class="math notranslate nohighlight">\(X_i\)</span>. To get the mean of <span class="math notranslate nohighlight">\(\bar{x}\)</span>, we use the rules for means of random variables. Specifically,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mu_{\bar{x}} = \frac{1}{n} (\mu_{X_1} + \mu_{X_2} + \cdots + \mu_{X_n}) \\
-= \frac{1}{n} (\mu + \mu + \cdots + \mu) \\
-= \mu
-\end{split}\]</div>
-<p>That is, the <strong>mean of <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the same as the mean of the population</strong>. The sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is, therefore, an unbiased estimator of the unknown population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+Making a Stemplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Making a Stemplot" src="_images/0401.png" />
+</figure>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
-variance of <span class="math notranslate nohighlight">\(\bar{x}\)</span></label><div class="sd-tab-content docutils">
-<p>Because the observations are independent, the addition rule for variances also applies:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\sigma_{\bar{x}}^2 = \left(\frac{1}{n}\right)^2 \left(\sigma_{X_1}^2 + \sigma_{X_2}^2 + \cdots + \sigma_{X_n}^2\right) \\
-= \left(\frac{1}{n}\right)^2 \left(\sigma^2 + \sigma^2 + \cdots + \sigma^2\right) \\
-= \frac{\sigma^2}{n}
-\end{split}\]</div>
-<p>With <span class="math notranslate nohighlight">\(n\)</span> in the denominator, the variability of <span class="math notranslate nohighlight">\(\bar{x}\)</span> about its mean decreases as the sample size grows. Thus, a sample mean from a large sample will usually be very close to the true population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+Step by step guide</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Step by step guide" src="_images/0402.png" />
+</figure>
 </div>
 <input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-2">
-Central Limit Theorem</label><div class="sd-tab-content docutils">
-<p>Draw an SRS of size <span class="math notranslate nohighlight">\(n\)</span> from any population with mean ( \mu ) and finite standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. When <span class="math notranslate nohighlight">\(n\)</span> is large, the <strong>Central Limit Theorem</strong> states that the sampling distribution of the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is approximately Normal:</p>
-<div class="math notranslate nohighlight">
-\[
-\bar{x} \text{ is approximately } N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
-\]</div>
+Back-back Stemplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Back-back Stemplot" src="_images/0403.png" />
+</figure>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
-Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutils">
-<p>If a population has the <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma)\)</span> distribution, then the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> of <span class="math notranslate nohighlight">\(n\)</span> independent observations has the <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma / \sqrt{n})\)</span> distribution.</p>
+Stemplot with split stems</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Stemplot with split stems" src="_images/0404.png" />
+</figure>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Time tables in Japanese train station</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Time tables in Japanese train station" src="_images/0405.jpg" />
+</figure>
 </div>
 </div>
-</section>
-<section id="sampling-distributions-for-counts-and-proportions">
-<h2><span class="section-number">5.3. </span>Sampling Distributions for Counts and Proportions<a class="headerlink" href="#sampling-distributions-for-counts-and-proportions" title="Link to this heading">#</a></h2>
-<p>Before we dive into this section’s material, let us explore a new random variable and its associated distributions. The setting, with its list of requirements, is as follows. This setting appears frequently in many applications or experiments:</p>
-<ol class="arabic simple">
-<li><p>The experiment consists of a sequence of <span class="math notranslate nohighlight">\(n\)</span> smaller experiments called <strong>trials</strong>, where <span class="math notranslate nohighlight">\(n\)</span> is fixed in advance of the experiment. You can think of <span class="math notranslate nohighlight">\(n\)</span> data points as being drawn from the same population.</p></li>
-<li><p>Each trial can result in one of the same two possible outcomes (<strong>dichotomous trials</strong>), which we generically denote by success (<span class="math notranslate nohighlight">\(S\)</span>) and failure (<span class="math notranslate nohighlight">\(F\)</span>). The assignment of the <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(F\)</span> labels to the two sides of the dichotomy is arbitrary. Often, we use the numerical value 1 to indicate <span class="math notranslate nohighlight">\(S\)</span> and 0 to indicate <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
-<li><p>The trials are independent, meaning the outcome of any particular trial does not influence the outcome of any other trial.</p></li>
-<li><p>The probability of success <span class="math notranslate nohighlight">\(\mathbb{P}(S)\)</span> is constant from trial to trial, denoted by <span class="math notranslate nohighlight">\(p\)</span>, which represents the population proportion.</p></li>
-</ol>
-<div class="proof definition admonition" id="binexp-definition">
-<p class="admonition-title"><span class="caption-number">Definition 5.1 </span> (Binomial Experiment)</p>
-<section class="definition-content" id="proof-content">
-<p>An experiment that satisfies the above conditions-<strong>Condition 1</strong>, <strong>Condition 2</strong>, <strong>Condition 3</strong>, and <strong>Condition 4</strong> (a fixed number of <strong>dichotomous</strong>, independent, and homogeneous trials)-is called a <strong>binomial experiment</strong>.</p>
-</section>
-</div><p>So, here we have a sample of <span class="math notranslate nohighlight">\(n\)</span> dichotomous data points, where each <span class="math notranslate nohighlight">\(x_i\)</span> in the sample takes a value of 1 or 0. The sum of these points represents the <strong>count of successes</strong> in the sample. If we calculate the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, it is simply the <strong>sample proportion</strong>. Depending on the context, we can define what constitutes a “success.”</p>
-<p>From the results in the previous section, we know that the sampling distribution of the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is approximately <strong>normal</strong> for large <span class="math notranslate nohighlight">\(n\)</span>, with the following parameters:</p>
+<p>For a large number of observations, a <strong>histogram</strong> is often a better choice. A histogram divides the range of values of a variable into <strong>classes</strong> or <strong>bins</strong> and displays the count or percentage of observations that fall into each class. You can choose a convenient number of classes based on your data and the level of detail you wish to represent.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+IQ data</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="IQ data" src="_images/0406.png" />
+</figure>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Histogram Step 1</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Histogram Step 1" src="_images/0407.png" />
+</figure>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Histogram Step 2</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Histogram Step 2" src="_images/0408.png" />
+</figure>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+Histogram Step 3</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Histogram Step 3" src="_images/0409.png" />
+</figure>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+Types of Histograms</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<img alt="Types of Histograms" src="_images/0410.png" />
+</figure>
+</div>
+</div>
+<p>Histograms and bar charts may look similar at first glance, but there are key differences:</p>
 <ul class="simple">
-<li><p><strong>Mean</strong>: <span class="math notranslate nohighlight">\(\mu_{\bar{x}} = \mu_{\text{population}} = p\)</span></p></li>
-<li><p><strong>Standard deviation</strong>: <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \frac{\sigma_{\text{population}}}{\sqrt{n}} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}\)</span></p></li>
+<li><p>The horizontal axis of a <strong>bar chart</strong> does not require a measurement scale; it simply identifies categories, which is why there are blank spaces between the bars.</p></li>
+<li><p>In contrast, a <strong>histogram</strong> has no spaces between bars, as it represents data over a continuous interval, covering the entire range.</p></li>
+</ul>
+<p>Another observation is the use of a <strong>density curve</strong> or a <strong>density histogram</strong> based on relative frequency. The rationale behind using a smoothed curve is that it can often be parameterized by simple mathematical functions, making it easier to model the distribution mathematically.</p>
+<p>The purpose of these graphs is to help us better understand our datasets. After graphing, we can examine the <strong>overall pattern</strong> and identify <strong>striking deviations</strong> from that pattern in the graphs or distributions. We describe the overall pattern of a distribution using its <strong>shape</strong>, <strong>center</strong>, and <strong>spread</strong>.</p>
+<p>An important kind of deviation is an <strong>outlier</strong>-an individual value that falls outside the overall pattern and warrants further investigation to uncover its cause. Later, we will learn how to summarize these characteristics with numerical measures to describe the pattern more precisely.</p>
+<p>For describing the shape of a distribution, we have the following:</p>
+<ul class="simple">
+<li><p><strong>Tails of the distribution</strong>: Extreme values are in the tails. High values are in the upper/right tail, and low values are in the lower/left tail.</p></li>
+<li><p><strong>Modes</strong>:</p>
+<ul>
+<li><p>A distribution with one major peak is called <strong>unimodal</strong>.</p></li>
+<li><p>A distribution with two major peaks is called <strong>bimodal</strong>.</p></li>
+<li><p>A distribution with three major peaks is called <strong>trimodal</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Symmetry and Skewness</strong>:</p>
+<ul>
+<li><p>A distribution is <strong>symmetric</strong> if the patterns of smaller and larger values around the midpoint are mirror images.</p></li>
+<li><p>A distribution is <strong>skewed</strong> if it is not symmetric:</p>
+<ul>
+<li><p><strong>Skewed to the right</strong>: The right tail (larger values) is longer than the left tail.</p></li>
+<li><p><strong>Skewed to the left</strong>: The left tail (smaller values) is longer than the right tail.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
+Skewed Left</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0411.png"><img alt="Skewed Left" src="_images/0411.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-11">
+Skewed Right</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0412.png"><img alt="Skewed Right" src="_images/0412.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Of course, there are many other types of graphs we can create to visualize datasets. For example, a <strong>time plot</strong> displays each observation against the time at which it was measured, making it easier to observe trends or patterns over time. As the number of data points increases, the utility of such graphs becomes even more apparent for understanding temporal relationships.</p>
+</section>
+<section id="describing-distributions-with-numbers">
+<h2><span class="section-number">4.2. </span>Describing Distributions with Numbers<a class="headerlink" href="#describing-distributions-with-numbers" title="Link to this heading">#</a></h2>
+<p>When you have a quantitative variable-like the heights of Purdue students-you want to <strong>summarize its distribution</strong>. A distribution can be described by its <strong>shape</strong>, its <strong>center</strong>, and its <strong>spread</strong>. This section focuses on the <strong>numerical ways</strong> to measure center and spread, and how to handle outliers.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-12">
+Measures of Center</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p>The Mean <span class="math notranslate nohighlight">\(\bar{x}\)</span></p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: The <strong>mean</strong> (arithmetic average) is found by summing all the values and then dividing by the number of observations. Mathematically,</p>
+<div class="math notranslate nohighlight">
+\[\bar{x} = \frac{x_1 + x_2 + \dots + x_n}{n}\]</div>
+</li>
+<li><p><strong>Illustration (Purdue Students’ Heights)</strong>: Suppose we sample 5 Purdue students with heights 66, 70, 71, 72, and 75 inches. The mean would be <span class="math notranslate nohighlight">\(\bar{x} = (66 + 70 + 71 + 72 + 75)/5 = 70.8\)</span> inches.</p></li>
+<li><p><strong>Key Points</strong>:</p>
+<ul class="simple">
+<li><p>The mean is the “balance point” of the distribution.</p></li>
+<li><p><strong>Not</strong> a <em>resistant</em> (or <em>robust</em>) measure: a <strong>very tall</strong> or <strong>very short</strong> outlier in the data can pull the mean up or down.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>The Median <span class="math notranslate nohighlight">\(M\)</span></p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The <strong>median</strong> is the midpoint of the distribution when the data are ordered from smallest to largest.</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(n\)</span> (the number of data points) is <strong>odd</strong>, the median is the single middle value.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(n\)</span> is <strong>even</strong>, the median is the average of the two middle values.</p></li>
+</ul>
+</li>
+<li><p><strong>Illustration (Purdue Students’ Heights)</strong>: From the same sample [66, 70, 71, 72, 75], the ordered data are 66, 70, 71, 72, 75. Since <span class="math notranslate nohighlight">\(n=5\)</span> is odd, the median is the 3rd value -&gt; <strong>71</strong> inches.</p></li>
+<li><p><strong>Key Points</strong>:</p>
+<ul>
+<li><p>The median is more <strong>resistant</strong> to outliers because it depends on the <strong>order</strong> of the data rather than the actual numeric magnitude of extreme observations.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Comparing Mean and Median</p></li>
+</ol>
+<ul class="simple">
+<li><p>If the distribution is <strong>symmetric</strong> (like a “bell” shape for heights), the mean and median tend to be close.</p></li>
+<li><p>If the distribution is <strong>skewed</strong> (long tail on one side), the mean is pulled toward the tail more than the median.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-13">
+Measures of Spread</label><div class="sd-tab-content docutils">
+<p>A single measure of center (mean or median) doesn’t capture how <strong>spread out</strong> the data are. We also need measures of <strong>variability</strong>.</p>
+<ol class="arabic simple">
+<li><p>Quartiles and the Interquartile Range (IQR)</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Quartiles</strong>:</p>
+<ul>
+<li><p><strong>First Quartile <span class="math notranslate nohighlight">\(Q_1\)</span></strong>: The median of the lower half of the data (25th percentile).</p></li>
+<li><p><strong>Third Quartile <span class="math notranslate nohighlight">\(Q_3\)</span></strong>: The median of the upper half of the data (75th percentile).</p></li>
+</ul>
+</li>
+<li><p><strong>IQR</strong> = <span class="math notranslate nohighlight">\(Q_3 - Q_1\)</span></p>
+<ul>
+<li><p><strong>Definition</strong>: The IQR measures the range of the <strong>middle 50%</strong> of the data.</p></li>
+<li><p><strong>Resistant</strong> measure of spread because quartiles (like the median) are not heavily influenced by extreme values.</p></li>
+</ul>
+</li>
+<li><p><strong>Illustration (Purdue Students’ Heights)</strong>: If we have these 8 sorted heights in inches: 60, 62, 66, 70, 71, 72, 75, 77,</p>
+<ul>
+<li><p>The median <span class="math notranslate nohighlight">\(M\)</span> is between the 4th and 5th values <span class="math notranslate nohighlight">\(\rightarrow \frac{70 + 71}{2} = 70.5\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_1\)</span> is the median of the lower half <span class="math notranslate nohighlight">\([60, 62, 66, 70]\)</span> -&gt; between 62 and 66 -&gt; 64.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_3\)</span> is the median of the upper half <span class="math notranslate nohighlight">\([71, 72, 75, 77]\)</span> -&gt; between 72 and 75 -&gt; 73.5.</p></li>
+<li><p><strong>IQR</strong> = <span class="math notranslate nohighlight">\(Q_3 - Q_1 = 73.5 - 64 = 9.5\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>The Five-Number Summary</p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: A quick numerical snapshot of a distribution made up of:</p>
+<div class="math notranslate nohighlight">
+\[\text{Minimum}, \quad Q_1, \quad M, \quad Q_3, \quad \text{Maximum}\]</div>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Boxplots</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Definition</strong>: A <strong>boxplot</strong> (sometimes called a “box-and-whisker plot”) graphically shows the <strong>five-number summary</strong>.</p>
+<ul>
+<li><p>The “box” covers <span class="math notranslate nohighlight">\(Q_1\)</span> to <span class="math notranslate nohighlight">\(Q_3\)</span>.</p></li>
+<li><p>A line inside the box marks the median <span class="math notranslate nohighlight">\(M\)</span>. The mean can be represented using either a cross or an asterisk.</p></li>
+<li><p>“Whiskers” extend out to the minimum and maximum (or to the most extreme points that aren’t flagged as outliers in a <strong>modified boxplot</strong>).</p></li>
+<li><p><strong>Use</strong>: Quickly visualize center, spread (the length of the box), and potential outliers.</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Outliers and the 1.5 <span class="math notranslate nohighlight">\(\times\)</span> IQR Rule</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Definition</strong>: A value is called a <strong>suspected outlier</strong> if it falls <strong>more than 1.5 <span class="math notranslate nohighlight">\(\times\)</span> IQR</strong> above <span class="math notranslate nohighlight">\(Q_3\)</span> or below <span class="math notranslate nohighlight">\(Q_1\)</span>.</p>
+<ul>
+<li><p><strong>Lower Bound</strong> = <span class="math notranslate nohighlight">\(Q_1 - 1.5 \times \mathrm{IQR}\)</span>.</p></li>
+<li><p><strong>Upper Bound</strong> = <span class="math notranslate nohighlight">\(Q_3 + 1.5 \times \mathrm{IQR}\)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Illustration</strong>: If <span class="math notranslate nohighlight">\(Q_1=64\)</span>, <span class="math notranslate nohighlight">\(Q_3=73.5\)</span>, and <span class="math notranslate nohighlight">\(\mathrm{IQR}=9.5\)</span>,</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(1.5 \times \mathrm{IQR} = 1.5 \times 9.5 = 14.25\)</span>.</p></li>
+<li><p><strong>Lower Bound</strong>: <span class="math notranslate nohighlight">\(64 - 14.25 = 49.75\)</span>.</p></li>
+<li><p><strong>Upper Bound</strong>: <span class="math notranslate nohighlight">\(73.5 + 14.25 = 87.75\)</span>.</p></li>
+<li><p>Any height below 49.75 or above 87.75 would be a flagged outlier.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-14" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-14">
+<span class="math notranslate nohighlight">\(P\)</span>th Percentile</label><div class="sd-tab-content docutils">
+<p>In general, we can calculate the <span class="math notranslate nohighlight">\(P\)</span>th percentile by following these steps:</p>
+<ol class="arabic">
+<li><p><strong>Find the Position</strong>:
+Use the following formula to determine the position in the sorted dataset:</p>
+<div class="math notranslate nohighlight">
+\[\text{Position} = \frac{P}{100} \times (n + 1)\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is the desired percentile (for example, <span class="math notranslate nohighlight">\(25\)</span>th percentile for <span class="math notranslate nohighlight">\(Q_1\)</span>, <span class="math notranslate nohighlight">\(50\)</span>th percentile for the median).</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span> is the number of data points in the dataset.</p></li>
+</ul>
+</li>
+<li><p><strong>Whole Number Position</strong>:</p>
+<ul class="simple">
+<li><p>If the position is a whole number, use the corresponding data point at that position directly.</p></li>
+</ul>
+</li>
+<li><p><strong>Fractional Position</strong>:</p>
+<ul class="simple">
+<li><p>If the position is a fraction (that is, <strong>not</strong> a whole number), find the two adjacent data points in the <strong>sorted</strong> dataset.</p></li>
+<li><p>Use the values at these adjacent positions and take their average to calculate the percentile<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Example:</strong></p>
+<p>To find the median (50th percentile) in a dataset with <span class="math notranslate nohighlight">\((n = 8)\)</span> data points, use the formula:</p>
+<div class="math notranslate nohighlight">
+\[\text{Position} = \frac{50}{100} \times (8 + 1) = 4.5\]</div>
+<p>Since <span class="math notranslate nohighlight">\(4.5\)</span> is a fraction, find the 4th and 5th data points in the sorted dataset and take their average. For this textbook, the median is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\text{Median} = \frac{x_4 + x_5}{2}\]</div>
+<p>This method can be applied to any percentile by changing the value of <span class="math notranslate nohighlight">\(P\)</span>. For example, to find the 25th percentile, use <span class="math notranslate nohighlight">\((P = 25)\)</span>.</p>
+</div>
+<input id="sd-tab-item-15" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-15">
+Standard Deviation and Variance</label><div class="sd-tab-content docutils">
+<p>While the five-number summary is quite resistant to outliers, many statistical methods rely on the <strong>mean</strong> and <strong>standard deviation</strong>.</p>
+<ol class="arabic simple">
+<li><p>Variance <span class="math notranslate nohighlight">\(s^2\)</span></p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: The average of the squared deviations from the mean:</p>
+<div class="math notranslate nohighlight">
+\[s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2\]</div>
+</li>
+<li><p><strong>Intuition</strong>: Each data point’s “deviation” from <span class="math notranslate nohighlight">\(\bar{x}\)</span> is squared and then averaged (using <span class="math notranslate nohighlight">\(n-1\)</span> in the denominator for <strong>degrees of freedom</strong>).</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Standard Deviation <span class="math notranslate nohighlight">\(s\)</span></p></li>
+</ol>
+<ul>
+<li><p><strong>Definition</strong>: The square root of the variance:</p>
+<div class="math notranslate nohighlight">
+\[s = \sqrt{s^2}\]</div>
+</li>
+<li><p><strong>Interpretation</strong>: Measures how far (on average) data points lie from their mean. A large <span class="math notranslate nohighlight">\(s\)</span> indicates the data are more spread out.</p></li>
+<li><p><strong>Key Points</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s\)</span> is always <span class="math notranslate nohighlight">\(\ge 0\)</span>; <span class="math notranslate nohighlight">\(s=0\)</span> only if all data points are identical.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span> is <strong>not</strong> resistant to outliers, because outliers can dramatically increase the average squared deviation.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span> is most informative when the distribution is reasonably <strong>symmetric</strong> and has no extreme outliers.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-16" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-16">
+Resistant and Choosing a Summary</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p>Resistant vs. Non-Resistant Measures</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Resistant (Robust)</strong> measures: The <strong>median</strong>, <strong>quartiles</strong>, <strong>IQR</strong>. They are not strongly affected by a few extreme values.</p></li>
+<li><p><strong>Non-Resistant</strong> measures: The <strong>mean</strong> and <strong>standard deviation</strong> can shift substantially if there are outliers or skewness.</p></li>
+<li><p><strong>Example</strong>: If 3 or 4 extremely tall Purdue basketball players (say 7-footers) happen to be in your sample, the mean (and standard deviation) of heights will jump notably. The median or IQR might change only a little.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Choosing a Summary: Five-Number Summary vs. <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s\)</span></p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Five-Number Summary</strong> (Min, <span class="math notranslate nohighlight">\(Q_1\)</span>, Median, <span class="math notranslate nohighlight">\(Q_3\)</span>, Max) is best when:</p>
+<ul>
+<li><p>The distribution is <strong>skewed</strong> or has <strong>strong outliers</strong>.</p></li>
+<li><p>You want a quick, robust snapshot of center and spread.</p></li>
+</ul>
+</li>
+<li><p><strong>Mean and Standard Deviation</strong> (<span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s\)</span>) are best when:</p>
+<ul>
+<li><p>The distribution is <strong>fairly symmetric</strong> with no major outliers.</p></li>
+<li><p>You plan to use statistical methods that assume normality or revolve around the mean.</p></li>
+</ul>
+</li>
+<li><p><strong>Reminder</strong>: Always <strong>plot your data</strong> (histogram, stemplot, or boxplot) to see shape, outliers, or clusters. A single numeric summary never tells the full story (e.g., multiple modes or gaps).</p></li>
+</ul>
+</div>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-17" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-17">
+Boxplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0413.png"><img alt="Boxplot" src="_images/0413.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-18" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-18">
+Side by side Boxplot</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0414.png"><img alt="Side by side Boxplot" src="_images/0414.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Sometimes, we change the <strong>units</strong> of our measurements. For example, if your heights are measured in <strong>inches</strong> and you convert them to <strong>centimeters</strong> using the formula, <span class="math notranslate nohighlight">\(\text{cm} = 2.54 \times \text{inches}\)</span>, the new mean in centimeters becomes <span class="math notranslate nohighlight">\(2.54 \times \bar{x}\)</span>. This kind of conversion is known as a <strong>linear transformation</strong>, represented by <span class="math notranslate nohighlight">\(x_{\text{new}} = a + b \times x\)</span>, which <strong>shifts</strong> the data by (a) and/or <strong>scales</strong> it by (b). Specifically:</p>
+<ul class="simple">
+<li><p><strong>Adding</strong> <span class="math notranslate nohighlight">\(a\)</span> to each observation shifts measures of center (mean, median) by <span class="math notranslate nohighlight">\(a\)</span> but does <strong>not</strong> affect measures of spread (IQR, <span class="math notranslate nohighlight">\(s\)</span>).</p></li>
+<li><p><strong>Multiplying</strong> <span class="math notranslate nohighlight">\(b\)</span> scales <strong>both</strong> the measures of center <strong>and</strong> the measures of spread by <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+</ul>
+</section>
+<section id="density-curves-and-normal-distributions">
+<h2><span class="section-number">4.3. </span>Density Curves and Normal Distributions<a class="headerlink" href="#density-curves-and-normal-distributions" title="Link to this heading">#</a></h2>
+<p>For <strong>histograms</strong>, the <em>y</em>-axis typically shows frequency or relative frequency. If we <strong>divide</strong> the relative frequency by the corresponding bin or class width, we obtain <strong>densities</strong>. Connecting these densities with a smooth line or curve creates what is called a <strong>density curve</strong>.</p>
+<p>The main reason for dividing by bin width is to ensure the total area under the density curve is <strong>1</strong>, allowing it to represent the <em>probability distribution function</em> of our random variable. A smooth curve is often easier to <strong>parameterize</strong> with just a few parameters compared to an irregular shape.</p>
+<p>This <strong>density curve</strong> describes the overall pattern of a distribution, where the <strong>area</strong> under the curve and <strong>above</strong> any range of values equals the <strong>proportion</strong> of all observations in that range. Consequently, the probability that our random variable falls within a particular range corresponds to this area or proportion.</p>
+<p>Mentally, you can consider the density curve to be the <strong>theoretical distribution</strong> of the random variable, whereas the histogram is the <strong>empirical distribution</strong> derived from sample data. As we gather more and more data, our histogram will more closely approximate the density curve.</p>
+<figure class="align-center" id="id3">
+<img alt="Histogram and Density Curve" src="_images/0415.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Histogram and Density Curve</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-19" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-19">
+Area under density 01</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0416.png"><img alt="Area under density 01" src="_images/0416.png" style="width: 50%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-20" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-20">
+Area under density 02</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0417.png"><img alt="Area under density 02" src="_images/0417.png" style="width: 50%;" /></a>
+</figure>
+</div>
+</div>
+<p>One famous type of density curve is the <span style="color:#cfb991"><strong>normal density curve</strong></span>. It is used in many real-world applications (such as modeling heights or the birthweights of babies). <strong>Normal distributions</strong> are described by bell-shaped, symmetric, unimodal density curves. This density curve function only has two parameters: the mean <span class="math notranslate nohighlight">\(\mu\)</span> and the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. Depending on their values, the shape of the distribution may vary, but it still retains the aforementioned bell-shaped and symmetric features.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-21" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-21">
+Normal <span class="math notranslate nohighlight">\(\mu=0\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0418.png"><img alt="Normal $\mu=0$" src="_images/0418.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-22" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-22">
+Normal <span class="math notranslate nohighlight">\(\sigma=1\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0419.png"><img alt="Normal $\sigma=1$" src="_images/0419.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-23" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-23">
+Properties</label><div class="sd-tab-content docutils">
+<p>Here are five properties of normal densities:</p>
+<ul class="simple">
+<li><p><strong>Symmetry:</strong> The normal distribution is <strong>symmetric</strong> around its mean (<span class="math notranslate nohighlight">\(\mu\)</span>). The left half of the curve is a mirror image of the right half.</p></li>
+<li><p><strong>Mean, Median, and Mode are Equal:</strong> In a normal distribution, the <strong>mean, median, and mode</strong> are identical and located at the same point (<span class="math notranslate nohighlight">\(\mu\)</span>).</p></li>
+<li><p><strong>Bell-Shaped Curve:</strong> The graph of the normal distribution is a smooth, <strong>bell-shaped curve</strong>. Most data points are concentrated around the mean, with frequencies decreasing as you move away from the center.</p></li>
+<li><p><strong>Defined by Two Parameters:</strong> The normal distribution is completely determined by:</p>
+<ul>
+<li><p><strong>Mean</strong> (<span class="math notranslate nohighlight">\(\mu\)</span>): Determines the center of the distribution.</p></li>
+<li><p><strong>Variance</strong> (<span class="math notranslate nohighlight">\(\sigma^2\)</span>): Controls the spread of the distribution.</p></li>
+</ul>
+</li>
+<li><p><strong>Asymptotic Behavior:</strong> The tails of the normal distribution extend infinitely in both directions but never touch the horizontal axis (asymptotic to the <span class="math notranslate nohighlight">\(x\)</span>-axis).</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-24" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-24">
+Standard Normal</label><div class="sd-tab-content docutils">
+<p>We start with the simplest normal distribution, the <strong>standard normal distribution</strong>, because any normal distribution can be obtained from it by <strong>shifting and scaling</strong>.</p>
+<p>A standard normal distribution has a mean of 0 and a variance of 1. We denote a standard normal random variable by <span class="math notranslate nohighlight">\(Z \sim \mathcal{N}(0, 1)\)</span>.</p>
+<p>The PDF (probability density function) of the standard normal distribution is:</p>
+<div class="math notranslate nohighlight">
+\[\varphi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2}, \quad -\infty &lt; z &lt; \infty.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(Z \sim \mathcal{N}(0,1)\)</span> be a standard normal random variable. Then</p>
+<div class="math notranslate nohighlight">
+\[X = \mu + \sigma Z\]</div>
+<p>is said to have a <strong>Normal distribution</strong> with mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. We denote this by <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu, \sigma^2)\)</span>. To transform <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu, \sigma^2)\)</span> to a standard normal distribution, we use:</p>
+<div class="math notranslate nohighlight">
+\[\frac{X - \mu}{\sigma} \sim \mathcal{N}(0, 1)\]</div>
+<p>The PDF of <span class="math notranslate nohighlight">\(X\)</span> can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{(x - \mu)^2}{2 \sigma^2} \right)\]</div>
+</div>
+</div>
+<p>Remember, <strong>densities</strong> are quite useful because they tell us the probability of statements like <span class="math notranslate nohighlight">\(\mathbb{P}(X &lt; x)\)</span> or <span class="math notranslate nohighlight">\(\mathbb{P}(\text{Height} &lt; 70).\)</span> If our variable of interest is a <strong>standard Normal</strong> variable (i.e., a variable with a standard Normal density), then probabilities such as <span class="math notranslate nohighlight">\(\mathbb{P}(Z &lt; z) \text{or} \mathbb{P}(Z &lt; 1)\)</span> can be found directly using a <strong>z-table</strong>.</p>
+<p>Theoretically, we could create a similar table for <strong>each</strong> Normal distribution to tell us these probabilities, but that’s not practical. Instead, we keep a <strong>single</strong> z-table for the standard Normal distribution. If our variable of interest is Normal (but <strong>not</strong> standard Normal), we can still find probabilities by <strong>standardizing</strong>:</p>
+<div class="math notranslate nohighlight">
+\[Z = \frac{X - \mu}{\sigma}.\]</div>
+<p>So, if <span class="math notranslate nohighlight">\(X \sim N(\mu, \sigma),\)</span> then <span class="math notranslate nohighlight">\(Z \sim N(0, 1),\)</span> and we can use the z-table for calculations and finding the probabilities.</p>
+<div class="math notranslate nohighlight">
+\[P(X \leq x) = P \left( \frac{X - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right) = \Phi \left( \frac{x - \mu}{\sigma} \right)\]</div>
+<p>Since we have this relationship, the only thing left is to become <strong>familiar</strong> with the areas under the <strong>standard Normal</strong> density and how to use the <strong>z-table</strong>.</p>
+<p>For <strong>any</strong> Normal density, there is the <strong>68–95–99.5</strong> empirical rule that we can use for quick approximations.</p>
+<div class="proof definition admonition" id="empiricalrule-definition">
+<p class="admonition-title"><span class="caption-number">Definition 4.1 </span> (The 68-95-99.7 Rule)</p>
+<section class="definition-content" id="proof-content">
+<p>In the Normal distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>:</p>
+<ul class="simple">
+<li><p>Approximately <span class="math notranslate nohighlight">\(68\%\)</span> of the observations fall within <span class="math notranslate nohighlight">\(\sigma\)</span> of the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>Approximately <span class="math notranslate nohighlight">\(95\%\)</span> of the observations fall within <span class="math notranslate nohighlight">\(2\sigma\)</span> of the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>Approximately <span class="math notranslate nohighlight">\(99.7\%\)</span> of the observations fall within <span class="math notranslate nohighlight">\(3\sigma\)</span> of the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+</ul>
+</section>
+</div><div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-25" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-25">
+Area under <span class="math notranslate nohighlight">\(Z\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0420.png"><img alt="Area under $Z$" src="_images/0420.png" style="width: 1000%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-26" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-26">
+68-95-99.5 for <span class="math notranslate nohighlight">\(Z\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0421.png"><img alt="68-95-99.5 for $Z$" src="_images/0421.png" style="width: 100%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-27" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-27">
+68-95-99.5 for <span class="math notranslate nohighlight">\(X\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0422.png"><img alt="68-95-99.5 for $X$" src="_images/0422.png" style="width: 100%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-28" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-28">
+68-95-99.5 for <span class="math notranslate nohighlight">\(Height\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0423.png"><img alt="68-95-99.5 for $Height$" src="_images/0423.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Now, you should be able to use a <strong>z-table</strong> to handle several types of probability statements, such as:</p>
+<ul class="simple">
+<li><p><strong>Given</strong> <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(4, 1.5)\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(P(X &lt; 3)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P(X &gt; 4.5)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P\bigl(3 &lt; X &lt; 4.56\bigr)\)</span></p></li>
+<li><p>and so on.</p></li>
+</ul>
+</li>
+<li><p><strong>Backwards Normal Problems</strong> (Inverse Normal Calculations): finding <span class="math notranslate nohighlight">\(x_0\)</span> such that</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(P(X &lt; x_0) = 0.95\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P(X &gt; x_0) = 0.9236\)</span></p></li>
+</ul>
+</li>
+</ul>
+<p>One last thing to mention is how to use <strong>Normal Quantile Plots</strong> to check Normality for your datasets. Here are the steps to construct such a plot:</p>
+<ul class="simple">
+<li><p><strong>Definition</strong>: A Normal quantile plot (sometimes called a normal probability plot) is a diagnostic tool. You:</p>
+<ul>
+<li><p>Sort the data from smallest to largest. <strong>Rank the data</strong> <span class="math notranslate nohighlight">\((i=1)\)</span> is smallest, <span class="math notranslate nohighlight">\((i=20)\)</span> largest.</p></li>
+<li><p>Assign each data value a percentile (like 5%, 10%, etc.). <strong>Assign percentiles</strong> via <span class="math notranslate nohighlight">\(\frac{i}{n}\)</span>.</p></li>
+<li><p>Find the corresponding z-score for each percentile (from the Standard Normal). <strong>Convert percentiles</strong> to z-scores.</p></li>
+<li><p>Plot each data value vs. its matched z-score. <strong>Plot</strong> (z-score on x axis, data value on y axis).</p></li>
+</ul>
+</li>
+<li><p><strong>Interpretation</strong>:</p>
+<ul>
+<li><p>If the resulting plot is roughly a straight line, then the data follow a Normal pattern.</p></li>
+<li><p>Systematic curvature in the plot indicates non-Normal data.</p></li>
+<li><p>Outliers appear as points that deviate noticeably from the pattern.</p></li>
+</ul>
+</li>
 </ul>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote01" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Besides frequentist inference, the primary alternative is <strong>Bayesian inference</strong>, where parameters are treated as random variables instead of fixed but unknown quantities.</p>
+<p>In this course, you will create some graphs using SPSS software. If you are familiar with R programming, you can also explore the <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> package in R.</p>
 </aside>
 <aside class="footnote brackets" id="footnote02" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>There are other inferential frameworks and goals as well, such as <strong>prediction</strong>, <strong>model selection</strong>, and more.</p>
-</aside>
-<aside class="footnote brackets" id="footnote03" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
-<p>The <strong>population distribution</strong> of a variable is the distribution of its values for all members of the population. The population distribution is also the probability distribution of the variable when we choose one individual at random from the population. Theoretically, all data points in the population are generated by this distribution.</p>
+<p>The most common approach is a simple average (the “midpoint” method) between the two adjacent data points in the sorted list. Alternative methods, such as linear interpolation between adjacent ranks, can also be employed.</p>
 </aside>
 </aside>
 </section>
@@ -569,8 +1000,17 @@ Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutil
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>Chapter 1: Looking at Data – Distributions</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Chapter 3: Producing Data</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="chapter5.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Chapter 5: Sampling Distributions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -589,9 +1029,9 @@ Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutil
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toward-statistical-inference">5.1. Toward Statistical Inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-distribution-of-a-sample-mean">5.2. The Sampling Distribution of a Sample Mean</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions-for-counts-and-proportions">5.3. Sampling Distributions for Counts and Proportions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-distributions-with-graphs">4.1. Displaying Distributions with Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-distributions-with-numbers">4.2. Describing Distributions with Numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density-curves-and-normal-distributions">4.3. Density Curves and Normal Distributions</a></li>
 </ul>
   </nav></div>
 
