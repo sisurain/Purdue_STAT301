@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. Chapter 5: Sampling Distributions &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter5';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Chapter 6: Confidence Intervals and Significance Tests" href="chapter6.html" />
+    <link rel="prev" title="4. Chapter 1: Looking at Data – Distributions" href="chapter4.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro0.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro0.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapter5.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter5.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Sampling Distributions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toward-statistical-inference">5.1. Toward Statistical Inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-distribution-of-a-sample-mean">5.2. The Sampling Distribution of a Sample Mean</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions-for-counts-and-proportions">5.3. Sampling Distributions for Counts and Proportions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-sampling-distributions">
+<h1><span class="section-number">5. </span>Chapter 5: Sampling Distributions<a class="headerlink" href="#chapter-5-sampling-distributions" title="Link to this heading">#</a></h1>
+<p>In this chapter, we will begin to study <strong>statistical inference</strong>-the process of drawing conclusions about the population from the sample dataset. This involves a directional arrow from the <strong>sample dataset</strong> to the <strong>population</strong>. Typically, we are interested in either the <strong>values of population parameters</strong> or in addressing <strong>claims/statements</strong> about the population. Using information from the sample and following specific statistical procedures, we aim to:</p>
+<ol class="arabic simple">
+<li><p>Estimate population parameters.</p></li>
+<li><p>Make conclusions about claims or statements related to the population.</p></li>
+</ol>
+<p>Our goal is not merely to describe the sample dataset but to answer deeper questions such as:</p>
+<ul class="simple">
+<li><p><strong>What is our best guess?</strong> - This is referred to as <span style="color:#cfb991"><strong>estimation</strong></span>.</p></li>
+<li><p><strong>Does the data strongly contradict a proposed claim?</strong> - This is referred to as <span style="color:#cfb991"><strong>hypothesis testing</strong></span>.</p></li>
+</ul>
+<p>Together, <strong>estimation</strong> and <strong>hypothesis testing</strong> form the two major pillars of <strong>frequentist<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> statistical inference</strong>.<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<p>In both <strong>estimation</strong> and <strong>hypothesis testing</strong>, the process typically begins with computing a <strong>sample statistic</strong>-for example, a sample mean, a sample proportion, or a more elaborate function of the data.</p>
+<p>For <strong>estimation</strong>, the goal is to estimate unknown <strong>population parameters</strong> (e.g., the population mean <span class="math notranslate nohighlight">\(\mu\)</span> or population proportion <span class="math notranslate nohighlight">\(p\)</span>).</p>
+<ul class="simple">
+<li><p>You designate a particular <strong>statistic</strong> as your <strong>estimator</strong> for the corresponding population parameter.</p></li>
+<li><p>When you plug in your observed data into that estimator, you obtain the <strong>estimate</strong>-a numerical result that provides your best guess for the parameter.</p></li>
+</ul>
+<p>For <strong>hypothesis testing</strong>, the process starts with a claim or assumption about the population, called the <strong>null hypothesis</strong> (<span class="math notranslate nohighlight">\(H_0\)</span>). The goal is to determine if the data provide enough evidence to reject <span class="math notranslate nohighlight">\(H_0\)</span>.</p>
+<ul class="simple">
+<li><p>You compute a <strong>test statistic</strong> from the sample.</p></li>
+<li><p>The test statistic is used to assess whether the observed data are consistent with the null hypothesis.</p></li>
+</ul>
+<p>Details of hypothesis testing will be explored further in later chapters.</p>
+<section id="toward-statistical-inference">
+<h2><span class="section-number">5.1. </span>Toward Statistical Inference<a class="headerlink" href="#toward-statistical-inference" title="Link to this heading">#</a></h2>
+<p>Since a <strong>statistic</strong> is a central concept in the whole process, let’s revisit it and delve deeper into its meaning-like peeling an onion.</p>
+<p>Let’s use our friend, the <strong>sample mean</strong>, as an example. In the previous chapter, we introduced the formula to calculate the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> using observed sample observations:</p>
+<div class="math notranslate nohighlight">
+\[\bar{x} = \frac{x_1 + x_2 + \dots + x_n}{n}\]</div>
+<p>This can be thought of as <strong>Stage 2</strong> (Post-data, symbolic) in the analysis of a statistic. At this stage, you substitute the observed sample values (denoted by lowercase letters) into the function defined in Stage 1. It becomes a computed expression using the actual sample data.</p>
+<p><strong>Stage 1</strong> (Pre-data): At this stage, a statistic is considered a function of <em>random variables</em> (denoted by uppercase letters) and is itself a <strong>random variable</strong> in theoretical probability. For the sample mean, the function is:</p>
+<div class="math notranslate nohighlight">
+\[\bar{X} = \frac{X_1 + X_2 + \dots + X_n}{n}\]</div>
+<p>The last stage, <strong>Stage 3</strong> (A final numeric result), is where you obtain a concrete, single value from your particular dataset. The term <strong>statistic</strong> can refer to all these stages. So, it’s the same object conceptually-just viewed at three points in time:</p>
+<ol class="arabic simple">
+<li><p><strong>Before sampling</strong> (theory): The statistic is a random variable.</p></li>
+<li><p><strong>After sampling</strong> (the formula with observed data): The statistic is computed symbolically.</p></li>
+<li><p><strong>Ultimate numeric realization</strong>: The statistic becomes a single numeric value.</p></li>
+</ol>
+<p>In summary, a statistic evolves through these three stages as part of the analysis process.</p>
+<p>An <strong>estimator</strong> corresponds to <strong>Stage 1</strong>, and the <strong>estimate</strong> corresponds to <strong>Stage 3</strong>. There is another term, <strong>estimand</strong>, which refers to the quantity or parameter in the population that we aim to estimate using data. The estimand represents the true but unknown value of interest, such as a mean, proportion, variance, difference, or another statistical measure describing the population.</p>
+<p>Now that we know the three stages, let’s revisit <strong>Stage 1</strong>. At this stage, a statistic is actually a <strong>random variable</strong>, and as a random variable, it has a distribution. Imagine a thought experiment where we take one sample repeatedly, and each time, we calculate the statistic. These values form a distribution both empirically (based on repeated sampling) and hypothetically (what the statistic would look like if we had taken a different sample). This distribution is called the <span style="color:#cfb991"><strong>Sampling Distribution</strong></span><a class="footnote-reference brackets" href="#footnote03" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<p>For a <strong>sampling distribution</strong>, we can also measure its center (mean) and its spread (variability). A statistic is an <strong>unbiased estimator</strong> of a parameter if the mean of its sampling distribution equals the true value of the population parameter. In other words, the statistic, on average, is correct.</p>
+<p>We have already discussed the sources of bias in the sampling design section. Using <strong>random sampling</strong> can help reduce bias.</p>
+<p>Variability describes the spread of the sampling distribution. It quantifies how much the statistic (e.g., sample mean, sample proportion) fluctuates from sample to sample. Larger samples have less variability because the sampling distribution becomes narrower as <span class="math notranslate nohighlight">\(n\)</span> increases. Variability usually comes from two sources:</p>
+<ul class="simple">
+<li><p><strong>Sampling variability</strong>: The value of a statistic varies in repeated random sampling.</p></li>
+<li><p><strong>Measurement variability</strong>: The same object could be drawn into different samples, but measurements of the object may vary.</p></li>
+</ul>
+<p>A numerical measure of the spread of a sampling distribution is often calculated, called the <strong>margin of error</strong>. It provides bounds on the likely error when using the statistic as an estimator of a population parameter. The margin of error relates to the <strong>standard error</strong>, which is simply the standard deviation of the sampling distribution.</p>
+<p>Ideally, we want an estimator to be both <strong>unbiased</strong> (accurate on average) and <strong>reliable</strong> (low variability).</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/0501.png"><img alt="bias and variability" src="_images/0501.png" style="width: 70%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Bias and Variability</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-sampling-distribution-of-a-sample-mean">
+<h2><span class="section-number">5.2. </span>The Sampling Distribution of a Sample Mean<a class="headerlink" href="#the-sampling-distribution-of-a-sample-mean" title="Link to this heading">#</a></h2>
+<p>From the sample mean formula presented in the previous chapter, we can see that the sample mean, <span class="math notranslate nohighlight">\(\bar{X}\)</span>, is a sum of random variables. These random variables, <span class="math notranslate nohighlight">\(X_1\)</span> to <span class="math notranslate nohighlight">\(X_n\)</span>, come from the same population distribution. If the sample size <span class="math notranslate nohighlight">\(n\)</span> is large, then the sampling distribution of <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately normal, regardless of the shape of the population distribution<a class="footnote-reference brackets" href="#footnote04" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+<p>This powerful result is one of the most central mathematical results in statistics, the <span style="color:#cfb991"><strong>Central Limit Theorem (CLT)</strong></span>. In simple terms, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank"><strong>CLT</strong></a> states that the sum (or mean) of random variables follows a normal distribution as the sample size grows large.</p>
+<p>For normal distributions, there are two parameters-mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>-that govern the shape of the distribution. Using basic algebra and knowledge of probability, we can derive these two parameters for the sampling distribution.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+mean of <span class="math notranslate nohighlight">\(\bar{x}\)</span></label><div class="sd-tab-content docutils">
+<p>If the population has mean <span class="math notranslate nohighlight">\(\mu\)</span>, then <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of the distribution of each observation <span class="math notranslate nohighlight">\(X_i\)</span>. To get the mean of <span class="math notranslate nohighlight">\(\bar{x}\)</span>, we use the rules for means of random variables. Specifically,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mu_{\bar{x}} = \frac{1}{n} (\mu_{X_1} + \mu_{X_2} + \cdots + \mu_{X_n}) \\
+= \frac{1}{n} (\mu + \mu + \cdots + \mu) \\
+= \mu
+\end{split}\]</div>
+<p>That is, the <strong>mean of <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the same as the mean of the population</strong>. The sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is, therefore, an unbiased estimator of the unknown population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+variance of <span class="math notranslate nohighlight">\(\bar{x}\)</span></label><div class="sd-tab-content docutils">
+<p>Because the observations are independent, the addition rule for variances also applies:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\sigma_{\bar{x}}^2 = \left(\frac{1}{n}\right)^2 \left(\sigma_{X_1}^2 + \sigma_{X_2}^2 + \cdots + \sigma_{X_n}^2\right) \\
+= \left(\frac{1}{n}\right)^2 \left(\sigma^2 + \sigma^2 + \cdots + \sigma^2\right) \\
+= \frac{\sigma^2}{n}
+\end{split}\]</div>
+<p>With <span class="math notranslate nohighlight">\(n\)</span> in the denominator, the variability of <span class="math notranslate nohighlight">\(\bar{x}\)</span> about its mean decreases as the sample size grows. Thus, a sample mean from a large sample will usually be very close to the true population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Central Limit Theorem</label><div class="sd-tab-content docutils">
+<p>Draw an SRS of size <span class="math notranslate nohighlight">\(n\)</span> from any population with mean <span class="math notranslate nohighlight">\(\mu\)</span> and finite standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. When <span class="math notranslate nohighlight">\(n\)</span> is large, the <strong>Central Limit Theorem</strong> states that the sampling distribution of the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is approximately Normal:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{x} \text{ is approximately } \mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
+\]</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutils">
+<p>If a population has the <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma)\)</span> distribution, then the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> of <span class="math notranslate nohighlight">\(n\)</span> independent observations has the <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma / \sqrt{n})\)</span> distribution.</p>
+</div>
+</div>
+</section>
+<section id="sampling-distributions-for-counts-and-proportions">
+<h2><span class="section-number">5.3. </span>Sampling Distributions for Counts and Proportions<a class="headerlink" href="#sampling-distributions-for-counts-and-proportions" title="Link to this heading">#</a></h2>
+<p>Before we dive into this section’s material, let us explore a new random variable and its associated distributions. The setting, with its list of requirements, is as follows. This setting appears frequently in many applications or experiments:</p>
+<ol class="arabic simple">
+<li><p>The experiment consists of a sequence of <span class="math notranslate nohighlight">\(n\)</span> smaller experiments called <strong>trials</strong>, where <span class="math notranslate nohighlight">\(n\)</span> is fixed in advance of the experiment. You can think of <span class="math notranslate nohighlight">\(n\)</span> data points as being drawn from the same population.</p></li>
+<li><p>Each trial can result in one of the same two possible outcomes (<strong>dichotomous trials</strong>), which we generically denote by success (<span class="math notranslate nohighlight">\(S\)</span>) and failure (<span class="math notranslate nohighlight">\(F\)</span>). The assignment of the <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(F\)</span> labels to the two sides of the dichotomy is arbitrary. Often, we use the numerical value 1 to indicate <span class="math notranslate nohighlight">\(S\)</span> and 0 to indicate <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+<li><p>The trials are independent, meaning the outcome of any particular trial does not influence the outcome of any other trial.</p></li>
+<li><p>The probability of success <span class="math notranslate nohighlight">\(\mathbb{P}(S)\)</span> is constant from trial to trial, denoted by <span class="math notranslate nohighlight">\(p\)</span>, which represents the population proportion.</p></li>
+</ol>
+<div class="proof definition admonition" id="binexp-definition">
+<p class="admonition-title"><span class="caption-number">Definition 5.1 </span> (Binomial Experiment)</p>
+<section class="definition-content" id="proof-content">
+<p>An experiment that satisfies the above conditions-<strong>Condition 1</strong>, <strong>Condition 2</strong>, <strong>Condition 3</strong>, and <strong>Condition 4</strong> (a fixed number of <strong>dichotomous</strong>, independent, and homogeneous trials)-is called a <strong>binomial experiment</strong>.</p>
+</section>
+</div><p>So, here we have a sample of <span class="math notranslate nohighlight">\(n\)</span> dichotomous data points, where each <span class="math notranslate nohighlight">\(x_i\)</span> in the sample takes a value of 1 or 0. The sum of these points represents the <strong>count of successes</strong> in the sample. If we calculate the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, it is simply the <strong>sample proportion</strong>. Depending on the context, we can define what constitutes a “success.”</p>
+<p>From the results in the previous section, we know that the sampling distribution of the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is approximately <strong>normal</strong> for large <span class="math notranslate nohighlight">\(n\)</span>, with the following parameters:</p>
+<ul class="simple">
+<li><p><strong>Mean</strong>: <span class="math notranslate nohighlight">\(\mu_{\bar{x}} = \mu_{\text{population}} = p\)</span></p></li>
+<li><p><strong>Standard deviation</strong>: <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \frac{\sigma_{\text{population}}}{\sqrt{n}} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}\)</span></p></li>
+</ul>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote01" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Besides frequentist inference, the primary alternative is <strong>Bayesian inference</strong>, where parameters are treated as random variables instead of fixed but unknown quantities.</p>
+</aside>
+<aside class="footnote brackets" id="footnote02" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>There are other inferential frameworks and goals as well, such as <strong>prediction</strong>, <strong>model selection</strong>, and more.</p>
+</aside>
+<aside class="footnote brackets" id="footnote03" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>The thought experiment helps us conceptualize the idea of repeated sampling. However, in practice, it is often not feasible to take repeated samples directly from the population. Instead, we can use the bootstrap algorithm to generate new samples from the available data, allowing us to approximate the sampling distribution.</p>
+</aside>
+<aside class="footnote brackets" id="footnote04" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>The <strong>population distribution</strong> of a variable is the distribution of its values for all members of the population. The population distribution is also the probability distribution of the variable when we choose one individual at random from the population. Theoretically, all data points in the population are generated by this distribution.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Chapter 1: Looking at Data – Distributions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter6.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Chapter 6: Confidence Intervals and Significance Tests</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toward-statistical-inference">5.1. Toward Statistical Inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-distribution-of-a-sample-mean">5.2. The Sampling Distribution of a Sample Mean</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions-for-counts-and-proportions">5.3. Sampling Distributions for Counts and Proportions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
