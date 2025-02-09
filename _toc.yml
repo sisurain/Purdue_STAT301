@@ -25,6 +25,20 @@ parts:
     - file: chapter5
     - file: chapter6
     - file: chapter7
+    - file: chapter8
+    - file: chapter9
+
+  # - caption: Analyzing categorical data
+  #  numbered: True
+  #  maxdepth: 2
+  #  chapters:
+    
+
+  # - caption: Modeling linear regression
+  #  numbered: True
+  #  maxdepth: 2
+  #  chapters:
+  
 
 
 
