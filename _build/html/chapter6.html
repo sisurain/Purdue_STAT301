@@ -189,6 +189,12 @@
 <li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -405,7 +411,7 @@
 <blockquote>
 <div><p>“Given the data, we are 95% confident that the true mean <span class="math notranslate nohighlight">\(\mu\)</span> lies within this range.”</p>
 </div></blockquote>
-<p>The <strong>Margin of Error</strong> is a calculable value that reflects the range within which the true population mean <span class="math notranslate nohighlight">\(\mu\)</span> is likely to lie, based on the observed <a class="reference external" href="http://sample.An">sample.An</a> important clarification involves two equivalent perspectives when interpreting the range:</p>
+<p>The <strong>Margin of Error</strong> is a calculable value that reflects the range within which the true population mean <span class="math notranslate nohighlight">\(\mu\)</span> is likely to lie, based on the observed sample. An important clarification involves two equivalent perspectives when interpreting the range:</p>
 <ol class="arabic simple">
 <li><p>We say <span class="math notranslate nohighlight">\(\mu\)</span> lies within the interval <span class="math notranslate nohighlight">\((\bar{x} - \text{Margin of Error}, \bar{x} + \text{Margin of Error})\)</span>, or</p></li>
 <li><p>We equivalently say that <span class="math notranslate nohighlight">\(\bar{x}\)</span> lies within the interval <span class="math notranslate nohighlight">\((\mu - \text{Margin of Error}, \mu + \text{Margin of Error})\)</span>.
@@ -413,7 +419,7 @@ The second perspective arises from our understanding of the sampling distributio
 </ol>
 <div class="proof admonition" id="proof">
 <p>Proof. The two statements are logically equivalent.</p>
-<p><strong>Claim</strong>: The two statements <span class="math notranslate nohighlight">\(\bar{x} - \text{margin} &lt; \mu &lt; \bar{x} + \text{margin} \text{and} \mu - \text{margin} &lt; \bar{x} &lt; \mu + \text{margin}\)</span> are logically equivalent.</p>
+<p><strong>Claim</strong>: The two statements <span class="math notranslate nohighlight">\((\bar{x} - \text{margin} &lt; \mu &lt; \bar{x} + \text{margin}) \text{  and  } (\mu - \text{margin} &lt; \bar{x} &lt; \mu + \text{margin})\)</span> are logically equivalent.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \bar{x} - \text{margin} &lt; \mu &lt; \bar{x} + \text{margin}
@@ -425,7 +431,8 @@ The second perspective arises from our understanding of the sampling distributio
 <p>Hence the intervals <span class="math notranslate nohighlight">\(\bar{x} \pm \text{margin}\)</span> around <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\mu \pm \text{margin}\)</span> around <span class="math notranslate nohighlight">\(\bar{x}\)</span> represent the same set of inequalities.</p>
 </div>
 <p>The first perspective focuses on <span class="math notranslate nohighlight">\(\mu\)</span> (the true population parameter) as the unknown, while the second perspective focuses on <span class="math notranslate nohighlight">\(\bar{x}\)</span> (the sample statistic) as a random variable. Recognizing that these two perspectives are equivalent, we can construct the confidence interval in the first perspective using the knowledge of the sampling distribution from the second perspective. Since we understand the distribution of the sampling statistic, we can make probability claims about the range within which the random variable <span class="math notranslate nohighlight">\(\bar{x}\)</span> would fall if we repeatedly sampled from the population-this range forms the confidence interval.</p>
-<p>The probability associated with this range is called the <strong>confidence level</strong> (e.g., 95%). I will discuss the interpretation of this level in detail in the next section. For now, I want to briefly introduce a new concept: the <span style="color:#cfb991"><strong>Pivot</strong></span> or <span style="color:#cfb991"><strong>Pivotal Quantity</strong></span>.</p>
+<p>The probability associated with this range is called the <strong>confidence level</strong> (e.g., 95%). I will discuss the interpretation of this level in detail in the next section.</p>
+<p>For now, I want to briefly introduce a new concept: the <span style="color:#cfb991"><strong>Pivot</strong></span> or <span style="color:#cfb991"><strong>Pivotal Quantity</strong></span>.</p>
 <p>A <strong>pivot</strong>, such as <span class="math notranslate nohighlight">\(Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}\)</span>, is a function of the sample and parameters that has a distribution independent of the unknown parameter. Its distribution remains invariant regardless of the value of <span class="math notranslate nohighlight">\(\mu\)</span>. This property allows us to connect the sample statistic and the population parameter with probability statements, as the distribution of the pivot is known even if the parameter values are not.</p>
 <p>Designing or identifying appropriate pivots is a non-trivial task, but they are essential tools for statistical inference. In this course, we will encounter several examples of pivotal quantities, each playing a crucial role in hypothesis testing and confidence interval construction.</p>
 <section id="estimating-with-confidence">
@@ -465,7 +472,7 @@ The second perspective arises from our understanding of the sampling distributio
 <p>we replace the value 2 with a more general critical value, denoted as <span class="math notranslate nohighlight">\(z^*\)</span>.</p>
 <p><strong>Key Observations:</strong></p>
 <ul class="simple">
-<li><p>If we increase the confidence level, the value of becomes <span class="math notranslate nohighlight">\(z^*\)</span> larger, resulting in a wider confidence interval.</p></li>
+<li><p>If we increase the confidence level, the value of <span class="math notranslate nohighlight">\(z^*\)</span> becomes larger, resulting in a wider confidence interval.</p></li>
 <li><p>If the <strong>sample size</strong> increases, the confidence interval becomes <strong>narrower</strong>, reflecting increased precision in our estimate.</p></li>
 </ul>
 <p><strong>Determining the Required Sample Size:</strong></p>
