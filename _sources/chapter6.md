@@ -13,7 +13,7 @@ One effective way to quantify this uncertainty is by constructing a <span style=
 and we interpret it as:
 > "Given the data, we are 95% confident that the true mean $\mu$ lies within this range."
 
-The **Margin of Error** is a calculable value that reflects the range within which the true population mean $\mu$ is likely to lie, based on the observed sample.An important clarification involves two equivalent perspectives when interpreting the range:
+The **Margin of Error** is a calculable value that reflects the range within which the true population mean $\mu$ is likely to lie, based on the observed sample. An important clarification involves two equivalent perspectives when interpreting the range:
 1. We say $\mu$ lies within the interval $(\bar{x} - \text{Margin of Error}, \bar{x} + \text{Margin of Error})$, or
 2. We equivalently say that $\bar{x}$ lies within the interval $(\mu - \text{Margin of Error}, \mu + \text{Margin of Error})$.
 The second perspective arises from our understanding of the sampling distribution and the variability inherent in the sample mean.
@@ -24,7 +24,7 @@ The second perspective arises from our understanding of the sampling distributio
 
 :::{prf:proof} The two statements are logically equivalent.
 
-**Claim**: The two statements $\bar{x} - \text{margin} < \mu < \bar{x} + \text{margin} \text{and} \mu - \text{margin} < \bar{x} < \mu + \text{margin}$ are logically equivalent.
+**Claim**: The two statements $(\bar{x} - \text{margin} < \mu < \bar{x} + \text{margin}) \text{  and  } (\mu - \text{margin} < \bar{x} < \mu + \text{margin})$ are logically equivalent.
 
 ```{math}
 \begin{aligned}
@@ -43,7 +43,9 @@ Hence the intervals $\bar{x} \pm \text{margin}$ around $\mu$ and $\mu \pm \text{
 
 The first perspective focuses on $\mu$ (the true population parameter) as the unknown, while the second perspective focuses on $\bar{x}$ (the sample statistic) as a random variable. Recognizing that these two perspectives are equivalent, we can construct the confidence interval in the first perspective using the knowledge of the sampling distribution from the second perspective. Since we understand the distribution of the sampling statistic, we can make probability claims about the range within which the random variable $\bar{x}$ would fall if we repeatedly sampled from the population-this range forms the confidence interval.
 
-The probability associated with this range is called the **confidence level** (e.g., 95%). I will discuss the interpretation of this level in detail in the next section. For now, I want to briefly introduce a new concept: the <span style="color:#cfb991">**Pivot**</span> or <span style="color:#cfb991">**Pivotal Quantity**</span>. 
+The probability associated with this range is called the **confidence level** (e.g., 95%). I will discuss the interpretation of this level in detail in the next section. 
+
+For now, I want to briefly introduce a new concept: the <span style="color:#cfb991">**Pivot**</span> or <span style="color:#cfb991">**Pivotal Quantity**</span>. 
 
 A **pivot**, such as $Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$, is a function of the sample and parameters that has a distribution independent of the unknown parameter. Its distribution remains invariant regardless of the value of $\mu$. This property allows us to connect the sample statistic and the population parameter with probability statements, as the distribution of the pivot is known even if the parameter values are not.
 
@@ -102,7 +104,7 @@ Of course, we are not limited to a **95% confidence level**-we can choose any ot
 we replace the value 2 with a more general critical value, denoted as $z^*$.
 
 **Key Observations:**
-- If we increase the confidence level, the value of becomes $z^*$ larger, resulting in a wider confidence interval.
+- If we increase the confidence level, the value of $z^*$ becomes larger, resulting in a wider confidence interval.
 - If the **sample size** increases, the confidence interval becomes **narrower**, reflecting increased precision in our estimate.
 
 **Determining the Required Sample Size:**
