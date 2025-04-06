@@ -193,6 +193,16 @@ In the one-way ANOVA chapter, we have studied the coefficient of determination, 
 - Thus, $r^2$ is a measure of **how well the regression explains the response**.
 ```
 
+> For simple linear regression, 
+```{math}
+R^2 \longleftrightarrow \text{Proportion of variance in } Y \text{ explained by } X \\
+\longleftrightarrow [\mathrm{corr}(Y,\hat{Y})]^2 \\
+\longleftrightarrow [\mathrm{corr}(Y,b_0 + b_1 X)]^2 \;=\; [\pm\,\mathrm{corr}(X,Y)]^2 \;=\; [\mathrm{corr}(X,Y)]^2 \\
+\longleftrightarrow r^2.
+```
+
+
+
 ```{admonition} **Interpretation of $r^2$**  
 :class: note 
 

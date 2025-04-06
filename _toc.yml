@@ -35,6 +35,7 @@ parts:
     - file: chapter10
     - file: chapter11
     - file: chapter12
+    - file: chapter13
 
   # - caption: Analyzing categorical data
   #  numbered: True
