@@ -165,6 +165,7 @@ Hence,
 \hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y}.
 ```
 
+A very compact result!
 
 
 ```{figure} _image/1601.png
