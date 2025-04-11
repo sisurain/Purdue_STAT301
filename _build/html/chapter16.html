@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1. At the Beginning &#8212; STAT301@Purdue</title>
+    <title>16. Special Topic: Simple Least Squares Regression in Matrix Form &#8212; STAT301@Purdue</title>
   
   
   
@@ -61,11 +61,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter1';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter16';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2. Some Important Concepts" href="chapter2.html" />
-    <link rel="prev" title="STAT 301 Introduction" href="intro.html" />
+    <link rel="prev" title="15. Chapter 8: Inference for a Single Proportion" href="chapter15.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -170,8 +171,8 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. At the Beginning</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
 <ul class="nav bd-sidenav">
@@ -195,10 +196,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
 </ul>
 
     </div>
@@ -275,7 +276,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapter1.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapter16.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -305,7 +306,7 @@
       
       
       
-      <li><a href="_sources/chapter1.md" target="_blank"
+      <li><a href="_sources/chapter16.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -381,7 +382,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>At the Beginning</h1>
+    <h1>Special Topic: Simple Least Squares Regression in Matrix Form</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,9 +392,10 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-the-course">1.1. Pass the Course</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-foundation">1.2. Build the Foundation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master-the-materials">1.3. Master the Materials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-matrix-representation">16.1. The Matrix Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-in-matrix-form">16.2. Mean Squared Error in Matrix Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-mse-matrix">16.3. Expanding the MSE Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimizing-the-mse">16.4. Minimizing the MSE</a></li>
 </ul>
             </nav>
         </div>
@@ -405,50 +407,126 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="at-the-beginning">
-<h1><span class="section-number">1. </span>At the Beginning<a class="headerlink" href="#at-the-beginning" title="Link to this heading">#</a></h1>
-<p>Let me be more transparent here. Every student wishes to achieve a better grade when it comes to college courses. To obtain a grade, we still follow the standard test or exam-based evaluation system for most courses, especially introductory-level ones. In terms of <strong>learning, understanding, and mastering knowledge</strong>, this exam-based approach might not always be the best way to assess a student’s understanding of the material. But that is a topic for another discussion.</p>
-<p>In the test or exam, you will be given several well-defined questions. For example, you might be given A, B, and C, and you need to solve for D. In class, you will learn the step-by-step procedure to find D when you have A, B, and C. You only need to understand <span style="color:#cfb991"><strong>what</strong></span> A, B, C, and D are, and remember <span style="color:#cfb991"><strong>what</strong></span> the procedure to get D from A, B, and C is.</p>
-<p>If your goal is just to pass the course, this level of understanding will likely suffice for most questions in the assignments and exams. To achieve this, you need to practice with example questions so you can memorize the material and become familiar with variations of the questions that might be asked. For example, another question might give you A, B, and D, and require you to solve for C.</p>
-<p><strong>Practice</strong> and <strong>repetition</strong> are key to solving these types of problems. If you ask an experienced taxi or Uber driver, they can memorize the routes and maps for an entire city-something that might seem impossible when they first started. For instance, navigating the complex layers of Lower and Lower Lower Wacker Drive in Chicago becomes second nature with enough experience.</p>
-<p>But if you wish to have a <strong>true learning experience</strong> and more fun, you need to aim to achieve the second level of understanding of the materials. In addition to understanding <span style="color:#cfb991"><strong>what</strong></span>, you need to understand <span style="color:#cfb991"><strong>why</strong></span>. Most of the teaching materials will focus on explaining the <span style="color:#cfb991"><strong>why</strong></span> aspect. This is the true learning process.</p>
-<p>The majority of learning happens at this level because it allows us to practice critical thinking rather than just receiving knowledge. Using the above example, suppose the procedure to get D contains three steps. Why do we have these three steps, and why can we move to step 2 after obtaining the results from step 1? These are the types of questions that deepen understanding and foster real learning.</p>
-<p>Let me use another recent example I encountered: Sudoku. If you don’t use logic, you could still solve a Sudoku puzzle by trial and error. In this case, you don’t need to know why a particular number should go in an empty square-you only need to know the rules of Sudoku. However, to achieve the second level of understanding, you need to use logic. By doing so, you will understand why you can or cannot place a particular number in a certain empty square. This approach is not only much more fun but also more efficient for solving the puzzle.</p>
-<p>Lastly, I want to talk about the third level of understanding the materials, using the A, B, C, and D example. To fully master the materials, in addition to knowing <span style="color:#cfb991"><strong>what</strong></span> and <span style="color:#cfb991"><strong>why</strong></span>, you need to understand <span style="color:#cfb991"><strong>what if …, and then what?</strong></span>-this involves conditional forward thinking<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
-<p>For example, what if we have A, B, and E? Can we still get D or something else? Or if we drop C, can we still get D? Once you reach this level of understanding, you will gain a glimpse of the entire picture of the materials. However, due to the nature of this course, this level is not our primary focus, and no questions at this level of understanding will be tested.</p>
-<section id="pass-the-course">
-<h2><span class="section-number">1.1. </span>Pass the Course<a class="headerlink" href="#pass-the-course" title="Link to this heading">#</a></h2>
-<p>Again, this is an introductory-level course, which means the tests and exams are not designed to select or filter students. The number one reason students <strong>fail this course</strong> is that they do not complete the assignments on time. There are both individual assignments and group assignments, managed through different learning systems. These assignments come with detailed instructions (e.g., some assignments require the use of SPSS software) and examples, all accessible on Brightspace.</p>
-<p>To <span style="color:#cfb991">pass the course</span>, students must read and understand all the instructions and complete all the assignments on time. This is especially important for group assignments and milestone assignments. Missing deadlines for these assignments can result in significant penalties, including heavy penalties for late submissions that carry over to future assessments. For example, if you miss the deadline for group assignment 1, it may prevent you from completing assignments 2 or 3, either because assignment 1 was not submitted or was submitted late.</p>
-<div class="warning admonition">
-<p class="admonition-title">Remember!</p>
-<p>Complete all the assignments <strong>on time</strong>! Please <strong>check the due dates</strong> and the different learning systems every day!</p>
-</div>
-<div class="warning admonition">
-<p class="admonition-title">Remember!</p>
-<p>Make sure to <strong>participate</strong> in the group assignments. If you don’t, there will be <strong>heavy penalties</strong> at the end of the group project!</p>
-</div>
-<p>The assignments serve as checkpoints to determine if you need to spend <strong>additional time</strong> outside the classroom or lectures to digest the course materials or practice further in order to pass the course. Naturally, this additional time will vary based on your background and how much you need to catch up. If you need help, you are always welcome to attend office hours or email me. I will explicitly point out where you may be lacking and guide you accordingly.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="special-topic-simple-least-squares-regression-in-matrix-form">
+<h1><span class="section-number">16. </span>Special Topic: Simple Least Squares Regression in Matrix Form<a class="headerlink" href="#special-topic-simple-least-squares-regression-in-matrix-form" title="Link to this heading">#</a></h1>
+<p>We have a data set consisting of <span class="math notranslate nohighlight">\(n\)</span> paired observations of the predictor/explanatory variable <span class="math notranslate nohighlight">\(X\)</span> and the response variable <span class="math notranslate nohighlight">\(Y\)</span>, i.e., <span class="math notranslate nohighlight">\((x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\)</span>. We wish to fit the model with a regression line:</p>
+<div class="math notranslate nohighlight">
+\[y_n = \beta_0 + \beta_1 \, x_n + \epsilon_n\]</div>
+<p>where we have the assumptions:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}[\epsilon_n \mid x_1, \dots, x_n] = 0\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Var}[\epsilon_n \mid x_1, \dots, x_n] = \sigma^2\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_n\)</span> is uncorrelated across measurements.</p></li>
+</ul>
+<p>The parameters are <span class="math notranslate nohighlight">\(\beta_0,\ \beta_1,\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<section id="the-matrix-representation">
+<h2><span class="section-number">16.1. </span>The Matrix Representation<a class="headerlink" href="#the-matrix-representation" title="Link to this heading">#</a></h2>
+<p>Group all of the observations of the response into a single <span class="math notranslate nohighlight">\(n\times 1\)</span> column vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}\end{split}\]</div>
+<p>Similarly, group the two coefficients into a single <span class="math notranslate nohighlight">\(2 \times 1\)</span> vector:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\beta =
+\begin{bmatrix}
+\beta_0 \\
+\beta_1
+\end{bmatrix}\end{split}\]</div>
+<p>We also group the observations of the predictor variable:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x} =
+\begin{bmatrix}
+1 &amp; x_1 \\
+1 &amp; x_2 \\
+\vdots &amp; \vdots \\
+1 &amp; x_n
+\end{bmatrix}\end{split}\]</div>
+<p>This is an <span class="math notranslate nohighlight">\(n \times 2\)</span> matrix, where the first column is all 1’s (for the intercept) and the second column holds the actual <span class="math notranslate nohighlight">\(X\)</span> values. Then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}\beta =
+\begin{bmatrix}
+\beta_0 + \beta_1 x_1 \\
+\beta_0 + \beta_1 x_2 \\
+\vdots \\
+\beta_0 + \beta_1 x_n
+\end{bmatrix}\end{split}\]</div>
+<p>i.e., <span class="math notranslate nohighlight">\(\mathbf{x}\beta\)</span> is the <span class="math notranslate nohighlight">\(n \times 1\)</span> vector of fitted predictions. The matrix <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is often called the <strong>design matrix</strong>. Thus:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = \mathbf{x}\,\beta + \boldsymbol{\epsilon}.\]</div>
 </section>
-<section id="build-the-foundation">
-<h2><span class="section-number">1.2. </span>Build the Foundation<a class="headerlink" href="#build-the-foundation" title="Link to this heading">#</a></h2>
-<p>If your goal is not just to pass the course but to build a solid foundation and gain a strong understanding of the course materials (know the <span style="color:#cfb991"><strong>what</strong></span> and <span style="color:#cfb991"><strong>why</strong></span>), you should not only complete the assignments on time but also spend time reading and digesting all the course materials on your own or with the help of other resources.<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> Attending lectures will aid your understanding of the materials.</p>
-<p>If you are a good reader, you simply need to allocate sufficient time and might require occasional outside help. Please don’t hesitate to reach out if you struggle. If reading is more challenging for you, one effective strategy is to divide the materials into smaller, logical sections, with each section focusing on one main idea. Then, try to read and digest these smaller sections one by one. Use the corresponding assignment questions to check your understanding. However, since this approach involves dividing the materials into smaller pieces, it requires revisiting them more frequently, so try to plan and review daily.</p>
+<section id="mean-squared-error-in-matrix-form">
+<h2><span class="section-number">16.2. </span>Mean Squared Error in Matrix Form<a class="headerlink" href="#mean-squared-error-in-matrix-form" title="Link to this heading">#</a></h2>
+<p>At each data point, using the coefficients <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> results in some error of prediction, so we have <span class="math notranslate nohighlight">\(n\)</span> such errors forming the vector:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{e}(\hat{\beta}) = \mathbf{y} - \mathbf{x}\,\hat{\beta}.\]</div>
+<p>When deriving the least squares estimator, we want to find <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> that minimizes the <strong>mean squared error</strong> (MSE):</p>
+<div class="math notranslate nohighlight">
+\[MSE(\hat{\beta}) = \frac{1}{n}\,\sum_{i=1}^{n} e_i^2(\hat{\beta}).\]</div>
+<p>In matrix form:</p>
+<div class="math notranslate nohighlight">
+\[MSE(\hat{\beta}) = \frac{1}{n} \,\mathbf{e}^\top \mathbf{e}.\]</div>
+<p>To see this clearly,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{e}^\top \mathbf{e}
+= [\,e_1,\ e_2,\ \dots,\ e_n\,]
+\begin{bmatrix}
+e_1 \\ 
+e_2 \\ 
+\vdots \\
+e_n
+\end{bmatrix}
+= \sum_{i=1}^n e_i^2.\end{split}\]</div>
 </section>
-<section id="master-the-materials">
-<h2><span class="section-number">1.3. </span>Master the Materials<a class="headerlink" href="#master-the-materials" title="Link to this heading">#</a></h2>
-<p>Due to the time constraints and scope of this course, most of the materials are not designed or developed to facilitate full mastery of the subject. However, I will highlight which core concepts and ideas are essential to master or worth exploring further. Additionally, I may post some bonus or supplementary topics for further reading.</p>
-<hr class="footnotes docutils" />
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footnote01" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Conditioning is often regarded as the essence of statistics.</p>
-</aside>
-<aside class="footnote brackets" id="footnote02" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>I fully support using ChatGPT or other AI models as study aids, whether you are studying alone or with friends.</p>
-</aside>
-</aside>
+<section id="expanding-the-mse-matrix">
+<h2><span class="section-number">16.3. </span>Expanding the MSE Matrix<a class="headerlink" href="#expanding-the-mse-matrix" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+MSE(\hat{\beta})
+&amp;= \frac{1}{n}\,\mathbf{e}^\top \mathbf{e}\\
+&amp;= \frac{1}{n}\,(\mathbf{y} - \mathbf{x}\,\hat{\beta})^\top (\mathbf{y} - \mathbf{x}\,\hat{\beta})\\
+&amp;= \frac{1}{n}\,\bigl(\mathbf{y}^\top - \hat{\beta}^\top \mathbf{x}^\top\bigr)\,\bigl(\mathbf{y} - \mathbf{x}\,\hat{\beta}\bigr)\\
+&amp;= \frac{1}{n}\,\bigl(\mathbf{y}^\top \mathbf{y}
+   \;-\;\mathbf{y}^\top \mathbf{x}\,\hat{\beta}
+   \;-\;\hat{\beta}^\top \mathbf{x}^\top \mathbf{y}
+   \;+\;\hat{\beta}^\top \mathbf{x}^\top \mathbf{x}\,\hat{\beta}\bigr).
+\end{aligned}\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\bigl(\mathbf{y}^\top \mathbf{x}\,\hat{\beta}\bigr)\)</span> is a scalar, we have <span class="math notranslate nohighlight">\(\mathbf{y}^\top \mathbf{x}\,\hat{\beta} = \hat{\beta}^\top \mathbf{x}^\top \mathbf{y}\)</span>. Thus:</p>
+<div class="math notranslate nohighlight">
+\[MSE(\hat{\beta})
+= \frac{1}{n}\,\Bigl(\mathbf{y}^\top \mathbf{y}
+  \;-\;2\,\hat{\beta}^\top \mathbf{x}^\top \mathbf{y}
+  \;+\;\hat{\beta}^\top \mathbf{x}^\top \mathbf{x}\,\hat{\beta}\Bigr).\]</div>
+</section>
+<section id="minimizing-the-mse">
+<h2><span class="section-number">16.4. </span>Minimizing the MSE<a class="headerlink" href="#minimizing-the-mse" title="Link to this heading">#</a></h2>
+<p>We first compute the gradient of <span class="math notranslate nohighlight">\(MSE(\hat{\beta})\)</span> w.r.t. <span class="math notranslate nohighlight">\(\hat{\beta}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\nabla\,MSE(\hat{\beta})
+= \frac{1}{n}\,\bigl(\nabla\,\mathbf{y}^\top \mathbf{y}
+   \;-\;2\,\nabla\,\hat{\beta}^\top \mathbf{x}^\top \mathbf{y}
+   \;+\;\nabla\,\hat{\beta}^\top \mathbf{x}^\top \mathbf{x}\,\hat{\beta}\bigr).\]</div>
+<p>But <span class="math notranslate nohighlight">\(\nabla\,\mathbf{y}^\top \mathbf{y} = \mathbf{0}\)</span> (it’s constant in <span class="math notranslate nohighlight">\(\hat{\beta}\)</span>), so:</p>
+<div class="math notranslate nohighlight">
+\[\nabla\,MSE(\hat{\beta})
+= \frac{1}{n}\,\bigl(\mathbf{0}
+   \;-\;2\,\mathbf{x}^\top \mathbf{y}
+   \;+\;2\,\mathbf{x}^\top \mathbf{x}\,\hat{\beta}\bigr)
+= \frac{2}{n}\,\bigl(\mathbf{x}^\top \mathbf{x}\,\hat{\beta} - \mathbf{x}^\top \mathbf{y}\bigr).\]</div>
+<p>Setting this to zero:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}^\top \mathbf{x}\,\hat{\beta} \;-\;\mathbf{x}^\top \mathbf{y}
+= \mathbf{0}.\]</div>
+<p>Hence,</p>
+<div class="math notranslate nohighlight">
+\[\hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y}.\]</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1601.png"><img alt="two-way table software outputs" src="_images/1601.png" style="width: 100%;" /></a>
+</figure>
 </section>
 </section>
 
@@ -483,22 +561,13 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="chapter15.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">STAT 301 Introduction</p>
+        <p class="prev-next-title"><span class="section-number">15. </span>Chapter 8: Inference for a Single Proportion</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="chapter2.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>Some Important Concepts</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -517,9 +586,10 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-the-course">1.1. Pass the Course</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-foundation">1.2. Build the Foundation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master-the-materials">1.3. Master the Materials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-matrix-representation">16.1. The Matrix Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-in-matrix-form">16.2. Mean Squared Error in Matrix Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-mse-matrix">16.3. Expanding the MSE Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimizing-the-mse">16.4. Minimizing the MSE</a></li>
 </ul>
   </nav></div>
 

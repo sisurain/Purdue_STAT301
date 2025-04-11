@@ -37,6 +37,15 @@ parts:
     - file: chapter12
     - file: chapter13
 
+  - caption: Additional Topics
+    numbered: True
+    maxdepth: 2
+    chapters:  
+    - file: chapter14
+    - file: chapter15
+    - file: chapter16
+
+
   # - caption: Analyzing categorical data
   #  numbered: True
   #  maxdepth: 2
