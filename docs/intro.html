@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>STAT 301 Introduction &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TH93YZ5PZ2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. At the Beginning" href="chapter1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/intro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>STAT 301 Introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="stat-301-introduction">
+<h1>STAT 301 Introduction<a class="headerlink" href="#stat-301-introduction" title="Link to this heading">#</a></h1>
+<div style="background-color: #f9f9f9; padding: 15px; border-left: 5px solid #cfb991; margin-bottom: 25px;">
+  <strong>📥 For Offline Study:</strong><br>
+  <a href="STAT301_Course_Materials.zip" style="font-weight: bold; font-size: 1.1em; color: #333;">
+    Click here to Download Complete Course Materials (.zip)
+  </a>
+  <br>
+  <em>(Includes all slides, datasets, and code notebooks)</em>
+</div>
+<p>These materials accompany the teaching of STAT 301, <em>Elementary Statistical Methods</em>, at Purdue University. STAT 301 is a university-wide undergraduate course that serves a large and diverse student body. It is offered throughout the year across all semesters, with both online and in-person versions, taught by multiple instructors.</p>
+<p>This short book provides comprehensive materials to meet the needs of different kinds of students. It’s understandable that, for some students, this course might be the only statistics course you take, and your goal may simply be to <span style="color:#cfb991; font-weight:bold;">pass the course</span>. Passing the course is one of the minimum expectations I will assume. Therefore, I will explicitly lay out what needs to be done to pass the course. You need to <span style="color:#cfb991"><strong>spend enough time</strong></span> to complete the minimum assignments and tasks required to pass the course. Otherwise, you will fail unless you have mastered these materials and developed the corresponding statistical skills.<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>I hope that for most of you, your goal is to <span style="color:#cfb991"><strong>build a solid foundation in statistics</strong></span> so that you develop an interest in the subject and might proceed to take more advanced statistics courses. This can be considered as the second level of achievement. You will find relevant materials here to help you overcome the obstacles to understanding the content of this course, enabling you to build a strong foundation. However, this will also require you to put in extra effort to read and digest the materials provided.</p>
+<p>Of course, learning does not stop at just building a solid foundation. If your goal-the third level of achievement-is to <span style="color:#cfb991"><strong>fully master the materials</strong></span> in this course, such as understanding the connections between topics and the sequence of the content, so that you gain a clear picture of the roadmap of the materials, you may find some teaching materials related to this goal. However, there won’t be too many because of the organization and structure of this course. Additionally, the assignments and exams are not designed to focus on this level of mastery, which means the tests will not be tricky-a relief for most students.</p>
+<p>The three goals mentioned above can also be interpreted as three progressive levels of understanding the course materials. I will elaborate on this point in the later sections of this introductory chapter.</p>
+<p>STAT 301 is an introductory-level statistics course that focuses on introducing some of the basic statistical concepts and procedures commonly encountered in many areas of studies or disciplines. The aim is to help students become familiar with these concepts and procedures. As a result, the assignments and exams are designed in a way that I would describe as <em>“draw a ladle by copying a gourd,”</em> an old Chinese idiom. This idiom means that you simply need to follow the instructions and examples step by step to complete most of the assignments in this course.</p>
+<p>In terms of the learning experience, I hope everyone aims to achieve the second goal: <strong>building a solid foundation</strong>. This will allow you to complete the assignments and exams more efficiently and achieve better grades.</p>
+<p>One more thing I want to mention is that, for introductory-level statistics courses, there are usually two major components. One is the <span style="color:#cfb991"><strong>probability</strong></span> part (probabilistic reasoning), and the other is the <span style="color:#cfb991"><strong>statistics</strong></span> part (statistical reasoning). The probability part is fascinating-perhaps God created this world by randomly throwing dice! However, STAT 301 will primarily focus on the latter.</p>
+<p>Let’s use my favorite dice-rolling example to explain these two parts. Suppose we have a standard six-faced die labeled with numbers 1 to 6. We can ask the following questions:</p>
+<ul class="simple">
+<li><p>What is the probability of getting a 1 if we roll the die once?</p></li>
+<li><p>What is the probability of getting a 1 on the first roll and a 2 on the second roll if we roll the die twice?</p></li>
+</ul>
+<p>These questions are related to the <strong>probability</strong> part. We start with a real-world situation or application (a model) and then ask questions about how this world or application generates our data (observations or outcomes). In this case, the data is “1” for the first question and “1, 2” for the second question.</p>
+<p>We can also ask questions like the following after observing the results of dice rolls:</p>
+<ul class="simple">
+<li><p>After three rolls, we see the results 1, 1, 1. Do we still believe this is a fair die, or could it be a die that favors 1?<a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+<li><p>After one hundred rolls, we have not seen the result 6. Do we still believe this is a standard six-faced die?</p></li>
+</ul>
+<p>These questions are related to the <strong>statistical reasoning</strong> part, which involves using data to ask questions about our real-world application or model. Once we have a dataset, we aim to make claims about the model or the real world. Specifically, we want to understand the statistical procedures for interpreting the data and determining how confident we can be about the accuracy of our claims. This course will primarily focus on this part, which is why we will begin with the data side.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<p>Below is the table of contents for this book.</p>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote01" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Productivity is always a function of time and technology, with some sort of resource constraints. In our case, and in this country, we are fortunate that study resources are not usually a constraint. The learning materials and in-class or video lectures are opportunities for you to learn technologies from your instructor. However, time is a crucial element, and it is primarily controlled by the student. Most students who fail the course do so because their time investment is insufficient, resulting in minimal productivity. You must spend enough time outside the classroom to understand and master the technologies taught in class.</p>
+</aside>
+<aside class="footnote brackets" id="footnote02" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>A fair die means each result from 1 to 6 is equally likely.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="chapter1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>At the Beginning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+  <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+  
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+  
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

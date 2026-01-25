@@ -1,0 +1,849 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>15. Chapter 8: Inference for a Single Proportion &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TH93YZ5PZ2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter15';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="16. Special Topic: Simple Least Squares Regression in Matrix Form" href="chapter16.html" />
+    <link rel="prev" title="14. Chapter 2 &amp; 9: Two-Way Tables" href="chapter14.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301/issues/new?title=Issue%20on%20page%20%2Fchapter15.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter15.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 8: Inference for a Single Proportion</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-a-sample-proportion-a-special-case-of-a-sample-mean">15.1. Why Is a Sample Proportion a Special Case of a Sample Mean?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-of-interest">15.2. Parameter of Interest</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-case-sample-mean">15.2.1. General Case (Sample Mean)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-case-sample-proportion">15.2.2. Special Case (Sample Proportion)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-estimation">15.3. Point Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimator">15.3.1. Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-the-estimator">15.3.2. Variance of the Estimator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals-cis">15.4. Confidence Intervals (CIs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#large-sample-z-based-ci-for-a-mean">15.4.1. Large-Sample (Z-Based) CI for a Mean</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#general-case">15.4.1.1. General Case</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#special-case-proportion">15.4.1.2. Special Case (Proportion)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#small-sample-t-based-ci-for-a-mean">15.4.2. Small-Sample (T-Based) CI for a Mean</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">15.4.2.1. General Case</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proportions">15.4.2.2. Proportions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions-for-valid-ci">15.4.3. Assumptions for Valid CI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">15.5. Hypothesis Testing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-framework">15.5.1. General Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-test-large-samples-for-a-mean">15.5.2. Z-Test (Large Samples) for a Mean</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-test-small-samples-for-a-mean">15.5.3. T-Test (Small Samples) for a Mean</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-test-for-a-proportion">15.5.4. Z-Test for a Proportion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions-for-valid-testing">15.5.5. Assumptions for Valid Testing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-why-proportions-fit-as-a-special-case">15.6. Putting It All Together: Why Proportions Fit as a Special Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-required-sample-size-for-a-desired-margin-of-error">15.7. Determining Required Sample Size for a Desired Margin of Error</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-a-population-mean-large-sample-z-interval">15.7.1. For a Population Mean (Large-Sample Z-Interval)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-a-population-proportion">15.7.2. For a Population Proportion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-notes">15.7.3. Practical Notes</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-8-inference-for-a-single-proportion">
+<h1><span class="section-number">15. </span>Chapter 8: Inference for a Single Proportion<a class="headerlink" href="#chapter-8-inference-for-a-single-proportion" title="Link to this heading">#</a></h1>
+<p>We can view <strong>Inference for a Sample Proportion</strong> as a Special Case of Inference for a Sample Mean. Below is a step-by-step comparison showing how inference for a sample proportion can be viewed as a special case of inference for a sample mean, along with the corresponding assumptions. We will walk through estimation, confidence intervals, hypothesis testing, <em>and</em> sample size determination.</p>
+<section id="why-is-a-sample-proportion-a-special-case-of-a-sample-mean">
+<h2><span class="section-number">15.1. </span>Why Is a Sample Proportion a Special Case of a Sample Mean?<a class="headerlink" href="#why-is-a-sample-proportion-a-special-case-of-a-sample-mean" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Sample Proportion</strong> <span class="math notranslate nohighlight">\(\hat{p}\)</span> arises naturally when each observation <span class="math notranslate nohighlight">\(X_i\)</span> is a <strong>Bernoulli</strong> random variable (1 = “success” or 0 = “failure”) with probability <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p><strong>Mathematically</strong>, if <span class="math notranslate nohighlight">\(X_i \sim \mathrm{Bernoulli}(p)\)</span>, then</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\hat{p} \;=\; \frac{1}{n}\,\sum_{i=1}^n X_i.\]</div>
+<ul class="simple">
+<li><p>Notice that <span class="math notranslate nohighlight">\(\hat{p}\)</span> is simply the <strong>sample mean</strong> of <span class="math notranslate nohighlight">\(\{\,X_i\}\)</span>. Hence, the usual formulas for a mean (variance, confidence intervals, test statistics) have analogues for proportions, substituting the Bernoulli variance <span class="math notranslate nohighlight">\(p(1-p)\)</span>.</p></li>
+</ul>
+</section>
+<section id="parameter-of-interest">
+<h2><span class="section-number">15.2. </span>Parameter of Interest<a class="headerlink" href="#parameter-of-interest" title="Link to this heading">#</a></h2>
+<section id="general-case-sample-mean">
+<h3><span class="section-number">15.2.1. </span>General Case (Sample Mean)<a class="headerlink" href="#general-case-sample-mean" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Parameter of interest: Population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>Each observation <span class="math notranslate nohighlight">\(Y_i\)</span> has mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p></li>
+<li><p>The sample mean is <span class="math notranslate nohighlight">\(\bar{Y} = \frac{1}{n}\sum_{i=1}^n Y_i\)</span>.</p></li>
+</ul>
+</section>
+<section id="special-case-sample-proportion">
+<h3><span class="section-number">15.2.2. </span>Special Case (Sample Proportion)<a class="headerlink" href="#special-case-sample-proportion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Parameter of interest: True success probability <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p>Observations <span class="math notranslate nohighlight">\(X_i \in \{0,1\}\)</span> with <span class="math notranslate nohighlight">\(E[X_i] = p\)</span> and <span class="math notranslate nohighlight">\(\mathrm{Var}(X_i) = p(1-p)\)</span>.</p></li>
+<li><p>The sample proportion is <span class="math notranslate nohighlight">\(\hat{p} = \frac{1}{n}\sum_{i=1}^n X_i\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="point-estimation">
+<h2><span class="section-number">15.3. </span>Point Estimation<a class="headerlink" href="#point-estimation" title="Link to this heading">#</a></h2>
+<section id="estimator">
+<h3><span class="section-number">15.3.1. </span>Estimator<a class="headerlink" href="#estimator" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Sample Mean</strong>: <span class="math notranslate nohighlight">\(\bar{Y}\)</span> is the unbiased estimator of <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p><strong>Sample Proportion</strong>: <span class="math notranslate nohighlight">\(\hat{p}\)</span> is the unbiased estimator of <span class="math notranslate nohighlight">\(p\)</span> (equivalently, <span class="math notranslate nohighlight">\(\hat{p} = \bar{X}\)</span> when <span class="math notranslate nohighlight">\(X_i \in \{0,1\}\)</span>).</p></li>
+</ul>
+</section>
+<section id="variance-of-the-estimator">
+<h3><span class="section-number">15.3.2. </span>Variance of the Estimator<a class="headerlink" href="#variance-of-the-estimator" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Sample Mean</strong>: <span class="math notranslate nohighlight">\(\mathrm{Var}(\bar{Y}) = \sigma^2 / n\)</span>.</p></li>
+<li><p><strong>Sample Proportion</strong>: <span class="math notranslate nohighlight">\(\mathrm{Var}(\hat{p}) = \frac{p(1-p)}{n}\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="confidence-intervals-cis">
+<h2><span class="section-number">15.4. </span>Confidence Intervals (CIs)<a class="headerlink" href="#confidence-intervals-cis" title="Link to this heading">#</a></h2>
+<section id="large-sample-z-based-ci-for-a-mean">
+<h3><span class="section-number">15.4.1. </span>Large-Sample (Z-Based) CI for a Mean<a class="headerlink" href="#large-sample-z-based-ci-for-a-mean" title="Link to this heading">#</a></h3>
+<section id="general-case">
+<h4><span class="section-number">15.4.1.1. </span>General Case<a class="headerlink" href="#general-case" title="Link to this heading">#</a></h4>
+<p>If <span class="math notranslate nohighlight">\(\sigma\)</span> is known (or <span class="math notranslate nohighlight">\(n\)</span> large, so we approximate <span class="math notranslate nohighlight">\(\sigma\)</span> by <span class="math notranslate nohighlight">\(s\)</span>), a <strong>z-interval</strong> for <span class="math notranslate nohighlight">\(\mu\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\bar{Y} \;\pm\; z_{\alpha/2}\,\frac{\sigma}{\sqrt{n}}
+\quad\text{(replace $\sigma$ by $s$ if $n$ is large)}.\]</div>
+</section>
+<section id="special-case-proportion">
+<h4><span class="section-number">15.4.1.2. </span>Special Case (Proportion)<a class="headerlink" href="#special-case-proportion" title="Link to this heading">#</a></h4>
+<p>For large <span class="math notranslate nohighlight">\(n\)</span>, we use the normal approximation for <span class="math notranslate nohighlight">\(\hat{p}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\hat{p} \;\pm\; z_{\alpha/2}\,\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}.\]</div>
+<p>This is exactly the same form as the mean’s z-interval, substituting <span class="math notranslate nohighlight">\(p(1-p)\)</span> by <span class="math notranslate nohighlight">\(\hat{p}(1-\hat{p})\)</span>. This CI is sometimes called the <em>Wald interval</em> for a proportion.</p>
+</section>
+</section>
+<section id="small-sample-t-based-ci-for-a-mean">
+<h3><span class="section-number">15.4.2. </span>Small-Sample (T-Based) CI for a Mean<a class="headerlink" href="#small-sample-t-based-ci-for-a-mean" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4><span class="section-number">15.4.2.1. </span>General Case<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>For smaller <span class="math notranslate nohighlight">\(n\)</span>, we often use the <strong>t-distribution</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\bar{Y} \;\pm\; t_{\alpha/2,\;df=n-1}\,\frac{s}{\sqrt{n}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the sample standard deviation of <span class="math notranslate nohighlight">\(Y_i\)</span>, assuming the population is (approximately) normal.</p>
+</section>
+<section id="proportions">
+<h4><span class="section-number">15.4.2.2. </span>Proportions<a class="headerlink" href="#proportions" title="Link to this heading">#</a></h4>
+<p>Typically, we do <strong>not</strong> use a t-interval for proportions. Instead, for small <span class="math notranslate nohighlight">\(n\)</span>, one uses:</p>
+<ul class="simple">
+<li><p><strong>Exact binomial confidence intervals</strong>, or</p></li>
+<li><p>Approximate intervals like the <em>Wilson</em> or <em>Agresti-Coull</em> intervals.</p></li>
+</ul>
+<p>For large <span class="math notranslate nohighlight">\(n\)</span>, the normal (Wald) approximation is common.</p>
+</section>
+</section>
+<section id="assumptions-for-valid-ci">
+<h3><span class="section-number">15.4.3. </span>Assumptions for Valid CI<a class="headerlink" href="#assumptions-for-valid-ci" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mean (General):</strong></p>
+<ul>
+<li><p>Random/independent sample.</p></li>
+<li><p>For Z-based intervals: either <span class="math notranslate nohighlight">\(\sigma\)</span> known or large <span class="math notranslate nohighlight">\(n\)</span> so that <span class="math notranslate nohighlight">\(\bar{Y}\)</span> is approximately normal by the CLT.</p></li>
+<li><p>For T-based intervals: data from (approximately) a normal population or <span class="math notranslate nohighlight">\(n\)</span> large enough that T is robust.</p></li>
+</ul>
+</li>
+<li><p><strong>Proportion (Bernoulli):</strong></p>
+<ul>
+<li><p>Random/independent Bernoulli trials.</p></li>
+<li><p>For the Wald (Z) interval, a common rule of thumb: <span class="math notranslate nohighlight">\(n\hat{p}\ge10\)</span> and <span class="math notranslate nohighlight">\(n(1-\hat{p})\ge10\)</span> (or at least 5) to ensure a decent normal approximation.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="hypothesis-testing">
+<h2><span class="section-number">15.5. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading">#</a></h2>
+<section id="general-framework">
+<h3><span class="section-number">15.5.1. </span>General Framework<a class="headerlink" href="#general-framework" title="Link to this heading">#</a></h3>
+<p>A hypothesis test typically has:</p>
+<div class="math notranslate nohighlight">
+\[H_0 : \theta = \theta_0
+\quad \text{vs.} \quad
+H_a : \theta \neq \theta_0
+\quad(\text{or } &gt; \text{ or } &lt;),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta\)</span> could be <span class="math notranslate nohighlight">\(\mu\)</span> (mean) or <span class="math notranslate nohighlight">\(p\)</span> (proportion).</p>
+</section>
+<section id="z-test-large-samples-for-a-mean">
+<h3><span class="section-number">15.5.2. </span>Z-Test (Large Samples) for a Mean<a class="headerlink" href="#z-test-large-samples-for-a-mean" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Null Hypothesis</strong>: <span class="math notranslate nohighlight">\(H_0:\mu=\mu_0\)</span>.</p></li>
+<li><p><strong>Test Statistic</strong> (if <span class="math notranslate nohighlight">\(\sigma\)</span> known or <span class="math notranslate nohighlight">\(n\)</span> large):</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[Z = \frac{\bar{Y} - \mu_0}{\sigma/\sqrt{n}}
+\quad\text{(or replace $\sigma$ by $s$ if $n$ is large)}.\]</div>
+<ul class="simple">
+<li><p><strong>Decision</strong>: Reject <span class="math notranslate nohighlight">\(H_0\)</span> if <span class="math notranslate nohighlight">\(|Z|\)</span> exceeds <span class="math notranslate nohighlight">\(z_{\alpha/2}\)</span> for a two-sided test at level <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+</ul>
+</section>
+<section id="t-test-small-samples-for-a-mean">
+<h3><span class="section-number">15.5.3. </span>T-Test (Small Samples) for a Mean<a class="headerlink" href="#t-test-small-samples-for-a-mean" title="Link to this heading">#</a></h3>
+<p>If <span class="math notranslate nohighlight">\(\sigma\)</span> is unknown <em>and</em> <span class="math notranslate nohighlight">\(n\)</span> is not large, we use</p>
+<div class="math notranslate nohighlight">
+\[T = \frac{\bar{Y} - \mu_0}{s/\sqrt{n}},\]</div>
+<p>with <span class="math notranslate nohighlight">\(df = n - 1\)</span>, assuming the population is approximately normal.</p>
+</section>
+<section id="z-test-for-a-proportion">
+<h3><span class="section-number">15.5.4. </span>Z-Test for a Proportion<a class="headerlink" href="#z-test-for-a-proportion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Null Hypothesis</strong>: <span class="math notranslate nohighlight">\(H_0: p = p_0\)</span>.</p></li>
+<li><p>Under <span class="math notranslate nohighlight">\(H_0\)</span>, the Bernoulli variance is <span class="math notranslate nohighlight">\(p_0(1-p_0)\)</span>.</p></li>
+<li><p><strong>Test Statistic</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1 - p_0)}{n}}}.\]</div>
+<ul class="simple">
+<li><p><strong>Decision</strong>: Reject <span class="math notranslate nohighlight">\(H_0\)</span> if <span class="math notranslate nohighlight">\(|Z| &gt; z_{\alpha/2}\)</span> (two-sided), or the relevant critical <span class="math notranslate nohighlight">\(z\)</span> for one-sided tests.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1501.png"><img alt="test for one sample proportion" src="_images/1501.png" style="width: 80%;" /></a>
+</figure>
+</section>
+<section id="assumptions-for-valid-testing">
+<h3><span class="section-number">15.5.5. </span>Assumptions for Valid Testing<a class="headerlink" href="#assumptions-for-valid-testing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mean</strong>:</p>
+<ul>
+<li><p>Independent random sample.</p></li>
+<li><p>CLT or normality assumption for Z/T procedures.</p></li>
+</ul>
+</li>
+<li><p><strong>Proportion</strong>:</p>
+<ul>
+<li><p>Independent Bernoulli trials.</p></li>
+<li><p>Large <span class="math notranslate nohighlight">\(n\)</span> so that <span class="math notranslate nohighlight">\(\hat{p}\)</span> is approximately normal. A rule of thumb: <span class="math notranslate nohighlight">\(n p_0 \ge 10\)</span> and <span class="math notranslate nohighlight">\(n(1 - p_0) \ge 10\)</span> for <span class="math notranslate nohighlight">\(H_0:p=p_0\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="putting-it-all-together-why-proportions-fit-as-a-special-case">
+<h2><span class="section-number">15.6. </span>Putting It All Together: Why Proportions Fit as a Special Case<a class="headerlink" href="#putting-it-all-together-why-proportions-fit-as-a-special-case" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A proportion is literally the <strong>average</strong> of 0/1 outcomes.</p></li>
+<li><p>All the <strong>formulas</strong> for means (estimation, standard error, etc.) apply, substituting <span class="math notranslate nohighlight">\(\sigma^2 = p(1-p)\)</span>.</p></li>
+<li><p>The <strong>Central Limit Theorem</strong> applies to <span class="math notranslate nohighlight">\(\hat{p}\)</span> just as it does to <span class="math notranslate nohighlight">\(\bar{Y}\)</span>, enabling Z-based inference for large <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p>Key differences: the distribution assumptions (Bernoulli vs. general) and small-sample approaches (exact binomial vs. t-based).</p></li>
+</ul>
+</section>
+<section id="determining-required-sample-size-for-a-desired-margin-of-error">
+<h2><span class="section-number">15.7. </span>Determining Required Sample Size for a Desired Margin of Error<a class="headerlink" href="#determining-required-sample-size-for-a-desired-margin-of-error" title="Link to this heading">#</a></h2>
+<p>Often, we want to choose <span class="math notranslate nohighlight">\(n\)</span> so that our confidence interval has a specified margin of error <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<section id="for-a-population-mean-large-sample-z-interval">
+<h3><span class="section-number">15.7.1. </span>For a Population Mean (Large-Sample Z-Interval)<a class="headerlink" href="#for-a-population-mean-large-sample-z-interval" title="Link to this heading">#</a></h3>
+<p>Assume we know (or estimate) the population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. The margin of error for a confidence level <span class="math notranslate nohighlight">\(C\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[m = z^*\,\frac{\sigma}{\sqrt{n}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(z^*\)</span> is the critical value (e.g., <span class="math notranslate nohighlight">\(1.96\)</span> for 95% confidence). Solving for <span class="math notranslate nohighlight">\(n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[n = \left(\frac{z^*\,\sigma}{m}\right)^2.\]</div>
+<p>If <span class="math notranslate nohighlight">\(\sigma\)</span> is unknown, you might use a pilot study or rough guess.</p>
+</section>
+<section id="for-a-population-proportion">
+<h3><span class="section-number">15.7.2. </span>For a Population Proportion<a class="headerlink" href="#for-a-population-proportion" title="Link to this heading">#</a></h3>
+<p>For a large-sample Z-interval for <span class="math notranslate nohighlight">\(p\)</span>, the margin of error is</p>
+<div class="math notranslate nohighlight">
+\[m = z^* \,\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}.\]</div>
+<p>Before collecting data, we do not know <span class="math notranslate nohighlight">\(\hat{p}\)</span>, so we <em>guess</em> a value <span class="math notranslate nohighlight">\(p^*\)</span> and solve</p>
+<div class="math notranslate nohighlight">
+\[m = z^*\,\sqrt{\frac{p^*(1-p^*)}{n}}
+\;\;\Longrightarrow\;\;
+n = \left(\frac{z^*}{m}\right)^2\,p^*(1-p^*).\]</div>
+<p><strong>Worst-case scenario</strong>: If we want to guarantee <span class="math notranslate nohighlight">\(m\)</span> for <em>any</em> <span class="math notranslate nohighlight">\(p\)</span>, set <span class="math notranslate nohighlight">\(p^* = 0.5\)</span> (since <span class="math notranslate nohighlight">\(p(1-p)\)</span> is maximized at 0.5). Then</p>
+<div class="math notranslate nohighlight">
+\[n = \frac{1}{4}\,\Bigl(\frac{z^*}{m}\Bigr)^2.\]</div>
+</section>
+<section id="practical-notes">
+<h3><span class="section-number">15.7.3. </span>Practical Notes<a class="headerlink" href="#practical-notes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>If the actual <span class="math notranslate nohighlight">\(\hat{p}\)</span> differs from <span class="math notranslate nohighlight">\(p^*\)</span>, the realized margin of error can be smaller or larger than planned. Using <span class="math notranslate nohighlight">\(p^*=0.5\)</span> ensures <span class="math notranslate nohighlight">\(m\)</span> will <em>not</em> be exceeded.</p></li>
+<li><p>For means, use a reasonable guess for <span class="math notranslate nohighlight">\(\sigma\)</span> from prior studies or a pilot sample. Overestimating <span class="math notranslate nohighlight">\(\sigma\)</span> yields a slightly larger <span class="math notranslate nohighlight">\(n\)</span>, ensuring <span class="math notranslate nohighlight">\(m\)</span> is not too big.</p></li>
+<li><p>Always check that <span class="math notranslate nohighlight">\(n\hat{p}\)</span> and <span class="math notranslate nohighlight">\(n(1-\hat{p})\)</span> are large enough for the normal approximation. Otherwise, consider alternative (e.g. plus‐four) intervals.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter14.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">14. </span>Chapter 2 &amp; 9: Two-Way Tables</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter16.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">16. </span>Special Topic: Simple Least Squares Regression in Matrix Form</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-a-sample-proportion-a-special-case-of-a-sample-mean">15.1. Why Is a Sample Proportion a Special Case of a Sample Mean?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-of-interest">15.2. Parameter of Interest</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-case-sample-mean">15.2.1. General Case (Sample Mean)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-case-sample-proportion">15.2.2. Special Case (Sample Proportion)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-estimation">15.3. Point Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimator">15.3.1. Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-the-estimator">15.3.2. Variance of the Estimator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals-cis">15.4. Confidence Intervals (CIs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#large-sample-z-based-ci-for-a-mean">15.4.1. Large-Sample (Z-Based) CI for a Mean</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#general-case">15.4.1.1. General Case</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#special-case-proportion">15.4.1.2. Special Case (Proportion)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#small-sample-t-based-ci-for-a-mean">15.4.2. Small-Sample (T-Based) CI for a Mean</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">15.4.2.1. General Case</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proportions">15.4.2.2. Proportions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions-for-valid-ci">15.4.3. Assumptions for Valid CI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">15.5. Hypothesis Testing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-framework">15.5.1. General Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-test-large-samples-for-a-mean">15.5.2. Z-Test (Large Samples) for a Mean</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-test-small-samples-for-a-mean">15.5.3. T-Test (Small Samples) for a Mean</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-test-for-a-proportion">15.5.4. Z-Test for a Proportion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions-for-valid-testing">15.5.5. Assumptions for Valid Testing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-why-proportions-fit-as-a-special-case">15.6. Putting It All Together: Why Proportions Fit as a Special Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-required-sample-size-for-a-desired-margin-of-error">15.7. Determining Required Sample Size for a Desired Margin of Error</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-a-population-mean-large-sample-z-interval">15.7.1. For a Population Mean (Large-Sample Z-Interval)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-a-population-proportion">15.7.2. For a Population Proportion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-notes">15.7.3. Practical Notes</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+  <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+  
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+  
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

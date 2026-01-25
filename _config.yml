@@ -7,7 +7,6 @@ copyright: "2024"
 logo: statlogo.png
 
 # Force re-execution of notebooks on each build.
-# See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: force
 
@@ -22,26 +21,37 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/executablebooks/jupyter-book  # Online location of your book
-  path_to_book: docs  # Optional path to your book, relative to the repository root
-  branch: master  # Which branch of the repository should be used when creating links (optional)
+  # CRITICAL FIX: Pointing to YOUR repo so "GitHub Buttons" track your impact
+  url: https://github.com/sisurain/Purdue_STAT301
+  # path_to_book: docs  
+  branch: main  
 
-# Add GitHub buttons to your book
-# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+# Add GitHub buttons and Tracking
 html:
   use_issues_button: true
   use_repository_button: true
   extra_css:
     - custom.css
 
+  # --- TRACKING PART 1: GOOGLE ANALYTICS ---
+  # I inserted the ID from your previous screenshot
+  analytics:
+    google_analytics_id: "G-TH93YZ5PZ2"
+
+  # --- TRACKING PART 2: MAP WIDGET ---
+  # I inserted the code from your new screenshot below
+  extra_footer: |
+    <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+      <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+      
+      <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+      
+    </div>
+
 # -----------------------------------------
-# Add these lines to enable sphinx-proof
 sphinx:
   extra_extensions:
     - sphinx_proof
-
-# myst_enable_extensions:
-  # - amsmath
 
 license:
   content:

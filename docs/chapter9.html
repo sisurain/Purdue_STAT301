@@ -1,0 +1,1522 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9. Chapter 13: Two Way ANOVA &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TH93YZ5PZ2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter9';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="10. Chapter 2: Looking at Data-Relationships" href="chapter10.html" />
+    <link rel="prev" title="8. Chapter 12: One Way ANOVA" href="chapter8.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301/issues/new?title=Issue%20on%20page%20%2Fchapter9.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter9.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 13: Two Way ANOVA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-way-anova-model">9.1. The Two-Way ANOVA Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-two-way-anova">9.2. Inference for Two Way ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squares-calculations-in-two-way-anova-optional">9.3. Mean Squares Calculations in Two Way ANOVA (Optional)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-13-two-way-anova">
+<h1><span class="section-number">9. </span>Chapter 13: Two Way ANOVA<a class="headerlink" href="#chapter-13-two-way-anova" title="Link to this heading">#</a></h1>
+<p>One-way ANOVA examines the differences in a continuous response variable across groups defined by a <strong>single</strong> categorical factor. <span style="color:#cfb991"><strong>Two-way ANOVA</strong></span> extends this framework to study the effects of <strong>two</strong> categorical factors on a continuous response variable, and it also allows for the evaluation of an <span style="color:#cfb991"><strong>interaction effect</strong></span> between the two factors.</p>
+<p><strong>Why Use Two-Way ANOVA?</strong></p>
+<ul class="simple">
+<li><p><strong>Multiple Factors:</strong><br />
+When there are two independent variables (factors), two-way ANOVA can determine not only the main effect of each factor on the response but also whether the effect of one factor depends on the level of the other factor (i.e., an interaction).</p></li>
+<li><p><strong>Efficiency and Control:</strong><br />
+Analyzing both factors simultaneously avoids the need to perform separate one-way ANOVAs or multiple t-tests, thereby controlling the overall Type I error rate and providing a more efficient use of the data.</p></li>
+</ul>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: Two-Way ANOVA with Diet and Exercise</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In the one-way ANOVA example, we compared the effect of three different diets (Diet A, Diet B, Diet C) on weight loss. To extend this to a two-way ANOVA, we introduce a second factor. For instance, we might consider <strong>Exercise Level</strong> as an additional factor.</p>
+<ul>
+<li><p class="sd-card-text">Factors and Levels</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Factor 1: Diet Type</strong></p>
+<ul>
+<li><p class="sd-card-text">Diet A</p></li>
+<li><p class="sd-card-text">Diet B</p></li>
+<li><p class="sd-card-text">Diet C</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Factor 2: Exercise Level</strong></p>
+<ul>
+<li><p class="sd-card-text">Low Exercise</p></li>
+<li><p class="sd-card-text">High Exercise</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text">Design</p>
+<p class="sd-card-text">This creates a design with <span class="math notranslate nohighlight">\(3 \times 2 = 6\)</span> groups, as shown in the table below:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Group</p></th>
+<th class="head"><p class="sd-card-text">Diet Type</p></th>
+<th class="head"><p class="sd-card-text">Exercise Level</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Group 1</p></td>
+<td><p class="sd-card-text">A</p></td>
+<td><p class="sd-card-text">Low</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Group 2</p></td>
+<td><p class="sd-card-text">A</p></td>
+<td><p class="sd-card-text">High</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">Group 3</p></td>
+<td><p class="sd-card-text">B</p></td>
+<td><p class="sd-card-text">Low</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Group 4</p></td>
+<td><p class="sd-card-text">B</p></td>
+<td><p class="sd-card-text">High</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">Group 5</p></td>
+<td><p class="sd-card-text">C</p></td>
+<td><p class="sd-card-text">Low</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Group 6</p></td>
+<td><p class="sd-card-text">C</p></td>
+<td><p class="sd-card-text">High</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">Participants are randomly assigned to each of these 6 groups. The outcome measured (e.g., weight loss) is analyzed to see:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Main Effect of Diet:</strong><br />
+Does the type of diet (A, B, or C) significantly affect weight loss regardless of exercise level?</p></li>
+<li><p class="sd-card-text"><strong>Main Effect of Exercise:</strong><br />
+Does the exercise level (Low vs. High) have a significant effect on weight loss regardless of the diet?</p></li>
+<li><p class="sd-card-text"><strong>Interaction Effect:</strong><br />
+Does the effect of the diet on weight loss depend on the exercise level? An interaction would indicate that the difference between diets might be larger (or smaller) at one exercise level compared to the other.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text">How Two-Way ANOVA Works</p></li>
+</ul>
+<p class="sd-card-text">Two-way ANOVA partitions the total variability in the weight loss data into four components:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Variability due to Diet (Factor A):</strong><br />
+Captures differences in mean weight loss among the three diets.</p></li>
+<li><p class="sd-card-text"><strong>Variability due to Exercise (Factor B):</strong><br />
+Captures differences in mean weight loss between the two exercise levels.</p></li>
+<li><p class="sd-card-text"><strong>Variability due to the Interaction between Diet and Exercise (Interaction AB):</strong><br />
+Captures any additional variability when the effect of diet differs between the low and high exercise groups.</p></li>
+<li><p class="sd-card-text"><strong>Residual (Error) Variability:</strong><br />
+The variability not explained by the factors or their interaction.</p></li>
+</ol>
+<p class="sd-card-text">Each source of variability is associated with its own sum of squares and corresponding degrees of freedom. F-statistics are computed for the main effects and interaction by comparing the mean square for each effect with the mean square of the error.</p>
+<ul>
+<li><p class="sd-card-text">Summary</p>
+<p class="sd-card-text">In this extended example:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>One-Way ANOVA</strong> compared weight loss across three diets.</p></li>
+<li><p class="sd-card-text"><strong>Two-Way ANOVA</strong> incorporates an additional factor (Exercise Level) to explore:</p>
+<ul>
+<li><p class="sd-card-text">The individual effects of Diet and Exercise.</p></li>
+<li><p class="sd-card-text">Whether there is an interaction between Diet and Exercise on weight loss.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="sd-card-text">This example shows how two-way ANOVA combines two factors to provide a more comprehensive analysis of how different treatments and conditions jointly influence the outcome.</p>
+</div>
+</details><section id="the-two-way-anova-model">
+<h2><span class="section-number">9.1. </span>The Two-Way ANOVA Model<a class="headerlink" href="#the-two-way-anova-model" title="Link to this heading">#</a></h2>
+<p>For a two-way ANOVA model, we typically construct two-way tables to either display the sample sizes in each cell or present the measured response averages (cell means) for each combination of factor levels. Here are some examples:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-number">Table 9.1 </span><span class="caption-text">Haptic Feedback Study</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Controller</p></th>
+<th class="head"><p>Difficulty 1</p></th>
+<th class="head"><p>Difficulty 2</p></th>
+<th class="head"><p>Difficulty 3</p></th>
+<th class="head"><p>Difficulty 4</p></th>
+<th class="head"><p>Total</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total</p></td>
+<td><p>15</p></td>
+<td><p>15</p></td>
+<td><p>15</p></td>
+<td><p>15</p></td>
+<td><p>60</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table table-center" id="id2">
+<caption><span class="caption-number">Table 9.2 </span><span class="caption-text">Sugar-Sweetened Beverage Consumption Study</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Age group</strong></p></th>
+<th class="head"><p><strong>2010</strong></p></th>
+<th class="head"><p><strong>2016</strong></p></th>
+<th class="head"><p><strong>Mean</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Preadolescents</p></td>
+<td><p>108.4</p></td>
+<td><p>91.1</p></td>
+<td><p>99.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>Adolescents</p></td>
+<td><p>199.1</p></td>
+<td><p>120.5</p></td>
+<td><p>159.8</p></td>
+</tr>
+<tr class="row-even"><td><p>Adults</p></td>
+<td><p>121.8</p></td>
+<td><p>95.2</p></td>
+<td><p>108.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Mean</strong></p></td>
+<td><p>143.1</p></td>
+<td><p>102.3</p></td>
+<td><p>122.7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Just as we used a model to illustrate the procedure for one-way ANOVA, we similarly utilize a model to explain the procedure for two-way ANOVA. Two-way ANOVA is a statistical method used to compare population means when the populations are classified according to <strong>two factors</strong>. This approach not only assesses the individual (main) effects of each factor but also determines whether there is an <strong>interaction</strong> between the factors—that is, whether the effect of one factor depends on the level of the other.</p>
+<p>In this section, we describe the two-way ANOVA model, explain how the total variation is partitioned, and discuss how the main effects and interactions are interpreted. We then illustrate these ideas with an example investigating differences in sugar-sweetened beverage consumption.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+The Two-Way ANOVA Model</label><div class="sd-tab-content docutils">
+<p>There are two common ways to represent the two-way ANOVA model.</p>
+<ol class="arabic simple">
+<li><p>The Cell Means Formulation</p></li>
+</ol>
+<p>We can model the response in each cell directly as:</p>
+<div class="math notranslate nohighlight">
+\[
+  x_{ijk} = \mu_{ij} + \epsilon_{ijk},
+  \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_{ijk}\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>-th observation from the cell defined by the <span class="math notranslate nohighlight">\(i\)</span>th level of Factor <span class="math notranslate nohighlight">\(A\)</span> and the <span class="math notranslate nohighlight">\(j\)</span>th level of Factor <span class="math notranslate nohighlight">\(B\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu_{ij}\)</span> is the true mean for that cell,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_{ijk}\)</span> is the error term, assumed to be independently distributed as <span class="math notranslate nohighlight">\(\mathcal{N}(0, \sigma^2)\)</span>.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>The Decomposed Formulation</p></li>
+</ol>
+<p>Alternatively, the cell mean <span class="math notranslate nohighlight">\(\mu_{ij}\)</span> can be expressed as a sum of components:</p>
+<div class="math notranslate nohighlight">
+\[
+  x_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk},
+  \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span> is the overall mean,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha_i\)</span> is the effect of the <span class="math notranslate nohighlight">\(i\)</span>th level of Factor <span class="math notranslate nohighlight">\(A\)</span> (with <span class="math notranslate nohighlight">\(\sum_i \alpha_i = 0\)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_j\)</span> is the effect of the <span class="math notranslate nohighlight">\(j\)</span>th level of Factor <span class="math notranslate nohighlight">\(B\)</span> (with <span class="math notranslate nohighlight">\(\sum_j \beta_j = 0\)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\((\alpha\beta)_{ij}\)</span> is the interaction effect for the combination of the <span class="math notranslate nohighlight">\(i\)</span>th level of <span class="math notranslate nohighlight">\(A\)</span> and the <span class="math notranslate nohighlight">\(j\)</span>th level of <span class="math notranslate nohighlight">\(B\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_{ijk}\)</span> is as before.</p></li>
+</ul>
+<p>These two representations are equivalent because we can define the cell mean as</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_{ij} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij}.
+\]</div>
+<p>Thus, the model</p>
+<div class="math notranslate nohighlight">
+\[
+x_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}
+\]</div>
+<p>is simply a detailed way of writing</p>
+<div class="math notranslate nohighlight">
+\[
+x_{ijk} = \mu_{ij} + \epsilon_{ijk}.
+\]</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Data Structure and Notation</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>Design Notation:</strong><br />
+In an <span class="math notranslate nohighlight">\(I \times J\)</span> ANOVA, Factor <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(I\)</span> levels and Factor <span class="math notranslate nohighlight">\(B\)</span> has <span class="math notranslate nohighlight">\(J\)</span> levels. Every combination of levels appears as a cell, so there are <span class="math notranslate nohighlight">\(IJ\)</span> cells in total.</p></li>
+<li><p><strong>Sample Sizes:</strong><br />
+Let <span class="math notranslate nohighlight">\(n_{ij}\)</span> denote the number of observations in the cell corresponding to level <span class="math notranslate nohighlight">\(i\)</span> of <span class="math notranslate nohighlight">\(A\)</span> and level <span class="math notranslate nohighlight">\(j\)</span> of <span class="math notranslate nohighlight">\(B\)</span>. The total number of observations is:</p>
+<div class="math notranslate nohighlight">
+\[
+  N = \sum_{i=1}^{I} \sum_{j=1}^{J} n_{ij}.
+  \]</div>
+</li>
+<li><p><strong>Group Means and Variances:</strong><br />
+The sample mean for cell <span class="math notranslate nohighlight">\((i, j)\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+  \bar{x}_{ij} = \frac{1}{n_{ij}} \sum_{k=1}^{n_{ij}} x_{ijk}.
+  \]</div>
+<p>A pooled estimate of the error variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+  s_p^2 = \frac{\sum_{i=1}^{I} \sum_{j=1}^{J} (n_{ij} - 1) s_{ij}^2}{\sum_{i=1}^{I} \sum_{j=1}^{J} (n_{ij} - 1)},
+  \]</div>
+<p>where <span class="math notranslate nohighlight">\(s_{ij}^2\)</span> is the sample variance in cell <span class="math notranslate nohighlight">\((i, j)\)</span>.</p>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Partitioning Total Variation</label><div class="sd-tab-content docutils">
+<h2 class="rubric" id="partitioning-total-variation">Partitioning Total Variation</h2>
+<p>ANOVA partitions the total variation in the data into components attributable to the factors and their interaction, plus random error.</p>
+<ul>
+<li><p><strong>Total Sum of Squares (SST):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  SS_{Total} = \sum_{i=1}^{I} \sum_{j=1}^{J} \sum_{k=1}^{n_{ij}} \left(x_{ijk} - \bar{x}_{\cdot\cdot}\right)^2,
+  \]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x}_{\cdot\cdot}\)</span> is the overall (grand) mean.</p>
+</li>
+<li><p><strong>Model Variation:</strong> This is further decomposed into:</p>
+<ul class="simple">
+<li><p><strong>Main Effect of Factor <span class="math notranslate nohighlight">\(A\)</span> (SSA):</strong> Variation among the marginal means for <span class="math notranslate nohighlight">\(A\)</span> (with <span class="math notranslate nohighlight">\(I - 1\)</span> degrees of freedom).</p></li>
+<li><p><strong>Main Effect of Factor <span class="math notranslate nohighlight">\(B\)</span> (SSB):</strong> Variation among the marginal means for <span class="math notranslate nohighlight">\(B\)</span> (with <span class="math notranslate nohighlight">\(J - 1\)</span> degrees of freedom).</p></li>
+<li><p><strong>Interaction Effect (SSAB):</strong> Variation due to the interaction between <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> (with <span class="math notranslate nohighlight">\((I - 1)(J - 1)\)</span> degrees of freedom).</p></li>
+</ul>
+</li>
+<li><p><strong>Error (Within-Group) Variation (SSE):</strong><br />
+This is the variation within each cell, with <span class="math notranslate nohighlight">\(N - IJ\)</span> degrees of freedom.</p></li>
+</ul>
+<p>Thus, the total variation is partitioned as:</p>
+<div class="math notranslate nohighlight">
+\[
+SS_{Total} = SSA + SSB + SSAB + SSE.
+\]</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Main Effects and Interaction</label><div class="sd-tab-content docutils">
+<ul>
+<li><p>Main Effects</p>
+<ul class="simple">
+<li><p><strong>Main Effect of Factor <span class="math notranslate nohighlight">\(A\)</span>:</strong><br />
+This effect is assessed by comparing the marginal means of Factor <span class="math notranslate nohighlight">\(A\)</span> (averaging over Factor <span class="math notranslate nohighlight">\(B\)</span>). For example, if Factor <span class="math notranslate nohighlight">\(A\)</span> were “Year” (with levels 2010 and 2016), the marginal mean for each year indicates the overall effect of time.</p></li>
+<li><p><strong>Main Effect of Factor <span class="math notranslate nohighlight">\(B\)</span>:</strong><br />
+This is assessed by comparing the marginal means of Factor <span class="math notranslate nohighlight">\(B\)</span> (averaging over Factor <span class="math notranslate nohighlight">\(A\)</span>). For instance, if Factor <span class="math notranslate nohighlight">\(B\)</span> were “Age Group,” differences in the marginal means across age groups show the effect of age.</p></li>
+</ul>
+</li>
+<li><p>Interaction Effect</p>
+<ul>
+<li><p><strong>Definition:</strong><br />
+An interaction occurs when the effect of one factor depends on the level of the other factor. In our model, the interaction term <span class="math notranslate nohighlight">\((\alpha\beta)_{ij}\)</span> captures the deviation of the cell mean <span class="math notranslate nohighlight">\(\mu_{ij}\)</span> from what would be expected based solely on the main effects.</p></li>
+<li><p><strong>Interpretation:</strong><br />
+For instance, consider studying sugar-sweetened beverage consumption where:</p>
+<ul class="simple">
+<li><p><strong>Factor <span class="math notranslate nohighlight">\(A\)</span> (Year):</strong> 2010 vs. 2016,</p></li>
+<li><p><strong>Factor <span class="math notranslate nohighlight">\(B\)</span> (Age Group):</strong> Preadolescents, Adolescents, Adults.</p></li>
+</ul>
+<p>Even if the overall (marginal) effect of Year shows a reduction in consumption and the overall effect of Age Group shows differences in consumption levels, an interaction is present if the change in consumption from 2010 to 2016 is not the same for all age groups.<br />
+That is, if the effect of Year is not consistent across Age Groups, or equivalently, if the effect of Age Group is not the same in 2010 as in 2016, then an interaction exists.<br />
+The product term (Year <span class="math notranslate nohighlight">\(\times\)</span> Age Group) captures this mutual dependency. Note that the interaction is symmetric—stating “the effect of Year is not the same for all Age Groups” is equivalent to “the effect of Age Group is not the same for all Years.”</p>
+</li>
+<li><p><strong>Graphical Representation:</strong><br />
+An interaction plot displays the mean response for each combination of factors. If the lines are non-parallel (i.e., the vertical gaps between the levels of one factor differ across the levels of the other), this visually indicates an interaction. The vertical difference (or “gap”) between, say, the means for 2010 and 2016 for each age group, when compared across age groups, quantifies the interaction effect.</p></li>
+<li><p><strong>Requirement for Multiple Levels:</strong><br />
+For an interaction to be meaningful, each factor must have at least two levels. One level typically serves as a benchmark, allowing the differences—and thus the interaction—to be observed.</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0901.png"><img alt="Interaction Plot" src="_images/0901.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Example 13.5</label><div class="sd-tab-content docutils">
+<ul>
+<li><p>Example 13.5: Investigating Differences in Sugar-Sweetened Beverage Consumption</p>
+<p><strong>Background:</strong><br />
+Consumption of sugar-sweetened beverages has been linked to Type 2 diabetes and obesity. One study used data from the National Health and Nutrition Examination Survey (NHANES) with more than 57,000 individuals. Individuals were divided into three age groups:</p>
+<ul class="simple">
+<li><p><strong>Preadolescents:</strong> 6 to 11 years,</p></li>
+<li><p><strong>Adolescents:</strong> 12 to 19 years,</p></li>
+<li><p><strong>Adults:</strong> over 19 years.</p></li>
+</ul>
+<p>Data were collected for two years: 2010 and 2016. The table below shows the mean calories consumed per day from sugar-sweetened beverages:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Age group</strong></p></th>
+<th class="head"><p><strong>2010</strong></p></th>
+<th class="head"><p><strong>2016</strong></p></th>
+<th class="head"><p><strong>Mean</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Preadolescents</p></td>
+<td><p>108.4</p></td>
+<td><p>91.1</p></td>
+<td><p>99.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>Adolescents</p></td>
+<td><p>199.1</p></td>
+<td><p>120.5</p></td>
+<td><p>159.8</p></td>
+</tr>
+<tr class="row-even"><td><p>Adults</p></td>
+<td><p>121.8</p></td>
+<td><p>95.2</p></td>
+<td><p>108.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Mean</strong></p></td>
+<td><p>143.1</p></td>
+<td><p>102.3</p></td>
+<td><p>122.7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Marginal Means</p>
+<ul>
+<li><p><strong>Year Effect (Main Effect of Factor <span class="math notranslate nohighlight">\(A\)</span>):</strong></p>
+<ul>
+<li><p>Mean for 2010:</p>
+<div class="math notranslate nohighlight">
+\[
+      \text{Mean for 2010} = \frac{108.4 + 199.1 + 121.8}{3} = 143.1
+      \]</div>
+</li>
+<li><p>Mean for 2016:</p>
+<div class="math notranslate nohighlight">
+\[
+      \text{Mean for 2016} = \frac{91.1 + 120.5 + 95.2}{3} = 102.3
+      \]</div>
+</li>
+</ul>
+<p>These are called <em>marginal means</em> because they are calculated at the margins (i.e., by averaging over the levels of Age Group). The overall (grand) mean is 122.7.</p>
+</li>
+<li><p><strong>Age Group Effect (Main Effect of Factor <span class="math notranslate nohighlight">\(B\)</span>):</strong><br />
+By averaging across the years, we obtain the marginal means for each age group:</p>
+<ul class="simple">
+<li><p>Preadolescents: 99.8 calories</p></li>
+<li><p>Adolescents: 159.8 calories</p></li>
+<li><p>Adults: 108.5 calories</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Main Effects Observed</p>
+<ul>
+<li><p><strong>Effect of Year:</strong><br />
+Overall, fewer calories were consumed in 2016 than in 2010. The reduction from 2010 to 2016 is:</p>
+<div class="math notranslate nohighlight">
+\[
+    143.1 - 102.3 = 40.8 \text{ calories.}
+    \]</div>
+</li>
+<li><p><strong>Effect of Age Group:</strong><br />
+Adolescents consumed more calories than preadolescents and adults. For example, the increase from preadolescents to adolescents is:</p>
+<div class="math notranslate nohighlight">
+\[
+    159.8 - 99.8 = 60 \text{ calories.}
+    \]</div>
+</li>
+</ul>
+</li>
+<li><p>Interaction Between Year and Age Group</p>
+<p>An interaction is present when the difference between years varies across age groups. Consider the reductions from 2010 to 2016:</p>
+<ul>
+<li><p><strong>Adolescents:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+    199.1 - 120.5 = 78.6 \text{ calories.}
+    \]</div>
+</li>
+<li><p><strong>Preadolescents:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+    108.4 - 91.1 = 17.3 \text{ calories.}
+    \]</div>
+</li>
+<li><p><strong>Adults:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+    121.8 - 95.2 = 26.6 \text{ calories.}
+    \]</div>
+</li>
+</ul>
+<p>The reduction for adolescents (78.6 calories) is much larger than for the other two groups, indicating that the effect of Year (the change from 2010 to 2016) is not the same for all Age Groups. This is the interaction effect.</p>
+</li>
+<li><p>Interaction Plot</p>
+<p>An interaction plot (not shown here) would typically display:</p>
+<ul class="simple">
+<li><p>Lines for each age group connecting the mean calories in 2010 and 2016.</p></li>
+<li><p><strong>Observation:</strong></p>
+<ul>
+<li><p>All groups show lower consumption in 2016 compared to 2010.</p></li>
+<li><p>The vertical gap (difference between 2010 and 2016) is much larger for adolescents than for preadolescents or adults.</p></li>
+</ul>
+</li>
+</ul>
+<p>This non-parallelism—especially the larger gap for adolescents—visually confirms the presence of an interaction between Year and Age Group.</p>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+Assumptions for Two-Way ANOVA</label><div class="sd-tab-content docutils">
+<p>Two-way ANOVA relies on several key assumptions to ensure that the statistical tests are valid. The main assumptions are:</p>
+<ul class="simple">
+<li><p><strong>Independence:</strong><br />
+The observations are independent of each other. This means that the data in one cell (combination of levels of Factor <span class="math notranslate nohighlight">\(A\)</span> and Factor <span class="math notranslate nohighlight">\(B\)</span>) do not influence the data in another cell.</p></li>
+<li><p><strong>Normality:</strong><br />
+The residuals (errors) within each cell are assumed to be normally distributed. Equivalently, the response variable in each cell is assumed to follow a Normal distribution.</p></li>
+<li><p><strong>Homoscedasticity (Equal Variances):</strong><br />
+The variances of the response variable are assumed to be equal across all groups (cells). This is often referred to as the assumption of homogeneity of variance.</p></li>
+<li><p><strong>Fixed Factors (or Appropriately Random):</strong><br />
+The factors are either fixed (levels are the only ones of interest) or, if they are random, the model and analysis must properly account for the random effects. In the standard two-way ANOVA, factors are typically considered fixed.</p></li>
+<li><p><strong>Balanced Design (Desirable but Not Mandatory):</strong><br />
+Although two-way ANOVA can be conducted with unequal sample sizes (unbalanced design), having equal numbers of observations in each cell (balanced design) simplifies the analysis and interpretation.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="inference-for-two-way-anova">
+<h2><span class="section-number">9.2. </span>Inference for Two Way ANOVA<a class="headerlink" href="#inference-for-two-way-anova" title="Link to this heading">#</a></h2>
+<p>Inference for two-way ANOVA naturally includes an <em>F</em> statistic for each of thw two main effects and the interaction. These will be summarized into the table below:</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Significance Tests in Two-Way ANOVA</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul>
+<li><p class="sd-card-text">Significance Tests in Two-Way ANOVA</p>
+<p class="sd-card-text">In two-way ANOVA, the overall variation in the response variable is partitioned among the main effects of two factors (commonly labeled as Factor <span class="math notranslate nohighlight">\(A\)</span> and Factor <span class="math notranslate nohighlight">\(B\)</span>), their interaction, and the residual (error) variability. There are three null hypotheses that are tested using separate <span class="math notranslate nohighlight">\(F\)</span> tests:</p>
+<ul class="simple">
+<li><p class="sd-card-text">The null hypothesis for the main effect of <span class="math notranslate nohighlight">\(A\)</span>: there is no difference among the levels of Factor <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p class="sd-card-text">The null hypothesis for the main effect of <span class="math notranslate nohighlight">\(B\)</span>: there is no difference among the levels of Factor <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
+<li><p class="sd-card-text">The null hypothesis for the interaction: the effect of one factor is the same at all levels of the other factor.</p></li>
+</ul>
+<p class="sd-card-text">Each <span class="math notranslate nohighlight">\(F\)</span> statistic is computed by comparing the mean square (MS) for the source of interest with the Mean Squared Error (MSE), which is the pooled estimate of the within-group (error) variance.</p>
+</li>
+<li><p class="sd-card-text">The General Two-Way ANOVA Table</p>
+<p class="sd-card-text">Below is a general format for the two-way ANOVA table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Source</p></th>
+<th class="head"><p class="sd-card-text">Degrees of Freedom</p></th>
+<th class="head"><p class="sd-card-text">Sum of Squares</p></th>
+<th class="head"><p class="sd-card-text">Mean Square</p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(F\)</span> Statistic</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Factor <span class="math notranslate nohighlight">\(A\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(I - 1\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(SSA\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(MSA = \dfrac{SSA}{I - 1}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(F_A = \dfrac{MSA}{MSE}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Factor <span class="math notranslate nohighlight">\(B\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(J - 1\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(SSB\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(MSB = \dfrac{SSB}{J - 1}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(F_B = \dfrac{MSB}{MSE}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text"><span class="math notranslate nohighlight">\(A \times B\)</span> (Interaction)</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\((I-1)(J-1)\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(SSAB\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(MSAB = \dfrac{SSAB}{(I-1)(J-1)}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(F_{AB} = \dfrac{MSAB}{MSE}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Error</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(N - IJ\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(SSE\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(MSE = \dfrac{SSE}{N-IJ}\)</span></p></td>
+<td><p class="sd-card-text">–</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Total</strong></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(N - 1\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(SST\)</span></p></td>
+<td><p class="sd-card-text">–</p></td>
+<td><p class="sd-card-text">–</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text"><strong>Key Points:</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Degrees of Freedom (DF):</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text">For Factor <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(DF_A = I - 1\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the number of levels of Factor <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p class="sd-card-text">For Factor <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(DF_B = J - 1\)</span>, where <span class="math notranslate nohighlight">\(J\)</span> is the number of levels of Factor <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
+<li><p class="sd-card-text">For the Interaction: <span class="math notranslate nohighlight">\(DF_{AB} = (I-1)(J-1)\)</span>.</p></li>
+<li><p class="sd-card-text">For Error: <span class="math notranslate nohighlight">\(DF_E = N - IJ\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the total number of observations.</p></li>
+<li><p class="sd-card-text">For Total: <span class="math notranslate nohighlight">\(DF_{Total} = N - 1\)</span>.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Sum of Squares (SS):</strong><br />
+These quantify the variation due to each source.</p>
+<ul>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(SSA\)</span>, <span class="math notranslate nohighlight">\(SSB\)</span>, and <span class="math notranslate nohighlight">\(SSAB\)</span> are calculated by comparing group or cell means with appropriate marginal or overall means.</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(SSE\)</span> is the sum of squared deviations of individual observations from their respective cell means.</p></li>
+<li><p class="sd-card-text">The Total Sum of Squares (<span class="math notranslate nohighlight">\(SST\)</span>) equals the sum of all these components:</p>
+<div class="math notranslate nohighlight">
+\[
+      SST = SSA + SSB + SSAB + SSE.
+      \]</div>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Mean Square (MS):</strong><br />
+Each MS is the Sum of Squares divided by its corresponding degrees of freedom:</p>
+<div class="math notranslate nohighlight">
+\[
+    MSA = \frac{SSA}{I-1}, \quad MSB = \frac{SSB}{J-1}, \quad MSAB = \frac{SSAB}{(I-1)(J-1)}, \quad MSE = \frac{SSE}{N-IJ}.
+    \]</div>
+</li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(F\)</span> Statistic:</strong><br />
+For each effect (main effects and interaction), the <span class="math notranslate nohighlight">\(F\)</span> statistic is computed as:</p>
+<div class="math notranslate nohighlight">
+\[
+    F = \frac{\text{Mean Square for the effect}}{MSE}.
+    \]</div>
+<p class="sd-card-text">Under the null hypothesis that the effect has no influence (i.e., its contribution to the variance is zero), the <span class="math notranslate nohighlight">\(F\)</span> statistic follows an <span class="math notranslate nohighlight">\(F\)</span> distribution with numerator degrees of freedom equal to that effect’s DF and denominator degrees of freedom equal to <span class="math notranslate nohighlight">\(DF_E\)</span>.</p>
+</li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(P\)</span>-value:</strong><br />
+The <span class="math notranslate nohighlight">\(P\)</span>-value is the probability that an <span class="math notranslate nohighlight">\(F\)</span>-distributed random variable (with the appropriate degrees of freedom) is greater than or equal to the observed <span class="math notranslate nohighlight">\(F\)</span> statistic. Large <span class="math notranslate nohighlight">\(F\)</span> values yield small <span class="math notranslate nohighlight">\(P\)</span>-values, leading to rejection of the null hypothesis.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text">Significance Level</p>
+<p class="sd-card-text">For all hypothesis tests, including the <span class="math notranslate nohighlight">\(F\)</span> tests in ANOVA, a predetermined threshold called the <strong>significance level</strong> (denoted as <span class="math notranslate nohighlight">\(\alpha\)</span>) is set. Common choices are <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> or <span class="math notranslate nohighlight">\(\alpha = 0.01\)</span>. If the <span class="math notranslate nohighlight">\(P\)</span>-value is less than <span class="math notranslate nohighlight">\(\alpha\)</span>, the null hypothesis for that effect is rejected.</p>
+</li>
+<li><p class="sd-card-text">Summary of the Significance Tests in Two-Way ANOVA</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Main Effect of Factor <span class="math notranslate nohighlight">\(A\)</span>:</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Null Hypothesis:</strong> The means across the levels of Factor <span class="math notranslate nohighlight">\(A\)</span> are equal.</p></li>
+<li><p class="sd-card-text"><strong>Test Statistic:</strong> <span class="math notranslate nohighlight">\(F_A = \frac{MSA}{MSE}\)</span></p></li>
+<li><p class="sd-card-text"><strong>Decision:</strong> Reject the null if <span class="math notranslate nohighlight">\(P\)</span>-value <span class="math notranslate nohighlight">\(&lt; \alpha\)</span>.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Main Effect of Factor <span class="math notranslate nohighlight">\(B\)</span>:</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Null Hypothesis:</strong> The means across the levels of Factor <span class="math notranslate nohighlight">\(B\)</span> are equal.</p></li>
+<li><p class="sd-card-text"><strong>Test Statistic:</strong> <span class="math notranslate nohighlight">\(F_B = \frac{MSB}{MSE}\)</span></p></li>
+<li><p class="sd-card-text"><strong>Decision:</strong> Reject the null if <span class="math notranslate nohighlight">\(P\)</span>-value <span class="math notranslate nohighlight">\(&lt; \alpha\)</span>.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Interaction Effect (<span class="math notranslate nohighlight">\(A \times B\)</span>):</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Null Hypothesis:</strong> There is no interaction; the effect of one factor is consistent across the levels of the other factor.</p></li>
+<li><p class="sd-card-text"><strong>Test Statistic:</strong> <span class="math notranslate nohighlight">\(F_{AB} = \frac{MSAB}{MSE}\)</span></p></li>
+<li><p class="sd-card-text"><strong>Decision:</strong> Reject the null if <span class="math notranslate nohighlight">\(P\)</span>-value <span class="math notranslate nohighlight">\(&lt; \alpha\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<p class="sd-card-text">When the variation due to the effect being tested is zero, the corresponding <span class="math notranslate nohighlight">\(F\)</span> statistic will be near 1, and its <span class="math notranslate nohighlight">\(P\)</span>-value will be large, indicating that the observed variation is consistent with random error. Conversely, a large <span class="math notranslate nohighlight">\(F\)</span> statistic produces a small <span class="math notranslate nohighlight">\(P\)</span>-value, suggesting that the observed effect is unlikely to have occurred by chance and is therefore statistically significant.</p>
+</li>
+</ul>
+</div>
+</details><p>This example comes from a study of cardiovascular risk factors that compared runners (who averaged at least 15 miles per week) with a control group described as “generally sedentary.” Both men and women were included in the study. The design is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> ANOVA with the factors Group (Control vs. Runners) and Sex (Female vs. Male). There were 200 subjects in each of the four combinations, and one of the variables measured was the heart rate (HR) after six minutes of exercise on a treadmill.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0902.png"><img alt="A Study of Cardiovascular Risk Factors" src="_images/0902.png" style="width: 70%;" /></a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">A Study of Cardiovascular Risk Factors</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul>
+<li><p class="sd-card-text"><strong>(1) Summary Statistics Table</strong></p>
+<p class="sd-card-text">This table provides descriptive statistics for each subgroup in the study. The columns are:</p>
+<ul>
+<li><p class="sd-card-text"><strong>Group:</strong> Indicates the experimental group (e.g., “Control” or “Runners”).</p></li>
+<li><p class="sd-card-text"><strong>Sex:</strong> The sex of the individuals in that subgroup (e.g., “Female” or “Male”).</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(N\)</span>:</strong> The number of observations (subjects) in that subgroup.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Calculation:</strong> Count the number of individuals in the subgroup.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Mean HR:</strong> The average heart rate for that subgroup.</p>
+<ul>
+<li><p class="sd-card-text"><strong>Calculation:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+      \text{Mean HR} = \frac{1}{N} \sum_{i=1}^{N} \text{HR}_i
+      \]</div>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>StdDev HR:</strong> The sample standard deviation of HR in that subgroup.</p>
+<ul>
+<li><p class="sd-card-text"><strong>Calculation:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+      s = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (\text{HR}_i - \text{Mean HR})^2}
+      \]</div>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Min HR:</strong> The minimum observed HR in the subgroup.</p></li>
+<li><p class="sd-card-text"><strong>Max HR:</strong> The maximum observed HR in the subgroup.</p></li>
+</ul>
+<p class="sd-card-text">For example, for the “Control Female” group with <span class="math notranslate nohighlight">\(N=200\)</span>:</p>
+<ul class="simple">
+<li><p class="sd-card-text">The mean HR is 148.000 (computed as the sum of all HR values for 200 individuals divided by 200).</p></li>
+<li><p class="sd-card-text">The standard deviation is 16.271, representing how spread out the HR values are.</p></li>
+<li><p class="sd-card-text">The minimum HR observed is 105 and the maximum is 196.</p></li>
+</ul>
+<p class="sd-card-text">The “All” row shows the overall summary statistics for all 800 observations.</p>
+</li>
+<li><p class="sd-card-text"><strong>(2) Two-Way ANOVA Output</strong></p>
+<p class="sd-card-text">This output summarizes the results from the two-way ANOVA analysis. It is divided into two parts: the Whole Model Summary and the Analysis of Variance (ANOVA) table.</p>
+<ul>
+<li><p class="sd-card-text">Whole Model Summary</p>
+<ul>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(R^2\)</span>: 0.527607</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Meaning:</strong> Proportion of the total variability in HR that is explained by the factors (Sex, Group) and their interaction.</p></li>
+<li><p class="sd-card-text"><strong>Calculation:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+        R^2 = 1 - \frac{SSE}{SST}
+        \]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(SSE\)</span> is the error (within-group) sum of squares and <span class="math notranslate nohighlight">\(SST\)</span> is the total sum of squares.</p>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Adjusted <span class="math notranslate nohighlight">\(R^2\)</span>: 0.525826</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Meaning:</strong> <span class="math notranslate nohighlight">\(R^2\)</span> adjusted for the number of predictors; it penalizes the inclusion of non-significant predictors.</p></li>
+<li><p class="sd-card-text"><strong>One Common Method:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+        \text{Adjusted } R^2 = 1 - \frac{(1-R^2)(N-1)}{N-p-1}
+        \]</div>
+<ul class="simple">
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(p\)</span></strong> is the number of predictors (excluding the intercept) in the model.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Root Mean Square Error (RMSE): 15.5603</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>Meaning:</strong> The square root of the Mean Squared Error (MSE); it provides an estimate of the standard deviation of the residuals.</p></li>
+<li><p class="sd-card-text"><strong>Calculation:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+        \text{RMSE} = \sqrt{MSE} = \sqrt{\frac{SSE}{df_E}}
+        \]</div>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Mean Response: 124.49</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Meaning:</strong> The overall average HR across all observations.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Observations: 800</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Meaning:</strong> The total number of data points used in the analysis.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text">Columns in the ANOVA Table</p>
+<ul>
+<li><p class="sd-card-text"><strong>Source:</strong> The factor, interaction or the whole model being tested.</p></li>
+<li><p class="sd-card-text"><strong>DF:</strong> Degrees of freedom associated with that source.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares (SS):</strong> The variability attributed to that source.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square (MS):</strong> The average variability per degree of freedom for that source.</p>
+<ul>
+<li><p class="sd-card-text"><strong>Calculation:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+        \text{MS} = \frac{\text{SS}}{\text{DF}}
+        \]</div>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(F\)</span> Ratio:</strong> The ratio of the mean square for the source to the mean square for error (MSE).</p>
+<ul>
+<li><p class="sd-card-text"><strong>Calculation:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+        F = \frac{MS_{\text{source}}}{MSE}
+        \]</div>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(P\)</span>-value:</strong> The probability of observing an <span class="math notranslate nohighlight">\(F\)</span> value as extreme as, or more extreme than, the computed <span class="math notranslate nohighlight">\(F\)</span> value under the null hypothesis.</p></li>
+<li><p class="sd-card-text"><strong>Nparm:</strong> The number of parameters associated with the effect. A continuous effect has one parameter. The number of parameters for a nominal or ordinal effect is one less than its number of levels. The number of parameters for a crossed effect is the product of the number of parameters for each individual effect.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text">Rows in the ANOVA Table</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Sex</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>DF:</strong> 1<br />
+<em>Explanation:</em> There are 2 levels of Sex (Female, Male), so <span class="math notranslate nohighlight">\(DF = 2 - 1 = 1\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares:</strong> 45030.00<br />
+<em>Explanation:</em> Calculated by comparing the marginal means for Sex (averaged over Group) against the overall mean.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square:</strong> 45030.00<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(45030.00 / 1 = 45030.00\)</span>.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(F\)</span> Ratio:</strong> 185.9799<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(F = 45030.00 / MSE\)</span>, where <span class="math notranslate nohighlight">\(MSE\)</span> is the pooled error variance.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(P\)</span>-value:</strong> <span class="math notranslate nohighlight">\(&lt;0.0001\)</span><br />
+<em>Interpretation:</em> There is a statistically significant effect of Sex on HR.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Group</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>DF:</strong> 1<br />
+<em>Explanation:</em> There are 2 groups (Control, Runners), so <span class="math notranslate nohighlight">\(DF = 2 - 1 = 1\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares:</strong> 168432.08<br />
+<em>Explanation:</em> This measures the variability due to differences between the two groups.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square:</strong> 168432.08<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(168432.08 / 1 = 168432.08\)</span>.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(F\)</span> Ratio:</strong> 695.6470<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(F = 168432.08 / MSE\)</span>.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(P\)</span>-value:</strong> <span class="math notranslate nohighlight">\(&lt;0.0001\)</span><br />
+<em>Interpretation:</em> There is a statistically significant effect of Group on HR, and this effect has the largest <span class="math notranslate nohighlight">\(F\)</span> value among the effects.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Sex*Group (Interaction)</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>DF:</strong> 1<br />
+<em>Explanation:</em> For a <span class="math notranslate nohighlight">\(2 \times 2\)</span> ANOVA, the interaction degrees of freedom are <span class="math notranslate nohighlight">\((2-1) \times (2-1) = 1\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares:</strong> 1794.00<br />
+<em>Explanation:</em> This measures the variability due to the interaction between Sex and Group; that is, whether the effect of Sex on HR depends on the Group.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square:</strong> 1794.00<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(1794.00 / 1 = 1794.00\)</span>.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(F\)</span> Ratio:</strong> 7.4095<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(F = 1794.00 / MSE\)</span>.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(P\)</span>-value:</strong> 0.0066<br />
+<em>Interpretation:</em> The interaction effect is statistically significant (with a smaller <span class="math notranslate nohighlight">\(F\)</span> value than the main effects).</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Error</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>DF:</strong> 796<br />
+<em>Explanation:</em> The error degrees of freedom are calculated as the total number of observations minus the number of cells, i.e., <span class="math notranslate nohighlight">\(800 - 4 = 796\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares:</strong> 192729.83<br />
+<em>Explanation:</em> This is the variability within the cells that is not explained by the factors or their interaction.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square:</strong> 242.12<br />
+<em>Calculation:</em> <span class="math notranslate nohighlight">\(242.12 = 192729.83 / 796\)</span>.<br />
+This is the Mean Squared Error (MSE), the pooled estimate of the error variance.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Total</strong></p>
+<ul>
+<li><p class="sd-card-text"><strong>DF:</strong> 799<br />
+<em>Explanation:</em> Total degrees of freedom is the total number of observations minus 1, i.e., <span class="math notranslate nohighlight">\(800 - 1 = 799\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares:</strong> 407985.92<br />
+<em>Explanation:</em> This is the total variability in HR, which equals the sum of the SS for Sex, Group, their Interaction, and Error.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>(3) Summary</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Summary Statistics Table:</strong><br />
+Provides descriptive measures (N, Mean, StdDev, Min, Max) for each subgroup defined by Group and Sex.</p></li>
+<li><p class="sd-card-text"><strong>Whole Model Summary:</strong><br />
+Presents overall model diagnostics, including <span class="math notranslate nohighlight">\(R^2\)</span>, Adjusted <span class="math notranslate nohighlight">\(R^2\)</span>, RMSE, Mean Response, and the total number of observations.</p></li>
+<li><p class="sd-card-text"><strong>ANOVA Table:</strong><br />
+Breaks down the total variability in HR into parts due to the main effects (Sex and Group), their interaction, and error.</p>
+<ul>
+<li><p class="sd-card-text"><strong>DF:</strong> Reflects the number of independent pieces of information for each source.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares:</strong> Measures the total variation attributable to each source.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square:</strong> Calculated by dividing the SS by the corresponding DF.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(F\)</span> Ratio:</strong> The ratio of the MS for each effect to the MSE.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(P\)</span>-value:</strong> Indicates the statistical significance of the effect.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Interpretation of Effects:</strong><br />
+All three effects are statistically significant. The Group effect has the largest impact on HR, followed by the Sex effect and the interaction effect. The interaction plot (with narrow 95% confidence intervals) shows that the effect of one factor differs depending on the level of the other factor.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</details></section>
+<section id="mean-squares-calculations-in-two-way-anova-optional">
+<h2><span class="section-number">9.3. </span>Mean Squares Calculations in Two Way ANOVA (Optional)<a class="headerlink" href="#mean-squares-calculations-in-two-way-anova-optional" title="Link to this heading">#</a></h2>
+<p>In a two-way ANOVA, the total variation in the data is partitioned into components due to the main effects of Factor <span class="math notranslate nohighlight">\(A\)</span> and Factor <span class="math notranslate nohighlight">\(B\)</span>, their interaction, and random error. Under the assumption of equal variances (homoscedasticity), the pooled error variance is estimated by the Mean Squared Error (MSE). In a balanced design—where each cell has the same number of observations <span class="math notranslate nohighlight">\(n\)</span>—the formulas for the sums of squares and the corresponding mean squares are as follows.</p>
+<blockquote>
+<div><p><strong>Note:</strong> For an unbalanced design (i.e., different <span class="math notranslate nohighlight">\(n_{ij}\)</span> across cells), the formulas are similar but involve appropriate weights (using the cell sample sizes). The degrees of freedom are adjusted accordingly.</p>
+</div></blockquote>
+<ul>
+<li><p>Definitions and Notation</p>
+<p>Let:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(I\)</span> = number of levels of Factor <span class="math notranslate nohighlight">\(A\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(J\)</span> = number of levels of Factor <span class="math notranslate nohighlight">\(B\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span> = number of observations per cell (balanced design),</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{ijk}\)</span> = the <span class="math notranslate nohighlight">\(k\)</span>-th observation in cell <span class="math notranslate nohighlight">\((i,j)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{x}_{ij}\)</span> = sample mean for cell <span class="math notranslate nohighlight">\((i,j)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{x}_{i\cdot}\)</span> = marginal mean for level <span class="math notranslate nohighlight">\(i\)</span> of Factor <span class="math notranslate nohighlight">\(A\)</span> (averaged over Factor <span class="math notranslate nohighlight">\(B\)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{x}_{\cdot j}\)</span> = marginal mean for level <span class="math notranslate nohighlight">\(j\)</span> of Factor <span class="math notranslate nohighlight">\(B\)</span> (averaged over Factor <span class="math notranslate nohighlight">\(A\)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{x}_{\cdot\cdot}\)</span> = overall (grand) mean.</p></li>
+</ul>
+</li>
+<li><p>Sums of Squares</p>
+<ol class="arabic simple">
+<li><p><strong>Sum of Squares for Factor <span class="math notranslate nohighlight">\(A\)</span> (SSA):</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    SSA = Jn \sum_{i=1}^{I} (\bar{x}_{i\cdot} - \bar{x}_{\cdot\cdot})^2.
+    \]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Sum of Squares for Factor <span class="math notranslate nohighlight">\(B\)</span> (SSB):</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    SSB = In \sum_{j=1}^{J} (\bar{x}_{\cdot j} - \bar{x}_{\cdot\cdot})^2.
+    \]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Sum of Squares for the Interaction between <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> (SSAB):</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    SS_{AB} = n \sum_{i=1}^{I} \sum_{j=1}^{J} \Bigl( \bar{x}_{ij} - \bar{x}_{i\cdot} - \bar{x}_{\cdot j} + \bar{x}_{\cdot\cdot} \Bigr)^2.
+    \]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Sum of Squares for Error (SSE):</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    SSE = \sum_{i=1}^{I} \sum_{j=1}^{J} \sum_{k=1}^{n} \Bigl( x_{ijk} - \bar{x}_{ij} \Bigr)^2.
+    \]</div>
+<p>The total sum of squares is then given by</p>
+<div class="math notranslate nohighlight">
+\[
+  SS_{Total} = SSA + SSB + SS_{AB} + SSE.
+  \]</div>
+</li>
+<li><p>Mean Squares</p>
+<p>The mean squares are obtained by dividing each sum of squares by its associated degrees of freedom.</p>
+<ol class="arabic simple">
+<li><p><strong>Mean Square for Factor <span class="math notranslate nohighlight">\(A\)</span> (MSA):</strong></p></li>
+</ol>
+<ul>
+<li><p>Degrees of freedom for Factor <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(df_A = I - 1\)</span>.</p></li>
+<li><p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+      MSA = \frac{SSA}{I - 1}.
+      \]</div>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p><strong>Mean Square for Factor <span class="math notranslate nohighlight">\(B\)</span> (MSB):</strong></p></li>
+</ol>
+<ul>
+<li><p>Degrees of freedom for Factor <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(df_B = J - 1\)</span>.</p></li>
+<li><p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+      MSB = \frac{SSB}{J - 1}.
+      \]</div>
+</li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><strong>Mean Square for the Interaction (MSAB):</strong></p></li>
+</ol>
+<ul>
+<li><p>Degrees of freedom for the interaction: <span class="math notranslate nohighlight">\(df_{AB} = (I - 1)(J - 1)\)</span>.</p></li>
+<li><p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+      MS_{AB} = \frac{SS_{AB}}{(I - 1)(J - 1)}.
+      \]</div>
+</li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p><strong>Mean Square for Error (MSE):</strong></p></li>
+</ol>
+<ul>
+<li><p>Degrees of freedom for Error: <span class="math notranslate nohighlight">\(df_E = I \cdot J \cdot (n - 1)\)</span>.</p></li>
+<li><p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+      MSE = \frac{SSE}{I J (n - 1)}.
+      \]</div>
+</li>
+</ul>
+<p>The pooled variance (common error variance) is estimated by <span class="math notranslate nohighlight">\(MSE\)</span>, which is then used in F-tests to compare the effects:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(F\)</span> for Factor <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(F_A = \dfrac{MSA}{MSE}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(F\)</span> for Factor <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(F_B = \dfrac{MSB}{MSE}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(F\)</span> for the Interaction: <span class="math notranslate nohighlight">\(F_{AB} = \dfrac{MS_{AB}}{MSE}\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Summary</p>
+<ul class="simple">
+<li><p><strong>MSA</strong> quantifies the variation among the marginal means for Factor <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>MSB</strong> quantifies the variation among the marginal means for Factor <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
+<li><p><strong>MSAB</strong> quantifies the variation due to the interaction between Factor <span class="math notranslate nohighlight">\(A\)</span> and Factor <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
+<li><p><strong>MSE</strong> (or the pooled variance) quantifies the variation within the cells and serves as the denominator in the F-tests.</p></li>
+</ul>
+</li>
+</ul>
+<p>These formulas form the backbone of the two-way ANOVA analysis, allowing us to determine whether the main effects and interaction are statistically significant.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter8.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Chapter 12: One Way ANOVA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter10.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Chapter 2: Looking at Data-Relationships</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-way-anova-model">9.1. The Two-Way ANOVA Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-two-way-anova">9.2. Inference for Two Way ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squares-calculations-in-two-way-anova-optional">9.3. Mean Squares Calculations in Two Way ANOVA (Optional)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+  <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+  
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+  
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

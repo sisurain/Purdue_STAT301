@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. Chapter 3: Producing Data &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TH93YZ5PZ2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Chapter 1: Looking at Data – Distributions" href="chapter4.html" />
+    <link rel="prev" title="2. Some Important Concepts" href="chapter2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301/issues/new?title=Issue%20on%20page%20%2Fchapter3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 3: Producing Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-data">3.1. Sources of Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causality-and-confounding">3.2. Causality and Confounding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-design">3.3. Sampling Design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-of-experiments">3.4. Design of Experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cautions-about-experimentation">3.5. Cautions about Experimentation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-3-producing-data">
+<h1><span class="section-number">3. </span>Chapter 3: Producing Data<a class="headerlink" href="#chapter-3-producing-data" title="Link to this heading">#</a></h1>
+<p>Since we have learned the concepts of <strong>population</strong> and <strong>sample</strong>, you might wonder how data is obtained for the population and sample. In the height example, we <strong>randomly drew</strong> a specific number of students from all Purdue students to form a sample. This gives us an abstract idea of the process of forming a sample. The concept of <strong>randomly drawing</strong> will be discussed in more detail shortly. However, let’s first focus on the population.</p>
+<p>We can model the real-world measurements-the heights of all Purdue students-as a normal random variable, <span class="math notranslate nohighlight">\(Height\)</span>, with <strong>parameters</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. This serves as a mathematical abstraction of the real-world phenomenon. This powerful abstraction allows us to <strong>quantify uncertainty, derive probabilities for outcomes, and perform statistical inference</strong>.</p>
+<p>The randomness in height/<span class="math notranslate nohighlight">\(Height\)</span> may arise from many <strong>small factors</strong>, such as genetics, nutrition, environment, and other influences in biological or physical systems. Each observed height value is a realized outcome, or <strong>realization</strong>, of this process at the <strong>macro level</strong>. Modeling this process with a normal distribution is appropriate and can be explained by a fundamental concept, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank"><strong>Central Limit Theorem (CLT)</strong></a>. Other processes and phenomena, however, may be modeled by different types of random variables.</p>
+<p>Now, let’s turn our focus to sample data. The term <strong>parameter</strong> is associated with the population and is usually unknown. Once we have the sample data, we can follow a statistical procedure to calculate a <span style="color:#cfb991"><strong>STATISTIC</strong></span>, which is a number that describes the sample-for example, the sample mean.</p>
+<div class="proof definition admonition" id="statistic-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.1 </span> (Statistic)</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>numerical summary</strong> of a sample is called a statistic. The value of a statistic is known once we have taken a sample, but it can vary from sample to sample. Statistics are often used to estimate unknown parameters.</p>
+</section>
+</div><p>The entire process can be generalized as follows: First, we have a phenomenon that generates data. We model it as a random process with parameters. Next, we <strong>randomly draw</strong> or <strong>obtain</strong> data from the population to form our sample. From the sample, we calculate statistics, which we use to infer the parameters and thereby gain a better understanding of the random process and the real-world phenomenon.</p>
+<p>This process can also be viewed as a <strong>generalization</strong>-using information from the sample to draw conclusions about the phenomenon.</p>
+<section id="sources-of-data">
+<h2><span class="section-number">3.1. </span>Sources of Data<a class="headerlink" href="#sources-of-data" title="Link to this heading">#</a></h2>
+<p>Let’s explore the gap between the population and the sample. In the textbook, this leads to the question of <strong>sources of data</strong>. Whether we are interested in estimating the parameters of our population or making a conclusion about it, our questions of interest are inherently related to the population. However, we can only collect data from the sample.</p>
+<p>This raises a fundamental question: <strong>Is our sample a good representation of the population of interest?</strong> If the sample is not representative, what we observe in the sample might not reflect the reality of the population. This is why the process of how we <strong>randomly draw</strong> or <strong>obtain</strong> the sample is critical to the entire process.</p>
+<p>The term “sources of data” refers to the methods or origins of obtaining our sample data.</p>
+<p><strong>ANECDOTAL DATA</strong> and <strong>AVAILABLE DATA</strong> are two sources of data that we do not intentionally collect. These data sources might include only a few data points in the sample, and we usually lack full knowledge of how they were obtained. Therefore, we should be very cautious when drawing conclusions from these types of data.</p>
+<ul class="simple">
+<li><p><strong>Anecdotal data</strong> represent individual cases that often catch our attention because they are striking or unusual in some way. These cases are not necessarily representative of any larger group.</p></li>
+<li><p><strong>Available data</strong> are data produced for purposes other than our current question of interest but may still provide some insights or help answer the question.</p></li>
+</ul>
+<p>To answer our questions of interest or draw conclusions about the population, it is usually better to create new data and form our sample <strong>intentionally</strong>. This critical step is often controlled by researchers to ensure the sample is representative and suitable for analysis.</p>
+<p>There are two main approaches to obtaining data: one is through <span style="color:#cfb991"><strong>observational studies</strong></span>, often conducted via <strong>sample surveys</strong><a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, and the other is through <span style="color:#cfb991"><strong>experimental studies</strong></span>, conducted via <strong>experiments</strong><a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<div class="proof definition admonition" id="ob-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.2 </span> (Observational Study)</p>
+<section class="definition-content" id="proof-content">
+<p>In an observational study, we observe individuals and measure variables of interest but <strong>do not attempt to influence</strong> the responses. Measure variables as they naturally occur (<strong>no intervention</strong>).</p>
+</section>
+</div><div class="proof definition admonition" id="exp-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.3 </span> (Experiment)</p>
+<section class="definition-content" id="proof-content">
+<p>In an experiment, we <strong>deliberately impose some condition</strong> or  <strong>treatment</strong> (called an <strong>intervention</strong>) on individuals and we observe their responses.</p>
+</section>
+</div></section>
+<section id="causality-and-confounding">
+<h2><span class="section-number">3.2. </span>Causality and Confounding<a class="headerlink" href="#causality-and-confounding" title="Link to this heading">#</a></h2>
+<p>When our goal is to understand <span style="color:#cfb991"><strong>cause and effect (causality)</strong></span>, experiments are the only source of fully convincing data. The invention of randomized experiments was a stroke of genius; even today, they remain the gold standard for large pharmaceutical companies testing the effectiveness of new drugs.</p>
+<p>This is because an observational study, even one based on a carefully chosen sample, is a poor way to determine what will happen if we change something. The best way to observe the effects of a change is through an <strong>intervention</strong>-where we actively impose the change.</p>
+<p>The reason observational studies are a poor method for establishing causality is because of <strong>confounding</strong>. To establish a causal relationship, we typically aim to understand the relationship between an <strong>explanatory variable</strong> (or several) and a <strong>response variable</strong>.</p>
+<p>For example, if we are investigating whether A causes B, A is the explanatory variable, and B is the response variable.</p>
+<div class="proof definition admonition" id="expvar-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.4 </span> (Explanatory Variable)</p>
+<section class="definition-content" id="proof-content">
+<p>An <strong>explanatory variable</strong> (sometimes called an <strong>independent variable</strong>, <strong>predictor</strong>, or <strong>factor</strong>) is the variable we think might explain or influence changes in another variable (the <strong>response variable</strong>).</p>
+<p>In simpler terms, it’s the variable you suspect <strong>causes</strong> or <strong>predicts</strong> changes in the <strong>response variable</strong> (sometimes called the <strong>outcome</strong> or <strong>dependent variable</strong>).</p>
+</section>
+</div><p><strong>Confounding</strong> occurs when an explanatory variable is related to one or more other variables (might be unobserved, hidden or lurking so you don’t have data for them) that also influence the response variable. These <em>other variables</em> are called confounding variables (or confounders). When confounding exists:</p>
+<ul class="simple">
+<li><p>You may see an association between the explanatory variable and the response variable.</p></li>
+<li><p>But some or all of that association might be due to a confounder that is linked to both.</p></li>
+</ul>
+<p>Confounding can lead us to overstate or even mistakenly conclude that the explanatory variable <strong>caused</strong> the change in the response, when in reality, a confounding variable plays a partial or even dominant role in explaining that change.</p>
+<p>For example, another variable, C, might cause both A and B. However, based on the observed data, you might incorrectly conclude that A causes B.</p>
+<p>In an experiment, researchers actively impose an intervention (treatment) and use random assignment to decide who receives it. That way, any other factors that might affect the outcome (so-called lurking variables or confounders) should, on average, balance out across the different treatment groups. In an observational study, you are not assigning who or the subject is exposed to the <em>treatment</em> which might leads the confounding issue.</p>
+<p>Two real life examples of confounding issues are:</p>
+<ul class="simple">
+<li><p>The tobacco industry argued that a genetic variable, which could not be measured in the past, caused both smoking and lung cancer.</p></li>
+<li><p>There is a strong correlation between a country’s annual per capita chocolate consumption and the number of Nobel Laureates per 10 million people.</p></li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">Remember!</p>
+<p>Association does not mean causation!</p>
+</div>
+<figure class="align-center" id="id4">
+<img alt="Association and Causation" src="_images/0301.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Association and Causation</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="sampling-design">
+<h2><span class="section-number">3.3. </span>Sampling Design<a class="headerlink" href="#sampling-design" title="Link to this heading">#</a></h2>
+<p>Now that we have addressed the obstacles of confounding and understand why creating new data through experiments is sometimes necessary, we can revisit the critical step of <em>getting</em> our samples. Both <strong>observational studies</strong> and <strong>experimental studies</strong> require a well-thought-out <span style="color:#cfb991"><strong>sampling design</strong></span>. This is because we need to intentionally select elements or observations from the population to form a sample-a subset of the population-so that we maintain control over this step.</p>
+<p>Unlike experimental studies, observational studies do not involve <strong>experimental design</strong>, which will be discussed in a later section. In observational studies, no treatments or interventions are deliberately imposed on the subjects. Instead, these studies rely entirely on <strong>sampling design</strong> to collect data. We will begin with a discussion of <strong>Sample Surveys</strong>, a classical form of observational study.</p>
+<div class="proof definition admonition" id="samsur-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.5 </span> (Sample Survey)</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>sample survey</strong> is an <strong>observational study</strong>-we simply observe, measure, or ask questions of a subset without imposing a treatment (as in an experiment).</p>
+<p>The <strong>design</strong> of a sample survey refers to <strong>how we select</strong> the sample from the population.</p>
+</section>
+</div><p>The primary goal of sampling design is to ensure that the sample is selected in a way that guarantees it is <strong>representative</strong> of the entire population. If the sampling scheme favors certain parts of the population over others, it introduces <strong>bias</strong>, or <strong>systematic error</strong>.</p>
+<p>One example of such a scheme is a <strong>voluntary response sample</strong>, where people who take the effort to respond to an open invitation are not representative of the entire population. This introduces a form of <strong>selection bias</strong>.</p>
+<ul class="simple">
+<li><p>A <strong>voluntary response sample</strong> consists of people who choose themselves by responding to a general appeal. Voluntary response samples are biased because people with strong opinions, especially negative opinions, are most likely to respond.</p></li>
+</ul>
+<p><strong>Random selection</strong> of a sample eliminates bias by giving all individuals an equal chance to be chosen. This leads to <strong>Simple Random Sample (SRS)</strong> which is the most basic form of <strong>probability sampling</strong>. A probability sampling design uses a known chance (not necessarily equal) to select the sample.</p>
+<div class="proof definition admonition" id="simransam-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.6 </span> (Simple Random Sample SRS)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Definition</strong>: Every set of <span class="math notranslate nohighlight">\(n\)</span> individuals in the population has an equal chance to be chosen.</p>
+<p><strong>Example</strong>: <em>Names in a hat</em> or using random digits/software to pick which individuals appear in the sample.</p>
+</section>
+</div><p>Here are two more complex sampling methods:</p>
+<ul>
+<li><p><strong>Stratified Random Sample:</strong> First, <strong>divide</strong> the population into <strong>strata</strong> (groups of similar individuals-e.g., by region, gender, or age). Then choose an SRS <strong>within each stratum</strong> and <strong>combine</strong> these SRSs into one overall sample.</p>
+<ul class="simple">
+<li><p>Why? If individuals within each stratum are more alike, sampling each stratum separately can give more precise estimates (less variability).</p></li>
+<li><p>It’s like <em>blocking</em> in experiments: grouping by an important characteristic before randomizing.</p></li>
+</ul>
+</li>
+<li><p><strong>Multistage Random Sample (Including Clusters):</strong> Select the sample in <strong>stages</strong>. Common in large-scale national surveys:</p>
+<ol class="arabic simple">
+<li><p>Divide the population into <strong>primary sampling units</strong> (PSUs) (e.g., regions). Randomly select some PSUs.</p></li>
+<li><p>Within each chosen PSU, randomly select smaller sub-units (e.g., city blocks).</p></li>
+<li><p>Within each block, randomly select households or individuals (clusters).</p></li>
+</ol>
+<ul class="simple">
+<li><p>Why? More practical (less travel and cost); large populations are spread out; a simple SRS of all households in the country would be logistically expensive.</p></li>
+</ul>
+</li>
+</ul>
+<p>Even with well-designed sampling methods, we cannot entirely eliminate <strong>bias</strong>. Below is a list of common sources of bias and errors.</p>
+<ul class="simple">
+<li><p><strong>Undercoverage</strong>: Some groups in the population are left out of the process (e.g., homeless, dorm students in telephone polls).</p></li>
+<li><p><strong>Nonresponse</strong>: Individuals chosen for the sample can’t be contacted or refuse to cooperate (often 50%+ in phone polls).</p></li>
+<li><p><strong>Response Bias</strong>: Behaviors of interviewer or respondent can influence answers (e.g., lying about sensitive topics, interviewer’s tone, memory errors).</p></li>
+<li><p><strong>Wording of Questions</strong>: Minor changes in phrasing can drastically change results. Leading or confusing questions create strong bias.</p></li>
+<li><p><strong>Measurement Bias</strong>: When your measurement process systematically mismeasures the target, consistently favoring one direction (e.g., a scale that overestimates weight).</p></li>
+</ul>
+<p>One last thing I want to mention in this section is that our goal is to calculate a <em>statistic</em><a class="footnote-reference brackets" href="#footnote03" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> from our sample to estimate the parameter associated with the population. If the sampling design contains <strong>bias</strong>, you can imagine that this statistic will not be of high quality. However, bias is just one dimension when assessing quality. Another critical dimension is the <strong>variance</strong>, or <strong>variation</strong>, of a statistic during the sampling process, even if the sampling design is unbiased. Below are two common sources of variation.</p>
+<ul class="simple">
+<li><p><strong>Sampling Variability</strong>: If the sample is drawn from the population with some amount of randomness, the sampling variability describes the variability from one sample to the next.</p></li>
+<li><p><strong>Measurement Variability</strong>: When we take multiple measurements on the same object and we get variations in measurements from one sample to the next.</p></li>
+</ul>
+</section>
+<section id="design-of-experiments">
+<h2><span class="section-number">3.4. </span>Design of Experiments<a class="headerlink" href="#design-of-experiments" title="Link to this heading">#</a></h2>
+<p>Before diving into the design aspect, we first need to understand the definition of an <span style="color:#cfb991"><strong>experiment</strong></span> and familiarize ourselves with some terminologies associated with it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Experiment</strong>: A study in which <strong>researchers impose treatments</strong> (or interventions) on experimental units (which can be people, animals, or objects) in order to observe their responses (outcomes).</p>
+<p><strong>Why We Do Experiments</strong>: They’re our best shot at establishing <strong>cause-and-effect</strong> because by randomly assigning treatments and controlling conditions, we can reduce or eliminate <strong>confounding</strong> influences that otherwise might bias our conclusions.</p>
+</div>
+<ul class="simple">
+<li><p><strong>Experimental units</strong>: The individuals in an experiment (called <strong>subjects</strong> if they are human). The smallest unit to which a treatment is independently assigned.</p></li>
+<li><p><strong>Factors</strong>: The explanatory variables in an experiment.</p>
+<ul>
+<li><p>Example: A factor could be “Type of Class” (small vs. regular) in an education experiment, or “Ad Length” in an advertising study.</p></li>
+</ul>
+</li>
+<li><p><strong>Outcomes (Response variables)</strong>: The measured results (what we compare across treatments).</p>
+<ul>
+<li><p>Example: students’ grades in the education experiment.</p></li>
+</ul>
+</li>
+<li><p><strong>Levels of a Factor</strong>: Different values that a factor can take (e.g., 30-second vs. 90-second ad).</p></li>
+<li><p><strong>Treatments</strong>: Specific experimental conditions imposed on the subjects. Often formed by combining specific levels of one or more factors.</p>
+<ul>
+<li><p>Example: If Factor <span class="math notranslate nohighlight">\(A = Ad Length\)</span> (30s or 90s) and Factor <span class="math notranslate nohighlight">\(B = Repetitions\)</span> (1, 3, or 5 times), you have 2 <span class="math notranslate nohighlight">\(\times\)</span> 3 <span class="math notranslate nohighlight">\(=\)</span> 6 possible treatments.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Placebo effect, Control, Control Group, and Treatment Group</strong></p>
+<p>Before we move on to how to design an experiment, we first need to clearly understand why we design experiments. In the previous sections, we learned that confounding is a significant issue when attempting to establish causality. The best way to avoid confounding is by conducting a <strong>comparative experiment</strong>. The basic idea is to <strong>assign</strong> (according to a specific experimental design) the experimental units into different groups after selecting them to form our sample. Each group receives a different treatment, and the results are then compared.</p>
+<p>There are many potential variables or factors that could explain or affect the causal relationship between the variables of interest and the response variable. Often, confounders—hidden or lurking variables—cannot be measured, or they are not our primary focus. Experimental design aims to mitigate or eliminate the effects of these variables. This is the core idea behind experimental design: we need to <span style="color:#cfb991"><strong>Control</strong></span> these effects.</p>
+<div class="proof definition admonition" id="control-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.7 </span> (Control)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Control</strong> is about managing <strong>lurking variables</strong> or <strong>extraneous</strong> factors (variables not of primary interest) that could influence the response variable.</p>
+<p>If these factors differ between treatment groups, they may <strong>confound the results</strong>, making it unclear whether the observed differences are due to the treatments or the lurking variables.</p>
+<p>The goal of control is to <strong>keep these variables constant</strong> or <strong>balanced across treatment groups</strong>, so any observed differences in outcomes can be confidently attributed to the treatments.</p>
+</section>
+</div><p>We will discuss how to achieve <strong>Control</strong> later when we explore experimental design. Since experiments involve two or more groups, we need a group to serve as a benchmark so that the results of other groups can be compared against it. This group is usually called the <strong>Control Group</strong> and is often given a <strong>Placebo</strong> to account for the <span style="color:#cfb991"><strong>Placebo Effect</strong></span>.</p>
+<div class="proof definition admonition" id="plaeff-definition">
+<p class="admonition-title"><span class="caption-number">Definition 3.8 </span> (Placebo Effect)</p>
+<section class="definition-content" id="proof-content">
+<p>The <strong>placebo effect</strong> occurs when individuals experience a change in their behavior, symptoms, or outcomes simply because they believe they are receiving a treatment, even if the treatment has no active ingredient or direct therapeutic effect.</p>
+<p>This psychological or physiological response is not due to the treatment itself but rather to the individual’s <strong>expectation of improvement</strong> or <strong>belief</strong> that they are being helped.</p>
+<p><strong>Baseline for Comparison</strong>: The placebo effect can confound the results of an experiment. To accurately measure the effect of a real treatment, researchers need to isolate the treatment’s effect from the placebo effect. This is why placebos are often used as a benchmark or baseline in experiments.</p>
+</section>
+</div><p>By including a placebo group, researchers can control for the impact of participants’ expectations or beliefs about the treatment, ensuring that any observed effects in the treatment group are due to the treatment itself and not psychological factors. The placebo control group can be thought of as a treatment group that receives no treatment. The remaining groups are referred to as treatment groups, each receiving a specific treatment.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How Placebos Work in Experiments:</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Participants are Divided</strong>:</p></li>
+</ol>
+<ul class="simple">
+<li><p class="sd-card-text">Some participants receive the actual treatment (e.g., a drug with an active ingredient).</p></li>
+<li><p class="sd-card-text">Others receive a placebo (e.g., a sugar pill, saline injection, or inert substance) that looks identical to the actual treatment but has no active effect.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p class="sd-card-text"><strong>Blind or Double-Blind Designs</strong>:</p></li>
+</ol>
+<ul class="simple">
+<li><p class="sd-card-text">Single-Blind: Participants don’t know if they are receiving the real treatment or the placebo.</p></li>
+<li><p class="sd-card-text">Double-Blind: Neither the participants nor the experimenters know which group is receiving the real treatment or placebo. This eliminates biases from both sides.</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p class="sd-card-text"><strong>Comparison</strong>:</p></li>
+</ol>
+<ul class="simple">
+<li><p class="sd-card-text">After the experiment, researchers compare the outcomes in the treatment group to those in the placebo group. If the treatment group shows a significantly better outcome than the placebo group, the effect can likely be attributed to the treatment itself.</p></li>
+</ul>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Types of Experimental Designs</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Completely Randomized Design (CRD)</strong></p>
+<ul>
+<li><p class="sd-card-text">All experimental units are <strong>randomly allocated</strong> among all treatments.</p></li>
+<li><p class="sd-card-text">Can handle any number of treatments.</p></li>
+<li><p class="sd-card-text">Example: The advertising example with 6 treatments (two factors, each at multiple levels) and 150 subjects, randomly assigning 25 subjects to each treatment.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Matched Pairs Design</strong></p>
+<ul>
+<li><p class="sd-card-text">Often used to compare just <strong>two</strong> treatments.</p></li>
+<li><p class="sd-card-text">Subjects are arranged in pairs (e.g., same age, same gender) that are alike in ways that might affect the response. Then one subject in each pair gets treatment A, the other gets treatment B.</p></li>
+<li><p class="sd-card-text">Variation is reduced because each pair is more similar than randomly chosen individuals.</p></li>
+<li><p class="sd-card-text">Alternatively, the same subject can receive both treatments in random order (the subject is “paired with themselves”). This experiment is called a <strong>cross-over</strong> experiment.</p></li>
+</ul>
+</li>
+<li><p class="sd-card-text"><strong>Block Designs</strong></p>
+<ul>
+<li><p class="sd-card-text">A generalization of “matching” when we have larger groups of subjects who share certain characteristics.</p></li>
+<li><p class="sd-card-text">We divide subjects into <strong>blocks</strong> (groups) based on some confounding factor, then randomly assign treatments within each block.</p></li>
+<li><p class="sd-card-text">Example: If men and women might respond differently, we block by gender, then randomize within each gender block.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><p>For all designs, random assignment is essential at some stage. To implement randomization, we can use tools such as computer software, a table of random digits, or other similar methods.</p>
+<p>One important strategy to note is that we can first block certain factors and then randomly assign treatments to groups within each block to control for lurking variables. This approach follows the principle: <strong>control what you can, block what you cannot control (i.e., form blocks), and randomize to create comparable groups</strong>-provided you have the luxury of a relatively large sample size.</p>
+<p>We block these factors because they are not the focus of the study and can be observed by the researchers.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Core Principles of Experimental Design</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Comparison</strong>: Use at least two treatments (or a treatment vs. control) to prevent confounding influences. Control: Keep outside variables (lurking or extraneous factors) the same or accounted for, so differences in outcome can be attributed to the treatments rather than confounding.</p></li>
+<li><p class="sd-card-text"><strong>Randomization</strong>: Assign subjects to treatments purely by chance so the groups are (on average) similar in all respects except for the treatment imposed.</p></li>
+<li><p class="sd-card-text"><strong>Repetition (Replication)</strong>: Use enough subjects (or replicate the procedure multiple times) to reduce chance variation in the results.</p></li>
+</ul>
+</div>
+</details></section>
+<section id="cautions-about-experimentation">
+<h2><span class="section-number">3.5. </span>Cautions about Experimentation<a class="headerlink" href="#cautions-about-experimentation" title="Link to this heading">#</a></h2>
+<p>Though <strong>randomized comparative experiments</strong> (when done carefully and repeated in different contexts) provide the strongest evidence for causation and are often regarded as the gold standard, there are still important considerations to keep in mind when conducting experiments and interpreting the results.</p>
+<ul class="simple">
+<li><p><strong>Lack of Realism</strong>: The experimental setting might not reflect real-world conditions, limiting generalizability.</p></li>
+<li><p><strong>Ethical/Practical Constraints</strong>: Some random assignments may be unethical (e.g., harmful interventions) or logistically impossible.</p>
+<ul>
+<li><p>Approval of an <strong>institutional review board</strong> is required for studies that involve humans or animals as subjects.</p></li>
+<li><p>Human subjects must give <strong>informed consent</strong> if they are to participate in experiments.</p></li>
+<li><p>Data on human subjects must be kept <strong>confidential</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>External Validity</strong>: Even a well-designed experiment in one setting might not hold for different populations or environments.</p></li>
+<li><p><strong>Bias and Confounding</strong>: If not carefully controlled, design flaws can still let lurking variables confound results.</p></li>
+</ul>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote01" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>We can also use past survey data, such as existing databases. In this case, we are using available data, which is common in certain fields like economics. However, analyzing such data often requires more advanced statistical and econometric techniques.</p>
+</aside>
+<aside class="footnote brackets" id="footnote02" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>In many fields, conducting experiments may not be feasible due to ethical concerns or practical limitations.</p>
+</aside>
+<aside class="footnote brackets" id="footnote03" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>I will discuss the term <em>statistic</em> in more detail in later chapters.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Some Important Concepts</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Chapter 1: Looking at Data – Distributions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-data">3.1. Sources of Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causality-and-confounding">3.2. Causality and Confounding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-design">3.3. Sampling Design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-of-experiments">3.4. Design of Experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cautions-about-experimentation">3.5. Cautions about Experimentation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+  <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+  
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+  
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

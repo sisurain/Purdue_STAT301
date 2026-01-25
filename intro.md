@@ -1,5 +1,14 @@
 # STAT 301 Introduction
 
+<div style="background-color: #f9f9f9; padding: 15px; border-left: 5px solid #cfb991; margin-bottom: 25px;">
+  <strong>📥 For Offline Study:</strong><br>
+  <a href="STAT301_Course_Materials.zip" style="font-weight: bold; font-size: 1.1em; color: #333;">
+    Click here to Download Complete Course Materials (.zip)
+  </a>
+  <br>
+  <em>(Includes all slides, datasets, and code notebooks)</em>
+</div>
+
 These materials accompany the teaching of STAT 301, _Elementary Statistical Methods_, at Purdue University. STAT 301 is a university-wide undergraduate course that serves a large and diverse student body. It is offered throughout the year across all semesters, with both online and in-person versions, taught by multiple instructors.
 
 This short book provides comprehensive materials to meet the needs of different kinds of students. It's understandable that, for some students, this course might be the only statistics course you take, and your goal may simply be to <span style="color:#cfb991; font-weight:bold;">pass the course</span>. Passing the course is one of the minimum expectations I will assume. Therefore, I will explicitly lay out what needs to be done to pass the course. You need to <span style="color:#cfb991">**spend enough time**</span> to complete the minimum assignments and tasks required to pass the course. Otherwise, you will fail unless you have mastered these materials and developed the corresponding statistical skills.[^footnote01]

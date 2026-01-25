@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>10. Chapter 2: Looking at Data-Relationships &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TH93YZ5PZ2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter10';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="11. Chapter 2: Least Squares Regression" href="chapter11.html" />
+    <link rel="prev" title="9. Chapter 13: Two Way ANOVA" href="chapter9.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301/issues/new?title=Issue%20on%20page%20%2Fchapter10.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter10.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 2: Looking at Data-Relationships</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationships">10.1. Relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots">10.2. Scatterplots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">10.3. Correlation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-looking-at-data-relationships">
+<h1><span class="section-number">10. </span>Chapter 2: Looking at Data-Relationships<a class="headerlink" href="#chapter-2-looking-at-data-relationships" title="Link to this heading">#</a></h1>
+<p>In the previous chapters, we mainly focused on exploring the distributions of a single variable and studying statistical procedures related to that one variable or the mean of a single response variable.</p>
+<p>Many interesting problems, however, arise when we wish to explore the relationships among two or more variables. Starting from this chapter, we will learn some graphing techniques and modeling techniques for studying the <span style="color:#cfb991"><strong>relationships among variables</strong></span>.</p>
+<p>In general, if two variables have no relationship at all, we say that the variables are <span style="color:#cfb991"><strong>independent</strong></span>. Two variables are statistically independent if the occurrence (or value) of one does not provide any information about the occurrence (or value) of the other. In many real-world situations, true independence is rare because various factors often interrelate.</p>
+<p>When variables are not independent, they are considered <span style="color:#cfb991"><strong>dependent</strong></span>; that is, knowing something about one variable gives you some information about the other. If two variables are dependent, then we say they have some kind of relationship.</p>
+<p>In this course, we focus on the basic and most common type of relationship: the linear relationship. Among all types of relationships, we explore <strong>association</strong> and learn some basic tools to quantify it. We also touch on using <strong>linear regression modeling techniques</strong> to analyze associations and use the models as tools for prediction. Of course, there are other types of relationships among variables, such as <strong>causal relationships</strong>, which go beyond mere association.</p>
+<section id="relationships">
+<h2><span class="section-number">10.1. </span>Relationships<a class="headerlink" href="#relationships" title="Link to this heading">#</a></h2>
+<div class="note admonition">
+<p class="admonition-title"><strong>Association between Variables</strong></p>
+<p>Two variables measured on the same cases are <strong>associated</strong> if knowing the value of one of the variables tells you something about the value of the other variable.</p>
+<p>A <strong>response variable (dependent variable)</strong> measures an outcome of a study. An <strong>explanatory variable (independent variable)</strong> explains or causes changes in the response variable.</p>
+<p>A description of the key characteristics of a data set that will be used to explore a relationship<br />
+between two variables should include:</p>
+<ul class="simple">
+<li><p><strong>Cases.</strong> Identify the cases and how many there are in the data set.</p></li>
+<li><p><strong>Categorical or quantitative.</strong> Classify each variable as categorical or quantitative.</p></li>
+<li><p><strong>Values.</strong> Identify the possible values for each variable.</p></li>
+<li><p><strong>Explanatory or response.</strong> If appropriate, classify each variable as explanatory or response.</p></li>
+<li><p><strong>Label.</strong> Identify what is used as a label variable if one is present.</p></li>
+</ul>
+</div>
+</section>
+<section id="scatterplots">
+<h2><span class="section-number">10.2. </span>Scatterplots<a class="headerlink" href="#scatterplots" title="Link to this heading">#</a></h2>
+<p>The most common way to display the relationship between two quantitative variables is by using a <em>scatterplot</em>. It helps us to describe the form and strength of the association.</p>
+<div class="note admonition">
+<p class="admonition-title"><strong>Scatterplot</strong></p>
+<p>A <strong>scatterplot</strong> shows the relationship between two quantitative variables measured on the same cases. The values of one variable appear on the horizontal axis, and the values of the other variable appear on the vertical axis. Each case in the data appears as the point in the plot determined by the values of both variables for that case.</p>
+</div>
+<p>Always plot the explanatory variable, if there is one, on the horizontal axis (the <span class="math notranslate nohighlight">\(x\)</span> axis) of a scatterplot. We usually call the explanatory variable <span class="math notranslate nohighlight">\(x\)</span> and the response variable <span class="math notranslate nohighlight">\(y\)</span>. If there is no explanatory-response distinction, either variable can go on the horizontal axis. Time plots such as the one are special scatterplots where the explanatory variable <span class="math notranslate nohighlight">\(x\)</span> is a measure of time.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Example: Scatterplot for laundry detergents</label><div class="sd-tab-content docutils">
+<p>A higher price should be associated with a better product.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1001.png"><img alt="Scatterplot for laundry detergents" src="_images/1001.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Removing the Outliers</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1002.png"><img alt="Scatterplot for laundry detergents Removing the Outliers" src="_images/1002.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Interpreting Scatterplots</label><div class="sd-tab-content docutils">
+<p>Instead of shape, center, and spread for distributions, we will look at <em>form</em>, <em>direction</em>, and <em>strength</em> for relationships.</p>
+<div class="note admonition">
+<p class="admonition-title"><strong>Examining a Scatterplot</strong></p>
+<p>In any graph of data, look for the <strong>overall pattern</strong> and for striking <strong>deviations</strong> from that pattern.</p>
+<p>You can describe the overall pattern of a scatterplot by the <strong>form, direction,</strong> and <strong>strength</strong> of the relationship.</p>
+</div>
+<p>When we look at it carefully, we see that it suggests a <strong>linear relationship</strong>. In other words, it may be appropriate to summarize the relationship with a straight line. To explore this possibility, we can use software to put a straight line through the data.</p>
+<blockquote>
+<div><p>People’s focus on linear relationships stems from several practical and theoretical advantages.</p>
+</div></blockquote>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+A Straight Line</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1003.png"><img alt="A Straight Line" src="_images/1003.png" style="width: 70%;" /></a>
+</figure>
+<p>Although it is very weak, the relationship in the figure has a <em>direction</em>: laundry detergents that cost more have somewhat higher ratings. This is a <em>positive association</em> between the two variables.</p>
+<div class="note admonition">
+<p class="admonition-title"><strong>Positive Association, Negative Association</strong></p>
+<p>Two variables are <strong>positively associated</strong> when above-average values of one tend to accompany above-average values of the other, and below-average values also tend to occur together.</p>
+<p>Two variables are <strong>negatively associated</strong> when above-average values of one tend to accompany below-average values of the other and vice versa.</p>
+</div>
+<p>The strength of a relationship in a scatterplot is determined by how closely the points follow a clear form. The overall relationship in the figure is weak.</p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Adding Categorical Variables to Scatterplots</label><div class="sd-tab-content docutils">
+<p>To add a categorical variable to a scatterplot, use a different plot color or symbol for each category.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1004.png"><img alt="Adding Categorical Variables to Scatterplots" src="_images/1004.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+Nonlinear Smooth Curve</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1005.png"><img alt="Nonlinear Smooth Curve" src="_images/1005.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Log Transformation</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>Calcium intake and retention</strong>: As calcium intake increases, the body retains more calcium, but the relationship is <strong>nonlinear</strong>—initially linear, then leveling off.</p></li>
+<li><p><strong>Transformations for linearity</strong>: Some curved relationships, can be made <strong>approximately linear</strong> by applying a <strong>transformation</strong> to the data.</p></li>
+<li><p><strong>Common use of transformations</strong>:</p>
+<ul>
+<li><p>Help make distributions more <strong>Normal</strong>.</p></li>
+<li><p>Convert curved relationships into more <strong>linear</strong> forms.</p></li>
+</ul>
+</li>
+<li><p>The Log Transformation</p>
+<ul>
+<li><p><strong>Purpose</strong>: Converts variables with only <strong>positive values</strong> into a more interpretable scale.</p>
+<ul>
+<li><p>If zeros exist, replace them with a small value (e.g., half of the smallest positive value).</p></li>
+</ul>
+</li>
+<li><p><strong>Logarithms in statistics</strong>:</p>
+<ul>
+<li><p>A powerful tool for transformations.</p></li>
+<li><p><strong>Natural logarithms</strong> are commonly used in statistical software.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1006.png"><img alt="Log Transformation" src="_images/1006.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Scatterplot Smoothers</label><div class="sd-tab-content docutils">
+<p>We add a smooth curve to our scatterplot to better understand the relationship between calcium retention and calcium intake. This curve helped us to see that the amount of calcium retained tends to level off as the intake increases. The method that we used to construct the curve is called <strong>smoothing</strong>.</p>
+<p>Today, most statistical software includes options to perform the calculations needed for smoothing. The technical details vary, but the basic idea is that there is a <strong>smoothing parameter</strong> that controls the degree to which the relationship is smoothed. Here is another example.</p>
+<blockquote>
+<div><p>Scatterplot of rating versus price per load (in cents), with smooth curves: (a) with a small value of the smoothing parameter; (b) with a higher value of the smoothing parameter.</p>
+</div></blockquote>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1007.png"><img alt="a small value of the smoothing parameter" src="_images/1007.png" style="width: 70%;" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1008.png"><img alt="a higher value of the smoothing parameter" src="_images/1008.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+</section>
+<section id="correlation">
+<h2><span class="section-number">10.3. </span>Correlation<a class="headerlink" href="#correlation" title="Link to this heading">#</a></h2>
+<p>We have data on variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, two quantitative variables for <span class="math notranslate nohighlight">\(n\)</span> cases.</p>
+<ul class="simple">
+<li><p>Example: Measuring <strong>height</strong> and <strong>weight</strong> of <span class="math notranslate nohighlight">\(n\)</span> people.</p></li>
+<li><p>Each individual has a height <span class="math notranslate nohighlight">\(x_i\)</span> paired with weight <span class="math notranslate nohighlight">\(y_i\)</span>.</p></li>
+<li><p>These pairs are used in calculating the <strong>correlation</strong>.</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title"><strong>Correlation</strong></p>
+<p>The <strong>correlation</strong> measures the <strong>direction</strong> and <strong>strength</strong> of the <strong>linear</strong> relationship between two quantitative variables.<br />
+Correlation is usually written as <span class="math notranslate nohighlight">\(r\)</span>.</p>
+</div>
+<ul>
+<li><p>Suppose we have data on variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> for <span class="math notranslate nohighlight">\(n\)</span> individuals.</p></li>
+<li><p>The means and standard deviations of these variables:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s_x\)</span> for <span class="math notranslate nohighlight">\(x\)</span>-values.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{y}\)</span> and <span class="math notranslate nohighlight">\(s_y\)</span> for <span class="math notranslate nohighlight">\(y\)</span>-values.</p></li>
+</ul>
+</li>
+<li><p>The correlation <span class="math notranslate nohighlight">\(r\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+  r = \frac{1}{n-1} \sum \left( \frac{x_i - \bar{x}}{s_x} \right) \left( \frac{y_i - \bar{y}}{s_y} \right)
+  \]</div>
+</li>
+<li><p>Interpreting Correlation</p>
+<ul class="simple">
+<li><p>Correlation values range between <strong>-1 and 1</strong>.</p></li>
+<li><p>The two variables are said to be uncorrelated when <span class="math notranslate nohighlight">\(r = 0\)</span>.</p>
+<ul>
+<li><p>Values near <strong>0</strong> indicate a <strong>weak linear relationship</strong>.</p></li>
+<li><p>Values near <strong>-1 or 1</strong> indicate <strong>strong linear association</strong>.</p></li>
+</ul>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then <span class="math notranslate nohighlight">\(r = 0\)</span>, but <span class="math notranslate nohighlight">\(r = 0\)</span> does not imply independence.</p></li>
+<li><p><span class="math notranslate nohighlight">\(r = 1\)</span> or <span class="math notranslate nohighlight">\(r = -1\)</span> iff <span class="math notranslate nohighlight">\(Y = aX + b\)</span> for some numbers <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(a \neq 0\)</span>.</p></li>
+<li><p>However, if <span class="math notranslate nohighlight">\(|r| \ll 1\)</span>, there may still be a strong relationship between the two variables, just one that is not linear.</p></li>
+<li><p>And even if <span class="math notranslate nohighlight">\(|r|\)</span> is close to 1, it may be that the relationship is really nonlinear but can be well approximated by a straight line.</p></li>
+<li><p><strong>Association (a high correlation) is not the same as causation.</strong></p></li>
+<li><p><strong>No distinction between explanatory and response variables.</strong> No direction.</p></li>
+<li><p><strong>Correlation is not resistant to outliers</strong></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(r\)</span> is <strong>strongly affected</strong> by outliers.</p></li>
+<li><p>Use caution when interpreting correlation in scatterplots with outliers.</p></li>
+</ul>
+</li>
+<li><p><strong>Visual interpretation of <span class="math notranslate nohighlight">\(r\)</span> is difficult</strong></p>
+<ul>
+<li><p>Changing the scatterplot’s scale may mislead perception, but it <strong>does not</strong> change correlation.</p></li>
+<li><p>Use <strong>software tools</strong> to properly assess how extreme observations influence <span class="math notranslate nohighlight">\(r\)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>A correlation based on averages</strong> is usually <strong>higher</strong> than if we used data for individuals.</p></li>
+</ul>
+</li>
+<li><p>Understanding the Formula</p>
+<ul class="simple">
+<li><p>The summation sign  <span class="math notranslate nohighlight">\(\sum\)</span> means <strong>“add these terms up.”</strong></p></li>
+<li><p>Though helpful in understanding correlation, it is <strong>not convenient for manual calculation</strong>.</p></li>
+<li><p>In practice, <strong>software or a calculator</strong> should be used.</p></li>
+</ul>
+</li>
+<li><p>Standardization for Correlation</p>
+<p>The formula starts by <strong>standardizing observations</strong>:</p>
+<ul>
+<li><p><strong>Example</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x\)</span> = height (cm)</p></li>
+<li><p><span class="math notranslate nohighlight">\(y\)</span> = weight (kg)</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s_x\)</span> are the <strong>mean</strong> and <strong>standard deviation</strong> of <span class="math notranslate nohighlight">\(n\)</span> heights.</p></li>
+<li><p>Standardized Value for Height</p>
+<div class="math notranslate nohighlight">
+\[
+    \frac{x_i - \bar{x}}{s_x}
+    \]</div>
+</li>
+<li><p><strong>Z-score Interpretation</strong></p>
+<ul class="simple">
+<li><p>Shows how many <strong>standard deviations</strong> a value is from the mean.</p></li>
+<li><p><strong>Standardized values have no units</strong>.</p></li>
+<li><p>Standardizing both variables allows for <strong>direct comparison</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Final Step</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r\)</span> is the <strong>average of the products</strong> of standardized height and weight values.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/1009.png"><img alt="correlation" src="_images/1009.png" style="width: 100%;" /></a>
+</figure>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter9.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Chapter 13: Two Way ANOVA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter11.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Chapter 2: Least Squares Regression</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationships">10.1. Relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots">10.2. Scatterplots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">10.3. Correlation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+  <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+  
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+  
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

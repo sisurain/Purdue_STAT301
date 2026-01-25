@@ -1,0 +1,913 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8. Chapter 12: One Way ANOVA &#8212; STAT301@Purdue</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TH93YZ5PZ2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TH93YZ5PZ2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapter8';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Chapter 13: Two Way ANOVA" href="chapter9.html" />
+    <link rel="prev" title="7. Chapter 7: Inference for Means" href="chapter7.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/statlogo.png" class="logo__image only-light" alt="STAT301@Purdue - Home"/>
+    <img src="_static/statlogo.png" class="logo__image only-dark pst-js-only" alt="STAT301@Purdue - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    STAT 301 Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Chapter 12: One Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sisurain/Purdue_STAT301/issues/new?title=Issue%20on%20page%20%2Fchapter8.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chapter8.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 12: One Way ANOVA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-one-way-anova">8.1. Inference for One-way ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-materials-from-the-textbook">8.2. Additional Materials from the Textbook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supplementary-analyses-following-one-way-anova">8.3. Supplementary Analyses Following One-Way ANOVA</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-12-one-way-anova">
+<h1><span class="section-number">8. </span>Chapter 12: One Way ANOVA<a class="headerlink" href="#chapter-12-one-way-anova" title="Link to this heading">#</a></h1>
+<p>In the previous chapter (Chapter 7), we learned the statistical procedure for comparing the means of two populations. Naturally, the next step is to consider what to do when there are more than two populations. For example, suppose we have three diets—Diet A, Diet B, and Diet C—administered to three independent groups drawn from different populations. The study then measures a response variable to determine whether at least one group mean differs <strong>statistically significantly</strong> from the others.</p>
+<p>One approach is to use the two-sample procedure and perform multiple pairwise tests between the groups. In the case of three groups, this involves testing the following pairs: (Diet A, Diet B), (Diet B, Diet C), and (Diet A, Diet C). However, from our understanding of probability, each test carries a risk of a Type I error, and these errors can compound when multiple tests are conducted.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: The Risk of Multiple Two-Sample Tests</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Consider a scenario where a researcher wants to compare the effectiveness of three different diets on weight loss. The three groups are:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Diet A</strong></p></li>
+<li><p class="sd-card-text"><strong>Diet B</strong></p></li>
+<li><p class="sd-card-text"><strong>Diet C</strong></p></li>
+</ul>
+<p class="sd-card-text">If the researcher were to perform independent two-sample t-tests, the following comparisons might be made:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text">Diet A vs. Diet B</p></li>
+<li><p class="sd-card-text">Diet A vs. Diet C</p></li>
+<li><p class="sd-card-text">Diet B vs. Diet C</p></li>
+</ol>
+<p class="sd-card-text">Assume that in reality there is <strong>no true difference</strong> among the diets—any observed difference is due solely to random chance. Each individual t-test is typically conducted at a 5% significance level (i.e., <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>). This means that for each test, there is a 5% chance of incorrectly rejecting the null hypothesis (committing a Type I error).</p>
+<p class="sd-card-text">However, when performing three separate tests, the probability of making at least one Type I error increases. The overall chance (also known as the <em>familywise error rate</em>) of a false positive can be approximated by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Familywise error rate} \approx 1 - (1 - \alpha)^{\text{number of tests}}
+\]</div>
+<p class="sd-card-text">For three tests at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>, this calculation becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Familywise error rate} \approx 1 - (0.95)^3 \approx 1 - 0.857 \approx 0.143 \quad (\text{or about } 14.3\%)
+\]</div>
+<p class="sd-card-text">This means that even if there is no actual effect, there is roughly a 14% chance that at least one of the three comparisons will incorrectly appear significant purely by chance.</p>
+<p class="sd-card-text">In contrast, a one-way ANOVA tests the null hypothesis that all group means are equal in a single overall test. This approach controls the Type I error rate at the desired level (e.g., 5%), rather than inflating it as with multiple two-sample tests. Therefore, when comparing three or more groups, one-way ANOVA provides a more reliable method of analysis.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Familywise Error Rate with 10 Diets</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">When comparing 10 diets, if we were to perform all possible pairwise two-sample tests, the number of comparisons would be:</p>
+<div class="math notranslate nohighlight">
+\[
+\binom{10}{2} = \frac{10 \times 9}{2} = 45.
+\]</div>
+<p class="sd-card-text">Assuming each test is conducted at a 5% significance level (i.e., <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>) and the tests are independent, the probability of not making a Type I error in a single test is <span class="math notranslate nohighlight">\(0.95\)</span>. For 45 tests, the probability of making no Type I errors is approximately:</p>
+<div class="math notranslate nohighlight">
+\[
+(0.95)^{45}.
+\]</div>
+<p class="sd-card-text">Thus, the familywise error rate—the probability of making at least one Type I error across all tests—is:</p>
+<div class="math notranslate nohighlight">
+\[
+1 - (0.95)^{45}.
+\]</div>
+<p class="sd-card-text">Using a calculator, we find that:</p>
+<div class="math notranslate nohighlight">
+\[
+(0.95)^{45} \approx 0.099,
+\]</div>
+<p class="sd-card-text">so the familywise error rate is approximately:</p>
+<div class="math notranslate nohighlight">
+\[
+1 - 0.099 \approx 0.901 \quad (\text{or about } 90.1\%).
+\]</div>
+<p class="sd-card-text">This very high error rate illustrates why performing multiple two-sample tests without adjustment can lead to a substantial increase in the probability of obtaining false positives.</p>
+</div>
+</details><p>Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span style="color:#cfb991"><strong>whether at least one group mean differs from the others</strong></span>.</p>
+<p>Recall from our study of sampling distributions that the sample mean, <span class="math notranslate nohighlight">\(\bar{X}\)</span>, is a random variable whose variability is influenced by both the sample size <span class="math notranslate nohighlight">\(n\)</span> and the population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. Even when drawing different samples from the same population, this inherent variability persists. In our scenario, we suspect that different groups are drawn from populations with different means (while sharing a common standard deviation). This introduces an extra layer of variability among the sample means.</p>
+<p>To rigorously examine this question, we need a statistical procedure that formally studies the variation among multiple group means. This leads us to <span style="color:#cfb991"><strong>One-way ANOVA (Analysis of Variance)</strong></span>. One-way ANOVA is a method used to determine whether there are any statistically significant differences among the means of three or more independent groups. Hence, we will also form a pair of hypotheses and calculate a pivotal quantity (test statistic) to run a hypothesis test to determine whether we have evidence from our dataset to reject <span class="math notranslate nohighlight">\(H_0\)</span>. The hypotheses are as follows:</p>
+<ol class="arabic simple">
+<li><p>The null hypothesis in one-way ANOVA is that all group means are equal:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  H_0: \mu_1 = \mu_2 = \dots = \mu_k
+  \]</div>
+<ol class="arabic simple" start="2">
+<li><p>The alternative hypothesis is that at least one group mean differs from the others.</p></li>
+<li><p>The <strong>F-statistic</strong> is then compared against a critical value from the F-distribution (taking into account the degrees of freedom) to decide whether to reject the null hypothesis.</p></li>
+</ol>
+<section id="inference-for-one-way-anova">
+<h2><span class="section-number">8.1. </span>Inference for One-way ANOVA<a class="headerlink" href="#inference-for-one-way-anova" title="Link to this heading">#</a></h2>
+<p>To concretely see how we decompose the variation of the data points in our group that leads to the variation in the sample mean (or group mean), it is best to start with a statistical model and make some assumptions. For example, consider the one-way ANOVA model:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+The ANOVA model and Its Assumptions</label><div class="sd-tab-content docutils">
+<p>The ANOVA model is expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+x_{ij} = \mu_i + \epsilon_{ij},
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_{ij}\)</span> is the <span class="math notranslate nohighlight">\(j\)</span>th observation from the <span class="math notranslate nohighlight">\(i\)</span>th group,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu_i\)</span> is the true (population) mean for group <span class="math notranslate nohighlight">\(i\)</span> — this is the <strong>systematic</strong> component (the “FIT”),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is the random error term — this represents the <strong>residual</strong> variation (the “RESIDUAL”).</p></li>
+</ul>
+<p>One-way ANOVA relies on several assumptions:</p>
+<ul class="simple">
+<li><p><strong>Normality:</strong> The data within each group should be approximately normally distributed.</p></li>
+<li><p><strong>Homogeneity of Variance:</strong> The variances in different groups should be similar.</p></li>
+<li><p><strong>Independence:</strong> The observations must be independent of each other.</p></li>
+<li><p>The <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> are assumed to be from an <span class="math notranslate nohighlight">\(\mathcal{N}(0, \sigma)\)</span>.</p></li>
+</ul>
+<p>Why Assume a Common Standard Deviation?</p>
+<ul class="simple">
+<li><p>Because sample means naturally vary due to sampling variability (which depends on both the sample size <span class="math notranslate nohighlight">\(n\)</span> and the underlying population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>), one must assume that the populations all have the same standard deviation. This assumption, known as <strong>homogeneity of variance</strong>, is crucial. If each group had a different <span class="math notranslate nohighlight">\(\sigma\)</span>, then the variation in the sample means would reflect not only differences in the true group means but also differences in the precision of those estimates, making it difficult to compare groups fairly.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Rule for Examining Standard Deviations in ANOVA</strong></p>
+<p>If the largest sample standard deviation is less than twice the smallest sample standard deviation, we can use methods based on the assumption of equal standard deviations, and our results will still be approximately correct.</p>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Decomposing Total Variation</label><div class="sd-tab-content docutils">
+<p>The idea behind ANOVA is that the <strong>total variation</strong> in the data can be divided into two main parts:</p>
+<ul class="simple">
+<li><p><strong>Between-Group Variation:</strong> Variation due to differences among the group means <span class="math notranslate nohighlight">\(\mu_i\)</span>.</p></li>
+<li><p><strong>Within-Group Variation:</strong> Variation due to the random errors <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> (i.e., variability within each group).</p></li>
+</ul>
+<p>Mathematically, the total variation (often measured as the Total Sum of Squares, <span class="math notranslate nohighlight">\(SS_{Total}\)</span>) is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+SS_{Total} = \sum_{i=1}^{I} \sum_{j=1}^{n_i} \left(x_{ij} - \bar{x}_{\cdot\cdot}\right)^2,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x}_{\cdot\cdot}\)</span> is the overall (grand) mean of all observations.</p>
+<p>This total variation is partitioned as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+SS_{Total} = SS_{Between} + SS_{Within},
+\]</div>
+<p>In the textbook:</p>
+<div class="math notranslate nohighlight">
+\[
+SST = SSG + SSE,
+\]</div>
+<p>where:</p>
+<ul>
+<li><p><strong>Between-Group Sum of Squares (<span class="math notranslate nohighlight">\(SS_{Between}\)</span>)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+  SS_{Between} = \sum_{i=1}^{I} n_i \left(\bar{x}_{i} - \bar{x}_{\cdot\cdot}\right)^2.
+  \]</div>
+<p>This term measures how much the group means <span class="math notranslate nohighlight">\(\bar{x}_{i}\)</span> differ from the overall mean. It captures the systematic differences among the groups — the variation that can be attributed to the different treatments or conditions (reflected by the <span class="math notranslate nohighlight">\(\mu_i\)</span>’s).</p>
+</li>
+<li><p><strong>Within-Group Sum of Squares (<span class="math notranslate nohighlight">\(SS_{Within}\)</span>)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+  SS_{Within} = \sum_{i=1}^{I} \sum_{j=1}^{n_i} \left(x_{ij} - \bar{x}_{i}\right)^2.
+  \]</div>
+<p>This term measures the variability of the observations around their respective group means, reflecting the random error <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>. The differences <span class="math notranslate nohighlight">\(e_j = x_j - \bar{x}\)</span> are the <strong>residuals</strong> and correspond to the <span class="math notranslate nohighlight">\(\epsilon_j\)</span> in the statistical model.</p>
+</li>
+</ul>
+<p>The <strong>total variation</strong> (or <span class="math notranslate nohighlight">\(SS_{Total}\)</span>) measures the overall spread of the individual data points around the grand mean. It tells us how much the data vary in total — a combination of:</p>
+<ul class="simple">
+<li><p><strong>Systematic differences among groups</strong> (if the <span class="math notranslate nohighlight">\(\mu_i\)</span>’s are very different, <span class="math notranslate nohighlight">\(SS_{Between}\)</span> is large), and</p></li>
+<li><p><strong>Random fluctuations within each group</strong> (if the <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>’s are large, <span class="math notranslate nohighlight">\(SS_{Within}\)</span> is large).</p></li>
+<li><p>These two sources of variation are independent.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Forming the F-Statistic</label><div class="sd-tab-content docutils">
+<p>The ratio of the between-group variability to the within-group variability is computed to form the <strong>F-statistic</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+F = \frac{\text{Mean Square Between Groups (MSB)}}{\text{Mean Square Within Groups (MSW)}}
+\]</div>
+<ul>
+<li><p>A high F-value indicates that the variability between the groups is large compared to the variability within the groups. This suggests that at least one group mean is significantly different from the others.</p></li>
+<li><p>An F-value close to 1 indicates that the between-group variability is similar to the within-group variability, suggesting no significant differences among the group means.</p></li>
+<li><p><strong>Mean Square Between (MSB):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  MSB = \frac{SS_{Between}}{I - 1},
+  \]</div>
+</li>
+<li><p><strong>Mean Square Within (MSW):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  MSW = \frac{SS_{Within}}{N - I},
+  \]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the total number of observations across all groups.</p>
+</li>
+<li><p>Under the Null Hypothesis: If the null hypothesis (that all group means are equal) is true, then the expected value of both MSB and MSW is the common error variance <span class="math notranslate nohighlight">\( \sigma^2\)</span>. Thus, under <span class="math notranslate nohighlight">\(H_0: \mathbb{E}\left(\frac{MSB}{MSW}\right) \approx 1\)</span>.</p></li>
+<li><p>A significantly larger F value suggests that the group means differ more than would be expected by chance, prompting rejection of the null hypothesis.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="additional-materials-from-the-textbook">
+<h2><span class="section-number">8.2. </span>Additional Materials from the Textbook<a class="headerlink" href="#additional-materials-from-the-textbook" title="Link to this heading">#</a></h2>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Observed Difference in Sample Mean</label><div class="sd-tab-content docutils">
+<p>Is the observed difference in sample means just the result of chance variation?</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0801.png"><img alt="Observed Difference in Sample Mean" src="_images/0801.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Large and Small Within-Group Variation</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0802.png"><img alt="Large and Small Within-Group Variation" src="_images/0802.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+Pooled Estimator of <span class="math notranslate nohighlight">\(\sigma\)</span></label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0803.png"><img alt="Pooled Estimator of $\sigma$" src="_images/0803.png" style="width: 70%;" /></a>
+</figure>
+<p>We can use the mean square for error to find <span class="math notranslate nohighlight">\(s_p\)</span>, the pooled estimate of the parameter <span class="math notranslate nohighlight">\(\sigma\)</span> of our model. It is true in general that:</p>
+<div class="math notranslate nohighlight">
+\[s_p^2 = \text{MSE} = \frac{\text{SSE}}{\text{DFE}}\]</div>
+<p>In other words, the mean square for error is an estimate of the within-group variance, <span class="math notranslate nohighlight">\(\sigma^2\)</span>. The estimate of <span class="math notranslate nohighlight">\(\sigma\)</span> is, therefore, the square root of this quantity. So:</p>
+<div class="math notranslate nohighlight">
+\[s_p = \sqrt{\text{MSE}}\]</div>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+One-way ANOVA</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0804.png"><img alt="One-way ANOVA" src="_images/0804.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+One-way ANOVA F-test</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0805.png"><img alt="One-way ANOVA F-test" src="_images/0805.png" style="width: 70%;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+JMP ANOVA Output</label><div class="sd-tab-content docutils">
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/0806.png"><img alt="JMP ANOVA Output" src="_images/0806.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+</section>
+<section id="supplementary-analyses-following-one-way-anova">
+<h2><span class="section-number">8.3. </span>Supplementary Analyses Following One-Way ANOVA<a class="headerlink" href="#supplementary-analyses-following-one-way-anova" title="Link to this heading">#</a></h2>
+<p>Once the overall F-test in a one-way ANOVA indicates that not all group means are equal, further analysis is needed to identify <strong>where</strong> the differences lie. Two common approaches are:</p>
+<ol class="arabic simple">
+<li><p><strong>Multiple Comparisons Procedures</strong></p></li>
+<li><p><strong>Contrasts</strong></p></li>
+</ol>
+<p>Below is an explanation of each method, why they are necessary, and their underlying logic.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+Multiple Comparisons Procedures</label><div class="sd-tab-content docutils">
+<ul>
+<li><p>Purpose</p>
+<ul class="simple">
+<li><p><strong>Identify Specific Differences:</strong><br />
+While the ANOVA F-test tells you that at least one group mean is different, it does not specify which pairs of groups differ. Multiple comparisons procedures address this question by testing all (or selected) pairwise differences between group means.</p></li>
+</ul>
+</li>
+<li><p>Method</p>
+<ul>
+<li><p><strong>Pairwise Test Statistic:</strong><br />
+For any two groups <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, the test statistic is computed as:</p>
+<div class="math notranslate nohighlight">
+\[
+    t_{ij} = \frac{\bar{x}_i - \bar{x}_j}{s_p \sqrt{\frac{1}{n_i} + \frac{1}{n_j}}},
+    \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\bar{x}_i\)</span> and <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> are the sample means for groups <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(n_i\)</span> and <span class="math notranslate nohighlight">\(n_j\)</span> are the respective sample sizes,</p></li>
+<li><p><span class="math notranslate nohighlight">\(s_p\)</span> is the pooled standard deviation, assumed to estimate the common standard deviation across groups.</p></li>
+</ul>
+</li>
+<li><p><strong>Decision Rule:</strong><br />
+Compare <span class="math notranslate nohighlight">\(|t_{ij}|\)</span> with a critical value <span class="math notranslate nohighlight">\(t^{**}\)</span> (which is adjusted for multiple comparisons). If:</p>
+<div class="math notranslate nohighlight">
+\[
+    |t_{ij}| \geq t^{**},
+    \]</div>
+<p>then you conclude that the means <span class="math notranslate nohighlight">\(\mu_i\)</span> and <span class="math notranslate nohighlight">\(\mu_j\)</span> are significantly different.</p>
+</li>
+</ul>
+</li>
+<li><p>Why It Is Needed</p>
+<ul class="simple">
+<li><p><strong>Control of Type I Error:</strong><br />
+Testing many pairs increases the chance of false positives (declaring a difference when there is none). Multiple comparisons procedures use adjustments (like Bonferroni, Tukey’s HSD, etc.) to keep the overall Type I error rate at a desired level.</p></li>
+<li><p><strong>Detailed Insights:</strong><br />
+This method provides a complete picture of which specific groups differ from each other rather than just indicating a general difference among all groups.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
+Contrasts</label><div class="sd-tab-content docutils">
+<ul>
+<li><p>Purpose</p>
+<ul class="simple">
+<li><p><strong>Test Specific Hypotheses:</strong><br />
+Contrasts allow you to compare specific linear combinations of group means. This is especially useful when you have predefined hypotheses or when you want to compare groups in a structured way (e.g., comparing a treatment group to a control group).</p></li>
+</ul>
+</li>
+<li><p>Definition</p>
+<ul>
+<li><p><strong>Contrast Formula:</strong><br />
+A contrast is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+    \psi = \sum a_i \mu_i,
+    \]</div>
+<p>where the coefficients <span class="math notranslate nohighlight">\(a_i\)</span> are chosen such that <span class="math notranslate nohighlight">\(\sum a_i = 0\)</span>. This condition ensures that the contrast represents a meaningful comparison (for instance, the difference between two weighted averages of group means).</p>
+</li>
+</ul>
+</li>
+<li><p>Confidence Interval for a Contrast</p>
+<ul>
+<li><p><strong>Interval Construction:</strong><br />
+A confidence interval for the contrast <span class="math notranslate nohighlight">\(\psi\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+    c \pm t^{*} SE_c,
+    \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(c\)</span> is the estimated contrast, <span class="math notranslate nohighlight">\(c = \sum a_i \bar{x}_i\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(SE_c\)</span> is the standard error of the contrast estimate, <span class="math notranslate nohighlight">\(\text{SE}_c = s_p \sqrt{\sum \frac{a_i^2}{n_i}}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(t^{*}\)</span> is the critical value corresponding to the desired level of confidence,</p></li>
+<li><p>DFE is associated with <span class="math notranslate nohighlight">\(s_p\)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Hypothesis Test:</strong></p>
+<p>To test the null hypothesis <span class="math notranslate nohighlight">\(H_0: \psi = 0\)</span>, we use the <em>t</em>-statistic:</p>
+<div class="math notranslate nohighlight">
+\[
+    t = \frac{c}{\text{SE}_c}
+    \]</div>
+</li>
+</ul>
+</li>
+<li><p>Why It Is Needed</p>
+<ul class="simple">
+<li><p><strong>Focused Testing:</strong><br />
+Contrasts allow you to test hypotheses that are more specific than “all means are equal.” For example, you might want to test whether the average of two treatment groups differs from a control group.</p></li>
+<li><p><strong>Efficiency and Interpretability:</strong><br />
+Instead of performing all possible pairwise comparisons, contrasts let you focus on comparisons that are of practical or theoretical interest. They are particularly powerful when the comparisons were planned before the data were observed (a priori contrasts).</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter7.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Chapter 7: Inference for Means</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter9.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Chapter 13: Two Way ANOVA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-one-way-anova">8.1. Inference for One-way ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-materials-from-the-textbook">8.2. Additional Materials from the Textbook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supplementary-analyses-following-one-way-anova">8.3. Supplementary Analyses Following One-Way ANOVA</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Frank (Chenzhong) Wu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
+  <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
+  
+  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
+  
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
