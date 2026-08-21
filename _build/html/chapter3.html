@@ -34,11 +34,11 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=8c6b312c" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -479,6 +479,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-design">3.3. Sampling Design</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-of-experiments">3.4. Design of Experiments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cautions-about-experimentation">3.5. Cautions about Experimentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-energy-drink-question">3.6. Putting It All Together: The Energy-Drink Question</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">3.7. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -496,6 +498,25 @@
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 3</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Distinguish <strong>anecdotal</strong>, <strong>available</strong>, <strong>observational</strong>, and <strong>experimental</strong> sources of data.</p></li>
+<li><p>Explain why association does not imply causation, and identify <strong>lurking variables</strong>, <strong>common response</strong>, and <strong>confounding</strong> in a study.</p></li>
+<li><p>Recognize and compare the main <strong>sampling designs</strong> (SRS, stratified, multistage) and name the common <strong>sources of bias</strong>.</p></li>
+<li><p>Identify the parts of an experiment (<strong>units, factors, levels, treatments, response</strong>) and the main <strong>experimental designs</strong> (completely randomized, matched pairs, blocks).</p></li>
+<li><p>Given a study description, decide <strong>which design was used and whether a causal conclusion is justified</strong>.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch3-sources"><span class="std std-ref">Sources of data</span></a> · <a class="reference internal" href="#ch3-causality"><span class="std std-ref">Association vs. causation, confounding</span></a> · <a class="reference internal" href="#ch3-sampling"><span class="std std-ref">Sampling design and bias</span></a> · <a class="reference internal" href="#ch3-experiments"><span class="std std-ref">Design of experiments</span></a> · <a class="reference internal" href="#ch3-cautions"><span class="std std-ref">Cautions</span></a> · <a class="reference internal" href="#ch3-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>In Chapter 2 we agreed that the average height of <strong>all</strong> Purdue students, <span class="math notranslate nohighlight">\(\mu\)</span>, is what we really want — and that we will never measure all ~40,000 students. Suppose you simply asked your 300 Instagram followers for their heights. You would get data, no doubt. But your followers are mostly your own major, your own dorm, your own friend group. <strong>Would you trust their average as a stand-in for all of Purdue?</strong> If something about that makes you uneasy, you already understand why this chapter exists: <em>how</em> data is produced decides <em>what</em> the data can tell us.</p>
+</div>
 <p>Since we have learned the concepts of <strong>population</strong> and <strong>sample</strong>, you might wonder how data is obtained for the population and sample. In the height example, we <strong>randomly drew</strong> a specific number of students from all Purdue students to form a sample. This gives us an abstract idea of the process of forming a sample. The concept of <strong>randomly drawing</strong> will be discussed in more detail shortly. However, let’s first focus on the population.</p>
 <p>We can model the real-world measurements-the heights of all Purdue students-as a normal random variable, <span class="math notranslate nohighlight">\(Height\)</span>, with <strong>parameters</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. This serves as a mathematical abstraction of the real-world phenomenon. This powerful abstraction allows us to <strong>quantify uncertainty, derive probabilities for outcomes, and perform statistical inference</strong>.</p>
 <p>The randomness in height/<span class="math notranslate nohighlight">\(Height\)</span> may arise from many <strong>small factors</strong>, such as genetics, nutrition, environment, and other influences in biological or physical systems. Each observed height value is a realized outcome, or <strong>realization</strong>, of this process at the <strong>macro level</strong>. Modeling this process with a normal distribution is a <strong>modeling assumption</strong>, loosely motivated by an argument in the style of the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank"><strong>Central Limit Theorem (CLT)</strong></a>: when many small, independent factors contribute additively, the resulting outcomes tend to be approximately normal. Other processes and phenomena, however, may be modeled by different types of random variables.</p>
@@ -505,10 +526,19 @@
 <section class="definition-content" id="proof-content">
 <p>A <strong>numerical summary</strong> of a sample is called a statistic. The value of a statistic is known once we have taken a sample, but it can vary from sample to sample. Statistics are often used to estimate unknown parameters.</p>
 </section>
-</div><p>The entire process can be generalized as follows: First, we have a phenomenon that generates data. We model it as a random process with parameters. Next, we <strong>randomly draw</strong> or <strong>obtain</strong> data from the population to form our sample. From the sample, we calculate statistics, which we use to infer the parameters and thereby gain a better understanding of the random process and the real-world phenomenon.</p>
+</div><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the same statistic, two different values</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">You randomly select 25 students and compute the average height: <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches. Your classmate randomly selects a <em>different</em> 25 students: <span class="math notranslate nohighlight">\(\bar{x} = 66.4\)</span> inches. Both numbers are the <em>same statistic</em> (the sample mean), computed by the same recipe — yet they disagree, and neither equals the unknown parameter <span class="math notranslate nohighlight">\(\mu\)</span>. This “varies from sample to sample” behavior is not a flaw; it is the central fact of statistics, and Chapter 5 is devoted entirely to it.</p>
+</div>
+</details><p>The entire process can be generalized as follows: First, we have a phenomenon that generates data. We model it as a random process with parameters. Next, we <strong>randomly draw</strong> or <strong>obtain</strong> data from the population to form our sample. From the sample, we calculate statistics, which we use to infer the parameters and thereby gain a better understanding of the random process and the real-world phenomenon.</p>
 <p>This process can also be viewed as a <strong>generalization</strong>-using information from the sample to draw conclusions about the phenomenon.</p>
 <section id="sources-of-data">
-<h2><span class="section-number">3.1. </span>Sources of Data<a class="headerlink" href="#sources-of-data" title="Link to this heading">#</a></h2>
+<span id="ch3-sources"></span><h2><span class="section-number">3.1. </span>Sources of Data<a class="headerlink" href="#sources-of-data" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>A tweet goes viral: <em>“My grandpa smoked a pack a day and lived to 95!”</em> It is a true story, and it is data — one real observation. <strong>Should it change your belief about smoking and health?</strong> By the end of this section you will have precise names for what kind of “data” this is, and why it deserves very little weight.</p>
+</div>
 <p>Let’s explore the gap between the population and the sample. In the textbook, this leads to the question of <strong>sources of data</strong>. Whether we are interested in estimating the parameters of our population or making a conclusion about it, our questions of interest are inherently related to the population. However, we can only collect data from the sample.</p>
 <p>This raises a fundamental question: <strong>Is our sample a good representation of the population of interest?</strong> If the sample is not representative, what we observe in the sample might not reflect the reality of the population. This is why the process of how we <strong>randomly draw</strong> or <strong>obtain</strong> the sample is critical to the entire process.</p>
 <p>The term “sources of data” refers to the methods or origins of obtaining our sample data.</p>
@@ -517,7 +547,16 @@
 <li><p><strong>Anecdotal data</strong> represent individual cases that often catch our attention because they are striking or unusual in some way. These cases are not necessarily representative of any larger group.</p></li>
 <li><p><strong>Available data</strong> are data produced for purposes other than our current question of interest but may still provide some insights or help answer the question.</p></li>
 </ul>
-<p>To answer our questions of interest or draw conclusions about the population, it is usually better to create new data and form our sample <strong>intentionally</strong>. This critical step is often controlled by researchers to ensure the sample is representative and suitable for analysis.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: anecdotal vs. available, in the height study</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Suppose you want to estimate the average height of Purdue students.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><em>Anecdotal</em>: “The three tallest people I know are all on the basketball team — Purdue students must be really tall.” Striking cases stick in memory precisely <strong>because</strong> they are unusual — the opposite of representative.</p></li>
+<li><p class="sd-card-text"><em>Available</em>: the athletics department has height rosters for every varsity team. This is real, carefully measured data — but it was collected for a different purpose, and athletes are not representative of all students. Available data can still be useful, but only with caution about <em>who</em> is in it.</p></li>
+</ul>
+</div>
+</details><p>To answer our questions of interest or draw conclusions about the population, it is usually better to create new data and form our sample <strong>intentionally</strong>. This critical step is often controlled by researchers to ensure the sample is representative and suitable for analysis.</p>
 <p>There are two main approaches to obtaining data: one is through <span class="purdue-text"><strong>observational studies</strong></span>, often conducted via <strong>sample surveys</strong><a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, and the other is through <span class="purdue-text"><strong>experimental studies</strong></span>, conducted via <strong>experiments</strong><a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <div class="proof definition admonition" id="ob-definition">
 <p class="admonition-title"><span class="caption-number">Definition 3.2 </span> (Observational Study)</p>
@@ -529,9 +568,23 @@
 <section class="definition-content" id="proof-content">
 <p>In an experiment, we <strong>deliberately impose some condition</strong> or  <strong>treatment</strong> (called an <strong>intervention</strong>) on individuals and we observe their responses.</p>
 </section>
-</div></section>
+</div><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the same question, asked both ways</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Question: <em>does caffeine affect exam performance?</em></p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Observational version:</strong> survey 200 students about how much coffee they drink, and record their exam scores. Nobody’s behavior is changed — we watch the world as it is.</p></li>
+<li><p class="sd-card-text"><strong>Experimental version:</strong> recruit 200 students, and <strong>we decide</strong> — by coin flip — who drinks coffee before the exam and who drinks decaf. The deciding is the intervention.</p></li>
+</ul>
+<p class="sd-card-text">Same question, completely different strength of conclusion — the next section explains why the second version is so much more powerful.</p>
+</div>
+</details></section>
 <section id="causality-and-confounding">
-<h2><span class="section-number">3.2. </span>Causality and Confounding<a class="headerlink" href="#causality-and-confounding" title="Link to this heading">#</a></h2>
+<span id="ch3-causality"></span><h2><span class="section-number">3.2. </span>Causality and Confounding<a class="headerlink" href="#causality-and-confounding" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Countries that eat more chocolate win more Nobel Prizes — the correlation across countries is remarkably strong. So: <strong>should Purdue hand out chocolate bars before exams to raise its Nobel count?</strong> If your instinct says “obviously something else is going on — rich countries afford both chocolate and research labs,” congratulations: you have just discovered the <em>lurking variable</em>, and you already understand the problem this section makes precise.</p>
+</div>
 <p>When our goal is to understand <span class="purdue-text"><strong>cause and effect (causality)</strong></span>, experiments are the only source of fully convincing data. The invention of randomized experiments was a stroke of genius; even today, they remain the gold standard for large pharmaceutical companies testing the effectiveness of new drugs.</p>
 <p>This is because an observational study, even one based on a carefully chosen sample, is a poor way to determine what will happen if we change something. The best way to observe the effects of a change is through an <strong>intervention</strong>-where we actively impose the change.</p>
 <p>The reason observational studies are a poor method for establishing causality is because of <strong>confounding</strong>. To establish a causal relationship, we typically aim to understand the relationship between an <strong>explanatory variable</strong> (or several) and a <strong>response variable</strong>.</p>
@@ -553,11 +606,13 @@
 <p>Two real life examples of confounding issues are:</p>
 <ul class="simple">
 <li><p>The tobacco industry argued that a genetic variable, which could not be measured in the past, caused both smoking and lung cancer.</p></li>
-<li><p>There is a strong correlation between a country’s annual per capita chocolate consumption and the number of Nobel Laureates per 10 million people.</p></li>
+<li><p>The chocolate–Nobel correlation from the opening question: national wealth plausibly drives both chocolate consumption and research funding.</p></li>
 </ul>
 <div class="warning admonition">
-<p class="admonition-title">Remember!</p>
-<p>Association does not mean causation!</p>
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The data clearly show A and B move together, so A must cause B — or at least <em>probably</em> causes B.”</p>
+<p><strong>In fact:</strong> an observed association is equally consistent with (a) A causes B, (b) B causes A, (c) a lurking variable drives both, or some mixture. The data <em>alone</em> cannot distinguish these.</p>
+<p><strong>Quick check:</strong> students who ate breakfast score higher on morning exams. Does breakfast cause better scores? (Or… do students who go to bed on time <em>both</em> eat breakfast <em>and</em> perform better? Could you name other candidate lurking variables? That ease is exactly the point.)</p>
 </div>
 <figure class="align-center" id="id4">
 <img alt="Three arrow diagrams explaining an observed x and y association as direct causation, common response to lurking variable z, or confounding with z" src="_images/0301.png" />
@@ -565,9 +620,24 @@
 <p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Association and Causation</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (three panels, three stories)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The figure shows the three mechanisms that can produce an observed association between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. Solid arrows mean “causes”; dashed lines mean “associated with.” Attach one concrete story to each panel and you will never mix them up:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Panel (a) — Causation</strong> (<span class="math notranslate nohighlight">\(x \rightarrow y\)</span>): hours of studying (<span class="math notranslate nohighlight">\(x\)</span>) genuinely improve exam scores (<span class="math notranslate nohighlight">\(y\)</span>). The association is real <em>and</em> causal.</p></li>
+<li><p class="sd-card-text"><strong>Panel (b) — Common response</strong> (<span class="math notranslate nohighlight">\(z \rightarrow x\)</span> and <span class="math notranslate nohighlight">\(z \rightarrow y\)</span>): ice cream sales (<span class="math notranslate nohighlight">\(x\)</span>) and drownings (<span class="math notranslate nohighlight">\(y\)</span>) rise together. Neither causes the other — summer heat (<span class="math notranslate nohighlight">\(z\)</span>) drives both. Remove the arrow between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> entirely: they respond in common to <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Panel (c) — Confounding</strong> (<span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span> tangled, both affecting <span class="math notranslate nohighlight">\(y\)</span>): seniors take a test-prep course (<span class="math notranslate nohighlight">\(x\)</span>) and also have more coursework experience (<span class="math notranslate nohighlight">\(z\)</span>); both influence their scores (<span class="math notranslate nohighlight">\(y\)</span>), and because course-takers <em>are</em> mostly seniors, the data cannot separate the course’s effect from the experience effect. The two influences are <strong>mixed</strong> — that mixing is what “confounded” literally means.</p></li>
+</ul>
+<p class="sd-card-text">When you read any such diagram: first find which variables are <em>observed</em> (we have data) versus <em>lurking</em> (we do not), then trace which arrows could produce the association we see.</p>
+</div>
+</details></section>
 <section id="sampling-design">
-<h2><span class="section-number">3.3. </span>Sampling Design<a class="headerlink" href="#sampling-design" title="Link to this heading">#</a></h2>
+<span id="ch3-sampling"></span><h2><span class="section-number">3.3. </span>Sampling Design<a class="headerlink" href="#sampling-design" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>In 1936, the <em>Literary Digest</em> magazine polled <strong>2.4 million</strong> Americans and confidently predicted Landon would defeat Roosevelt in a landslide. George Gallup polled only about <strong>50,000</strong> people — and called the election correctly: Roosevelt won 46 of 48 states. The Digest’s sample came from telephone directories and car registrations (in 1936, markers of wealth) and from volunteers who mailed back a card. <strong>How did 50,000 beat 2.4 million?</strong> This section answers that: <em>how</em> you select matters far more than <em>how many</em> you select.</p>
+</div>
 <p>Now that we have addressed the obstacles of confounding and understand why creating new data through experiments is sometimes necessary, we can revisit the critical step of <em>getting</em> our samples. Both <strong>observational studies</strong> and <strong>experimental studies</strong> require a well-thought-out <span class="purdue-text"><strong>sampling design</strong></span>. This is because we need to intentionally select elements or observations from the population to form a sample-a subset of the population-so that we maintain control over this step.</p>
 <p>Unlike experimental studies, observational studies do not involve <strong>experimental design</strong>, which will be discussed in a later section. In observational studies, no treatments or interventions are deliberately imposed on the subjects. Instead, these studies rely entirely on <strong>sampling design</strong> to collect data. We will begin with a discussion of <strong>Sample Surveys</strong>, a classical form of observational study.</p>
 <div class="proof definition admonition" id="samsur-definition">
@@ -588,7 +658,13 @@
 <p><strong>Definition</strong>: Every set of <span class="math notranslate nohighlight">\(n\)</span> individuals in the population has an equal chance to be chosen.</p>
 <p><strong>Example</strong>: <em>Names in a hat</em> or using random digits/software to pick which individuals appear in the sample.</p>
 </section>
-</div><p>Here are two more complex sampling methods:</p>
+</div><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “If every individual has the same chance of being selected, it’s an SRS.”</p>
+<p><strong>In fact:</strong> the SRS definition requires every <strong>set</strong> of <span class="math notranslate nohighlight">\(n\)</span> individuals to have the same chance — a strictly stronger condition.</p>
+<p><strong>Quick check:</strong> split our 100-student class into two rows of 50 and flip one coin: heads, the front row is the sample; tails, the back row. Every <em>individual</em> has exactly a 1/2 chance of selection — but a sample mixing front-row and back-row students is <em>impossible</em>. Only 2 of the billions of possible 50-student sets can ever occur, so this is <strong>not</strong> an SRS.</p>
+</div>
+<p>Here are two more complex sampling methods:</p>
 <ul>
 <li><p><strong>Stratified Random Sample:</strong> First, <strong>divide</strong> the population into <strong>strata</strong> (groups of similar individuals-e.g., by region, gender, or age). Then choose an SRS <strong>within each stratum</strong> and <strong>combine</strong> these SRSs into one overall sample.</p>
 <ul class="simple">
@@ -607,7 +683,14 @@
 </ul>
 </li>
 </ul>
-<p>Even with well-designed sampling methods, we cannot entirely eliminate <strong>bias</strong>. Below is a list of common sources of bias and errors.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: why stratify? The height study again</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Heights differ systematically by sex: women’s heights center near 64.5 inches and men’s near 69.5 inches. An SRS of 100 students might, by luck, draw 60 women and 40 men — and its average would land low for reasons that have nothing to do with sampling “going wrong.”</p>
+<p class="sd-card-text">A <strong>stratified</strong> design removes that luck: split the population by sex, draw an SRS of 50 from each stratum, and combine. Every sample now automatically has the right sex balance, so the estimate varies less from sample to sample. The general principle: <strong>stratify on a variable that is related to what you are measuring</strong> — the more alike individuals are within each stratum, the bigger the precision gain.</p>
+<p class="sd-card-text">A <strong>multistage</strong> design answers a different problem — cost: to survey students in person, first randomly choose 5 residence halls, then random floors within those halls, then interview every student on the chosen floors (clusters). Less representative per observation than an SRS, but vastly cheaper to collect.</p>
+</div>
+</details><p>Even with well-designed sampling methods, we cannot entirely eliminate <strong>bias</strong>. Below is a list of common sources of bias and errors.</p>
 <ul class="simple">
 <li><p><strong>Undercoverage</strong>: Some groups in the population are left out of the process (e.g., homeless, dorm students in telephone polls).</p></li>
 <li><p><strong>Nonresponse</strong>: Individuals chosen for the sample can’t be contacted or refuse to cooperate (often 50%+ in phone polls).</p></li>
@@ -615,14 +698,41 @@
 <li><p><strong>Wording of Questions</strong>: Minor changes in phrasing can drastically change results. Leading or confusing questions create strong bias.</p></li>
 <li><p><strong>Measurement Bias</strong>: When your measurement process systematically mismeasures the target, consistently favoring one direction (e.g., a scale that overestimates weight).</p></li>
 </ul>
-<p>One last thing I want to mention in this section is that our goal is to calculate a <em>statistic</em><a class="footnote-reference brackets" href="#footnote03" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> from our sample to estimate the parameter associated with the population. If the sampling design contains <strong>bias</strong>, you can imagine that this statistic will not be of high quality. However, bias is just one dimension when assessing quality. Another critical dimension is the <strong>variance</strong>, or <strong>variation</strong>, of a statistic during the sampling process, even if the sampling design is unbiased. Below are two common sources of variation.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: five ways the height survey can go wrong</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">One survey, five distinct failure modes — match each to the list above:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text">You recruit at the Co-Rec (gym) — students who don’t exercise there are never reachable. (<em>Undercoverage.</em>)</p></li>
+<li><p class="sd-card-text">You email 500 randomly chosen students; 380 never reply — and maybe the shy non-repliers differ in height from the confident repliers. (<em>Nonresponse.</em>)</p></li>
+<li><p class="sd-card-text">You ask students to <em>state</em> their height: people round up — self-reported heights run about an inch taller than measured ones. (<em>Response bias.</em>)</p></li>
+<li><p class="sd-card-text">You ask, “As one of Purdue’s taller-than-average students, how tall are you?” (<em>Wording.</em>)</p></li>
+<li><p class="sd-card-text">Your tape measure’s first inch broke off, so every reading is one inch too tall. (<em>Measurement bias.</em>)</p></li>
+</ol>
+<p class="sd-card-text">Note which of these are fixed by taking a <em>bigger</em> sample: <strong>none of them.</strong> Bias is systematic — it survives any sample size, which is exactly the Literary Digest’s lesson.</p>
+</div>
+</details><p>One last thing I want to mention in this section is that our goal is to calculate a <em>statistic</em><a class="footnote-reference brackets" href="#footnote03" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> from our sample to estimate the parameter associated with the population. If the sampling design contains <strong>bias</strong>, you can imagine that this statistic will not be of high quality. However, bias is just one dimension when assessing quality. Another critical dimension is the <strong>variance</strong>, or <strong>variation</strong>, of a statistic during the sampling process, even if the sampling design is unbiased. Below are two common sources of variation.</p>
 <ul class="simple">
 <li><p><strong>Sampling Variability</strong>: If the sample is drawn from the population with some amount of randomness, the sampling variability describes the variability from one sample to the next.</p></li>
 <li><p><strong>Measurement Variability</strong>: When we take multiple measurements on the same object and we get variations in measurements from one measurement to the next.</p></li>
 </ul>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: bias and variability are different diseases</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Two ways to estimate the average height of Purdue students:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Method A:</strong> always survey the men’s basketball team. The answers barely change from year to year (<em>low variability</em>) — but they are always far too tall (<em>large bias</em>).</p></li>
+<li><p class="sd-card-text"><strong>Method B:</strong> take an SRS of just <span class="math notranslate nohighlight">\(n = 5\)</span> students. On average this hits the truth (<em>no bias</em>) — but any single sample of 5 can swing wildly (<em>high variability</em>).</p></li>
+</ul>
+<p class="sd-card-text">A good design needs to defeat <strong>both</strong> diseases: random selection kills bias; a larger sample size tames variability. Chapter 5 turns this picture into formulas (and its bullseye figure makes the two dimensions visual).</p>
+</div>
+</details></section>
 <section id="design-of-experiments">
-<h2><span class="section-number">3.4. </span>Design of Experiments<a class="headerlink" href="#design-of-experiments" title="Link to this heading">#</a></h2>
+<span id="ch3-experiments"></span><h2><span class="section-number">3.4. </span>Design of Experiments<a class="headerlink" href="#design-of-experiments" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>An energy-drink company claims its product improves exam scores, citing a survey: students who drink it score higher. By now you can name the problem — maybe ambitious students <em>both</em> buy energy drinks <em>and</em> study more (a lurking variable). Observation cannot untangle this. <strong>So what would it take to actually settle the question?</strong> Answer: stop watching who chooses to drink it, and start <em>deciding</em> who drinks it. That decision — and how to make it well — is experimental design.</p>
+</div>
 <p>Before diving into the design aspect, we first need to understand the definition of an <span class="purdue-text"><strong>experiment</strong></span> and familiarize ourselves with some terminologies associated with it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -648,7 +758,20 @@
 </ul>
 </li>
 </ul>
-<p><strong>Placebo effect, Control, Control Group, and Treatment Group</strong></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: label the parts of the caffeine experiment</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><em>Design:</em> 120 students are randomly assigned to drink 0 mg, 100 mg, or 200 mg of caffeine, in the morning or in the evening, before taking a reaction-time test.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Experimental units (subjects):</strong> the 120 students.</p></li>
+<li><p class="sd-card-text"><strong>Factors (two):</strong> caffeine dose and time of day.</p></li>
+<li><p class="sd-card-text"><strong>Levels:</strong> dose has 3 levels (0/100/200 mg); time of day has 2 levels.</p></li>
+<li><p class="sd-card-text"><strong>Treatments:</strong> <span class="math notranslate nohighlight">\(3 \times 2 = 6\)</span> combinations (e.g., “100 mg in the evening” is one treatment) — with 120 students, that is 20 subjects per treatment.</p></li>
+<li><p class="sd-card-text"><strong>Response variable:</strong> reaction time.</p></li>
+</ul>
+<p class="sd-card-text">Being able to produce this labeled list from a plain-English description is exactly what exam questions ask for.</p>
+</div>
+</details><p><strong>Placebo effect, Control, Control Group, and Treatment Group</strong></p>
 <p>Before we move on to how to design an experiment, we first need to clearly understand why we design experiments. In the previous sections, we learned that confounding is a significant issue when attempting to establish causality. The best way to avoid confounding is by conducting a <strong>comparative experiment</strong>. The basic idea is to <strong>assign</strong> (according to a specific experimental design) the experimental units into different groups after selecting them to form our sample. Each group receives a different treatment, and the results are then compared.</p>
 <p>There are many potential variables or factors that could explain or affect the causal relationship between the variables of interest and the response variable. Often, confounders—hidden or lurking variables—cannot be measured, or they are not our primary focus. Experimental design aims to mitigate or eliminate the effects of these variables. This is the core idea behind experimental design: we need to <span class="purdue-text"><strong>Control</strong></span> these effects.</p>
 <div class="proof definition admonition" id="control-definition">
@@ -708,6 +831,7 @@
 <li><p class="sd-card-text">Subjects are arranged in pairs (e.g., same age, same gender) that are alike in ways that might affect the response. Then one subject in each pair gets treatment A, the other gets treatment B; which member of the pair receives which treatment is assigned at random (e.g., by a coin flip).</p></li>
 <li><p class="sd-card-text">Variation is reduced because each pair is more similar than randomly chosen individuals.</p></li>
 <li><p class="sd-card-text">Alternatively, the same subject can receive both treatments in random order (the subject is “paired with themselves”). This experiment is called a <strong>cross-over</strong> experiment.</p></li>
+<li><p class="sd-card-text">Example: to compare caffeine vs. decaf on reaction time, have <strong>each</strong> student tested twice — once with each drink, on different days, in a random order. Each student serves as their own perfectly-matched pair.</p></li>
 </ul>
 </li>
 <li><p class="sd-card-text"><strong>Block Designs</strong></p>
@@ -731,9 +855,15 @@
 <li><p class="sd-card-text"><strong>Repetition (Replication)</strong>: Use enough subjects (or replicate the procedure multiple times) to reduce chance variation in the results.</p></li>
 </ul>
 </div>
-</details></section>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Randomization makes the two groups identical, so any difference must be caused by the treatment.”</p>
+<p><strong>In fact:</strong> randomization makes the groups similar <strong>on average</strong> — in any <em>one</em> experiment, the groups still differ by chance (flip a fair coin 20 times; you rarely get exactly 10 heads). This is why we still need statistical inference (Chapters 5–9): to judge whether an observed difference is <em>larger than chance assignment alone would produce</em>. And when a lurking variable is known in advance (like sex, for a height-related response), <strong>blocking</strong> handles it deliberately rather than leaving it to luck.</p>
+<p><strong>Quick check:</strong> with only 6 subjects — 3 varsity athletes and 3 non-athletes — could a coin-flip assignment put all 3 athletes in the caffeine group? (Yes, with probability <span class="math notranslate nohighlight">\(\frac{1}{20}\)</span> per group. Small experiments get unlucky easily; blocking by athlete status prevents exactly this.)</p>
+</div>
+</section>
 <section id="cautions-about-experimentation">
-<h2><span class="section-number">3.5. </span>Cautions about Experimentation<a class="headerlink" href="#cautions-about-experimentation" title="Link to this heading">#</a></h2>
+<span id="ch3-cautions"></span><h2><span class="section-number">3.5. </span>Cautions about Experimentation<a class="headerlink" href="#cautions-about-experimentation" title="Link to this heading">#</a></h2>
 <p>Though <strong>randomized comparative experiments</strong> (when done carefully and repeated in different contexts) provide the strongest evidence for causation and are often regarded as the gold standard, there are still important considerations to keep in mind when conducting experiments and interpreting the results.</p>
 <ul class="simple">
 <li><p><strong>Lack of Realism</strong>: The experimental setting might not reflect real-world conditions, limiting generalizability.</p></li>
@@ -747,7 +877,55 @@
 <li><p><strong>External Validity</strong>: Even a well-designed experiment in one setting might not hold for different populations or environments.</p></li>
 <li><p><strong>Bias and Confounding</strong>: If not carefully controlled, design flaws can still let lurking variables confound results.</p></li>
 </ul>
-<hr class="footnotes docutils" />
+</section>
+<section id="putting-it-all-together-the-energy-drink-question">
+<span id="ch3-together"></span><h2><span class="section-number">3.6. </span>Putting It All Together: The Energy-Drink Question<a class="headerlink" href="#putting-it-all-together-the-energy-drink-question" title="Link to this heading">#</a></h2>
+<p>Let’s run the entire chapter through one problem, exactly the way an exam (or real life) hands it to you.</p>
+<blockquote>
+<div><p><em>“BoilerFuel” energy drink claims to improve exam performance. Design a study to evaluate the claim.</em></p>
+</div></blockquote>
+<p><strong>Step 1 — What kind of evidence do we have so far?</strong> Testimonials on the company website (“I drank it and aced my final!”) are <strong>anecdotal data</strong> — striking individual cases, worthless as evidence. A survey finding that BoilerFuel drinkers score higher is an <strong>observational study</strong>: real data, but the association is contaminated by lurking variables (ambition, study habits, sleep…). Panel (b)/(c) of the association figure applies: we cannot conclude causation.</p>
+<p><strong>Step 2 — Decide: observational study or experiment?</strong> Ask the one diagnostic question: <em>will we impose the explanatory variable, or just record it?</em> The claim is causal (“improves performance”), so we need to <strong>impose</strong> it — an experiment. (If imposing were unethical or impossible — as with smoking — we would be stuck with careful observational methods.)</p>
+<p><strong>Step 3 — Identify the parts.</strong></p>
+<ul class="simple">
+<li><p><strong>Subjects:</strong> 200 volunteer students (note: volunteers → external validity caution).</p></li>
+<li><p><strong>Factor:</strong> drink type. <strong>Levels:</strong> BoilerFuel vs. placebo (identical-tasting, caffeine-free drink). So <strong>2 treatments</strong>.</p></li>
+<li><p><strong>Response variable:</strong> score on a standardized test taken one hour after drinking.</p></li>
+<li><p><strong>Placebo &amp; blinding:</strong> the placebo controls for the <em>belief</em> of being boosted; <strong>double-blind</strong> administration (neither student nor grader knows the assignment) controls both expectation effects.</p></li>
+</ul>
+<p><strong>Step 4 — Choose the design.</strong></p>
+<ul class="simple">
+<li><p><em>Completely randomized:</em> flip a fair coin (software) for each student: 100 get BoilerFuel, 100 get placebo. Fine as a default.</p></li>
+<li><p><em>Better — block what you can predict:</em> GPA surely affects test scores. Form blocks by GPA bracket (e.g., quartiles), then randomize within each block — this removes GPA from the chance variation, just as stratifying by sex sharpened the height survey.</p></li>
+<li><p><em>Best for this question — matched pairs (cross-over):</em> every student takes two comparable tests on two mornings — once after BoilerFuel, once after the placebo, in <strong>random order</strong>. Each student is their own control, eliminating all person-to-person differences at once.</p></li>
+</ul>
+<p><strong>Step 5 — Know what you may conclude.</strong> If the BoilerFuel scores beat placebo scores by more than chance variation would explain (Chapter 7 makes “more than chance” precise), the randomized design lets us say the drink <strong>caused</strong> the improvement — <em>for students like our volunteers, in test conditions like ours</em>. The cautions section is the fine print: realism, external validity, and ethics all still apply.</p>
+<p><strong>The identification checklist</strong> (use this on every study you ever read):</p>
+<ol class="arabic simple">
+<li><p>Was the explanatory variable <strong>imposed</strong> (experiment) or just <strong>recorded</strong> (observational)?</p></li>
+<li><p>If observational: what lurking variables could produce the association? (→ no causal claim.)</p></li>
+<li><p>If experimental: was assignment <strong>randomized</strong>? Is there a <strong>control/placebo</strong>? <strong>Blinding</strong>? <strong>Blocking</strong> on known factors?</p></li>
+<li><p>How were the subjects <strong>selected</strong> in the first place (SRS? volunteers?) — and whom do the results generalize to?</p></li>
+</ol>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">3.7. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. A dining-court survey asks students leaving the gym to rate campus fitness facilities. Name the design problem.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The sample is not random — students at the gym are systematically more engaged with fitness facilities than the general student population (<strong>undercoverage</strong> of non-gym-goers / a form of <strong>selection bias</strong>). No sample size fixes it.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. Students who take Latin score higher on verbal SATs. A headline concludes “Latin boosts verbal skill.” What panel of the association figure is the skeptic’s alternative?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Panel (b)/(c): students with strong prior verbal interest and strong academic backgrounds are the ones who <em>choose</em> Latin — a lurking variable driving both the choice and the score. Only a randomized experiment (randomly assign students to take Latin!) could settle it.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. In the caffeine cross-over experiment, why must the order (caffeine first vs. decaf first) be randomized?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">If everyone drank caffeine on day 1 and decaf on day 2, “day” would be confounded with “drink”: practice effects, fatigue, or a harder second test would be indistinguishable from the caffeine effect. Random order breaks that link.</p>
+</div>
+</details><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote01" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -836,6 +1014,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-design">3.3. Sampling Design</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-of-experiments">3.4. Design of Experiments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cautions-about-experimentation">3.5. Cautions about Experimentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-energy-drink-question">3.6. Putting It All Together: The Energy-Drink Question</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">3.7. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 
