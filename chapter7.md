@@ -1,4 +1,9 @@
-# Chapter 7: Inference for Means
+# Inference for Means
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 7** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 In the last chapter, we encountered the population parameter **$\sigma$** when calculating the **margin of error** for confidence intervals and computing the **$z$ test statistic** for hypothesis testing. However, in practice, this **$\sigma$** is usually **unknown**. 
 
@@ -22,8 +27,8 @@ If we do **not** know the population standard deviation **$\sigma$**, we need to
 
 **Why Use $s$ Instead of $\sigma$?**
 - The **sample standard deviation** $s$ is a **good estimator** of the population counterpart $\sigma$.
-- We can show that **$s$ is an unbiased estimator** of $\sigma$, meaning its expected value equals $\sigma$.
-- It is also a **consistent estimator**, meaning that as the **sample size $n$ increases**, $s$ gets closer to $\sigma$.
+- We can show that **$s^2$ is an unbiased estimator** of $\sigma^2$, meaning its expected value equals $\sigma^2$. (The sample standard deviation $s$ itself is slightly biased-it tends to underestimate $\sigma$-but the bias is small.)
+- $s$ is also a **consistent estimator**, meaning that as the **sample size $n$ increases**, $s$ gets closer to $\sigma$.
 
 **Standard Error:**
 - Since we do not know $\sigma$, we also need to estimate the **standard deviation of the sample mean**, which is:
@@ -92,8 +97,8 @@ The logic of a one-sample test remains the same-now we simply use within-pair di
 **Scenario**
 
 - **Study Goal**: Compare measurements of machine parts with and without a certain "option" enabled in the measuring software.  
-- **Data**: Each part gives two measurements: *Option On* and *Option Off*. The difference $d_i = (\text{On}_i - \text{Off}_i)$ is recorded for each part $i$.  
-- **Sample Size**: $n = 51$ parts, so we have 51 paired differences $d_1, d_2, \dots, d_{51}$.
+- **Data**: Each part gives two measurements: *Option On* and *Option Off*. The difference $d_i = (\text{Off}_i - \text{On}_i)$ is recorded for each part $i$.  
+- **Sample Size**: $n = 51$ parts, so we have 51 paired differences $d_1, d_2, \dots, d_{51}$ (the table below shows the first 20 of the 51 parts).
 
 ```{figure} _image/0701.png
 :alt: Table of paired measurements for 20 machine parts with the software option on and off, where the differences are small and scatter around zero
@@ -112,7 +117,7 @@ H_0: \mu = 0
 \quad\text{vs.}\quad
 H_a: \mu \neq 0,
 ```
-where $\mu$ is the *population mean* of the difference in measurements (*On* minus *Off*).
+where $\mu$ is the *population mean* of the difference in measurements (*Off* minus *On*).
 ````
 ````{tab-item} $t$ Test
 **Key Summary Statistics**
@@ -135,7 +140,7 @@ This statistic follows a $t$ distribution with $n - 1 = 50$ degrees of freedom u
 **Interpretation of Results**
 
 - **$t = 0.52$**, $df = 50$.  
-- The *p*-value (two-tailed) is greater than 0.50 (software reports approximately 0.6054).  
+- The *p*-value (two-tailed) is greater than 0.50 (software reports approximately 0.61).  
 - **Conclusion**: There is no statistically significant evidence ($p \approx 0.61$) to conclude that the measuring option changes the average measurement. 
 
 When reporting results, it is common to say:  
@@ -178,7 +183,7 @@ By **pre-specifying** an acceptable difference **$\delta$**, we conduct **Equiva
 - **Motivation**: Sometimes we want to show that two treatments or measurements are *practically the same* (i.e., any difference is too small to matter). A traditional hypothesis test merely tells us whether a difference is *detectable*, not whether it is *small*.
 - **Approach**:
   1. Specify an *equivalence range* around the null value, say $\mu_0 \pm \delta$. Any difference within $\pm \delta$ is deemed "unimportant."
-  2. Construct a confidence interval (CI) for the parameter of interest (often a mean difference).
+  2. Construct a confidence interval (CI) for the parameter of interest (often a mean difference). For an equivalence conclusion at significance level $\alpha$, use a $1 - 2\alpha$ confidence interval (e.g., a 90% CI for a 5%-level test).
   3. If the entire CI lies *inside* $\mu_0 \pm \delta$, we *conclude equivalence*. Otherwise, we lack evidence to declare them equivalent.
 
 > **Key Point**: Equivalence testing focuses on whether the true mean difference is *small enough* to be negligible, rather than simply testing if it differs from zero.
@@ -187,12 +192,12 @@ By **pre-specifying** an acceptable difference **$\delta$**, we conduct **Equiva
 
 ````{tab-item} Example 7.8
 - **Scenario**: Researchers consider a mean difference less than 0.20 micron "not important."
-- **Data**: We have a sample of size $n=51$, yielding $\bar{x} = 0.0504$, and $\text{SE}_{\bar{x}}=0.0972$.  
-- **90% CI**: $\bar{x} \pm t^*\,\text{SE}_{\bar{x}} 
+- **Data**: We have a sample of size $n=51$, yielding $\bar{d} = 0.0504$, and $\text{SE}_{\bar{d}}=0.0972$.  
+- **90% CI**: $\bar{d} \pm t^*\,\text{SE}_{\bar{d}} 
   = 0.0504 \pm (1.676)(0.0972) 
-  = (-0.112,\ 0.2133).$
+  = (-0.113,\ 0.213).$
 
-Since $-0.112$ and $0.2133$ are *not* fully contained in the "equivalence region" $[-0.20,\ 0.20]$, we **cannot** conclude equivalence at the 5% significance level. However, the mean difference is quite close to zero, so a larger sample might shrink the CI and yield a different conclusion.
+Note that Minitab labels this interval a "95% CI for Equivalence" because it follows the one-sided-$\alpha$ labeling convention; the interval shown is numerically the 90% two-sided CI used by the 5%-level equivalence (TOST) procedure. The interval is *not* entirely contained in the "equivalence region" $[-0.20,\ 0.20]$ because the upper endpoint $0.213$ exceeds the upper equivalence limit $0.20$, so we **cannot** conclude equivalence at the 5% significance level. However, the mean difference is quite close to zero, so a larger sample might shrink the CI and yield a different conclusion.
 
 ```{figure} _image/0702.png
 :alt: Minitab equivalence test plot where the 95 percent CI from minus 0.113 to 0.213 crosses the upper limit 0.2, so equivalence cannot be claimed
@@ -475,12 +480,6 @@ Just as with the one-sample *t*, these two-sample procedures are generally **rob
 
 ## Sample Size Calculations
 
-For all the statistical procdeures we have introduced so far, besides population stadndard devaition $\sigma$ and sample standard deviation $s$, we also see the sample size $n$ in the formulas. In theory, this value is known to the researchers, but in practice, when we are planning a study, this is actually an important question, choosing the right number of sample size to make sure that the margin of error is less than a prespecified value $m$ at a certain level of confidence. We know as sample size increase, our margin or error would decrease, however, increasing the sample size does not come free because we need to collect more data points. So that' why we need to plan ahead to have large enough sample size to mmake sure we achieve $m$.
-
-We start with the formula for margin of error
-
-
-
 For all the **statistical procedures** we have introduced so far, in addition to the **population standard deviation** **$\sigma$** and **sample standard deviation** **$s$**, we also see the **sample size** **$n$** in the formulas. 
 
 In theory, the **sample size** **$n$** is known to researchers, but in **practice**, when planning a study, **choosing the right sample size** is an important decision. The goal is to ensure that the **margin of error** stays **below a prespecified value** **$m$** at a given **confidence level**.
@@ -593,7 +592,7 @@ In addition to planning for the **sample size** **$n$**, we often also need to c
 
 
 
-## Unbiasedness and Consistency of the Sample Standard Deviation
+## Properties of $s^2$ and $s$: Unbiasedness and Consistency
 
 `````{tab-set}
 

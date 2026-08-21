@@ -93,7 +93,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="15. Chapter 8: Inference for a Single Proportion" href="chapter15.html" />
+    <link rel="prev" title="15. Inference for a Single Proportion" href="chapter15.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -247,35 +247,39 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter 0: The Big Picture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bigpicture.html">The Big Picture: Why Study Statistics?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Looking at Data — Distributions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. Chapter 12: One Way ANOVA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Inference for Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter8.html">8. One-Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Two-Way ANOVA</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Looking at Data — Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Least-Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Multiple Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Inference for a Single Proportion</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
 </ul>
 
@@ -486,14 +490,18 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="special-topic-simple-least-squares-regression-in-matrix-form">
 <h1><span class="section-number">16. </span>Special Topic: Simple Least Squares Regression in Matrix Form<a class="headerlink" href="#special-topic-simple-least-squares-regression-in-matrix-form" title="Link to this heading">#</a></h1>
+<div class="seealso admonition">
+<p class="admonition-title">Note</p>
+<p>This is an optional special topic beyond the required course material, for students who want to see how regression is actually computed by software.</p>
+</div>
 <p>We have a data set consisting of <span class="math notranslate nohighlight">\(n\)</span> paired observations of the predictor/explanatory variable <span class="math notranslate nohighlight">\(X\)</span> and the response variable <span class="math notranslate nohighlight">\(Y\)</span>, i.e., <span class="math notranslate nohighlight">\((x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\)</span>. We wish to fit the model with a regression line:</p>
 <div class="math notranslate nohighlight">
-\[y_n = \beta_0 + \beta_1 \, x_n + \epsilon_n\]</div>
-<p>where we have the assumptions:</p>
+\[y_i = \beta_0 + \beta_1 \, x_i + \epsilon_i, \qquad i = 1, \dots, n,\]</div>
+<p>where we have the assumptions, for each <span class="math notranslate nohighlight">\(\epsilon_i\)</span>:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\mathbb{E}[\epsilon_n \mid x_1, \dots, x_n] = 0\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Var}[\epsilon_n \mid x_1, \dots, x_n] = \sigma^2\)</span>, and</p></li>
-<li><p><span class="math notranslate nohighlight">\(\epsilon_n\)</span> is uncorrelated across measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}[\epsilon_i \mid x_1, \dots, x_n] = 0\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Var}[\epsilon_i \mid x_1, \dots, x_n] = \sigma^2\)</span>, and</p></li>
+<li><p>the <span class="math notranslate nohighlight">\(\epsilon_i\)</span> are uncorrelated across measurements.</p></li>
 </ul>
 <p>The parameters are <span class="math notranslate nohighlight">\(\beta_0,\ \beta_1,\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <section id="the-matrix-representation">
@@ -544,6 +552,7 @@ y_n
 <p>When deriving the least squares estimator, we want to find <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> that minimizes the <strong>mean squared error</strong> (MSE):</p>
 <div class="math notranslate nohighlight">
 \[MSE(\hat{\beta}) = \frac{1}{n}\,\sum_{i=1}^{n} e_i^2(\hat{\beta}).\]</div>
+<p>(Note: here “MSE” is the average squared error used as the objective for minimization; it is not the same quantity as the MSE <span class="math notranslate nohighlight">\(= SSE/(n-2)\)</span> used in regression inference. The two differ only by a constant factor, so the minimizing <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> is unchanged.)</p>
 <p>In matrix form:</p>
 <div class="math notranslate nohighlight">
 \[MSE(\hat{\beta}) = \frac{1}{n} \,\mathbf{e}^\top \mathbf{e}.\]</div>
@@ -600,7 +609,8 @@ MSE(\hat{\beta})
 = \mathbf{0}.\]</div>
 <p>Hence,</p>
 <div class="math notranslate nohighlight">
-\[\hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y}.\]</div>
+\[\hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x}^\top \mathbf{x}\)</span> is invertible provided the <span class="math notranslate nohighlight">\(x_i\)</span> are not all equal.</p>
 <p>A very compact result!</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="_images/1601.png"><img alt="Least-squares regression line y hat equals b0 plus b1 x, with slope b1 equals r times sy over sx and intercept b0 equals y bar minus b1 x bar" src="_images/1601.png" style="width: 100%;" />
@@ -645,7 +655,7 @@ MSE(\hat{\beta})
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">15. </span>Chapter 8: Inference for a Single Proportion</p>
+        <p class="prev-next-title"><span class="section-number">15. </span>Inference for a Single Proportion</p>
       </div>
     </a>
 </div>

@@ -1,11 +1,16 @@
-# Chapter 3: Producing Data
+# Producing Data
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 3** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 Since we have learned the concepts of **population** and **sample**, you might wonder how data is obtained for the population and sample. In the height example, we **randomly drew** a specific number of students from all Purdue students to form a sample. This gives us an abstract idea of the process of forming a sample. The concept of **randomly drawing** will be discussed in more detail shortly. However, let's first focus on the population.
 
 
 We can model the real-world measurements-the heights of all Purdue students-as a normal random variable, $Height$, with **parameters** mean $\mu$ and standard deviation $\sigma$. This serves as a mathematical abstraction of the real-world phenomenon. This powerful abstraction allows us to **quantify uncertainty, derive probabilities for outcomes, and perform statistical inference**.
 
-The randomness in height/$Height$ may arise from many **small factors**, such as genetics, nutrition, environment, and other influences in biological or physical systems. Each observed height value is a realized outcome, or **realization**, of this process at the **macro level**. Modeling this process with a normal distribution is appropriate and can be explained by a fundamental concept, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">**Central Limit Theorem (CLT)**</a>. Other processes and phenomena, however, may be modeled by different types of random variables.
+The randomness in height/$Height$ may arise from many **small factors**, such as genetics, nutrition, environment, and other influences in biological or physical systems. Each observed height value is a realized outcome, or **realization**, of this process at the **macro level**. Modeling this process with a normal distribution is a **modeling assumption**, loosely motivated by an argument in the style of the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">**Central Limit Theorem (CLT)**</a>: when many small, independent factors contribute additively, the resulting outcomes tend to be approximately normal. Other processes and phenomena, however, may be modeled by different types of random variables.
 
 Now, let's turn our focus to sample data. The term **parameter** is associated with the population and is usually unknown. Once we have the sample data, we can follow a statistical procedure to calculate a <span class="purdue-text">**STATISTIC**</span>, which is a number that describes the sample-for example, the sample mean.
 
@@ -76,9 +81,9 @@ In simpler terms, it's the variable you suspect **causes** or **predicts** chang
 
 Confounding can lead us to overstate or even mistakenly conclude that the explanatory variable **caused** the change in the response, when in reality, a confounding variable plays a partial or even dominant role in explaining that change. 
 
-For example, another variable, C, might cause both A and B. However, based on the observed data, you might incorrectly conclude that A causes B.
+For example, another variable, C, might cause both A and B. In the figure at the end of this section, this particular mechanism is labeled **common response** (panel b): a lurking variable $z$ causes both $x$ and $y$. **Confounding** in the strict sense (panel c) is slightly different: the effects of $x$ and $z$ on $y$ are mixed together and cannot be separated. Either way, both mechanisms produce an association between $x$ and $y$ without $x$ causing $y$, so based on the observed data, you might incorrectly conclude that A causes B.
 
-In an experiment, researchers actively impose an intervention (treatment) and use random assignment to decide who receives it. That way, any other factors that might affect the outcome (so-called lurking variables or confounders) should, on average, balance out across the different treatment groups. In an observational study, you are not assigning who or the subject is exposed to the _treatment_ which might leads the confounding issue. 
+In an experiment, researchers actively impose an intervention (treatment) and use random assignment to decide who receives it. That way, any other factors that might affect the outcome (so-called lurking variables or confounders) should, on average, balance out across the different treatment groups. In an observational study, you do not assign which subjects are exposed to the _treatment_, which can lead to confounding. 
 
 Two real life examples of confounding issues are:
 
@@ -150,7 +155,7 @@ Even with well-designed sampling methods, we cannot entirely eliminate **bias**.
 One last thing I want to mention in this section is that our goal is to calculate a _statistic_[^footnote03] from our sample to estimate the parameter associated with the population. If the sampling design contains **bias**, you can imagine that this statistic will not be of high quality. However, bias is just one dimension when assessing quality. Another critical dimension is the **variance**, or **variation**, of a statistic during the sampling process, even if the sampling design is unbiased. Below are two common sources of variation.
 
 * **Sampling Variability**: If the sample is drawn from the population with some amount of randomness, the sampling variability describes the variability from one sample to the next.
-* **Measurement Variability**: When we take multiple measurements on the same object and we get variations in measurements from one sample to the next.
+* **Measurement Variability**: When we take multiple measurements on the same object and we get variations in measurements from one measurement to the next.
 
 [^footnote03]: I will discuss the term _statistic_ in more detail in later chapters.
 
@@ -172,7 +177,7 @@ Before diving into the design aspect, we first need to understand the definition
   * Example: students' grades in the education experiment. 
 * **Levels of a Factor**: Different values that a factor can take (e.g., 30-second vs. 90-second ad).
 * **Treatments**: Specific experimental conditions imposed on the subjects. Often formed by combining specific levels of one or more factors.
-  * Example: If Factor $A = Ad Length$ (30s or 90s) and Factor $B = Repetitions$ (1, 3, or 5 times), you have 2 $\times$ 3 $=$ 6 possible treatments.
+  * Example: If Factor $A = \text{Ad Length}$ (30s or 90s) and Factor $B = \text{Repetitions}$ (1, 3, or 5 times), you have 2 $\times$ 3 $=$ 6 possible treatments.
 
 **Placebo effect, Control, Control Group, and Treatment Group**
 
@@ -202,7 +207,7 @@ This psychological or physiological response is not due to the treatment itself 
 **Baseline for Comparison**: The placebo effect can confound the results of an experiment. To accurately measure the effect of a real treatment, researchers need to isolate the treatment's effect from the placebo effect. This is why placebos are often used as a benchmark or baseline in experiments.
 ```
 
-By including a placebo group, researchers can control for the impact of participants' expectations or beliefs about the treatment, ensuring that any observed effects in the treatment group are due to the treatment itself and not psychological factors. The placebo control group can be thought of as a treatment group that receives no treatment. The remaining groups are referred to as treatment groups, each receiving a specific treatment.
+By including a placebo group, researchers can control for the impact of participants' expectations or beliefs about the treatment, ensuring that any observed effects in the treatment group are due to the treatment itself and not psychological factors. The placebo control group can be thought of as a treatment group that receives no active treatment (an inert treatment). The remaining groups are referred to as treatment groups, each receiving a specific treatment.
 
 :::{dropdown} How Placebos Work in Experiments:
 :open:
@@ -224,7 +229,7 @@ By including a placebo group, researchers can control for the impact of particip
   * Example: The advertising example with 6 treatments (two factors, each at multiple levels) and 150 subjects, randomly assigning 25 subjects to each treatment.
 * **Matched Pairs Design**
   * Often used to compare just **two** treatments.
-  * Subjects are arranged in pairs (e.g., same age, same gender) that are alike in ways that might affect the response. Then one subject in each pair gets treatment A, the other gets treatment B.
+  * Subjects are arranged in pairs (e.g., same age, same gender) that are alike in ways that might affect the response. Then one subject in each pair gets treatment A, the other gets treatment B; which member of the pair receives which treatment is assigned at random (e.g., by a coin flip).
   * Variation is reduced because each pair is more similar than randomly chosen individuals.
   * Alternatively, the same subject can receive both treatments in random order (the subject is "paired with themselves"). This experiment is called a **cross-over** experiment.
 * **Block Designs**

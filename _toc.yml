@@ -4,6 +4,12 @@
 format: jb-book
 root: intro
 parts:
+  - caption: "Chapter 0: The Big Picture"
+    numbered: false
+    maxdepth: 2
+    chapters:
+    - file: bigpicture
+
   - caption: At the beginning
     numbered: True
     maxdepth: 2

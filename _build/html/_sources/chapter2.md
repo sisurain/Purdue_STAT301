@@ -78,7 +78,7 @@ In the previous section, we learned about **variables** and **random variables**
 * If we have a dataset containing observed values, a **variable** (typically a column in the dataset) has an **empirical distribution** (the frequencies of the observed values).
 * If we have a **random variable**, in probability theory it has a **theoretical probability distribution** (theoretical probabilities of values). In this course, we will also encounter some famous probability distributions.
 
-In our height example, once we have a dataset of 1,000 samples, we have 1,000 height measurements for the students in the sample. These values form an **empirical distribution**. Meanwhile, if we consider the aforementioned $Height$ random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">**Normal (Gaussian) distribution**</a>. Thus, the **theoretical distribution** of $Height$ is a normal distribution[^footnote01].
+In our height example, once we have a sample of 1,000 students, we have 1,000 height measurements for the students in the sample. These values form an **empirical distribution**. Meanwhile, if we consider the aforementioned $Height$ random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">**Normal (Gaussian) distribution**</a>. Thus, the **theoretical distribution** of $Height$ is a normal distribution[^footnote01].
 
 [^footnote01]: You can also visit [this website](https://www.math.wm.edu/~leemis/chart/UDR/UDR.html) to explore the basic distributions developed to model real-world phenomena and how they are interconnected. Yes, things are connected!
 
@@ -103,4 +103,16 @@ While it is a fixed value, its true value is typically unknown in practice.
 Since these parameters are unknown, except in cases where the question explicitly provides a fixed value, we need to use our **sample** to estimate the unknown parameter or make inferences about it.
 
 There is one subtle gap to bridge. In the first section, we mentioned the _**average height** of all Purdue students_ and treated it as unknown, linking it to the population. We can think of this as the **empirical population parameter**. When the population size $N$ is very large, this **empirical population parameter** should be very close to the **theoretical population parameter**, $\mu$. The textbook does not distinguish between these two perspectives.
+
+## Revisiting the Big Picture
+
+You have now met this chapter's concepts twice: informally in [Chapter 0](bigpicture) — through dice, heights, and pictures — and formally here, with definitions. Go back to the Big Picture diagram one more time; every formal name in this chapter labels one specific piece of it.
+
+* The dashed outer circle — the **true population world** — is what our formal <span class="purdue-text">population</span> refers to: all Purdue students, never fully observed.
+* The **model world** on the right is the formal <span class="purdue-text">random variable</span> $X$ (a function from outcomes to numbers) together with its <span class="purdue-text">theoretical distribution</span> — the smooth pdf that infinitely many draws would form.
+* The middle circle — the **empirical population** — is where the <span class="purdue-text">empirical distribution</span> of a very large dataset lives; its histogram nearly matches the theoretical curve when $N$ is large.
+* The **theoretical population parameter** ($\mu$, $\sigma$) belongs to the model world; the **empirical population parameter** (the actual average of all ~40,000 students) belongs to the middle circle. When $N$ is large the two nearly coincide — that is exactly why the textbook does not bother to distinguish them.
+* The innermost circle is our <span class="purdue-text">sample</span>, and any number we compute from it (such as $\bar{x}$) is a **statistic** — our only usable handle on all the layers outside it.
+
+If you can place each of this chapter's definitions onto the picture from memory, you have genuinely understood this chapter — and you are ready for the rest of the course.
 

@@ -1,8 +1,13 @@
-# Chapter 6: Confidence Intervals and Significance Tests
+# Confidence Intervals and Significance Tests
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 6** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 Last chapter, we learned that the sampling distribution of the sample mean $\bar{X}$ is approximately $\mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)$ under mild conditions, thanks to the Central Limit Theorem (CLT). The mean of this sampling distribution is $\mu$, making the sample mean $\bar{X}$ an excellent candidate for a *point estimator* of the population mean $\mu$.[^footnote01]
 
-[^footnote01]: We can also say $\bar{X}$ is an *unbiased estimator* of $\mu$, because $\mathbb{E}[\bar{X}] = \mu$. Among all unbiased estimators, the sample mean has the smallest variance, meaning it has low variability.
+[^footnote01]: We can also say $\bar{X}$ is an *unbiased estimator* of $\mu$, because $\mathbb{E}[\bar{X}] = \mu$. Among all *linear* unbiased estimators, the sample mean has the smallest variance, meaning it has low variability. (For Normal populations, it is in fact best among all unbiased estimators.)
 
 However, in reality, we typically only observe **one sample**, and the sample mean $\bar{X}$ itself is **random**. Using our knowledge of the sampling distribution, we want to assess how far the observed $\bar{x}$ is from the population mean $\mu$, or equivalently, how far the population mean $\mu$ might be from our observed $\bar{x}$. This motivates the need to address **uncertainty** in our estimates of population parameters.
 
@@ -13,7 +18,7 @@ One effective way to quantify this uncertainty is by constructing a <span class=
 and we interpret it as:
 > "Given the data, we are 95% confident that the true mean $\mu$ lies within this range."
 
-The **Margin of Error** is a calculable value that reflects the range within which the true population mean $\mu$ is likely to lie, based on the observed sample. An important clarification involves two equivalent perspectives when interpreting the range:
+The **Margin of Error** is a calculable value-the half-width of the interval, later given by $z^* \frac{\sigma}{\sqrt{n}}$-that quantifies how far the sample mean $\bar{x}$ typically falls from the true population mean $\mu$. An important clarification involves two equivalent perspectives when interpreting the range:
 1. We say $\mu$ lies within the interval $(\bar{x} - \text{Margin of Error}, \bar{x} + \text{Margin of Error})$, or
 2. We equivalently say that $\bar{x}$ lies within the interval $(\mu - \text{Margin of Error}, \mu + \text{Margin of Error})$.
 The second perspective arises from our understanding of the sampling distribution and the variability inherent in the sample mean.
@@ -66,6 +71,8 @@ For example, the 68-95-99.7 rule tells us that 95% of the area under the normal 
 ```
 This illustrates the **second perspective**, where we view $\bar{x}$ as a random variable distributed around the true mean $\mu$. This perspective allows us to build confidence intervals using probability derived from the sampling distribution.
 
+The figures below illustrate IPS Example 6.3: SAT Math scores with $\sigma = 100$ and $n = 500$, so $2 \cdot \sigma/\sqrt{n} = 8.94 \approx 9$ points.
+
 ```{figure} _image/0601.png
 :alt: Normal density curve of the sample mean centered at unknown mu. Shaded middle area shows xbar lies within 9 points of mu in 95 percent of samples
 :align: center
@@ -112,7 +119,7 @@ we replace the value 2 with a more general critical value, denoted as $z^*$.
     ```{math}
     n = \left(\frac{z^* \sigma}{m}\right)^2.
     ```
-- This equation helps us determine the required **sample size** to achieve a specified margin of error for a given confidence level.
+- This equation helps us determine the required **sample size** to achieve a specified margin of error for a given confidence level. Since $n$ must be a whole number, always **round up** to the next whole number; rounding down would fail to achieve the desired margin of error.
 
 ````{prf:definition} Confidence Interval for a Population Mean
 :label: ci-population-mean
@@ -125,7 +132,7 @@ m = z^* \cdot \frac{\sigma}{\sqrt{n}}
 Here, $z^*$ is the value on the standard Normal curve with area $C$ between the points $-z^*$ and $z^*$. The level $C$ confidence interval for $\mu$ is: 
 
 $$\bar{x} \pm m$$
-The confidence level of this interval is exactly $C$ when the population distribution is Normal and is approximately $C$ when $n$ is large in other cases
+The confidence level of this interval is exactly $C$ when the population distribution is Normal and is approximately $C$ when $n$ is large in other cases.
 
 ````
 
@@ -148,14 +155,14 @@ The second classical statistical method for using sample information to make inf
 2. We **calculate** a test statistic using sample data and the assumed parameter value from $H_0$.
 3. We **evaluate** whether the observed test statistic provides sufficient evidence to reject $H_0$.
 
-A common choice for $H_0$ represents a **"nothing interesting is happening"** scenario/a **"business as usual"** hypothesis, or a hypothesis which something we seek to **refute** using sample data.
+A common choice for $H_0$ represents a **"nothing interesting is happening"** scenario/a **"business as usual"** hypothesis, or a hypothesis that we seek to **refute** using sample data.
 
 1. **Scenario 1:** Suppose we are studying the heights of Purdue students and it is generally believed that the average height of Purdue students has historically been **70 inches**. The null hypothesis here would reflect the "business as usual" assumption:
   * Null hypothesis ($H_0$): The average height of Purdue students is 70 inches ($\mu_0 = 70$).
 2. **Scenario 2:** A researcher claims that Purdue's new student population has an average height of at least **72 inches**, suggesting a significant increase in height due to some unknown factor (e.g., recruitment policies). Here, the null hypothesis reflects the claim that the researcher tries to refute using data:
-  * Null hypothesis ($H_0$): The average height of Purdue students is at least 72 inches ($\mu_0 = 72$).
+  * Null hypothesis ($H_0$): The average height of Purdue students is 72 inches ($\mu_0 = 72$), tested against the alternative $H_a: \mu < 72$. Following the IPS convention, the "at least" part of the claim is absorbed into the direction of $H_a$, and the boundary value $\mu_0 = 72$ is used for calculation.
 
-Once we have formed our Null hypothesis, we can form our **alternative hypothesis** which assert that a mechanism other than the null hypothesis generated the datasets.
+Once we have formed our Null hypothesis, we can form our **alternative hypothesis** which asserts that a mechanism other than the null hypothesis generated the datasets.
 
 ````{prf:definition} Null Hypothesis
 :label: null-hypo
@@ -187,7 +194,7 @@ The **p-value** is the probability of observing a test statistic as extreme as, 
 1. **p-value $\neq$ Probability that $H_0$ is true**
   * The p-value is conditional on $H_0$ being true; it does not tell us the probability of $H_0$ itself.
 2. **p-value $\neq$ Strength of the alternative hypothesis ($H_a$)**
-  * A small p-value suggests $H_0$ is unlikely, but it doesn't measure how true $H_a$ is.
+  * A small p-value means data as extreme as ours would be unlikely **if** $H_0$ were true, but it doesn't measure how true $H_a$ is.
 3. **"Failing to reject $H_0$" $\neq$ Proving $H_0$**
   * A high p-value means the data are consistent with $H_0$, but it doesn't prove $H_0$ is correct.
 
@@ -253,7 +260,7 @@ A level $\alpha$ two-sided significance test rejects a hypothesis $H_0: \mu = \m
 
 5. **Beware of multiple comparisons**:
    * Many tests run at once will probably produce some significant results by chance alone, even if all the null hypotheses are true.
-   * **p-hacking**, *"If you torture the data long enough, it will confess to anything"* (attributed to Ronald Coase) humorously critiques the misuse of statistical methods, such as **p-hacking**, where researchers manipulate data or analysis methods to find statistically significant results, often leading to misleading or invalid conclusions.
+   * *"If you torture the data long enough, it will confess to anything"* (attributed to Ronald Coase) humorously critiques this kind of data-torturing. **p-hacking** refers to researchers manipulating data or analysis methods to find statistically significant results, often leading to misleading or invalid conclusions.
 
 ````
 
@@ -295,7 +302,6 @@ Finally, let's consider a few remarks on the significance-test perspective and t
 - **Outcome**:
   - If data are sufficiently against $H_0$, *reject* $H_0$.  
   - Otherwise, conclude only that the *evidence is insufficient* to reject $H_0$, **not** that $H_0$ is *actually true*.
-- **Power**: Calculated to check how *sensitive* the test is to departures from $H_0$.
 ```
 
 ```{note}

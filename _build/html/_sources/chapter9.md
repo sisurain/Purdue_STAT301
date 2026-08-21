@@ -1,4 +1,9 @@
-# Chapter 13: Two Way ANOVA
+# Two-Way ANOVA
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 13** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 One-way ANOVA examines the differences in a continuous response variable across groups defined by a **single** categorical factor. <span class="purdue-text">**Two-way ANOVA**</span> extends this framework to study the effects of **two** categorical factors on a continuous response variable, and it also allows for the evaluation of an <span class="purdue-text">**interaction effect**</span> between the two factors.
 
@@ -279,7 +284,7 @@ $$
     An interaction plot displays the mean response for each combination of factors. If the lines are non-parallel (i.e., the vertical gaps between the levels of one factor differ across the levels of the other), this visually indicates an interaction. The vertical difference (or "gap") between, say, the means for 2010 and 2016 for each age group, when compared across age groups, quantifies the interaction effect.
 
   - **Requirement for Multiple Levels:**  
-    For an interaction to be meaningful, each factor must have at least two levels. One level typically serves as a benchmark, allowing the differences—and thus the interaction—to be observed.
+    Interaction is about differences of differences: the effect of one factor (a difference between its levels) is compared across the levels of the other factor.
 
 ```{figure} _image/0901.png
 :alt: Interaction plot of mean daily calories from sugar-sweetened beverages by age group in 2010 and 2016, with the largest drop among adolescents
@@ -372,7 +377,7 @@ $$
 
 - Interaction Plot
 
-  An interaction plot (not shown here) would typically display:
+  An interaction plot (see the figure in the Main Effects and Interaction tab) displays:
   - Lines for each age group connecting the mean calories in 2010 and 2016.
   - **Observation:**  
     - All groups show lower consumption in 2016 compared to 2010.
@@ -409,7 +414,7 @@ Two-way ANOVA relies on several key assumptions to ensure that the statistical t
 
 ## Inference for Two Way ANOVA 
 
-Inference for two-way ANOVA naturally includes an *F* statistic for each of thw two main effects and the interaction. These will be summarized into the table below:
+Inference for two-way ANOVA naturally includes an *F* statistic for each of the two main effects and the interaction. These are summarized in the table below:
 
 :::{dropdown} Significance Tests in Two-Way ANOVA
 :open:
@@ -680,7 +685,7 @@ This example comes from a study of cardiovascular risk factors that compared run
     - **$P$-value:** Indicates the statistical significance of the effect.
 
   - **Interpretation of Effects:**  
-    All three effects are statistically significant. The Group effect has the largest impact on HR, followed by the Sex effect and the interaction effect. The interaction plot (with narrow 95% confidence intervals) shows that the effect of one factor differs depending on the level of the other factor.
+    All three effects are statistically significant. The Group effect has the largest impact on HR, followed by the Sex effect and the interaction effect. An interaction plot of the four cell means would show that the effect of one factor differs depending on the level of the other factor. Because the interaction, though statistically significant, is small compared with the main effects ($SSAB = 1794$ versus $SSA = 45030$ and $SSB = 168432$) and the Group and Sex differences go in the same direction at both levels of the other factor, the main effects remain directly interpretable here. When an interaction is large, however, marginal (main-effect) comparisons can be misleading, and the cell means should be compared instead.
 
 
 

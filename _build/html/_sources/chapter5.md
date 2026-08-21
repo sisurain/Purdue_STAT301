@@ -1,4 +1,9 @@
-# Chapter 5: Sampling Distributions
+# Sampling Distributions
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 5** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 
 In this chapter, we will begin to study **statistical inference**-the process of drawing conclusions about the population from the sample dataset. This involves a directional arrow from the **sample dataset** to the **population**. Typically, we are interested in either the **values of population parameters** or in addressing **claims/statements** about the population. Using information from the sample and following specific statistical procedures, we aim to:
@@ -64,9 +69,9 @@ We have already discussed the sources of bias in the sampling design section. Us
 Variability describes the spread of the sampling distribution. It quantifies how much the statistic (e.g., sample mean, sample proportion) fluctuates from sample to sample. Larger samples have less variability because the sampling distribution becomes narrower as $n$ increases. Variability usually comes from two sources:
 
 * **Sampling variability**: The value of a statistic varies in repeated random sampling.
-* **Measurement variability**: The same object could be drawn into different samples, but measurements of the object may vary.
+* **Measurement variability**: Repeated measurements on the same individual can differ because of imprecision in the measurement process.
 
-A numerical measure of the spread of a sampling distribution is often calculated, called the **margin of error**. It provides bounds on the likely error when using the statistic as an estimator of a population parameter. The margin of error relates to the **standard error**, which is simply the standard deviation of the sampling distribution.
+A numerical measure of the spread of a sampling distribution is often calculated, called the **margin of error**. It provides bounds on the likely error when using the statistic as an estimator of a population parameter. The margin of error relates to the standard deviation of the sampling distribution (e.g., $\sigma/\sqrt{n}$). In practice, this quantity is estimated from the data by plugging in sample estimates (e.g., $s/\sqrt{n}$); that estimated value is called the **standard error**.
 
 Ideally, we want an estimator to be both **unbiased** (accurate on average) and **reliable** (low variability).
 
@@ -95,9 +100,11 @@ For normal distributions, there are two parameters-mean $\mu$ and variance $\sig
 If the population has mean $\mu$, then $\mu$ is the mean of the distribution of each observation $X_i$. To get the mean of $\bar{x}$, we use the rules for means of random variables. Specifically,
 
 $$
-\mu_{\bar{x}} = \frac{1}{n} (\mu_{X_1} + \mu_{X_2} + \cdots + \mu_{X_n}) \\
-= \frac{1}{n} (\mu + \mu + \cdots + \mu) \\
-= \mu
+\begin{aligned}
+\mu_{\bar{x}} &= \frac{1}{n} (\mu_{X_1} + \mu_{X_2} + \cdots + \mu_{X_n}) \\
+&= \frac{1}{n} (\mu + \mu + \cdots + \mu) \\
+&= \mu
+\end{aligned}
 $$
 
 That is, the **mean of $\bar{x}$ is the same as the mean of the population**. The sample mean $\bar{x}$ is, therefore, an unbiased estimator of the unknown population mean $\mu$.
@@ -107,9 +114,11 @@ That is, the **mean of $\bar{x}$ is the same as the mean of the population**. Th
 Because the observations are independent, the addition rule for variances also applies:
 
 $$
-\sigma_{\bar{x}}^2 = \left(\frac{1}{n}\right)^2 \left(\sigma_{X_1}^2 + \sigma_{X_2}^2 + \cdots + \sigma_{X_n}^2\right) \\
-= \left(\frac{1}{n}\right)^2 \left(\sigma^2 + \sigma^2 + \cdots + \sigma^2\right) \\
-= \frac{\sigma^2}{n}
+\begin{aligned}
+\sigma_{\bar{x}}^2 &= \left(\frac{1}{n}\right)^2 \left(\sigma_{X_1}^2 + \sigma_{X_2}^2 + \cdots + \sigma_{X_n}^2\right) \\
+&= \left(\frac{1}{n}\right)^2 \left(\sigma^2 + \sigma^2 + \cdots + \sigma^2\right) \\
+&= \frac{\sigma^2}{n}
+\end{aligned}
 $$
 
 With $n$ in the denominator, the variability of $\bar{x}$ about its mean decreases as the sample size grows. Thus, a sample mean from a large sample will usually be very close to the true population mean $\mu$.
@@ -122,6 +131,8 @@ Draw an SRS of size $n$ from any population with mean $\mu$ and finite standard 
 $$
 \bar{x} \text{ is approximately } \mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
 $$
+
+(Following the IPS convention, the second argument of $\mathcal{N}$ is the standard deviation $\sigma/\sqrt{n}$, not the variance.)
 
 ````
 

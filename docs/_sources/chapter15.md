@@ -1,4 +1,9 @@
-# Chapter 8: Inference for a Single Proportion
+# Inference for a Single Proportion
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 8** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 We can view **Inference for a Sample Proportion** as a Special Case of Inference for a Sample Mean. Below is a step-by-step comparison showing how inference for a sample proportion can be viewed as a special case of inference for a sample mean, along with the corresponding assumptions. We will walk through estimation, confidence intervals, hypothesis testing, *and* sample size determination.
 
@@ -89,7 +94,7 @@ For large $n$, the normal (Wald) approximation is common.
 
 - **Proportion (Bernoulli):**
   - Random/independent Bernoulli trials.
-  - For the Wald (Z) interval, a common rule of thumb: $n\hat{p}\ge10$ and $n(1-\hat{p})\ge10$ (or at least 5) to ensure a decent normal approximation.
+  - For the Wald (Z) interval, a common rule of thumb: $n\hat{p}\ge10$ and $n(1-\hat{p})\ge10$ to ensure a decent normal approximation.
 
 ## Hypothesis Testing
 
@@ -201,5 +206,5 @@ n = \frac{1}{4}\,\Bigl(\frac{z^*}{m}\Bigr)^2.
 ### Practical Notes
 - If the actual $\hat{p}$ differs from $p^*$, the realized margin of error can be smaller or larger than planned. Using $p^*=0.5$ ensures $m$ will *not* be exceeded.
 - For means, use a reasonable guess for $\sigma$ from prior studies or a pilot sample. Overestimating $\sigma$ yields a slightly larger $n$, ensuring $m$ is not too big.
-- Always check that $n\hat{p}$ and $n(1-\hat{p})$ are large enough for the normal approximation. Otherwise, consider alternative (e.g. plus‐four) intervals.
+- Always check that $n\hat{p}$ and $n(1-\hat{p})$ are large enough for the normal approximation. Otherwise, consider alternative (e.g. plus‐four) intervals. The plus‐four interval replaces $\hat{p}$ with $\tilde{p} = (X + 2)/(n + 4)$ and uses $\tilde{p} \pm z^*\sqrt{\tilde{p}(1-\tilde{p})/(n+4)}$.
 

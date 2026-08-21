@@ -1,15 +1,20 @@
 # Special Topic: Simple Least Squares Regression in Matrix Form
 
+```{admonition} Note
+:class: seealso
+This is an optional special topic beyond the required course material, for students who want to see how regression is actually computed by software.
+```
+
 We have a data set consisting of $n$ paired observations of the predictor/explanatory variable $X$ and the response variable $Y$, i.e., $(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)$. We wish to fit the model with a regression line:
 
 ```{math}
-y_n = \beta_0 + \beta_1 \, x_n + \epsilon_n
+y_i = \beta_0 + \beta_1 \, x_i + \epsilon_i, \qquad i = 1, \dots, n,
 ```
 
-where we have the assumptions: 
-- $\mathbb{E}[\epsilon_n \mid x_1, \dots, x_n] = 0$, 
-- $\text{Var}[\epsilon_n \mid x_1, \dots, x_n] = \sigma^2$, and 
-- $\epsilon_n$ is uncorrelated across measurements.
+where we have the assumptions, for each $\epsilon_i$: 
+- $\mathbb{E}[\epsilon_i \mid x_1, \dots, x_n] = 0$, 
+- $\text{Var}[\epsilon_i \mid x_1, \dots, x_n] = \sigma^2$, and 
+- the $\epsilon_i$ are uncorrelated across measurements.
 
 The parameters are $\beta_0,\ \beta_1,$ and $\sigma$.
 
@@ -82,6 +87,8 @@ When deriving the least squares estimator, we want to find $\hat{\beta}$ that mi
 ```{math}
 MSE(\hat{\beta}) = \frac{1}{n}\,\sum_{i=1}^{n} e_i^2(\hat{\beta}).
 ```
+
+(Note: here "MSE" is the average squared error used as the objective for minimization; it is not the same quantity as the MSE $= SSE/(n-2)$ used in regression inference. The two differ only by a constant factor, so the minimizing $\hat{\beta}$ is unchanged.)
 
 In matrix form:
 
@@ -162,8 +169,10 @@ Setting this to zero:
 Hence,
 
 ```{math}
-\hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y}.
+\hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y},
 ```
+
+where $\mathbf{x}^\top \mathbf{x}$ is invertible provided the $x_i$ are not all equal.
 
 A very compact result!
 

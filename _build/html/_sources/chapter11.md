@@ -1,6 +1,11 @@
-# Chapter 2: Least Squares Regression
+# Least-Squares Regression
 
-In the last chapter, we have seen that we can use a straight line to study the strength of the linear relationship between two quantitative variables in the scatterplots. This line is called a <span class="purdue-text">**regression line**</span> when one of the variables helps explain or predict the other. That is, regression describes a relationship between a response variable and an explanatory variable. It also allows us to make another type of claim about our dataset (unseen dataset), which is <span class="purdue-text">**prediction**</span>. Because for every value on the $x$-axis—even if we don't have a corresponding $x$ value in the dataset—this regression line can still provide a corresponding $y$ value that can be used as the prediction for the unseen $x$ value. Prediction is a hot topic nowadays in the era of AI and Machine Learning.
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 2** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
+
+In the last chapter, we have seen that we can use a straight line to study the strength of the linear relationship between two quantitative variables in the scatterplots. This line is called a <span class="purdue-text">**regression line**</span> when one of the variables helps explain or predict the other. That is, regression describes a relationship between a response variable and an explanatory variable. It also allows us to make another type of claim about our dataset (unseen dataset), which is <span class="purdue-text">**prediction**</span>. Because for every value on the $x$-axis—even if we don't have a corresponding $x$ value in the dataset—this regression line can still provide a corresponding $y$ value that can be used as the prediction for the unseen $x$ value. Keep in mind, however, that such predictions are reliable only within the range of $x$-values used to fit the line. Predicting far outside that range—called **extrapolation**—is often inaccurate, because we have no data there to tell us whether the linear pattern still holds. Prediction is a hot topic nowadays in the era of AI and Machine Learning.
 
 
 ```{admonition} **Regression Line**  
@@ -48,10 +53,10 @@ There are of course many methods to *draw* a line across the data points in a sc
 
 Here we have a scatterplot (top left corner) showing many data points of the two component scores, Verbal and Math, for 200 students. The $x$-axis represents their Verbal scores and the $y$-axis represents their Math scores. As the number of data points increases, it becomes challenging to discern relationships clearly. However, we can see that for some of the data points, they share the same $x$-value. In these cases, the Verbal scores are identical while the Math scores differ among the students. We can focus on these data points with the same $x$-value, treating them as a **subpopulation**. By calculating the means of these points, we can better understand the relationship. We can do this for all subpopulations; these means are called the *conditional means* because they are conditioned on the same $x$-value. Then the scatterplot simplifies to the second plot, which is at the top right corner. For each $x$-value in this plot, we only have one $y$-value representing the conditional mean or average. We can interpret this as the **average value** of the Math score for a collection of cases at a given Verbal score.
 
-In the third plot (bottom right corner), we fit a straight line through these conditional means, summarizing these means with a line. Finally, the last plot (bottom left corner) shows the original data points along with this straight regression line.
+In the third plot (bottom right corner), we fit a straight line through these conditional means, summarizing these means with a line. Finally, the last plot (bottom left corner) shows the original data points along with the regression line fit to the original data, which nearly coincides with the line through the conditional means.
 
 
-> One thing to notice is that the regression line cannot pass through every data point and conditional mean exactly. For each data point, there is a vertical distance between the point and the line. We can calculate this distance using the formula $e = y - \hat{y}$, which is called the residual.
+> One thing to notice is that the regression line cannot pass through every data point and conditional mean exactly. For each data point, we can calculate the **residual** $e = y - \hat{y}$, which is the *signed* vertical deviation between the point and the line: positive when the point lies above the line and negative when it lies below. Its absolute value gives the vertical distance from the point to the line.
 
 ```{figure} _image/1102.png
 :alt: Four panels of SAT Math vs Verbal scores, moving from raw scatterplot to conditional means to regression lines summarizing the upward trend
@@ -61,7 +66,7 @@ In the third plot (bottom right corner), we fit a straight line through these co
 ```
 
 `````{tab-set}
-````{tab-item} Example: IDI and MI
+````{tab-item} Example: IDI and Median Income
 
 ```{figure} _image/1103.png
 :alt: Scatterplot of Inclusive Development Index vs median per capita daily income for 15 countries with an upward-sloping regression line
@@ -161,7 +166,7 @@ The use of regression to describe the relationship between a **response variable
 
   - This equation states that **a change of 1 standard deviation in $x$ corresponds to a change of $r$ standard deviations in $y$**.
   - If $r = 1$ or $r = -1$, the **change in $\hat{y}$** is the same (in standard deviation units) as in $x$.
-  - If $-1 \leq r \leq 1$, the change in $\hat{y}$ is **less** than the change in $x$.
+  - If $-1 < r < 1$ (that is, $|r| < 1$), the change in $\hat{y}$ (in standard-deviation units) is **less** than the change in $x$.
   - As **correlation weakens**, the predicted $\hat{y}$ moves **less** in response to changes in $x$.
   - If **correlation is zero**, the slope of the regression line is **zero**.
 
@@ -195,10 +200,12 @@ In the one-way ANOVA chapter, we have studied the coefficient of determination, 
 
 > For simple linear regression, 
 ```{math}
-R^2 \longleftrightarrow \text{Proportion of variance in } Y \text{ explained by } X \\
-\longleftrightarrow [\mathrm{corr}(Y,\hat{Y})]^2 \\
-\longleftrightarrow [\mathrm{corr}(Y,b_0 + b_1 X)]^2 \;=\; [\pm\,\mathrm{corr}(X,Y)]^2 \;=\; [\mathrm{corr}(X,Y)]^2 \\
-\longleftrightarrow r^2.
+\begin{aligned}
+R^2 &\longleftrightarrow \text{Proportion of variance in } Y \text{ explained by } X \\
+&\longleftrightarrow [\mathrm{corr}(Y,\hat{Y})]^2 \\
+&\longleftrightarrow [\mathrm{corr}(Y,b_0 + b_1 X)]^2 \;=\; [\pm\,\mathrm{corr}(X,Y)]^2 \;=\; [\mathrm{corr}(X,Y)]^2 \\
+&\longleftrightarrow r^2.
+\end{aligned}
 ```
 
 

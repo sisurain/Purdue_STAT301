@@ -1,4 +1,9 @@
-# Chapter 11: Multiple Regression
+# Multiple Regression
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 11** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 
 In Chapters 2 and 10, we studied methods for inference in the setting of a linear relationship between a quantitative response variable $y$ and a *single* explanatory variable $x$. In this chapter, we investigate situations in which *multiple* explanatory variables work together to explain, or predict, the response variable.
@@ -274,7 +279,7 @@ In multiple regression, the **$F$ test** from the **ANOVA table** checks whether
 * - Total
   - $n - 1$
   - $\sum (y_i - \bar{y})^2$
-  - SST / DFT
+  - —
   - 
 
 :::
@@ -342,9 +347,9 @@ For simple linear regression, we noted that the square of the sample correlation
 
 
 **The statistic**
-$
+```{math}
 R^2 = \frac{\text{SSM}}{\text{SST}} = \frac{\sum (\hat{y}_i - \bar{y})^2}{\sum (y_i - \bar{y})^2}
-$
+```
 
 *is the proportion of the variation of the response variable $y$ that is explained by the explanatory variables $x_1, x_2, \ldots, x_p$ in a multiple linear regression.*
 

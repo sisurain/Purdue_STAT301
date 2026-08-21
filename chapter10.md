@@ -1,4 +1,9 @@
-# Chapter 2: Looking at Data-Relationships
+# Looking at Data — Relationships
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 2** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 In the previous chapters, we mainly focused on exploring the distributions of a single variable and studying statistical procedures related to that one variable or the mean of a single response variable.  
 
@@ -40,7 +45,7 @@ The most common way to display the relationship between two quantitative variabl
 A **scatterplot** shows the relationship between two quantitative variables measured on the same cases. The values of one variable appear on the horizontal axis, and the values of the other variable appear on the vertical axis. Each case in the data appears as the point in the plot determined by the values of both variables for that case.  
 ```
 
-Always plot the explanatory variable, if there is one, on the horizontal axis (the $x$ axis) of a scatterplot. We usually call the explanatory variable $x$ and the response variable $y$. If there is no explanatory-response distinction, either variable can go on the horizontal axis. Time plots such as the one are special scatterplots where the explanatory variable $x$ is a measure of time.
+Always plot the explanatory variable, if there is one, on the horizontal axis (the $x$ axis) of a scatterplot. We usually call the explanatory variable $x$ and the response variable $y$. If there is no explanatory-response distinction, either variable can go on the horizontal axis. Time plots are special scatterplots where the explanatory variable $x$ is a measure of time.
 
 
 `````{tab-set}
@@ -57,7 +62,7 @@ A higher price should be associated with a better product.
 
 ````
 
-````{tab-item} Removing the Outliers
+````{tab-item} Removing the Outlier
 
 ```{figure} _image/1002.png
 :alt: Scatterplot of rating vs price per load for 52 laundry detergents after removing the outlier, showing a weak positive scatter
@@ -217,7 +222,7 @@ Correlation is usually written as $r$.
   - The two variables are said to be uncorrelated when $r = 0$. 
     - Values near **0** indicate a **weak linear relationship**.
     - Values near **-1 or 1** indicate **strong linear association**.
-  - If $X$ and $Y$ are independent, then $r = 0$, but $r = 0$ does not imply independence.
+  - If $X$ and $Y$ are independent, the population correlation is $0$, and the sample $r$ will be close to (but almost never exactly) $0$; however, $r = 0$ does not imply independence.
   - $r = 1$ or $r = -1$ iff $Y = aX + b$ for some numbers $a$ and $b$ with $a \neq 0$.
   - However, if $|r| \ll 1$, there may still be a strong relationship between the two variables, just one that is not linear.
   - And even if $|r|$ is close to 1, it may be that the relationship is really nonlinear but can be well approximated by a straight line.

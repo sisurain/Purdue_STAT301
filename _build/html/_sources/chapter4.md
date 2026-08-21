@@ -1,4 +1,9 @@
-# Chapter 1: Looking at Data -- Distributions
+# Looking at Data — Distributions
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 1** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span class="purdue-text">**exploratory data analysis**</span>. In some textbooks, this is referred to as <span class="purdue-text">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data-this is a statistics class, not a drawing class! 
 
@@ -31,7 +36,7 @@ Both are easy to understand, and you can refer to Wikipedia or your textbook for
 
 Now let's turn our focus to graphs for quantitative variables: **stemplots** and **histograms**.
 
-A **stemplot** provides a quick visual representation of the shape of a distribution while also including the actual numerical values. Stemplots work best when the number of observations is small, and all values are greater than zero.
+A **stemplot** provides a quick visual representation of the shape of a distribution while also including the actual numerical values. Stemplots work best when the number of observations is small; they are typically used for positive values, though negative values can be handled with negative stems.
 
 
 `````{tab-set}
@@ -323,16 +328,16 @@ While the five-number summary is quite resistant to outliers, many statistical m
 
 `````
 
-Sometimes, we change the **units** of our measurements. For example, if your heights are measured in **inches** and you convert them to **centimeters** using the formula, $\text{cm} = 2.54 \times \text{inches}$, the new mean in centimeters becomes $2.54 \times \bar{x}$. This kind of conversion is known as a **linear transformation**, represented by $x_{\text{new}} = a + b \times x$, which **shifts** the data by \(a\) and/or **scales** it by \(b\). Specifically:
+Sometimes, we change the **units** of our measurements. For example, if your heights are measured in **inches** and you convert them to **centimeters** using the formula, $\text{cm} = 2.54 \times \text{inches}$, the new mean in centimeters becomes $2.54 \times \bar{x}$. This kind of conversion is known as a **linear transformation**, represented by $x_{\text{new}} = a + b \times x$, which **shifts** the data by $a$ and/or **scales** it by $b$. Specifically:
 * **Adding** $a$ to each observation shifts measures of center (mean, median) by $a$ but does **not** affect measures of spread (IQR, $s$).
-* **Multiplying** $b$ scales **both** the measures of center **and** the measures of spread by $b$.
+* **Multiplying** each observation by $b$ multiplies measures of center (mean, median) by $b$, but multiplies measures of spread (IQR, $s$) by $|b|$, since spread cannot be negative. Overall, the center transforms to $a + b \times (\text{center})$ and the spread to $|b| \times (\text{spread})$.
 
 
 ## Density Curves and Normal Distributions
 
 For **histograms**, the *y*-axis typically shows frequency or relative frequency. If we **divide** the relative frequency by the corresponding bin or class width, we obtain **densities**. Connecting these densities with a smooth line or curve creates what is called a **density curve**.
 
-The main reason for dividing by bin width is to ensure the total area under the density curve is **1**, allowing it to represent the *probability distribution function* of our random variable. A smooth curve is often easier to **parameterize** with just a few parameters compared to an irregular shape.
+The main reason for dividing by bin width is to ensure the total area under the density curve is **1**, allowing it to represent the *probability density function* of our random variable. A smooth curve is often easier to **parameterize** with just a few parameters compared to an irregular shape.
 
 This **density curve** describes the overall pattern of a distribution, where the **area** under the curve and **above** any range of values equals the **proportion** of all observations in that range. Consequently, the probability that our random variable falls within a particular range corresponds to this area or proportion.
 
@@ -411,7 +416,7 @@ $$\varphi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2}, \quad -\infty < z < \infty.$$
 Let $Z \sim \mathcal{N}(0,1)$ be a standard normal random variable. Then
 
 $$X = \mu + \sigma Z$$
-is said to have a **Normal distribution** with mean $\mu$ and variance $\sigma^2$. We denote this by $X \sim \mathcal{N}(\mu, \sigma^2)$. To transform $X \sim \mathcal{N}(\mu, \sigma^2)$ to a standard normal distribution, we use:
+is said to have a **Normal distribution** with mean $\mu$ and variance $\sigma^2$. We denote this by $X \sim \mathcal{N}(\mu, \sigma^2)$. (Note: following the IPS textbook, this course will write $N(\text{mean}, \text{sd})$ — with the **standard deviation** as the second parameter — unless stated otherwise.) To transform $X \sim \mathcal{N}(\mu, \sigma^2)$ to a standard normal distribution, we use:
 
 $$\frac{X - \mu}{\sigma} \sim \mathcal{N}(0, 1)$$
 The PDF of $X$ can be expressed as:
@@ -422,12 +427,12 @@ $$f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{(x - \mu)^2}{2 \sig
 
 `````
 
-Remember, **densities** are quite useful because they tell us the probability of statements like $\mathbb{P}(X < x)$ or $\mathbb{P}(\text{Height} < 70).$ If our variable of interest is a **standard Normal** variable (i.e., a variable with a standard Normal density), then probabilities such as $\mathbb{P}(Z < z) \text{or} \mathbb{P}(Z < 1)$ can be found directly using a **z-table**.
+Remember, **densities** are quite useful because they tell us the probability of statements like $\mathbb{P}(X < x)$ or $\mathbb{P}(\text{Height} < 70).$ If our variable of interest is a **standard Normal** variable (i.e., a variable with a standard Normal density), then probabilities such as $\mathbb{P}(Z < z) \text{ or } \mathbb{P}(Z < 1)$ can be found directly using a **z-table**.
 
 Theoretically, we could create a similar table for **each** Normal distribution to tell us these probabilities, but that’s not practical. Instead, we keep a **single** z-table for the standard Normal distribution. If our variable of interest is Normal (but **not** standard Normal), we can still find probabilities by **standardizing**:
 
 $$Z = \frac{X - \mu}{\sigma}.$$
-So, if $X \sim N(\mu, \sigma),$ then $Z \sim N(0, 1),$ and we can use the z-table for calculations and finding the probabilities.
+So, if $X \sim N(\mu, \sigma)$ (where the second parameter $\sigma$ is the standard deviation), then $Z \sim N(0, 1),$ and we can use the z-table for calculations and finding the probabilities.
 
 $$P(X \leq x) = P \left( \frac{X - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right) = \Phi \left( \frac{x - \mu}{\sigma} \right)$$
 Since we have this relationship, the only thing left is to become **familiar** with the areas under the **standard Normal** density and how to use the **z-table**.  
@@ -481,7 +486,7 @@ In the Normal distribution with mean $\mu$ and standard deviation $\sigma$:
 
 Now, you should be able to use a **z-table** to handle several types of probability statements, such as:
 
-* **Given** $X \sim \mathcal{N}(4, 1.5)$:  
+* **Given** $X \sim \mathcal{N}(4, 1.5)$, where $1.5$ is the standard deviation:  
   * $P(X < 3)$
   * $P(X > 4.5)$  
   * $P\bigl(3 < X < 4.56\bigr)$  
@@ -493,8 +498,8 @@ Now, you should be able to use a **z-table** to handle several types of probabil
 
 One last thing to mention is how to use **Normal Quantile Plots** to check Normality for your datasets. Here are the steps to construct such a plot:
 * **Definition**: A Normal quantile plot (sometimes called a normal probability plot) is a diagnostic tool. You:
-  * Sort the data from smallest to largest. **Rank the data** $(i=1)$ is smallest, $(i=20)$ largest. 
-  * Assign each data value a percentile (like 5%, 10%, etc.). **Assign percentiles** via $\frac{i}{n}$.
+  * Sort the data from smallest to largest. **Rank the data** $(i=1)$ is smallest, $(i = n)$ largest. 
+  * Assign each data value a percentile (like 5%, 10%, etc.). **Assign percentiles** via $\frac{i - 0.5}{n}$ (this avoids percentiles of 0% and 100%, whose z-scores are undefined).
   * Find the corresponding z-score for each percentile (from the Standard Normal). **Convert percentiles** to z-scores.
   * Plot each data value vs. its matched z-score. **Plot** (z-score on x axis, data value on y axis).
 * **Interpretation**:

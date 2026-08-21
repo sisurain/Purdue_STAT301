@@ -1,4 +1,9 @@
-# Chapter 10: Inference for Regression
+# Inference for Regression
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 10** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 In this chapter, we will study the <span class="purdue-text">**inference for regression**</span>. In the previous chapter, when we had one sample—one dataset—we could plot a regression line in that scatterplot. But what if we have a different sample, a different dataset from the population? We might end up with a different regression line. 
 
@@ -48,7 +53,7 @@ Having this sampling variability in mind, we can imagine observing all the data 
 - $\beta_0$: **Intercept**, $\beta_1$: **Slope**, $\sigma$: **Regression standard deviation**.
 - Error term, $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$
 - Equation: Data = Fit + Residual
-- Residuals: Differences between observed and predicted $y$ values.
+- $\epsilon_i$: **Model deviations** (error terms). Their sample counterparts are the residuals $e_i = y_i - \hat{y}_i$, the differences between observed and predicted $y$ values.
 ```
 
 Again, we assume that $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$ because not all data points lie exactly on the line; this term represents the deviation from the line. Additionally, this implies that if we condition on each $x_i$ (as illustrated by the vertical blue dashed lines in the scatterplot from the last chapter), then by taking the average of the corresponding $y$ values, we obtain:
@@ -85,7 +90,7 @@ In reality, we cannot observe all the data points for each subpopulation; we onl
 
 ## Estimating the regression parameters
 
-`````{tab-set}
+``````{tab-set}
 ````{tab-item} Estimating the Regression Parameters
 
 The method of least squares presented in Chapter 2 fits a line to summarize a relationship between the observed values of an explanatory variable and a response variable. Now we want to use the least-squares regression line as a basis for inference about a population from which our observations are a sample. In that setting, the slope $b_1$ and intercept $b_0$ of the least-squares line
@@ -131,7 +136,7 @@ Recall also that the least-squares regression line always passes through the poi
 ````
 
 
-````{tab-item} Regression Standard Error and Model Standard Deviation
+`````{tab-item} Regression Standard Error and Model Standard Deviation
 
 To estimate $\sigma$, which measures the variation of $y$ about the population regression line, we look at the **average squared residual** (in simple linear regression). The sample of deviations is formed by the residuals $e_i$, which stand in for the unobserved $\varepsilon_i$.
 
@@ -150,7 +155,7 @@ s = \sqrt{s^2},
 
 the **regression standard error**. It is our estimate of the model standard deviation $\sigma$.
 
-```{admonition} Estimating the Regression Parameters
+````{admonition} Estimating the Regression Parameters
 :class: tip
 
 In the simple linear regression setting, we use the slope $b_1$ and intercept $b_0$ of the least-squares regression line to estimate the slope $\beta_1$ and intercept $\beta_0$ of the population regression line, respectively.
@@ -160,9 +165,9 @@ The standard deviation $\sigma$ in the model is estimated by the **regression st
 ```{math}
 s = \sqrt{ \frac{1}{n - 2} \,\sum (y_i - \hat{y}_i)^2 }.
 ```
-```
-
 ````
+
+`````
 
 
 ````{tab-item} Linear Regression Model Conditions
@@ -193,12 +198,12 @@ Provided our check of conditions gives no reason to question the use of the simp
 - An individual future response $y$ for a given value of $x$.
 
 ````
-`````
+``````
 
 
-## Confidence intervals and significant tests
+## Confidence intervals and significance tests
 
-`````{tab-set}
+``````{tab-set}
 ````{tab-item} Confidence Intervals and Significance Tests
 
 Chapter 7 presented confidence intervals and significance tests for means and differences in means. In each case, inference rested on the standard errors of estimates and on $t$ distributions. Inference in simple linear regression is similar in principle. For example, the confidence intervals have the form:
@@ -214,9 +219,9 @@ As a consequence of the model assumptions about the deviations $\varepsilon_i$, 
 Because we do not know $\sigma$, we use the estimated model standard deviation $s$, which measures the variability of the data about the least-squares line. When we do this, we again move from the Normal distribution to $t$ distributions but now with degrees of freedom $n - 2$, the degrees of freedom of $s$. We give formulas for the standard errors $\text{SE}_{b_1}$ and $\text{SE}_{b_0}$ in Section 10.2 of the textbook.
 ````
 
-````{tab-item} Inference for the Regression Slope
+`````{tab-item} Inference for the Regression Slope
 
-```{admonition} INFERENCE FOR THE REGRESSION SLOPE
+````{admonition} INFERENCE FOR THE REGRESSION SLOPE
 :class: tip
 
 A level $C$ **confidence interval for the slope** $\beta_1$ is:
@@ -244,6 +249,7 @@ H_a: \beta_1 < \beta_1^* & \;\Rightarrow\; P(T \le t), \\
 H_a: \beta_1 \ne \beta_1^* & \;\Rightarrow\; 2\,P(T \ge |t|).
 \end{aligned}
 ```
+````
 
 ```{figure} _image/1202.png
 :alt: Textbook box on slope inference with interval b1 plus or minus t star SE and t curves shading one and two sided P-value tail areas
@@ -251,7 +257,7 @@ H_a: \beta_1 \ne \beta_1^* & \;\Rightarrow\; 2\,P(T \ge |t|).
 :width: 80%
 
 ```
-````
+`````
 
 ````{tab-item} Testing the Intercept and the Slope
 
@@ -268,7 +274,7 @@ This implies that the mean of $y$ does not vary with $x$. All $y$ values come fr
 
 Interpreting P-values:
 
-Note, a large $t$ value however, that this is not the same as concluding that we have found a **strong** linear relationship. As seen in Figure 10.3 in the textbook, there can be substantial scatter.
+Note that a large $t$ value (small $P$-value) is evidence of *some* linear relationship; however, this is not the same as concluding that the relationship is **strong**. As seen in Figure 10.3 in the textbook, there can be substantial scatter.
 
 ```{admonition} Important
 :class: note
@@ -279,7 +285,7 @@ A very small $P$-value for the significance test for a zero slope does **not** n
 A confidence interval provides more information. In software, these intervals may be optional and must be requested. They can also be constructed by hand.
 ````
 
-````{tab-item} Confidence Intervals for Mean Response
+`````{tab-item} Confidence Intervals for Mean Response
 
 Besides slope and intercept, we may want to use the regression line to estimate the mean response $y$ at a specific $x = x^*$. The mean of the response is:
 ```{math}
@@ -291,7 +297,7 @@ The estimate is:
 \hat{\mu}_y = b_0 + b_1\,x^*.
 ```
 
-```{admonition} CONFIDENCE INTERVAL FOR A MEAN RESPONSE
+````{admonition} CONFIDENCE INTERVAL FOR A MEAN RESPONSE
 :class: tip
 
 ```{math}
@@ -299,9 +305,10 @@ The estimate is:
 ```
 where $t^*$ is from the $t(n - 2)$ distribution and $m = t^* \cdot \text{SE}_{\hat{\mu}_y}$.
 ````
+`````
 
 
-````{tab-item} Prediction Intervals
+`````{tab-item} Prediction Intervals
 
 To predict an _individual_ observation $y$ for $x = x^*$, we again use:
 ```{math}
@@ -313,11 +320,11 @@ This looks like the same formula as for $\hat{\mu}_y$, but here it predicts a si
 - $\hat{y}$ for **future value**, 
 - $\hat{\mu}_y$ for **population mean**.
 
-For example, predicted BMI $= 23.7\ \text{kg/m}^2$. But a useful prediction also needs a margin of error.
+For example, in the IPS physical activity and BMI example, $\hat{y} = 29.578 - 0.655x$ with $x^* = 9$ (thousand steps per day) gives a predicted BMI $= 23.7\ \text{kg/m}^2$. But a useful prediction also needs a margin of error.
 
 A **prediction interval** is used to estimate where a future observation will fall. It is wider than the confidence interval because it includes both:
-- variability around the regression line,
-- variability of future observations.
+- the sampling uncertainty in the estimated regression line (the confidence interval component),
+- the scatter of an individual new observation around its subpopulation mean (the extra MSE term).
 
 Repeat:
 - Sample $n$ points $(x_i, y_i)$ and one more $(x^*, y)$.
@@ -325,7 +332,7 @@ Repeat:
 
 Prediction Interval for a Future Observation:
 
-```{admonition} PREDICTION INTERVAL FOR A FUTURE OBSERVATION
+````{admonition} PREDICTION INTERVAL FOR A FUTURE OBSERVATION
 :class: tip
 
 A level $C$ **prediction interval** for a future observation $y$ from the subpopulation corresponding to $x^*$ is:
@@ -338,14 +345,15 @@ where $t^*$ comes from $t(n - 2)$ with area $C$ between $-t^*$ and $t^*$.
 The margin of error is $m = t^* \cdot \text{SE}_{\hat{y}}$.
 
 
-Then, 95% of such intervals will capture the true $y$ for a future observation. The formula for $\text{SE}_{\hat{y}}$ includes both the uncertainty of estimating the line and variability around the mean.
+Then, $C$% (e.g., 95%) of such intervals will capture the true $y$ for a future observation. The formula for $\text{SE}_{\hat{y}}$ includes both the uncertainty of estimating the line and variability around the mean.
 ````
 `````
+``````
 
 ## More detail about simple linear regression
 
-`````{tab-set}
-````{tab-item} Analysis of Variance for Regression
+``````{tab-set}
+`````{tab-item} Analysis of Variance for Regression
 
 The usual computer output for regression includes an additional block of calculations labeled **“ANOVA”** or **“Analysis of Variance.”**  
 **Analysis of variance** (often abbreviated ANOVA) refers to statistical methods that break down the total variation in the data into pieces that correspond to different sources of variation. It aligns with the conceptual framework:
@@ -402,7 +410,7 @@ When $H_0\!: \beta_1 = 0$ holds, there is no subpopulation structure and all $y_
 
 Sums of Squares, Degrees of Freedom, and Mean Squares:
 
-```{admonition} SUMS OF SQUARES, DEGREES OF FREEDOM, AND MEAN SQUARES
+````{admonition} SUMS OF SQUARES, DEGREES OF FREEDOM, AND MEAN SQUARES
 :class: tip
 
 Sums of squares represent the total variation present in the responses. We have:
@@ -456,8 +464,9 @@ For regression with one explanatory variable, $\text{DFM} = 1$, so $\text{DFE} =
 = \frac{\sum (y_i - \hat{y}_i)^2}{n - 2}.
 ```
 ````
+`````
 
-````{tab-item} The ANOVA $F$ Test
+`````{tab-item} The ANOVA $F$ Test
 
 The null hypothesis $H_0\!: \beta_1 = 0$ can be tested using the **$F$ statistic**:
 
@@ -465,7 +474,7 @@ The null hypothesis $H_0\!: \beta_1 = 0$ can be tested using the **$F$ statistic
 F = \frac{\text{MSM}}{\text{MSE}}.
 ```
 
-If $H_0$ is true, $F$ follows an $F$ distribution with 1 numerator df and $n - 2$ denominator df. $F$ distributions are right-skewed, indexed by $F(j, k)$ where $j$ is numerator df and $k$ is denominator df. The peak is near 1.
+If $H_0$ is true, $F$ follows an $F$ distribution with 1 numerator df and $n - 2$ denominator df. $F$ distributions are right-skewed, indexed by $F(j, k)$ where $j$ is numerator df and $k$ is denominator df. Under $H_0$, values of $F$ cluster around 1; the mean of the distribution is near 1 when the denominator df is large.
 
 
 Critical Values and Tables:
@@ -520,7 +529,7 @@ ANOVA Table Structure:
 
 ```
 
-```{admonition} ANALYSIS OF VARIANCE $F$ TEST
+````{admonition} ANALYSIS OF VARIANCE $F$ TEST
 :class: tip
 
 In regression, the hypotheses
@@ -536,6 +545,7 @@ The $P$-value is $P(F(1, n - 2) \ge F_{\text{obs}})$.
 The $F$ statistic tests the same null as the $t$ statistic. In fact, $t^2 = F$. We often prefer the $t$-form in single-predictor regression for simplicity, especially for one-sided tests and confidence intervals.
 ````
 `````
+``````
 
 ## Standard Errors
 
@@ -628,11 +638,11 @@ H_a\!: \rho \ne 0 & \quad\Rightarrow\quad 2\,P(T \ge |t|).
 \end{aligned}
 ```
 
-```{admonition} TEST FOR ZERO CORRELATION
+````{admonition} TEST FOR ZERO CORRELATION
 :class: tip
 
-If $T$ has a $t(n - 2)$ distribution, then the $P$-value is found by comparing $|t|$ to that distribution.  
-```
+If $T$ has a $t(n - 2)$ distribution, then for the two-sided alternative the $P$-value is found by comparing $|t|$ to that distribution; one-sided tests use the signed $t$.  
+````
 ```{figure} _image/1205.png
 :alt: Textbook box on testing rho equals 0 with t equals r root n minus 2 over root 1 minus r squared and t curves shading P-value tail areas
 :align: center
@@ -735,13 +745,13 @@ Hence, the **standard error** of the estimated mean response at $x_0$ is
 
 ### Future Observation (Prediction Interval)
 
-When predicting a **future** $y$ at $x_0$ — call it $\hat{y}_0$ — we add in the irreducible noise $\sigma^2$ from the new observation itself. In other words:
+When predicting a **future** $y$ at $x_0$ — call it $\hat{y}_0$ — we add in the irreducible noise $\sigma^2$ from the new observation itself. The relevant variance is that of the **prediction error** $y_{\text{new}} - \hat{y}_0$:
 
 ```{math}
 :label: eq-var-prediction
-\mathrm{Var}(\hat{y}_0)
+\mathrm{Var}(y_{\text{new}} - \hat{y}_0)
 \;=\;
-\mathrm{MSE}
+\sigma^2
 \Bigl[
   1
   \;+\;
@@ -751,13 +761,13 @@ When predicting a **future** $y$ at $x_0$ — call it $\hat{y}_0$ — we add in 
 \Bigr].
 ```
 
-Thus the **standard error** for a future observation (used in a prediction interval) is
+Estimating $\sigma^2$ by plugging in $\mathrm{MSE}$, the **standard error** for a future observation (used in a prediction interval) is
 
 ```{math}
 :label: eq-se-prediction
 \mathrm{SE}_{\hat{y}}
 \;=\;
-\sqrt{\mathrm{Var}(\hat{y}_0)}
+\sqrt{\widehat{\mathrm{Var}}(y_{\text{new}} - \hat{y}_0)}
 \;=\;
 \sqrt{
    \mathrm{MSE}

@@ -1,4 +1,9 @@
-# Chapter 12: One Way ANOVA
+# One-Way ANOVA
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapter 12** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 In the previous chapter (Chapter 7), we learned the statistical procedure for comparing the means of two populations. Naturally, the next step is to consider what to do when there are more than two populations. For example, suppose we have three diets—Diet A, Diet B, and Diet C—administered to three independent groups drawn from different populations. The study then measures a response variable to determine whether at least one group mean differs **statistically significantly** from the others.
 
@@ -79,7 +84,7 @@ This very high error rate illustrates why performing multiple two-sample tests w
 
 :::
 
-Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span class="purdue-text">**whether at least one group mean differs from the others**</span>. 
+Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span class="purdue-text">**whether the group means are not all equal (i.e., at least two means differ)**</span>. 
 
 Recall from our study of sampling distributions that the sample mean, $\bar{X}$, is a random variable whose variability is influenced by both the sample size $n$ and the population standard deviation $\sigma$. Even when drawing different samples from the same population, this inherent variability persists. In our scenario, we suspect that different groups are drawn from populations with different means (while sharing a common standard deviation). This introduces an extra layer of variability among the sample means.
 
@@ -88,10 +93,10 @@ To rigorously examine this question, we need a statistical procedure that formal
 1. The null hypothesis in one-way ANOVA is that all group means are equal:
 
   $$
-  H_0: \mu_1 = \mu_2 = \dots = \mu_k
+  H_0: \mu_1 = \mu_2 = \dots = \mu_I
   $$
 
-2. The alternative hypothesis is that at least one group mean differs from the others. 
+2. The alternative hypothesis is $H_a$: not all of the $\mu_i$ are equal (i.e., at least two of the means differ). 
 3. The **F-statistic** is then compared against a critical value from the F-distribution (taking into account the degrees of freedom) to decide whether to reject the null hypothesis.
 
 
@@ -172,7 +177,7 @@ where:
   SS_{Within} = \sum_{i=1}^{I} \sum_{j=1}^{n_i} \left(x_{ij} - \bar{x}_{i}\right)^2.
   $$
 
-  This term measures the variability of the observations around their respective group means, reflecting the random error $\epsilon_{ij}$. The differences $e_j = x_j - \bar{x}$ are the **residuals** and correspond to the $\epsilon_j$ in the statistical model.
+  This term measures the variability of the observations around their respective group means, reflecting the random error $\epsilon_{ij}$. The differences $e_{ij} = x_{ij} - \bar{x}_{i}$ — the deviations of each observation from its **group** mean — are the **residuals** and correspond to the $\epsilon_{ij}$ in the statistical model $x_{ij} = \mu_i + \epsilon_{ij}$.
 
 The **total variation** (or $SS_{Total}$) measures the overall spread of the individual data points around the grand mean. It tells us how much the data vary in total — a combination of:
 - **Systematic differences among groups** (if the $\mu_i$'s are very different, $SS_{Between}$ is large), and
@@ -189,6 +194,8 @@ $$
 F = \frac{\text{Mean Square Between Groups (MSB)}}{\text{Mean Square Within Groups (MSW)}}
 $$
 
+(MSB is also called MSG, the mean square for groups; MSW is also called MSE, the mean square for error — the notation used in the textbook figures and later in this chapter.)
+
 - A high F-value indicates that the variability between the groups is large compared to the variability within the groups. This suggests that at least one group mean is significantly different from the others.
 - An F-value close to 1 indicates that the between-group variability is similar to the within-group variability, suggesting no significant differences among the group means.
 - **Mean Square Between (MSB):**
@@ -203,7 +210,7 @@ $$
   $$
 
   where $N$ is the total number of observations across all groups.
-- Under the Null Hypothesis: If the null hypothesis (that all group means are equal) is true, then the expected value of both MSB and MSW is the common error variance $ \sigma^2$. Thus, under $H_0: \mathbb{E}\left(\frac{MSB}{MSW}\right) \approx 1$.
+- Under the Null Hypothesis: The expected value of MSW is the common error variance $\sigma^2$ whether or not $H_0$ is true. The expected value of MSB, however, equals $\sigma^2$ only if the null hypothesis (that all group means are equal) is true; otherwise it exceeds $\sigma^2$. Thus, under $H_0: \mathbb{E}\left(\frac{MSB}{MSW}\right) \approx 1$. This asymmetry is exactly why an F-statistic substantially greater than 1 signals differences among the group means.
 - A significantly larger F value suggests that the group means differ more than would be expected by chance, prompting rejection of the null hypothesis.
 
 ````
@@ -230,7 +237,7 @@ Is the observed difference in sample means just the result of chance variation?
 ````{tab-item} Large and Small Within-Group Variation
 
 ```{figure} _image/0802.png
-:alt: Side by side boxplots of three groups with equal centers; large within-group spread in panel a, small spread in panel b makes differences clearer
+:alt: Side by side boxplots in two panels with the same group centers; large within-group spread in panel a, small spread in panel b makes group differences clearer
 :align: center
 :width: 70%
 
@@ -247,6 +254,8 @@ Is the observed difference in sample means just the result of chance variation?
 :width: 70%
 
 ```
+
+**Note:** in the boxed formula above, the last term in the denominator should read $(n_I - 1)$, not $(n_1 - 1)$; the denominator equals $N - I$. Also, despite the capital letter in the image title, $s_p$ estimates the (lowercase) standard deviation $\sigma$.
 
 We can use the mean square for error to find $s_p$, the pooled estimate of the parameter $\sigma$ of our model. It is true in general that:
 

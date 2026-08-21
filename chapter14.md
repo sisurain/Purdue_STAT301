@@ -1,4 +1,9 @@
-# Chapter 2 & 9: Two-Way Tables
+# Two-Way Tables
+
+```{admonition} Textbook reference
+:class: seealso
+This chapter corresponds to **Chapters 2.5 and 9** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
+```
 
 When analyzing relationships between two variables, it's important to determine whether the variables are quantitative or categorical:
 
@@ -158,7 +163,7 @@ Graphical displays provide an immediate summary of the data, especially when mul
 
 
 `````{tab-item} Conditional Distributions
-In Example 2.45, we examined the conditional distribution of Met Requirement for children aged 5 to 10. This is an example of conditioning on the value of age to calculate the distribution of Met Requirement.
+We can also examine the conditional distribution of Met Requirement for children aged 5 to 10. This is an example of conditioning on the value of age to calculate the distribution of Met Requirement.
 
 **Example 2.46: Conditional Distribution of Met Requirement for Children Aged 5 to 10**
 
@@ -200,7 +205,7 @@ A two-way table contains a great deal of information in a compact form. Accurate
 
 ## Simpson's paradox and two-way tables
 
-Simpson’s paradox happens when the pattern (or relationship) you observe in one two-way table **reverses** or **disappears** once you **combine** data across additional categories—often introducing a third variable (making it effectively a three-dimensional table).
+Simpson’s paradox happens when the pattern (or relationship) you observe in the **aggregated** two-way table **reverses** or **disappears** once you **break the data down** by a third (lurking) variable—making it effectively a three-dimensional table. Aggregating the data hides the third variable; disaggregating reveals it.
 
 - Simpson’s paradox is a reminder to look out for **hidden or confounding variables** and to be careful with **aggregate data**.
 - It encourages further investigation into **subgroup-level patterns** before drawing conclusions.
@@ -222,21 +227,21 @@ Simpson’s paradox happens when the pattern (or relationship) you observe in on
       - Not Improved
       - Row Total
     * - **Treatment**
-      - 80
-      - 20
-      - 100
+      - 81
+      - 6
+      - 87
     * - **Control**
-      - 45
-      - 15
-      - 60
+      - 234
+      - 36
+      - 270
     * - **Column Totals**
-      - 125
-      - 35
-      - 160
+      - 315
+      - 42
+      - 357
     :::
 
-    - Treatment success rate = $80/100 = 80\%$
-    - Control success rate = $45/60 = 75\%$
+    - Treatment success rate = $81/87 \approx 93.1\%$
+    - Control success rate = $234/270 \approx 86.7\%$
 
   - Subgroup 2 (Severe Cases)
 
@@ -249,23 +254,23 @@ Simpson’s paradox happens when the pattern (or relationship) you observe in on
       - Not Improved
       - Row Total
     * - **Treatment**
-      - 20
-      - 80
-      - 100
+      - 192
+      - 71
+      - 263
     * - **Control**
-      - 9
-      - 41
-      - 50
+      - 55
+      - 25
+      - 80
     * - **Column Totals**
-      - 29
-      - 121
-      - 150
+      - 247
+      - 96
+      - 343
     :::
 
-    - Treatment success rate = $20/100 = 20\%$ 
-    - Control success rate = $9/50 = 18\%$
+    - Treatment success rate = $192/263 \approx 73.0\%$ 
+    - Control success rate = $55/80 \approx 68.8\%$
 
-  > **Observation:** In both subgroups (Mild and Severe), the **Treatment** group outperforms the **Control** group (80% > 75% in Mild; 20% > 18% in Severe).
+  > **Observation:** In both subgroups (Mild and Severe), the **Treatment** group outperforms the **Control** group (93.1% > 86.7% in Mild; 73.0% > 68.8% in Severe).
 
 
 - **Combined Two-Way Table:**
@@ -281,23 +286,23 @@ Simpson’s paradox happens when the pattern (or relationship) you observe in on
     - Not Improved
     - Row Total
   * - **Treatment**
-    - 100
-    - 100
-    - 200
+    - 273
+    - 77
+    - 350
   * - **Control**
-    - 54
-    - 56
-    - 110
+    - 289
+    - 61
+    - 350
   * - **Column Totals**
-    - 154
-    - 156
-    - 310
+    - 562
+    - 138
+    - 700
   :::
 
-  - Treatment success rate (overall) = $100/200 = 50\%$ 
-  - Control success rate (overall) = $54/110 \approx 49.1\%$
+  - Treatment success rate (overall) = $273/350 = 78.0\%$ 
+  - Control success rate (overall) = $289/350 \approx 82.6\%$
 
-> **Key Point:** Here, we only see a small overall difference (50% vs. 49.1%). But with different numbers or proportions of Mild vs. Severe cases, the overall results could flip. For instance, we might see **Control** appear better than **Treatment** once the data is combined — that flip is **Simpson’s paradox** in action.
+> **Key Point:** Overall, **Control** looks better than **Treatment** (82.6% vs. 78.0%) — even though **Treatment** wins in *both* subgroups. That flip is **Simpson’s paradox** in action. The reason: Treatment was given mostly to **severe** cases (263 of its 350 patients), while Control was given mostly to **mild** cases (270 of its 350 patients). Disease severity is the **lurking variable** — within each severity level Treatment wins, but aggregating across severity flips the comparison.
 
 Simpson’s paradox shows that conclusions drawn from **aggregated data** may differ from those drawn from the analysis of **disaggregated data**. Always consider the possibility of lurking variables when interpreting statistical results.
 
@@ -438,11 +443,11 @@ We compute $\frac{(O - E)^2}{E}$ for each cell and sum them up:
 - (Male, Product A): $\frac{(40 - 38.57)^2}{38.57} \approx 0.053$  
 - (Male, Product B): $\frac{(20 - 21.43)^2}{21.43} \approx 0.095$  
 - (Female, Product A): $\frac{(50 - 51.43)^2}{51.43} \approx 0.040$  
-- (Female, Product B): $\frac{(30 - 28.57)^2}{28.57} \approx 0.072$
+- (Female, Product B): $\frac{(30 - 28.57)^2}{28.57} \approx 0.071$
 
 Summing:
 ```{math}
-\chi^2 = 0.053 + 0.095 + 0.040 + 0.072 = 0.26
+\chi^2 = 0.053 + 0.095 + 0.040 + 0.071 = 0.26
 ```
 
 
@@ -504,8 +509,8 @@ n \times P(A_i \cap B_j)
 ```
 
 
-**Standardized Residual:**
-The **standardized residual** measures how far $O$ is from $E$, relative to the standard deviation:
+**Pearson Residual:**
+The **Pearson residual** measures how far $O$ is from $E$, relative to $\sqrt{E}$:
 
 ```{math}
 Z = \frac{O - E}{\sqrt{E}}.
@@ -514,11 +519,11 @@ Z = \frac{O - E}{\sqrt{E}}.
 - Small $|Z|$ means $O \approx E$.  
 - Large $|Z|$ indicates a big deviation from expectation.  
 
-For **large** samples, $Z$ often approximates a standard normal distribution $N(0,1)$ under the null hypothesis.
+For **large** samples, $Z$ is roughly on a standard normal scale under the null hypothesis, though its variance is somewhat less than 1. (The **adjusted (standardized) residual**, which divides $O - E$ by $\sqrt{E\,(1 - \text{row proportion})(1 - \text{column proportion})}$, is approximately $N(0,1)$.)
 `````
 
 `````{tab-item} **Chi-Square Statistic & Interpretation**
-We can also view the Chi-Square statistic as summing the squares of these standardized residuals:
+We can also view the Chi-Square statistic as summing the squares of these Pearson residuals:
 
 ```{math}
 \chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}.

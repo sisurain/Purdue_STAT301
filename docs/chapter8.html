@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Chapter 12: One Way ANOVA &#8212; STAT301@Purdue</title>
+    <title>8. One-Way ANOVA &#8212; STAT301@Purdue</title>
   
   
   
@@ -93,8 +93,8 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="9. Chapter 13: Two Way ANOVA" href="chapter9.html" />
-    <link rel="prev" title="7. Chapter 7: Inference for Means" href="chapter7.html" />
+    <link rel="next" title="9. Two-Way ANOVA" href="chapter9.html" />
+    <link rel="prev" title="7. Inference for Means" href="chapter7.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -248,35 +248,39 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter 0: The Big Picture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bigpicture.html">The Big Picture: Why Study Statistics?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">At the beginning</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapter1.html">1. At the Beginning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with data</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapter2.html">2. Some Important Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Chapter 3: Producing Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Chapter 1: Looking at Data – Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">3. Producing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter4.html">4. Looking at Data — Distributions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Making statistical inference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Chapter 5: Sampling Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Chapter 6: Confidence Intervals and Significance Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Chapter 7: Inference for Means</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Chapter 12: One Way ANOVA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Chapter 13: Two Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter5.html">5. Sampling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter6.html">6. Confidence Intervals and Significance Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter7.html">7. Inference for Means</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. One-Way ANOVA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter9.html">9. Two-Way ANOVA</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling linear regression</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Chapter 2: Looking at Data-Relationships</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Chapter 2: Least Squares Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Chapter 10: Inference for Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Chapter 11: Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter10.html">10. Looking at Data — Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter11.html">11. Least-Squares Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter12.html">12. Inference for Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">13. Multiple Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional Topics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Chapter 2 &amp; 9: Two-Way Tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Chapter 8: Inference for a Single Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter14.html">14. Two-Way Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter15.html">15. Inference for a Single Proportion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter16.html">16. Special Topic: Simple Least Squares Regression in Matrix Form</a></li>
 </ul>
 
@@ -460,7 +464,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 12: One Way ANOVA</h1>
+    <h1>One-Way ANOVA</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -484,8 +488,12 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-12-one-way-anova">
-<h1><span class="section-number">8. </span>Chapter 12: One Way ANOVA<a class="headerlink" href="#chapter-12-one-way-anova" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="one-way-anova">
+<h1><span class="section-number">8. </span>One-Way ANOVA<a class="headerlink" href="#one-way-anova" title="Link to this heading">#</a></h1>
+<div class="seealso admonition">
+<p class="admonition-title">Textbook reference</p>
+<p>This chapter corresponds to <strong>Chapter 12</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
 <p>In the previous chapter (Chapter 7), we learned the statistical procedure for comparing the means of two populations. Naturally, the next step is to consider what to do when there are more than two populations. For example, suppose we have three diets—Diet A, Diet B, and Diet C—administered to three independent groups drawn from different populations. The study then measures a response variable to determine whether at least one group mean differs <strong>statistically significantly</strong> from the others.</p>
 <p>One approach is to use the two-sample procedure and perform multiple pairwise tests between the groups. In the case of three groups, this involves testing the following pairs: (Diet A, Diet B), (Diet B, Diet C), and (Diet A, Diet C). However, from our understanding of probability, each test carries a risk of a Type I error, and these errors can compound when multiple tests are conducted.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
@@ -547,7 +555,7 @@
 \]</div>
 <p class="sd-card-text">This very high error rate illustrates why performing multiple two-sample tests without adjustment can lead to a substantial increase in the probability of obtaining false positives.</p>
 </div>
-</details><p>Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span class="purdue-text"><strong>whether at least one group mean differs from the others</strong></span>.</p>
+</details><p>Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span class="purdue-text"><strong>whether the group means are not all equal (i.e., at least two means differ)</strong></span>.</p>
 <p>Recall from our study of sampling distributions that the sample mean, <span class="math notranslate nohighlight">\(\bar{X}\)</span>, is a random variable whose variability is influenced by both the sample size <span class="math notranslate nohighlight">\(n\)</span> and the population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. Even when drawing different samples from the same population, this inherent variability persists. In our scenario, we suspect that different groups are drawn from populations with different means (while sharing a common standard deviation). This introduces an extra layer of variability among the sample means.</p>
 <p>To rigorously examine this question, we need a statistical procedure that formally studies the variation among multiple group means. This leads us to <span class="purdue-text"><strong>One-way ANOVA (Analysis of Variance)</strong></span>. One-way ANOVA is a method used to determine whether there are any statistically significant differences among the means of three or more independent groups. Hence, we will also form a pair of hypotheses and calculate a pivotal quantity (test statistic) to run a hypothesis test to determine whether we have evidence from our dataset to reject <span class="math notranslate nohighlight">\(H_0\)</span>. The hypotheses are as follows:</p>
 <ol class="arabic simple">
@@ -555,10 +563,10 @@
 </ol>
 <div class="math notranslate nohighlight">
 \[
-  H_0: \mu_1 = \mu_2 = \dots = \mu_k
+  H_0: \mu_1 = \mu_2 = \dots = \mu_I
   \]</div>
 <ol class="arabic simple" start="2">
-<li><p>The alternative hypothesis is that at least one group mean differs from the others.</p></li>
+<li><p>The alternative hypothesis is <span class="math notranslate nohighlight">\(H_a\)</span>: not all of the <span class="math notranslate nohighlight">\(\mu_i\)</span> are equal (i.e., at least two of the means differ).</p></li>
 <li><p>The <strong>F-statistic</strong> is then compared against a critical value from the F-distribution (taking into account the degrees of freedom) to decide whether to reject the null hypothesis.</p></li>
 </ol>
 <section id="inference-for-one-way-anova">
@@ -634,7 +642,7 @@ SST = SSG + SSE,
 \[
   SS_{Within} = \sum_{i=1}^{I} \sum_{j=1}^{n_i} \left(x_{ij} - \bar{x}_{i}\right)^2.
   \]</div>
-<p>This term measures the variability of the observations around their respective group means, reflecting the random error <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>. The differences <span class="math notranslate nohighlight">\(e_j = x_j - \bar{x}\)</span> are the <strong>residuals</strong> and correspond to the <span class="math notranslate nohighlight">\(\epsilon_j\)</span> in the statistical model.</p>
+<p>This term measures the variability of the observations around their respective group means, reflecting the random error <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>. The differences <span class="math notranslate nohighlight">\(e_{ij} = x_{ij} - \bar{x}_{i}\)</span> — the deviations of each observation from its <strong>group</strong> mean — are the <strong>residuals</strong> and correspond to the <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> in the statistical model <span class="math notranslate nohighlight">\(x_{ij} = \mu_i + \epsilon_{ij}\)</span>.</p>
 </li>
 </ul>
 <p>The <strong>total variation</strong> (or <span class="math notranslate nohighlight">\(SS_{Total}\)</span>) measures the overall spread of the individual data points around the grand mean. It tells us how much the data vary in total — a combination of:</p>
@@ -652,6 +660,7 @@ Forming the F-Statistic</label><div class="sd-tab-content docutils">
 \[
 F = \frac{\text{Mean Square Between Groups (MSB)}}{\text{Mean Square Within Groups (MSW)}}
 \]</div>
+<p>(MSB is also called MSG, the mean square for groups; MSW is also called MSE, the mean square for error — the notation used in the textbook figures and later in this chapter.)</p>
 <ul>
 <li><p>A high F-value indicates that the variability between the groups is large compared to the variability within the groups. This suggests that at least one group mean is significantly different from the others.</p></li>
 <li><p>An F-value close to 1 indicates that the between-group variability is similar to the within-group variability, suggesting no significant differences among the group means.</p></li>
@@ -668,7 +677,7 @@ F = \frac{\text{Mean Square Between Groups (MSB)}}{\text{Mean Square Within Grou
   \]</div>
 <p>where <span class="math notranslate nohighlight">\(N\)</span> is the total number of observations across all groups.</p>
 </li>
-<li><p>Under the Null Hypothesis: If the null hypothesis (that all group means are equal) is true, then the expected value of both MSB and MSW is the common error variance <span class="math notranslate nohighlight">\( \sigma^2\)</span>. Thus, under <span class="math notranslate nohighlight">\(H_0: \mathbb{E}\left(\frac{MSB}{MSW}\right) \approx 1\)</span>.</p></li>
+<li><p>Under the Null Hypothesis: The expected value of MSW is the common error variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> whether or not <span class="math notranslate nohighlight">\(H_0\)</span> is true. The expected value of MSB, however, equals <span class="math notranslate nohighlight">\(\sigma^2\)</span> only if the null hypothesis (that all group means are equal) is true; otherwise it exceeds <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Thus, under <span class="math notranslate nohighlight">\(H_0: \mathbb{E}\left(\frac{MSB}{MSW}\right) \approx 1\)</span>. This asymmetry is exactly why an F-statistic substantially greater than 1 signals differences among the group means.</p></li>
 <li><p>A significantly larger F value suggests that the group means differ more than would be expected by chance, prompting rejection of the null hypothesis.</p></li>
 </ul>
 </div>
@@ -690,7 +699,7 @@ Observed Difference in Sample Mean</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" for="sd-tab-item-4">
 Large and Small Within-Group Variation</label><div class="sd-tab-content docutils">
 <figure class="align-center">
-<a class="reference internal image-reference" href="_images/0802.png"><img alt="Side by side boxplots of three groups with equal centers; large within-group spread in panel a, small spread in panel b makes differences clearer" src="_images/0802.png" style="width: 70%;" />
+<a class="reference internal image-reference" href="_images/0802.png"><img alt="Side by side boxplots in two panels with the same group centers; large within-group spread in panel a, small spread in panel b makes group differences clearer" src="_images/0802.png" style="width: 70%;" />
 </a>
 </figure>
 </div>
@@ -701,6 +710,7 @@ Pooled Estimator of <span class="math notranslate nohighlight">\(\sigma\)</span>
 <a class="reference internal image-reference" href="_images/0803.png"><img alt="Textbook box defining the pooled sample variance as a weighted average of group variances and its square root sp as the estimate of sigma" src="_images/0803.png" style="width: 70%;" />
 </a>
 </figure>
+<p><strong>Note:</strong> in the boxed formula above, the last term in the denominator should read <span class="math notranslate nohighlight">\((n_I - 1)\)</span>, not <span class="math notranslate nohighlight">\((n_1 - 1)\)</span>; the denominator equals <span class="math notranslate nohighlight">\(N - I\)</span>. Also, despite the capital letter in the image title, <span class="math notranslate nohighlight">\(s_p\)</span> estimates the (lowercase) standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <p>We can use the mean square for error to find <span class="math notranslate nohighlight">\(s_p\)</span>, the pooled estimate of the parameter <span class="math notranslate nohighlight">\(\sigma\)</span> of our model. It is true in general that:</p>
 <div class="math notranslate nohighlight">
 \[s_p^2 = \text{MSE} = \frac{\text{SSE}}{\text{DFE}}\]</div>
@@ -885,7 +895,7 @@ Instead of performing all possible pairwise comparisons, contrasts let you focus
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Chapter 7: Inference for Means</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Inference for Means</p>
       </div>
     </a>
     <a class="right-next"
@@ -893,7 +903,7 @@ Instead of performing all possible pairwise comparisons, contrasts let you focus
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Chapter 13: Two Way ANOVA</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Two-Way ANOVA</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
