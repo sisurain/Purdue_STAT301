@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=8c6b312c" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
@@ -860,6 +860,32 @@ Use the following formula to determine the position in the sorted dataset:</p>
 <div class="math notranslate nohighlight">
 \[\text{Median} = \frac{x_4 + x_5}{2}\]</div>
 <p>This method can be applied to any percentile by changing the value of <span class="math notranslate nohighlight">\(P\)</span>. For example, to find the 25th percentile, use <span class="math notranslate nohighlight">\((P = 25)\)</span>.</p>
+<div class="warning admonition">
+<p class="admonition-title">Do different methods give different answers? Yes — and here is why</p>
+<p>There is <strong>one median but several legitimate quartile conventions</strong>, and they do not always agree. You should know this before you ever compare your hand answer with software output.</p>
+<p><strong>Everyone agrees on the median.</strong> Odd <span class="math notranslate nohighlight">\(n\)</span>: the middle value. Even <span class="math notranslate nohighlight">\(n\)</span>: the average of the two middle values. Every textbook and every package does this the same way.</p>
+<p><strong><span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_3\)</span> can differ.</strong> Watch one small dataset, <span class="math notranslate nohighlight">\(n = 6\)</span> sorted heights: <span class="math notranslate nohighlight">\(60, 62, 66, 70, 71, 72\)</span>.</p>
+<ul class="simple">
+<li><p><strong>Median-of-halves (our textbook’s method):</strong> lower half <span class="math notranslate nohighlight">\(60, 62, 66\)</span>, so <span class="math notranslate nohighlight">\(Q_1 = 62\)</span>.</p></li>
+<li><p><strong>The position rule above:</strong> position <span class="math notranslate nohighlight">\(= 0.25 \times 7 = 1.75\)</span>, fractional, so average the 1st and 2nd values: <span class="math notranslate nohighlight">\(Q_1 = \frac{60+62}{2} = 61\)</span>.</p></li>
+<li><p><strong>SPSS (default “weighted average” method):</strong> uses the same position 1.75 but <em>interpolates</em> three-quarters of the way from 60 to 62: <span class="math notranslate nohighlight">\(Q_1 = 60 + 0.75 \times 2 = 61.5\)</span>.</p></li>
+<li><p><strong>Excel / Google Sheets:</strong> use a different position formula, <span class="math notranslate nohighlight">\((n-1) \times 0.25 + 1 = 2.25\)</span>, and interpolate: <span class="math notranslate nohighlight">\(Q_1 = 62 + 0.25 \times 4 = 63\)</span>.</p></li>
+</ul>
+<p>Four methods, four answers: <span class="math notranslate nohighlight">\(62,\ 61,\ 61.5,\ 63\)</span> — all from the same six numbers, and all “correct” under their own convention.</p>
+<p><strong>Why do they disagree?</strong> Three small decisions hide inside every quartile rule:</p>
+<ol class="arabic simple">
+<li><p><strong>Which position formula</strong> — <span class="math notranslate nohighlight">\((n+1) \times \frac{P}{100}\)</span> (our rule, SPSS) versus <span class="math notranslate nohighlight">\((n-1) \times \frac{P}{100} + 1\)</span> (Excel).</p></li>
+<li><p><strong>What to do with a fractional position</strong> — average the two neighbors (our rule) or interpolate between them in proportion to the fraction (SPSS, Excel).</p></li>
+<li><p><strong>In the median-of-halves method, whether the median joins the halves</strong> when <span class="math notranslate nohighlight">\(n\)</span> is odd — our textbook <em>excludes</em> it; “Tukey’s hinges” (used by some boxplot routines) <em>include</em> it. For <span class="math notranslate nohighlight">\(1,2,3,4,5\)</span>: excluding gives <span class="math notranslate nohighlight">\(Q_1 = 1.5\)</span>; including gives <span class="math notranslate nohighlight">\(Q_1 = 2\)</span>.</p></li>
+</ol>
+<p><strong>The rules for this course:</strong></p>
+<ul class="simple">
+<li><p>For <strong>hand calculations</strong> on homework and exams, use the <strong>median-of-halves</strong> method — that is what the answer keys use.</p></li>
+<li><p>When a <strong>lab asks you to read SPSS output</strong>, report SPSS’s number — do not “correct” it.</p></li>
+<li><p>Since <span class="math notranslate nohighlight">\(\mathrm{IQR} = Q_3 - Q_1\)</span>, the convention also shifts the IQR and the <span class="math notranslate nohighlight">\(1.5 \times \mathrm{IQR}\)</span> outlier fences — so state which method you used.</p></li>
+<li><p>The differences <strong>shrink as <span class="math notranslate nohighlight">\(n\)</span> grows</strong> and almost never change the <em>conclusion</em> — but for small datasets, two students with different software can both be right. Now you know why.</p></li>
+</ul>
+</div>
 </div>
 <input id="sd-tab-item-15" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-15">
@@ -1264,7 +1290,7 @@ Area under <span class="math notranslate nohighlight">\(Z\)</span></label><div c
 </aside>
 <aside class="footnote brackets" id="footnote02" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>The most common approach is a simple average (the “midpoint” method) between the two adjacent data points in the sorted list. Alternative methods, such as linear interpolation between adjacent ranks, can also be employed.</p>
+<p>Taking a simple average (the “midpoint” method) of the two adjacent data points is the convention we use with this position rule. Other conventions instead <em>interpolate</em> between the two neighbors in proportion to the fractional part — see the box below on why different methods can give different answers.</p>
 </aside>
 </aside>
 </section>

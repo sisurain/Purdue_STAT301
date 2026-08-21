@@ -317,7 +317,7 @@ In general, we can calculate the $P$th percentile by following these steps:
    * If the position is a fraction (that is, **not** a whole number), find the two adjacent data points in the **sorted** dataset.
    * Use the values at these adjacent positions and take their average to calculate the percentile[^footnote02].
 
-[^footnote02]: The most common approach is a simple average (the "midpoint" method) between the two adjacent data points in the sorted list. Alternative methods, such as linear interpolation between adjacent ranks, can also be employed.
+[^footnote02]: Taking a simple average (the "midpoint" method) of the two adjacent data points is the convention we use with this position rule. Other conventions instead *interpolate* between the two neighbors in proportion to the fractional part — see the box below on why different methods can give different answers.
 
 **Example:**
 
@@ -330,6 +330,33 @@ Since $4.5$ is a fraction, find the 4th and 5th data points in the sorted datase
 $$\text{Median} = \frac{x_4 + x_5}{2}$$
 
 This method can be applied to any percentile by changing the value of $P$. For example, to find the 25th percentile, use $(P = 25)$.
+
+```{admonition} Do different methods give different answers? Yes — and here is why
+:class: warning
+There is **one median but several legitimate quartile conventions**, and they do not always agree. You should know this before you ever compare your hand answer with software output.
+
+**Everyone agrees on the median.** Odd $n$: the middle value. Even $n$: the average of the two middle values. Every textbook and every package does this the same way.
+
+**$Q_1$ and $Q_3$ can differ.** Watch one small dataset, $n = 6$ sorted heights: $60, 62, 66, 70, 71, 72$.
+
+* **Median-of-halves (our textbook's method):** lower half $60, 62, 66$, so $Q_1 = 62$.
+* **The position rule above:** position $= 0.25 \times 7 = 1.75$, fractional, so average the 1st and 2nd values: $Q_1 = \frac{60+62}{2} = 61$.
+* **SPSS (default "weighted average" method):** uses the same position 1.75 but *interpolates* three-quarters of the way from 60 to 62: $Q_1 = 60 + 0.75 \times 2 = 61.5$.
+* **Excel / Google Sheets:** use a different position formula, $(n-1) \times 0.25 + 1 = 2.25$, and interpolate: $Q_1 = 62 + 0.25 \times 4 = 63$.
+
+Four methods, four answers: $62,\ 61,\ 61.5,\ 63$ — all from the same six numbers, and all "correct" under their own convention.
+
+**Why do they disagree?** Three small decisions hide inside every quartile rule:
+1. **Which position formula** — $(n+1) \times \frac{P}{100}$ (our rule, SPSS) versus $(n-1) \times \frac{P}{100} + 1$ (Excel).
+2. **What to do with a fractional position** — average the two neighbors (our rule) or interpolate between them in proportion to the fraction (SPSS, Excel).
+3. **In the median-of-halves method, whether the median joins the halves** when $n$ is odd — our textbook *excludes* it; "Tukey's hinges" (used by some boxplot routines) *include* it. For $1,2,3,4,5$: excluding gives $Q_1 = 1.5$; including gives $Q_1 = 2$.
+
+**The rules for this course:**
+* For **hand calculations** on homework and exams, use the **median-of-halves** method — that is what the answer keys use.
+* When a **lab asks you to read SPSS output**, report SPSS's number — do not "correct" it.
+* Since $\mathrm{IQR} = Q_3 - Q_1$, the convention also shifts the IQR and the $1.5 \times \mathrm{IQR}$ outlier fences — so state which method you used.
+* The differences **shrink as $n$ grows** and almost never change the *conclusion* — but for small datasets, two students with different software can both be right. Now you know why.
+```
 
 ````
 
