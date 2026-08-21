@@ -96,7 +96,7 @@ The logic of a one-sample test remains the same-now we simply use within-pair di
 - **Sample Size**: $n = 51$ parts, so we have 51 paired differences $d_1, d_2, \dots, d_{51}$.
 
 ```{figure} _image/0701.png
-:alt: table 7.2
+:alt: Table of paired measurements for 20 machine parts with the software option on and off, where the differences are small and scatter around zero
 :align: center
 :width: 70%
 
@@ -195,7 +195,7 @@ By **pre-specifying** an acceptable difference **$\delta$**, we conduct **Equiva
 Since $-0.112$ and $0.2133$ are *not* fully contained in the "equivalence region" $[-0.20,\ 0.20]$, we **cannot** conclude equivalence at the 5% significance level. However, the mean difference is quite close to zero, so a larger sample might shrink the CI and yield a different conclusion.
 
 ```{figure} _image/0702.png
-:alt: figure 7.7
+:alt: Minitab equivalence test plot where the 95 percent CI from minus 0.113 to 0.213 crosses the upper limit 0.2, so equivalence cannot be claimed
 :align: center
 :width: 70%
 

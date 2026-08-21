@@ -30,8 +30,6 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
-  extra_css:
-    - custom.css
 
   # --- TRACKING PART 1: GOOGLE ANALYTICS ---
   # I inserted the ID from your previous screenshot
@@ -43,9 +41,31 @@ html:
   extra_footer: |
     <div style="text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc;">
       <p style="font-weight: bold; margin-bottom: 10px;">Visitor Impact Map</p>
-      
+
       <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=rz9NZOi0jombPOMydTY28E4R0BMRstWvDk1wjZtl-hw&cl=ffffff&w=a"></script>
-      
+
+      <script>
+        // Accessibility: the mapmyvisitors widget injects an image and link
+        // without a text alternative. Label them once they appear.
+        (function () {
+          var fixMap = function () {
+            var box = document.getElementById('mapmyvisitors');
+            if (!box || !box.parentNode) { return; }
+            var imgs = box.parentNode.querySelectorAll('img:not([alt])');
+            imgs.forEach(function (img) {
+              img.setAttribute('alt', 'World map showing recent visitor locations for this site');
+            });
+            var links = box.parentNode.querySelectorAll('a:not([aria-label])');
+            links.forEach(function (a) {
+              if (!a.textContent.trim()) {
+                a.setAttribute('aria-label', 'Visitor map details on mapmyvisitors.com');
+              }
+            });
+          };
+          window.addEventListener('load', fixMap);
+          setTimeout(fixMap, 3000);
+        })();
+      </script>
     </div>
 
 # -----------------------------------------

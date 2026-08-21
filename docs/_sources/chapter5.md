@@ -8,8 +8,8 @@ In this chapter, we will begin to study **statistical inference**-the process of
 
 Our goal is not merely to describe the sample dataset but to answer deeper questions such as:
 
-* **What is our best guess?** - This is referred to as <span style="color:#cfb991">**estimation**</span>.
-* **Does the data strongly contradict a proposed claim?** - This is referred to as <span style="color:#cfb991">**hypothesis testing**</span>.
+* **What is our best guess?** - This is referred to as <span class="purdue-text">**estimation**</span>.
+* **Does the data strongly contradict a proposed claim?** - This is referred to as <span class="purdue-text">**hypothesis testing**</span>.
 
 Together, **estimation** and **hypothesis testing** form the two major pillars of **frequentist[^footnote01] statistical inference**.[^footnote02]
 
@@ -52,7 +52,7 @@ In summary, a statistic evolves through these three stages as part of the analys
 
 An **estimator** corresponds to **Stage 1**, and the **estimate** corresponds to **Stage 3**. There is another term, **estimand**, which refers to the quantity or parameter in the population that we aim to estimate using data. The estimand represents the true but unknown value of interest, such as a mean, proportion, variance, difference, or another statistical measure describing the population.
 
-Now that we know the three stages, let's revisit **Stage 1**. At this stage, a statistic is actually a **random variable**, and as a random variable, it has a distribution. Imagine a thought experiment where we take one sample repeatedly, and each time, we calculate the statistic. These values form a distribution both empirically (based on repeated sampling) and hypothetically (what the statistic would look like if we had taken a different sample). This distribution is called the <span style="color:#cfb991">**Sampling Distribution**</span>[^footnote03]. 
+Now that we know the three stages, let's revisit **Stage 1**. At this stage, a statistic is actually a **random variable**, and as a random variable, it has a distribution. Imagine a thought experiment where we take one sample repeatedly, and each time, we calculate the statistic. These values form a distribution both empirically (based on repeated sampling) and hypothetically (what the statistic would look like if we had taken a different sample). This distribution is called the <span class="purdue-text">**Sampling Distribution**</span>[^footnote03]. 
 
 [^footnote03]: The thought experiment helps us conceptualize the idea of repeated sampling. However, in practice, it is often not feasible to take repeated samples directly from the population. Instead, we can use the bootstrap algorithm to generate new samples from the available data, allowing us to approximate the sampling distribution.
 
@@ -72,7 +72,7 @@ Ideally, we want an estimator to be both **unbiased** (accurate on average) and 
 
 
 ```{figure} _image/0501.png
-:alt: bias and variability
+:alt: Four bullseye targets showing shot patterns for high or low bias and variability. The ideal has shots tightly clustered on the bulls eye
 :align: center
 :width: 70%
 
@@ -83,7 +83,7 @@ Bias and Variability
 
 From the sample mean formula presented in the previous chapter, we can see that the sample mean, $\bar{X}$, is a sum of random variables. These random variables, $X_1$ to $X_n$, come from the same population distribution. If the sample size $n$ is large, then the sampling distribution of $\bar{X}$ is approximately normal, regardless of the shape of the population distribution[^footnote04]. 
 
-This powerful result is one of the most central mathematical results in statistics, the <span style="color:#cfb991">**Central Limit Theorem (CLT)**</span>. In simple terms, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">**CLT**</a> states that the sum (or mean) of random variables follows a normal distribution as the sample size grows large. 
+This powerful result is one of the most central mathematical results in statistics, the <span class="purdue-text">**Central Limit Theorem (CLT)**</span>. In simple terms, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">**CLT**</a> states that the sum (or mean) of random variables follows a normal distribution as the sample size grows large. 
 
 For normal distributions, there are two parameters-mean $\mu$ and variance $\sigma^2$-that govern the shape of the distribution. Using basic algebra and knowledge of probability, we can derive these two parameters for the sampling distribution.
 

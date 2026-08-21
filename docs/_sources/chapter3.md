@@ -7,7 +7,7 @@ We can model the real-world measurements-the heights of all Purdue students-as a
 
 The randomness in height/$Height$ may arise from many **small factors**, such as genetics, nutrition, environment, and other influences in biological or physical systems. Each observed height value is a realized outcome, or **realization**, of this process at the **macro level**. Modeling this process with a normal distribution is appropriate and can be explained by a fundamental concept, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">**Central Limit Theorem (CLT)**</a>. Other processes and phenomena, however, may be modeled by different types of random variables.
 
-Now, let's turn our focus to sample data. The term **parameter** is associated with the population and is usually unknown. Once we have the sample data, we can follow a statistical procedure to calculate a <span style="color:#cfb991">**STATISTIC**</span>, which is a number that describes the sample-for example, the sample mean.
+Now, let's turn our focus to sample data. The term **parameter** is associated with the population and is usually unknown. Once we have the sample data, we can follow a statistical procedure to calculate a <span class="purdue-text">**STATISTIC**</span>, which is a number that describes the sample-for example, the sample mean.
 
 ```{prf:definition} Statistic
 :label: statistic-definition
@@ -34,7 +34,7 @@ The term "sources of data" refers to the methods or origins of obtaining our sam
 
 To answer our questions of interest or draw conclusions about the population, it is usually better to create new data and form our sample **intentionally**. This critical step is often controlled by researchers to ensure the sample is representative and suitable for analysis.
 
-There are two main approaches to obtaining data: one is through <span style="color:#cfb991">**observational studies**</span>, often conducted via **sample surveys**[^footnote01], and the other is through <span style="color:#cfb991">**experimental studies**</span>, conducted via **experiments**[^footnote02].
+There are two main approaches to obtaining data: one is through <span class="purdue-text">**observational studies**</span>, often conducted via **sample surveys**[^footnote01], and the other is through <span class="purdue-text">**experimental studies**</span>, conducted via **experiments**[^footnote02].
 
 [^footnote01]: We can also use past survey data, such as existing databases. In this case, we are using available data, which is common in certain fields like economics. However, analyzing such data often requires more advanced statistical and econometric techniques.  
 [^footnote02]: In many fields, conducting experiments may not be feasible due to ethical concerns or practical limitations. 
@@ -53,7 +53,7 @@ In an experiment, we **deliberately impose some condition** or  **treatment** (c
 
 ## Causality and Confounding
 
-When our goal is to understand <span style="color:#cfb991">**cause and effect (causality)**</span>, experiments are the only source of fully convincing data. The invention of randomized experiments was a stroke of genius; even today, they remain the gold standard for large pharmaceutical companies testing the effectiveness of new drugs. 
+When our goal is to understand <span class="purdue-text">**cause and effect (causality)**</span>, experiments are the only source of fully convincing data. The invention of randomized experiments was a stroke of genius; even today, they remain the gold standard for large pharmaceutical companies testing the effectiveness of new drugs. 
 
 This is because an observational study, even one based on a carefully chosen sample, is a poor way to determine what will happen if we change something. The best way to observe the effects of a change is through an **intervention**-where we actively impose the change.
 
@@ -91,7 +91,7 @@ Association does not mean causation!
 ```
 
 ```{figure} _image/0301.png
-:alt: Association and Causation
+:alt: Three arrow diagrams explaining an observed x and y association as direct causation, common response to lurking variable z, or confounding with z
 :align: center
 
 Association and Causation
@@ -99,7 +99,7 @@ Association and Causation
 
 ## Sampling Design
 
-Now that we have addressed the obstacles of confounding and understand why creating new data through experiments is sometimes necessary, we can revisit the critical step of _getting_ our samples. Both **observational studies** and **experimental studies** require a well-thought-out <span style="color:#cfb991">**sampling design**</span>. This is because we need to intentionally select elements or observations from the population to form a sample-a subset of the population-so that we maintain control over this step.
+Now that we have addressed the obstacles of confounding and understand why creating new data through experiments is sometimes necessary, we can revisit the critical step of _getting_ our samples. Both **observational studies** and **experimental studies** require a well-thought-out <span class="purdue-text">**sampling design**</span>. This is because we need to intentionally select elements or observations from the population to form a sample-a subset of the population-so that we maintain control over this step.
 
 Unlike experimental studies, observational studies do not involve **experimental design**, which will be discussed in a later section. In observational studies, no treatments or interventions are deliberately imposed on the subjects. Instead, these studies rely entirely on **sampling design** to collect data. We will begin with a discussion of **Sample Surveys**, a classical form of observational study.
 
@@ -156,7 +156,7 @@ One last thing I want to mention in this section is that our goal is to calculat
 
 ## Design of Experiments
 
-Before diving into the design aspect, we first need to understand the definition of an <span style="color:#cfb991">**experiment**</span> and familiarize ourselves with some terminologies associated with it.
+Before diving into the design aspect, we first need to understand the definition of an <span class="purdue-text">**experiment**</span> and familiarize ourselves with some terminologies associated with it.
 
 ```{note}
 
@@ -178,7 +178,7 @@ Before diving into the design aspect, we first need to understand the definition
 
 Before we move on to how to design an experiment, we first need to clearly understand why we design experiments. In the previous sections, we learned that confounding is a significant issue when attempting to establish causality. The best way to avoid confounding is by conducting a **comparative experiment**. The basic idea is to **assign** (according to a specific experimental design) the experimental units into different groups after selecting them to form our sample. Each group receives a different treatment, and the results are then compared.
 
-There are many potential variables or factors that could explain or affect the causal relationship between the variables of interest and the response variable. Often, confounders—hidden or lurking variables—cannot be measured, or they are not our primary focus. Experimental design aims to mitigate or eliminate the effects of these variables. This is the core idea behind experimental design: we need to <span style="color:#cfb991">**Control**</span> these effects.
+There are many potential variables or factors that could explain or affect the causal relationship between the variables of interest and the response variable. Often, confounders—hidden or lurking variables—cannot be measured, or they are not our primary focus. Experimental design aims to mitigate or eliminate the effects of these variables. This is the core idea behind experimental design: we need to <span class="purdue-text">**Control**</span> these effects.
 
 ```{prf:definition} Control
 :label: control-definition
@@ -190,7 +190,7 @@ If these factors differ between treatment groups, they may **confound the result
 The goal of control is to **keep these variables constant** or **balanced across treatment groups**, so any observed differences in outcomes can be confidently attributed to the treatments.
 ```
 
-We will discuss how to achieve **Control** later when we explore experimental design. Since experiments involve two or more groups, we need a group to serve as a benchmark so that the results of other groups can be compared against it. This group is usually called the **Control Group** and is often given a **Placebo** to account for the <span style="color:#cfb991">**Placebo Effect**</span>.
+We will discuss how to achieve **Control** later when we explore experimental design. Since experiments involve two or more groups, we need a group to serve as a benchmark so that the results of other groups can be compared against it. This group is usually called the **Control Group** and is often given a **Placebo** to account for the <span class="purdue-text">**Placebo Effect**</span>.
 
 ```{prf:definition} Placebo Effect
 :label: plaeff-definition

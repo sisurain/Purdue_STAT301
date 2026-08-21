@@ -187,7 +187,7 @@ A two-way table contains a great deal of information in a compact form. Accurate
 
 
 ```{figure} _image/1401.png
-:alt: two-way table software outputs
+:alt: Minitab, SPSS, and JMP outputs for the calcium two-way table, showing counts with row, column, and total percents, plus a JMP mosaic plot
 :align: center
 :width: 80%
 

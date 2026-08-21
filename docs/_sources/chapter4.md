@@ -1,8 +1,8 @@
 # Chapter 1: Looking at Data -- Distributions
 
-Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span style="color:#cfb991">**exploratory data analysis**</span>. In some textbooks, this is referred to as <span style="color:#cfb991">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data-this is a statistics class, not a drawing class! 
+Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span class="purdue-text">**exploratory data analysis**</span>. In some textbooks, this is referred to as <span class="purdue-text">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data-this is a statistics class, not a drawing class! 
 
-Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span style="color:#cfb991">**inferential statistics**</span>, which we will spend more time on throughout the course. 
+Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span class="purdue-text">**inferential statistics**</span>, which we will spend more time on throughout the course. 
 
 For this course, our primary focus will be learning statistical procedures to make generalizations about the population from the sample. However, in this chapter, we will focus on describing our datasets using calculated values (statistics) and visual representations (graphs). Hence the title: *Looking at Data-Distributions*.[^footnote01]
 
@@ -37,7 +37,7 @@ A **stemplot** provides a quick visual representation of the shape of a distribu
 `````{tab-set}
 ````{tab-item} Making a Stemplot
 ```{figure} _image/0401.png
-:alt: Making a Stemplot
+:alt: Three-panel demo of building a stemplot with stems 3 to 7, from writing stems to adding leaves to arranging leaves in order
 :align: center
 
 ```
@@ -45,7 +45,7 @@ A **stemplot** provides a quick visual representation of the shape of a distribu
 
 ````{tab-item} Step by step guide
 ```{figure} _image/0402.png
-:alt: Step by step guide
+:alt: Definition box with three steps for making a stemplot, splitting each value into stem and leaf and ordering leaves out from each stem
 :align: center
 
 ```
@@ -53,7 +53,7 @@ A **stemplot** provides a quick visual representation of the shape of a distribu
 
 ````{tab-item} Back-back Stemplot
 ```{figure} _image/0403.png
-:alt: Back-back Stemplot
+:alt: Back-to-back stemplot comparing calcium absorption under control and SCF conditions, leaves branching left and right from shared stems
 :align: center
 
 ```
@@ -61,7 +61,7 @@ A **stemplot** provides a quick visual representation of the shape of a distribu
 
 ````{tab-item} Stemplot with split stems
 ```{figure} _image/0404.png
-:alt: Stemplot with split stems
+:alt: Back-to-back stemplot with each stem split into two rows, showing finer detail of control versus SCF calcium absorption data
 :align: center
 
 ```
@@ -69,7 +69,7 @@ A **stemplot** provides a quick visual representation of the shape of a distribu
 
 ````{tab-item} Time tables in Japanese train station
 ```{figure} _image/0405.jpg
-:alt: Time tables in Japanese train station
+:alt: Japanese train station departure board listing minutes past each hour in rows, a real-life stemplot with hours as stems
 :align: center
 
 ```
@@ -82,7 +82,7 @@ For a large number of observations, a **histogram** is often a better choice. A 
 `````{tab-set}
 ````{tab-item} IQ data
 ```{figure} _image/0406.png
-:alt: IQ data
+:alt: Table of IQ test scores for 60 randomly chosen fifth-grade students, the raw data used to build the histogram example
 :align: center
 
 ```
@@ -90,7 +90,7 @@ For a large number of observations, a **histogram** is often a better choice. A 
 
 ````{tab-item} Histogram Step 1
 ```{figure} _image/0407.png
-:alt: Histogram Step 1
+:alt: Histogram step 1, divide IQ scores into equal-width classes of 10 points from 75 to 155 so each score falls in exactly one class
 :align: center
 
 ```
@@ -98,7 +98,7 @@ For a large number of observations, a **histogram** is often a better choice. A 
 
 ````{tab-item} Histogram Step 2
 ```{figure} _image/0408.png
-:alt: Histogram Step 2
+:alt: Histogram step 2, frequency table counting students in each IQ class, with the 105 to 115 class largest at 16 students
 :align: center
 
 ```
@@ -106,7 +106,7 @@ For a large number of observations, a **histogram** is often a better choice. A 
 
 ````{tab-item} Histogram Step 3
 ```{figure} _image/0409.png
-:alt: Histogram Step 3
+:alt: Histogram step 3, bars of student counts for each IQ class from 75 to 155, forming a roughly bell-shaped distribution peaking near 110
 :align: center
 
 ```
@@ -114,7 +114,7 @@ For a large number of observations, a **histogram** is often a better choice. A 
 
 ````{tab-item} Types of Histograms
 ```{figure} _image/0410.png
-:alt: Types of Histograms
+:alt: Table comparing five histogram types by data type, with x axis of values or bins and y axis of frequency, relative frequency, or density
 :align: center
 
 ```
@@ -151,7 +151,7 @@ For describing the shape of a distribution, we have the following:
 `````{tab-set}
 ````{tab-item} Skewed Left
 ```{figure} _image/0411.png
-:alt: Skewed Left
+:alt: Left-skewed histogram with peak near 70 and a long lower tail of outliers, dashed line showing the mean pulled toward the tail
 :align: center
 :width: 70%
 ```
@@ -159,7 +159,7 @@ For describing the shape of a distribution, we have the following:
 
 ````{tab-item} Skewed Right
 ```{figure} _image/0412.png
-:alt: Skewed Right
+:alt: Right-skewed histogram with peak near 25 and a long upper tail of outliers, dashed line showing the mean pulled toward the tail
 :align: center
 :width: 70%
 ```
@@ -307,7 +307,7 @@ While the five-number summary is quite resistant to outliers, many statistical m
 `````{tab-set}
 ````{tab-item} Boxplot
 ```{figure} _image/0413.png
-:alt: Boxplot
+:alt: Boxplot of 60 IQ scores with box from about 104 to 126, median near 114, a plus sign marking the mean, and whiskers from 81 to 145
 :align: center
 :width: 70%
 ```
@@ -315,7 +315,7 @@ While the five-number summary is quite resistant to outliers, many statistical m
 
 ````{tab-item} Side by side Boxplot
 ```{figure} _image/0414.png
-:alt: Side by side Boxplot
+:alt: Side-by-side modified boxplots of writers age at death for nonfiction, novels, and poems, poets youngest and one low nonfiction outlier
 :align: center
 :width: 70%
 ```
@@ -340,7 +340,7 @@ Mentally, you can consider the density curve to be the **theoretical distributio
 
 
 ```{figure} _image/0415.png
-:alt: Histogram and Density Curve
+:alt: Histograms of Iowa Test vocabulary scores with an overlaid normal density curve, shading scores at or below 6.0 in bars and curve area
 :align: center
 
 Histogram and Density Curve
@@ -349,7 +349,7 @@ Histogram and Density Curve
 `````{tab-set}
 ````{tab-item} Area under density 01
 ```{figure} _image/0416.png
-:alt: Area under density 01
+:alt: Bell-shaped density curve with the region between about -1.5 and 1.5 shaded, showing probability as area under the curve
 :align: center
 :width: 50%
 ```
@@ -357,7 +357,7 @@ Histogram and Density Curve
 
 ````{tab-item} Area under density 02
 ```{figure} _image/0417.png
-:alt: Area under density 02
+:alt: Density curve with three peaks and the region between about -1 and 2 shaded, showing area gives probability for any density shape
 :align: center
 :width: 50%
 ```
@@ -365,13 +365,13 @@ Histogram and Density Curve
 
 `````
 
-One famous type of density curve is the <span style="color:#cfb991">**normal density curve**</span>. It is used in many real-world applications (such as modeling heights or the birthweights of babies). **Normal distributions** are described by bell-shaped, symmetric, unimodal density curves. This density curve function only has two parameters: the mean $\mu$ and the standard deviation $\sigma$. Depending on their values, the shape of the distribution may vary, but it still retains the aforementioned bell-shaped and symmetric features.
+One famous type of density curve is the <span class="purdue-text">**normal density curve**</span>. It is used in many real-world applications (such as modeling heights or the birthweights of babies). **Normal distributions** are described by bell-shaped, symmetric, unimodal density curves. This density curve function only has two parameters: the mean $\mu$ and the standard deviation $\sigma$. Depending on their values, the shape of the distribution may vary, but it still retains the aforementioned bell-shaped and symmetric features.
 
 
 `````{tab-set}
 ````{tab-item} Normal $\mu=0$ 
 ```{figure} _image/0418.png
-:alt: Normal $\mu=0$
+:alt: Five normal density curves all with mean 0 but variances from 0.25 to 4, larger variance giving a flatter, wider bell
 :align: center
 :width: 70%
 ```
@@ -379,7 +379,7 @@ One famous type of density curve is the <span style="color:#cfb991">**normal den
 
 ````{tab-item} Normal $\sigma=1$
 ```{figure} _image/0419.png
-:alt: Normal $\sigma=1$
+:alt: Five normal density curves all with variance 1 but means from -4 to 4, identical bell shapes shifted left or right along the x axis
 :align: center
 :width: 70%
 ```
@@ -432,7 +432,7 @@ So, if $X \sim N(\mu, \sigma),$ then $Z \sim N(0, 1),$ and we can use the z-tabl
 $$P(X \leq x) = P \left( \frac{X - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right) = \Phi \left( \frac{x - \mu}{\sigma} \right)$$
 Since we have this relationship, the only thing left is to become **familiar** with the areas under the **standard Normal** density and how to use the **z-table**.  
 
-For **any** Normal density, there is the **68–95–99.5** empirical rule that we can use for quick approximations.
+For **any** Normal density, there is the **68–95–99.7** empirical rule that we can use for quick approximations.
  
 
 ```{prf:definition} The 68-95-99.7 Rule
@@ -447,31 +447,31 @@ In the Normal distribution with mean $\mu$ and standard deviation $\sigma$:
 `````{tab-set}
 ````{tab-item} Area under $Z$
 ```{figure} _image/0420.png
-:alt: Area under $Z$
+:alt: Two standard normal curves, one shading the small equal tails beyond -2 and 2, the other shading the large central area between them
 :align: center
-:width: 1000%
+:width: 100%
 ```
 ````
 
-````{tab-item} 68-95-99.5 for $Z$
+````{tab-item} 68-95-99.7 for $Z$
 ```{figure} _image/0421.png
-:alt: 68-95-99.5 for $Z$
+:alt: Standard normal curve with arrows marking 68, 95, and 99.7 percent of the area within 1, 2, and 3 standard deviations of mean 0
 :align: center
 :width: 100%
 ```
 ````
 
-````{tab-item} 68-95-99.5 for $X$
+````{tab-item} 68-95-99.7 for $X$
 ```{figure} _image/0422.png
-:alt: 68-95-99.5 for $X$
+:alt: General normal curve with mean mu and sd sigma, arrows marking 68, 95, and 99.7 percent within 1, 2, and 3 sigma of the mean
 :align: center
 :width: 100%
 ```
 ````
 
-````{tab-item} 68-95-99.5 for $Height$
+````{tab-item} 68-95-99.7 for $Height$
 ```{figure} _image/0423.png
-:alt: 68-95-99.5 for $Height$
+:alt: Normal curve of young women heights, mean 64.5 inches, with 68, 95, and 99.7 percent ranges at 62 to 67, 59.5 to 69.5, and 57 to 72
 :align: center
 :width: 100%
 ```

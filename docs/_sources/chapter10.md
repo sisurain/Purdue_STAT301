@@ -2,11 +2,11 @@
 
 In the previous chapters, we mainly focused on exploring the distributions of a single variable and studying statistical procedures related to that one variable or the mean of a single response variable.  
 
-Many interesting problems, however, arise when we wish to explore the relationships among two or more variables. Starting from this chapter, we will learn some graphing techniques and modeling techniques for studying the <span style="color:#cfb991">**relationships among variables**</span>.
+Many interesting problems, however, arise when we wish to explore the relationships among two or more variables. Starting from this chapter, we will learn some graphing techniques and modeling techniques for studying the <span class="purdue-text">**relationships among variables**</span>.
 
-In general, if two variables have no relationship at all, we say that the variables are <span style="color:#cfb991">**independent**</span>. Two variables are statistically independent if the occurrence (or value) of one does not provide any information about the occurrence (or value) of the other. In many real-world situations, true independence is rare because various factors often interrelate.
+In general, if two variables have no relationship at all, we say that the variables are <span class="purdue-text">**independent**</span>. Two variables are statistically independent if the occurrence (or value) of one does not provide any information about the occurrence (or value) of the other. In many real-world situations, true independence is rare because various factors often interrelate.
 
-When variables are not independent, they are considered <span style="color:#cfb991">**dependent**</span>; that is, knowing something about one variable gives you some information about the other. If two variables are dependent, then we say they have some kind of relationship.
+When variables are not independent, they are considered <span class="purdue-text">**dependent**</span>; that is, knowing something about one variable gives you some information about the other. If two variables are dependent, then we say they have some kind of relationship.
 
 In this course, we focus on the basic and most common type of relationship: the linear relationship. Among all types of relationships, we explore **association** and learn some basic tools to quantify it. We also touch on using **linear regression modeling techniques** to analyze associations and use the models as tools for prediction. Of course, there are other types of relationships among variables, such as **causal relationships**, which go beyond mere association.
 
@@ -48,7 +48,7 @@ Always plot the explanatory variable, if there is one, on the horizontal axis (t
 A higher price should be associated with a better product. 
 
 ```{figure} _image/1001.png
-:alt: Scatterplot for laundry detergents
+:alt: Scatterplot of rating vs price per load for 53 laundry detergents, weakly scattered points with one high-price outlier near 56 cents
 :align: center
 :width: 70%
 
@@ -60,7 +60,7 @@ A higher price should be associated with a better product.
 ````{tab-item} Removing the Outliers
 
 ```{figure} _image/1002.png
-:alt: Scatterplot for laundry detergents Removing the Outliers
+:alt: Scatterplot of rating vs price per load for 52 laundry detergents after removing the outlier, showing a weak positive scatter
 :align: center
 :width: 70%
 
@@ -86,7 +86,7 @@ When we look at it carefully, we see that it suggests a **linear relationship**.
 
 ````{tab-item} A Straight Line
 ```{figure} _image/1003.png
-:alt: A Straight Line
+:alt: Scatterplot of rating vs price per load with a fitted straight line sloping gently upward, showing a weak positive linear association
 :align: center
 :width: 70%
 
@@ -110,7 +110,7 @@ The strength of a relationship in a scatterplot is determined by how closely the
 To add a categorical variable to a scatterplot, use a different plot color or symbol for each category.
 
 ```{figure} _image/1004.png
-:alt: Adding Categorical Variables to Scatterplots
+:alt: Scatterplot of rating vs price per load with blue points for liquid and red for powder detergents, each type with its own upward fitted line
 :align: center
 :width: 70%
 
@@ -126,7 +126,7 @@ To add a categorical variable to a scatterplot, use a different plot color or sy
 ````{tab-item} Nonlinear Smooth Curve
 
 ```{figure} _image/1005.png
-:alt: Nonlinear Smooth Curve
+:alt: Scatterplot of calcium retention vs calcium intake for 56 children with a smooth curve rising then leveling off, a positive nonlinear pattern
 :align: center
 :width: 70%
 
@@ -155,7 +155,7 @@ To add a categorical variable to a scatterplot, use a different plot color or sy
     - **Natural logarithms** are commonly used in statistical software.
 
 ```{figure} _image/1006.png
-:alt: Log Transformation
+:alt: Scatterplot of log calcium retention vs calcium intake with a fitted line, showing an approximately linear positive trend after log transform
 :align: center
 :width: 70%
 
@@ -172,14 +172,14 @@ Today, most statistical software includes options to perform the calculations ne
 > Scatterplot of rating versus price per load (in cents), with smooth curves: (a) with a small value of the smoothing parameter; (b) with a higher value of the smoothing parameter.
 
 ```{figure} _image/1007.png
-:alt: a small value of the smoothing parameter
+:alt: Scatterplot of rating vs price with a wiggly smooth curve from a small smoothing parameter, closely following local bumps in the data
 :align: center
 :width: 70%
 
 ```
 
 ```{figure} _image/1008.png
-:alt: a higher value of the smoothing parameter
+:alt: Scatterplot of rating vs price with a gentler smooth curve from a higher smoothing parameter, rising slightly then flattening
 :align: center
 :width: 70%
 
@@ -264,7 +264,7 @@ Correlation is usually written as $r$.
 
 
 ```{figure} _image/1009.png
-:alt: correlation
+:alt: Six scatterplots with correlations 0, -0.3, 0.5, -0.7, 0.9, and -0.99, points clustering tighter around a line as r nears 1 or -1
 :align: center
 :width: 100%
 

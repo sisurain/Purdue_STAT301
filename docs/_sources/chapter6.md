@@ -6,7 +6,7 @@ Last chapter, we learned that the sampling distribution of the sample mean $\bar
 
 However, in reality, we typically only observe **one sample**, and the sample mean $\bar{X}$ itself is **random**. Using our knowledge of the sampling distribution, we want to assess how far the observed $\bar{x}$ is from the population mean $\mu$, or equivalently, how far the population mean $\mu$ might be from our observed $\bar{x}$. This motivates the need to address **uncertainty** in our estimates of population parameters.
 
-One effective way to quantify this uncertainty is by constructing a <span style="color:#cfb991">**confidence interval**</span>, which provides an <span style="color:#cfb991">**interval estimate**</span> for the population mean. A typical confidence interval for the population mean is expressed as:
+One effective way to quantify this uncertainty is by constructing a <span class="purdue-text">**confidence interval**</span>, which provides an <span class="purdue-text">**interval estimate**</span> for the population mean. A typical confidence interval for the population mean is expressed as:
 ```{math}
 (\bar{x} - \text{Margin of Error}, \bar{x} + \text{Margin of Error}),
 ```
@@ -45,7 +45,7 @@ The first perspective focuses on $\mu$ (the true population parameter) as the un
 
 The probability associated with this range is called the **confidence level** (e.g., 95%). I will discuss the interpretation of this level in detail in the next section. 
 
-For now, I want to briefly introduce a new concept: the <span style="color:#cfb991">**Pivot**</span> or <span style="color:#cfb991">**Pivotal Quantity**</span>. 
+For now, I want to briefly introduce a new concept: the <span class="purdue-text">**Pivot**</span> or <span class="purdue-text">**Pivotal Quantity**</span>. 
 
 A **pivot**, such as $Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$, is a function of the sample and parameters that has a distribution independent of the unknown parameter. Its distribution remains invariant regardless of the value of $\mu$. This property allows us to connect the sample statistic and the population parameter with probability statements, as the distribution of the pivot is known even if the parameter values are not.
 
@@ -67,7 +67,7 @@ For example, the 68-95-99.7 rule tells us that 95% of the area under the normal 
 This illustrates the **second perspective**, where we view $\bar{x}$ as a random variable distributed around the true mean $\mu$. This perspective allows us to build confidence intervals using probability derived from the sampling distribution.
 
 ```{figure} _image/0601.png
-:alt: Example 6.3
+:alt: Normal density curve of the sample mean centered at unknown mu. Shaded middle area shows xbar lies within 9 points of mu in 95 percent of samples
 :align: center
 :width: 60%
 
@@ -90,7 +90,7 @@ We call these **95% confidence intervals** for $\mu$. Since $\bar{x}$ is a rando
 This last point is where many people misinterpret confidence levels-thinking that an individual confidence interval has a **95% probability of containing $\mu$**, when in reality, the **probability statement applies to the process**, not a single interval.
 
 ```{figure} _image/0602.png
-:alt: Example 6.3, 25 Samples
+:alt: Density curve of xbar above 25 horizontal 95 percent confidence intervals from repeated samples. In the long run about 95 percent cover the mean mu
 :align: center
 :width: 50%
 
@@ -130,7 +130,7 @@ The confidence level of this interval is exactly $C$ when the population distrib
 ````
 
 ```{figure} _image/0603.png
-:alt: $C$ level CI
+:alt: Standard Normal curve with central area C between minus z star and z star and tail area 1 minus C over 2 in each tail defining the critical value
 :align: center
 :width: 60%
 
@@ -139,7 +139,7 @@ $C$ level CI
 
 ## Tests of Significance
 
-The second classical statistical method for using sample information to make inferences about the population-**generalization**-is the <span style="color:#cfb991">**hypothesis test**</span>. This method is also closely related to the **pivotal quantity** mentioned earlier. However, in this context, we refer to it as a **pivot statistic**, **test statistic**, or **observed pivot**.
+The second classical statistical method for using sample information to make inferences about the population-**generalization**-is the <span class="purdue-text">**hypothesis test**</span>. This method is also closely related to the **pivotal quantity** mentioned earlier. However, in this context, we refer to it as a **pivot statistic**, **test statistic**, or **observed pivot**.
 
 **Logic of Hypothesis Testing:**
 - The reasoning behind **hypothesis testing** can feel counterintuitive because we begin by assuming an explanation for how the dataset is generated. In this framework, we act as if we are the **Oracle**, knowing the true value of the parameter of interest under the **null hypothesis**, denoted as $H_0$.
@@ -223,7 +223,7 @@ Then, we can use a z-table to find the probability statements like, $\mathbb{P}(
 ````{tab-item} Different $H_a$ 
 
 ```{figure} _image/0604.png
-:alt: Different $H_a$
+:alt: Three Normal curves shading p-value areas, upper tail for mu greater than mu0, lower tail for mu less than mu0, both tails for the two sided test
 :align: center
 :width: 70%
 

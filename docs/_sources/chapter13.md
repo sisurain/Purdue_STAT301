@@ -356,13 +356,13 @@ We use a capital $R$ here to reinforce the fact that this statistic depends on a
 `````{tab-item} Tests
 
 ```{figure} _image/1206.png
-:alt: $t$ tests
+:alt: Textbook box on t confidence intervals and tests for each multiple regression coefficient beta j using t equals bj over SE with n-p-1 df
 :align: center
 :width: 80%
 
 ```
 ```{figure} _image/1207.png
-:alt: $F$ tests
+:alt: Textbook box on the multiple regression ANOVA F test that all beta j equal 0 using F equals MSM over MSE with p and n-p-1 degrees of freedom
 :align: center
 :width: 80%
 

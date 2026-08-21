@@ -138,7 +138,7 @@ Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1 - p_0)}{n}}}.
 - **Decision**: Reject $H_0$ if $|Z| > z_{\alpha/2}$ (two-sided), or the relevant critical $z$ for one-sided tests.
 
 ```{figure} _image/1501.png
-:alt: test for one sample proportion
+:alt: Large-sample z test for a proportion, with the z statistic formula and normal curves shading upper, lower, and two-sided tail P-values
 :align: center
 :width: 80%
 

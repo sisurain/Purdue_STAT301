@@ -1,6 +1,6 @@
 # Chapter 10: Inference for Regression
 
-In this chapter, we will study the <span style="color:#cfb991">**inference for regression**</span>. In the previous chapter, when we had one sample—one dataset—we could plot a regression line in that scatterplot. But what if we have a different sample, a different dataset from the population? We might end up with a different regression line. 
+In this chapter, we will study the <span class="purdue-text">**inference for regression**</span>. In the previous chapter, when we had one sample—one dataset—we could plot a regression line in that scatterplot. But what if we have a different sample, a different dataset from the population? We might end up with a different regression line. 
 
 The values $b_0$ and $b_1$ are our estimates of the true population parameters of the linear model, which are $\beta_0$ and $\beta_1$. Just as we use $\bar{x}$ to estimate $\mu$, we need to calculate the standard errors of our estimates to quantify the sampling variability of our estimates and to conduct similar statistical inference procedures.
 
@@ -67,7 +67,7 @@ $$
 We can visualize this **population regression line** with the figure below:
 
 ```{figure} _image/1201.png
-:alt: population regression line
+:alt: Diagram of the regression model with identical Normal curves of blood pressure decrease centered on the line mu y equals beta0 plus beta1 x
 :align: center
 :width: 100%
 
@@ -246,7 +246,7 @@ H_a: \beta_1 \ne \beta_1^* & \;\Rightarrow\; 2\,P(T \ge |t|).
 ```
 
 ```{figure} _image/1202.png
-:alt: Inference for the Regression Slope
+:alt: Textbook box on slope inference with interval b1 plus or minus t star SE and t curves shading one and two sided P-value tail areas
 :align: center
 :width: 80%
 
@@ -473,7 +473,7 @@ Critical Values and Tables:
 **Figure 10.14** illustrates the density curve for $F(9, 10)$.  
 
 ```{figure} _image/1203.png
-:alt: Figure 10.14
+:alt: Density curve of the F distribution with 9 and 10 degrees of freedom, peaking near 1 and skewed right with a long upper tail
 :align: center
 :width: 80%
 
@@ -514,7 +514,7 @@ ANOVA Table Structure:
 
 
 ```{figure} _image/1204.png
-:alt: ANOVA Table
+:alt: Textbook box on the regression ANOVA F test of beta1 equals 0 using F equals MSM over MSE, with an F curve shading the upper tail P-value
 :align: center
 :width: 80%
 
@@ -634,7 +634,7 @@ H_a\!: \rho \ne 0 & \quad\Rightarrow\quad 2\,P(T \ge |t|).
 If $T$ has a $t(n - 2)$ distribution, then the $P$-value is found by comparing $|t|$ to that distribution.  
 ```
 ```{figure} _image/1205.png
-:alt: Inference for Correlation
+:alt: Textbook box on testing rho equals 0 with t equals r root n minus 2 over root 1 minus r squared and t curves shading P-value tail areas
 :align: center
 :width: 80%
 

@@ -79,11 +79,11 @@ This very high error rate illustrates why performing multiple two-sample tests w
 
 :::
 
-Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span style="color:#cfb991">**whether at least one group mean differs from the others**</span>. 
+Knowing that performing multiple two-sample tests has an inherent drawback—namely, the compounded risk of Type I errors—we must pursue another approach to answer the question of <span class="purdue-text">**whether at least one group mean differs from the others**</span>. 
 
 Recall from our study of sampling distributions that the sample mean, $\bar{X}$, is a random variable whose variability is influenced by both the sample size $n$ and the population standard deviation $\sigma$. Even when drawing different samples from the same population, this inherent variability persists. In our scenario, we suspect that different groups are drawn from populations with different means (while sharing a common standard deviation). This introduces an extra layer of variability among the sample means.
 
-To rigorously examine this question, we need a statistical procedure that formally studies the variation among multiple group means. This leads us to <span style="color:#cfb991">**One-way ANOVA (Analysis of Variance)**</span>. One-way ANOVA is a method used to determine whether there are any statistically significant differences among the means of three or more independent groups. Hence, we will also form a pair of hypotheses and calculate a pivotal quantity (test statistic) to run a hypothesis test to determine whether we have evidence from our dataset to reject $H_0$. The hypotheses are as follows:
+To rigorously examine this question, we need a statistical procedure that formally studies the variation among multiple group means. This leads us to <span class="purdue-text">**One-way ANOVA (Analysis of Variance)**</span>. One-way ANOVA is a method used to determine whether there are any statistically significant differences among the means of three or more independent groups. Hence, we will also form a pair of hypotheses and calculate a pivotal quantity (test statistic) to run a hypothesis test to determine whether we have evidence from our dataset to reject $H_0$. The hypotheses are as follows:
 
 1. The null hypothesis in one-way ANOVA is that all group means are equal:
 
@@ -218,7 +218,7 @@ $$
 Is the observed difference in sample means just the result of chance variation?
 
 ```{figure} _image/0801.png
-:alt: Observed Difference in Sample Mean
+:alt: Line plot of mean completion time in seconds for three controller types; type 2 is lowest near 243 while types 1 and 3 are near 278 and 259
 :align: center
 :width: 70%
 
@@ -230,7 +230,7 @@ Is the observed difference in sample means just the result of chance variation?
 ````{tab-item} Large and Small Within-Group Variation
 
 ```{figure} _image/0802.png
-:alt: Large and Small Within-Group Variation
+:alt: Side by side boxplots of three groups with equal centers; large within-group spread in panel a, small spread in panel b makes differences clearer
 :align: center
 :width: 70%
 
@@ -242,7 +242,7 @@ Is the observed difference in sample means just the result of chance variation?
 ````{tab-item} Pooled Estimator of $\sigma$
 
 ```{figure} _image/0803.png
-:alt: Pooled Estimator of $\sigma$
+:alt: Textbook box defining the pooled sample variance as a weighted average of group variances and its square root sp as the estimate of sigma
 :align: center
 :width: 70%
 
@@ -265,7 +265,7 @@ s_p = \sqrt{\text{MSE}}
 ````{tab-item} One-way ANOVA
 
 ```{figure} _image/0804.png
-:alt: One-way ANOVA
+:alt: Textbook box on one-way ANOVA giving SST equals SSG plus SSE, R squared equals SSG over SST, and degrees of freedom N-1, I-1, and N-I
 :align: center
 :width: 70%
 
@@ -276,7 +276,7 @@ s_p = \sqrt{\text{MSE}}
 ````{tab-item} One-way ANOVA F-test
 
 ```{figure} _image/0805.png
-:alt: One-way ANOVA F-test
+:alt: Textbook box on the one-way ANOVA F test with F equals MSG over MSE and a right-skewed F curve shading the upper tail P-value area
 :align: center
 :width: 70%
 
@@ -287,7 +287,7 @@ s_p = \sqrt{\text{MSE}}
 
 ````{tab-item} JMP ANOVA Output
 ```{figure} _image/0806.png
-:alt: JMP ANOVA Output
+:alt: JMP one-way ANOVA output for Score by Grp with R square 0.0135, F ratio 3.04 on 2 and 444 degrees of freedom, and P-value 0.0489
 :align: center
 :width: 70%
 

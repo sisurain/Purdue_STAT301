@@ -12,15 +12,15 @@ Before we dive into data, there are some important concepts I would like to disc
 
 Let's use a simple scenario to facilitate our discussion. Suppose we want to determine the **average height** of all Purdue students. One way to find this out is by measuring the height of every student at Purdue, recording the data, and then calculating the average. However, this method might be time-consuming, costly, or even infeasible because the total number of students might be too large or constantly changing while we're conducting the measurements.
 
-An alternative approach is to **randomly select** a specific number of students from the entire Purdue student body to form a <span style="color:#cfb991">**SAMPLE**</span>. For instance, let's say we select 1,000 students. Once we have the height measurements for these 1,000 students, we can calculate the **sample average**. 
+An alternative approach is to **randomly select** a specific number of students from the entire Purdue student body to form a <span class="purdue-text">**SAMPLE**</span>. For instance, let's say we select 1,000 students. Once we have the height measurements for these 1,000 students, we can calculate the **sample average**. 
 
-For now, let's not worry about the new terminologies and focus on the big picture. In this setting, we are curious about something related to all Purdue students. This group of all Purdue students is referred to as the <span style="color:#cfb991">**POPULATION**</span>. Since it is impractical to gather measurements for the entire **population**, we instead draw a **sample** from the population to make our observations and calculations.
+For now, let's not worry about the new terminologies and focus on the big picture. In this setting, we are curious about something related to all Purdue students. This group of all Purdue students is referred to as the <span class="purdue-text">**POPULATION**</span>. Since it is impractical to gather measurements for the entire **population**, we instead draw a **sample** from the population to make our observations and calculations.
 
 When you encounter a scenario or question in this course, always remember that the concept of a population is present in the background, whether it is mentioned explicitly or implicitly. In most cases, we do not, or cannot, have all the measurements for the population. If we did, there would be no need to learn most of the statistical techniques introduced later in this course. Instead, we typically form a **sample** from the population and use the information and measurements (data) obtained from the sample to infer or make statements about what we are interested in within the population.
 
 ## Variable and Random Variable
 
-We use these terms so often that we may not have a precise definition of them. The term <span style="color:#cfb991">**variable**</span> will appear as early as the first week of this course. The term <span style="color:#cfb991">**random variable**</span>, on the other hand, is central to probability. Often, we simply refer to it as a **variable** for short. Because these two terms are closely related, students often find them confusing.
+We use these terms so often that we may not have a precise definition of them. The term <span class="purdue-text">**variable**</span> will appear as early as the first week of this course. The term <span class="purdue-text">**random variable**</span>, on the other hand, is central to probability. Often, we simply refer to it as a **variable** for short. Because these two terms are closely related, students often find them confusing.
 
 Using the Purdue students' height example, once we have the measurements from the sample, we have our data or dataset. Let's assume that in addition to **height**, we also collect **age** measurements. Each student in the sample is described by this dataset. In the textbook, the term **cases** is used to refer to the objects described by a set of data. You can think of cases as individual units of observation in the dataset. From this, we can derive a definition for **variable**.
 
@@ -73,7 +73,7 @@ For example, $\mathbb{P}(X < 65)$ or $\mathbb{P}(Height < 65)$ represents the pr
 
 ## Distribution
 
-In the previous section, we learned about **variables** and **random variables**. For both concepts, we can also discuss their **distribution**. In simple terms, a <span style="color:#cfb991">**distribution**</span> describes **how values are spread out** (or how likely different values are) for a given variable or random variable. It defines the **probabilities** associated with different ranges of values that the variable or random variable can take.
+In the previous section, we learned about **variables** and **random variables**. For both concepts, we can also discuss their **distribution**. In simple terms, a <span class="purdue-text">**distribution**</span> describes **how values are spread out** (or how likely different values are) for a given variable or random variable. It defines the **probabilities** associated with different ranges of values that the variable or random variable can take.
 
 * If we have a dataset containing observed values, a **variable** (typically a column in the dataset) has an **empirical distribution** (the frequencies of the observed values).
 * If we have a **random variable**, in probability theory it has a **theoretical probability distribution** (theoretical probabilities of values). In this course, we will also encounter some famous probability distributions.
@@ -90,7 +90,7 @@ Our population consists of all Purdue students, each with a height value. These 
 
 [^footnote02]: We can also use the variance, $\sigma^2$, as an alternative parameter.
 
-In the textbook and this course, the mean $\mu$ and standard deviation $\sigma$ are referred to as the <span style="color:#cfb991">**parameters**</span> associated with the **population**.
+In the textbook and this course, the mean $\mu$ and standard deviation $\sigma$ are referred to as the <span class="purdue-text">**parameters**</span> associated with the **population**.
 
 ```{prf:definition} Parameter
 :label: parameter-definition

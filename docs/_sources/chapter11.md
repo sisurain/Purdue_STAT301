@@ -1,6 +1,6 @@
 # Chapter 2: Least Squares Regression
 
-In the last chapter, we have seen that we can use a straight line to study the strength of the linear relationship between two quantitative variables in the scatterplots. This line is called a <span style="color:#cfb991">**regression line**</span> when one of the variables helps explain or predict the other. That is, regression describes a relationship between a response variable and an explanatory variable. It also allows us to make another type of claim about our dataset (unseen dataset), which is <span style="color:#cfb991">**prediction**</span>. Because for every value on the $x$-axis—even if we don't have a corresponding $x$ value in the dataset—this regression line can still provide a corresponding $y$ value that can be used as the prediction for the unseen $x$ value. Prediction is a hot topic nowadays in the era of AI and Machine Learning.
+In the last chapter, we have seen that we can use a straight line to study the strength of the linear relationship between two quantitative variables in the scatterplots. This line is called a <span class="purdue-text">**regression line**</span> when one of the variables helps explain or predict the other. That is, regression describes a relationship between a response variable and an explanatory variable. It also allows us to make another type of claim about our dataset (unseen dataset), which is <span class="purdue-text">**prediction**</span>. Because for every value on the $x$-axis—even if we don't have a corresponding $x$ value in the dataset—this regression line can still provide a corresponding $y$ value that can be used as the prediction for the unseen $x$ value. Prediction is a hot topic nowadays in the era of AI and Machine Learning.
 
 
 ```{admonition} **Regression Line**  
@@ -38,7 +38,7 @@ There are of course many methods to *draw* a line across the data points in a sc
 
 
 ```{figure} _image/1101.png
-:alt: Regression Lines
+:alt: Scatterplot of Y vs X with three nearly identical fitted lines, OLS least squares, robust, and LAD regression, all showing a strong positive trend
 :align: center
 :width: 100%
 
@@ -54,7 +54,7 @@ In the third plot (bottom right corner), we fit a straight line through these co
 > One thing to notice is that the regression line cannot pass through every data point and conditional mean exactly. For each data point, there is a vertical distance between the point and the line. We can calculate this distance using the formula $e = y - \hat{y}$, which is called the residual.
 
 ```{figure} _image/1102.png
-:alt: Regression Lines
+:alt: Four panels of SAT Math vs Verbal scores, moving from raw scatterplot to conditional means to regression lines summarizing the upward trend
 :align: center
 :width: 100%
 
@@ -64,7 +64,7 @@ In the third plot (bottom right corner), we fit a straight line through these co
 ````{tab-item} Example: IDI and MI
 
 ```{figure} _image/1103.png
-:alt: Scatterplot of IDI and MI
+:alt: Scatterplot of Inclusive Development Index vs median per capita daily income for 15 countries with an upward-sloping regression line
 :align: center
 :width: 70%
 
@@ -77,7 +77,7 @@ In the third plot (bottom right corner), we fit a straight line through these co
 ````{tab-item} Example: Prediction of IDI
 
 ```{figure} _image/1104.png
-:alt: Prediction of IDI
+:alt: Regression line of IDI vs median daily income with dashed arrows showing the predicted IDI of about 5.2 for an income of 40 dollars
 :align: center
 :width: 70%
 
@@ -90,7 +90,7 @@ In the third plot (bottom right corner), we fit a straight line through these co
 ````{tab-item} Example: The Least-Squares Idea
 
 ```{figure} _image/1105.png
-:alt: The Least-Squares Idea
+:alt: Zoomed regression plot marking observed y, predicted y, and the vertical distances whose squared sum the least-squares line minimizes
 :align: center
 :width: 70%
 

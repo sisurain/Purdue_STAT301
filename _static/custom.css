@@ -1,0 +1,29 @@
+/* Purdue-styled emphasis for key terms and concepts.
+   Colors chosen for WCAG 2.1 AA contrast (>= 4.5:1):
+   - Light mode: Purdue "Aged Gold" #8E6F3E on white = 4.67:1
+   - Dark mode: "Boilermaker Gold" #CFB991 on dark = ~10:1 */
+.purdue-text {
+    color: #8E6F3E;
+    font-weight: bold;
+}
+
+html[data-theme="dark"] .purdue-text,
+html[data-mode="dark"] .purdue-text {
+    color: #CFB991;
+}
+
+/* Optional highlight style: black text on Boilermaker Gold (11:1 contrast).
+   Use <span class="purdue-highlight">...</span> for boxed key terms. */
+.purdue-highlight {
+    background-color: #CFB991;
+    color: #000000;
+    font-weight: bold;
+    padding: 0 0.25em;
+    border-radius: 3px;
+}
+
+html[data-theme="dark"] .purdue-highlight,
+html[data-mode="dark"] .purdue-highlight {
+    background-color: #CFB991;
+    color: #000000;
+}

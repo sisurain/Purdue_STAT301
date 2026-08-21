@@ -1,23 +1,14 @@
 # STAT 301 Introduction
 
-<div style="background-color: #f9f9f9; padding: 15px; border-left: 5px solid #cfb991; margin-bottom: 25px;">
-  <strong>📥 For Offline Study:</strong><br>
-  <a href="STAT301_Course_Materials.zip" style="font-weight: bold; font-size: 1.1em; color: #333;">
-    Click here to Download Complete Course Materials (.zip)
-  </a>
-  <br>
-  <em>(Includes all slides, datasets, and code notebooks)</em>
-</div>
-
 These materials accompany the teaching of STAT 301, _Elementary Statistical Methods_, at Purdue University. STAT 301 is a university-wide undergraduate course that serves a large and diverse student body. It is offered throughout the year across all semesters, with both online and in-person versions, taught by multiple instructors.
 
-This short book provides comprehensive materials to meet the needs of different kinds of students. It's understandable that, for some students, this course might be the only statistics course you take, and your goal may simply be to <span style="color:#cfb991; font-weight:bold;">pass the course</span>. Passing the course is one of the minimum expectations I will assume. Therefore, I will explicitly lay out what needs to be done to pass the course. You need to <span style="color:#cfb991">**spend enough time**</span> to complete the minimum assignments and tasks required to pass the course. Otherwise, you will fail unless you have mastered these materials and developed the corresponding statistical skills.[^footnote01]
+This short book provides comprehensive materials to meet the needs of different kinds of students. It's understandable that, for some students, this course might be the only statistics course you take, and your goal may simply be to <span class="purdue-text">pass the course</span>. Passing the course is one of the minimum expectations I will assume. Therefore, I will explicitly lay out what needs to be done to pass the course. You need to <span class="purdue-text">**spend enough time**</span> to complete the minimum assignments and tasks required to pass the course. Otherwise, you will fail unless you have mastered these materials and developed the corresponding statistical skills.[^footnote01]
 
 [^footnote01]: Productivity is always a function of time and technology, with some sort of resource constraints. In our case, and in this country, we are fortunate that study resources are not usually a constraint. The learning materials and in-class or video lectures are opportunities for you to learn technologies from your instructor. However, time is a crucial element, and it is primarily controlled by the student. Most students who fail the course do so because their time investment is insufficient, resulting in minimal productivity. You must spend enough time outside the classroom to understand and master the technologies taught in class.
 
-I hope that for most of you, your goal is to <span style="color:#cfb991">**build a solid foundation in statistics**</span> so that you develop an interest in the subject and might proceed to take more advanced statistics courses. This can be considered as the second level of achievement. You will find relevant materials here to help you overcome the obstacles to understanding the content of this course, enabling you to build a strong foundation. However, this will also require you to put in extra effort to read and digest the materials provided.
+I hope that for most of you, your goal is to <span class="purdue-text">**build a solid foundation in statistics**</span> so that you develop an interest in the subject and might proceed to take more advanced statistics courses. This can be considered as the second level of achievement. You will find relevant materials here to help you overcome the obstacles to understanding the content of this course, enabling you to build a strong foundation. However, this will also require you to put in extra effort to read and digest the materials provided.
 
-Of course, learning does not stop at just building a solid foundation. If your goal-the third level of achievement-is to <span style="color:#cfb991">**fully master the materials**</span> in this course, such as understanding the connections between topics and the sequence of the content, so that you gain a clear picture of the roadmap of the materials, you may find some teaching materials related to this goal. However, there won't be too many because of the organization and structure of this course. Additionally, the assignments and exams are not designed to focus on this level of mastery, which means the tests will not be tricky-a relief for most students.
+Of course, learning does not stop at just building a solid foundation. If your goal-the third level of achievement-is to <span class="purdue-text">**fully master the materials**</span> in this course, such as understanding the connections between topics and the sequence of the content, so that you gain a clear picture of the roadmap of the materials, you may find some teaching materials related to this goal. However, there won't be too many because of the organization and structure of this course. Additionally, the assignments and exams are not designed to focus on this level of mastery, which means the tests will not be tricky-a relief for most students.
 
 The three goals mentioned above can also be interpreted as three progressive levels of understanding the course materials. I will elaborate on this point in the later sections of this introductory chapter.
 
@@ -25,7 +16,7 @@ STAT 301 is an introductory-level statistics course that focuses on introducing 
 
 In terms of the learning experience, I hope everyone aims to achieve the second goal: **building a solid foundation**. This will allow you to complete the assignments and exams more efficiently and achieve better grades.
 
-One more thing I want to mention is that, for introductory-level statistics courses, there are usually two major components. One is the <span style="color:#cfb991">**probability**</span> part (probabilistic reasoning), and the other is the <span style="color:#cfb991">**statistics**</span> part (statistical reasoning). The probability part is fascinating-perhaps God created this world by randomly throwing dice! However, STAT 301 will primarily focus on the latter.
+One more thing I want to mention is that, for introductory-level statistics courses, there are usually two major components. One is the <span class="purdue-text">**probability**</span> part (probabilistic reasoning), and the other is the <span class="purdue-text">**statistics**</span> part (statistical reasoning). The probability part is fascinating-perhaps God created this world by randomly throwing dice! However, STAT 301 will primarily focus on the latter.
 
 Let's use my favorite dice-rolling example to explain these two parts. Suppose we have a standard six-faced die labeled with numbers 1 to 6. We can ask the following questions:
 

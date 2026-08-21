@@ -169,7 +169,7 @@ A very compact result!
 
 
 ```{figure} _image/1601.png
-:alt: two-way table software outputs
+:alt: Least-squares regression line y hat equals b0 plus b1 x, with slope b1 equals r times sy over sx and intercept b0 equals y bar minus b1 x bar
 :align: center
 :width: 100%
 

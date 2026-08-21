@@ -1,6 +1,6 @@
 # Chapter 13: Two Way ANOVA
 
-One-way ANOVA examines the differences in a continuous response variable across groups defined by a **single** categorical factor. <span style="color:#cfb991">**Two-way ANOVA**</span> extends this framework to study the effects of **two** categorical factors on a continuous response variable, and it also allows for the evaluation of an <span style="color:#cfb991">**interaction effect**</span> between the two factors.
+One-way ANOVA examines the differences in a continuous response variable across groups defined by a **single** categorical factor. <span class="purdue-text">**Two-way ANOVA**</span> extends this framework to study the effects of **two** categorical factors on a continuous response variable, and it also allows for the evaluation of an <span class="purdue-text">**interaction effect**</span> between the two factors.
 
 
 **Why Use Two-Way ANOVA?**
@@ -282,7 +282,7 @@ $$
     For an interaction to be meaningful, each factor must have at least two levels. One level typically serves as a benchmark, allowing the differences—and thus the interaction—to be observed.
 
 ```{figure} _image/0901.png
-:alt: Interaction Plot
+:alt: Interaction plot of mean daily calories from sugar-sweetened beverages by age group in 2010 and 2016, with the largest drop among adolescents
 :align: center
 :width: 70%
 
@@ -507,7 +507,7 @@ Inference for two-way ANOVA naturally includes an *F* statistic for each of thw 
 This example comes from a study of cardiovascular risk factors that compared runners (who averaged at least 15 miles per week) with a control group described as "generally sedentary." Both men and women were included in the study. The design is a $2 \times 2$ ANOVA with the factors Group (Control vs. Runners) and Sex (Female vs. Male). There were 200 subjects in each of the four combinations, and one of the variables measured was the heart rate (HR) after six minutes of exercise on a treadmill.
 
 ```{figure} _image/0902.png
-:alt: A Study of Cardiovascular Risk Factors
+:alt: JMP output for the heart rate study with subgroup summary statistics and two way ANOVA showing significant Sex, Group, and interaction effects
 :align: center
 :width: 70%
 
