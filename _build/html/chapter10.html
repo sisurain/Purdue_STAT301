@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationships">10.1. Relationships</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots">10.2. Scatterplots</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">10.3. Correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-from-two-columns-of-numbers-to-a-defensible-sentence">10.4. Putting It All Together: From Two Columns of Numbers to a Defensible Sentence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">10.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -494,13 +496,32 @@
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 2</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Make and interpret a <strong>scatterplot</strong>, describing a relationship by its <strong>form</strong>, <strong>direction</strong>, and <strong>strength</strong>, and spotting <strong>outliers</strong>.</p></li>
+<li><p>Add a <strong>categorical variable</strong> to a scatterplot, and use <strong>smoothing</strong> and the <strong>log transformation</strong> when the pattern is real but not a line.</p></li>
+<li><p>Compute and interpret the <strong>correlation</strong> <span class="math notranslate nohighlight">\(r\)</span>, including its meaning as an <em>average product of z-scores</em>.</p></li>
+<li><p>State the properties and cautions of <span class="math notranslate nohighlight">\(r\)</span>: linear relationships only, no units, not resistant to outliers, no explanatory/response distinction, correlations of averages run high, and association is not causation.</p></li>
+<li><p>Choose the right tool for the pair of variables in front of you: two quantitative variables call for correlation; a quantitative response across categories calls for ANOVA-style comparison.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch10-relationships"><span class="std std-ref">Relationships</span></a> · <a class="reference internal" href="#ch10-scatterplots"><span class="std std-ref">Scatterplots</span></a> · <a class="reference internal" href="#ch10-correlation"><span class="std std-ref">Correlation</span></a> · <a class="reference internal" href="#ch10-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>ANOVA compares a quantitative response across <strong>categories</strong> — reaction time across three diets, heights across colleges. The explanatory variable was a set of labeled boxes. But what if the explanatory variable is itself <strong>quantitative</strong>? Does caffeine <strong>dose</strong> change reaction time — not “caffeine vs. decaf,” but 0 mg, 50 mg, 120 mg, 200 mg, <em>any</em> value on a continuum? Side-by-side boxplots can no longer hold all the possibilities: the categories melt into an <strong>axis</strong>. Plot dose on one axis and reaction time on the other, one point per subject, and you have this chapter’s central picture — the <strong>scatterplot</strong>.</p>
+</div>
 <p>In the previous chapters, we mainly focused on exploring the distributions of a single variable and studying statistical procedures related to that one variable or the mean of a single response variable.</p>
 <p>Many interesting problems, however, arise when we wish to explore the relationships among two or more variables. Starting from this chapter, we will learn some graphing techniques and modeling techniques for studying the <span class="purdue-text"><strong>relationships among variables</strong></span>.</p>
 <p>In general, if two variables have no relationship at all, we say that the variables are <span class="purdue-text"><strong>independent</strong></span>. Two variables are statistically independent if the occurrence (or value) of one does not provide any information about the occurrence (or value) of the other. In many real-world situations, true independence is rare because various factors often interrelate.</p>
 <p>When variables are not independent, they are considered <span class="purdue-text"><strong>dependent</strong></span>; that is, knowing something about one variable gives you some information about the other. If two variables are dependent, then we say they have some kind of relationship.</p>
 <p>In this course, we focus on the basic and most common type of relationship: the linear relationship. Among all types of relationships, we explore <strong>association</strong> and learn some basic tools to quantify it. We also touch on using <strong>linear regression modeling techniques</strong> to analyze associations and use the models as tools for prediction. Of course, there are other types of relationships among variables, such as <strong>causal relationships</strong>, which go beyond mere association.</p>
 <section id="relationships">
-<h2><span class="section-number">10.1. </span>Relationships<a class="headerlink" href="#relationships" title="Link to this heading">#</a></h2>
+<span id="ch10-relationships"></span><h2><span class="section-number">10.1. </span>Relationships<a class="headerlink" href="#relationships" title="Link to this heading">#</a></h2>
 <div class="note admonition">
 <p class="admonition-title"><strong>Association between Variables</strong></p>
 <p>Two variables measured on the same cases are <strong>associated</strong> if knowing the value of one of the variables tells you something about the value of the other variable.</p>
@@ -517,14 +538,64 @@ between two variables should include:</p>
 </div>
 </section>
 <section id="scatterplots">
-<h2><span class="section-number">10.2. </span>Scatterplots<a class="headerlink" href="#scatterplots" title="Link to this heading">#</a></h2>
+<span id="ch10-scatterplots"></span><h2><span class="section-number">10.2. </span>Scatterplots<a class="headerlink" href="#scatterplots" title="Link to this heading">#</a></h2>
 <p>The most common way to display the relationship between two quantitative variables is by using a <em>scatterplot</em>. It helps us to describe the form and strength of the association.</p>
 <div class="note admonition">
 <p class="admonition-title"><strong>Scatterplot</strong></p>
 <p>A <strong>scatterplot</strong> shows the relationship between two quantitative variables measured on the same cases. The values of one variable appear on the horizontal axis, and the values of the other variable appear on the vertical axis. Each case in the data appears as the point in the plot determined by the values of both variables for that case.</p>
 </div>
 <p>Always plot the explanatory variable, if there is one, on the horizontal axis (the <span class="math notranslate nohighlight">\(x\)</span> axis) of a scatterplot. We usually call the explanatory variable <span class="math notranslate nohighlight">\(x\)</span> and the response variable <span class="math notranslate nohighlight">\(y\)</span>. If there is no explanatory-response distinction, either variable can go on the horizontal axis. Time plots are special scatterplots where the explanatory variable <span class="math notranslate nohighlight">\(x\)</span> is a measure of time.</p>
-<div class="sd-tab-set docutils">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: shoe size and height — our running dataset</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Back to the heights of Purdue students. Suppose we suspect that students with bigger feet tend to be taller, and we record shoe size (US) and height (inches) for <span class="math notranslate nohighlight">\(n = 8\)</span> students:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Student</p></th>
+<th class="head"><p class="sd-card-text">1</p></th>
+<th class="head"><p class="sd-card-text">2</p></th>
+<th class="head"><p class="sd-card-text">3</p></th>
+<th class="head"><p class="sd-card-text">4</p></th>
+<th class="head"><p class="sd-card-text">5</p></th>
+<th class="head"><p class="sd-card-text">6</p></th>
+<th class="head"><p class="sd-card-text">7</p></th>
+<th class="head"><p class="sd-card-text">8</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Shoe size <span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td><p class="sd-card-text">6</p></td>
+<td><p class="sd-card-text">7</p></td>
+<td><p class="sd-card-text">8</p></td>
+<td><p class="sd-card-text">8.5</p></td>
+<td><p class="sd-card-text">9</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">11</p></td>
+<td><p class="sd-card-text">12</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Height <span class="math notranslate nohighlight">\(y\)</span></p></td>
+<td><p class="sd-card-text">64</p></td>
+<td><p class="sd-card-text">65</p></td>
+<td><p class="sd-card-text">68</p></td>
+<td><p class="sd-card-text">66</p></td>
+<td><p class="sd-card-text">70</p></td>
+<td><p class="sd-card-text">69</p></td>
+<td><p class="sd-card-text">72</p></td>
+<td><p class="sd-card-text">74</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">Run the checklist from the box above: the <strong>cases</strong> are the 8 students; both variables are <strong>quantitative</strong>; shoe size is the natural <strong>explanatory</strong> variable (it is easier to observe, and we will later use it to <em>predict</em> height), so it goes on the <span class="math notranslate nohighlight">\(x\)</span>-axis.</p>
+<p class="sd-card-text">Sketch these 8 points (really — do it on paper). Then describe what you see the same way you would describe a distribution, but with the new vocabulary:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Form:</strong> the points drift upward in a roughly straight-line band — a <strong>linear</strong> form.</p></li>
+<li><p class="sd-card-text"><strong>Direction:</strong> larger shoe sizes come with taller students — a <strong>positive</strong> association.</p></li>
+<li><p class="sd-card-text"><strong>Strength:</strong> the points hug the imaginary line fairly tightly, but not perfectly — student 4 (size 8.5, only 66 inches) sits visibly below the trend. <strong>Fairly strong</strong>.</p></li>
+</ul>
+<p class="sd-card-text">Notice the association is a statement about <em>tendency</em>, not a rule: student 4 is shorter than student 3 despite bigger feet. We will keep these same 8 students for the whole chapter — and fit a line through them in the next one.</p>
+</div>
+</details><div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Example: Scatterplot for laundry detergents</label><div class="sd-tab-content docutils">
@@ -580,6 +651,21 @@ Adding Categorical Variables to Scatterplots</label><div class="sd-tab-content d
 </a>
 </figure>
 </div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (the detergent scatterplots, step by step)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The three detergent plots in the tabs above are a miniature course in reading scatterplots. Walk through them in order:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>First plot (all 53 detergents):</strong> start at the axes — price per load (explanatory) runs along <span class="math notranslate nohighlight">\(x\)</span>, rating (response) up <span class="math notranslate nohighlight">\(y\)</span>. Each dot is one detergent. Before judging any trend, scan for <strong>deviations</strong>: one detergent sits far to the right (near 56 cents per load), detached from the cloud. That is an <strong>outlier</strong> in the <span class="math notranslate nohighlight">\(x\)</span> direction, and your eye’s sense of the trend is being dragged by it.</p></li>
+<li><p class="sd-card-text"><strong>Second plot (outlier removed):</strong> now judge the <strong>overall pattern</strong>. The cloud drifts weakly upward — a positive direction — but the points scatter widely around any line you imagine. Form: roughly linear. Strength: weak.</p></li>
+<li><p class="sd-card-text"><strong>Third plot (with fitted line):</strong> the line makes the direction unmistakable (it slopes up), but do not let it fool you about strength — the line is equally confident-looking whether points hug it or scatter far from it. <strong>Strength is read from the scatter around the line, never from the line itself.</strong></p></li>
+</ul>
+<p class="sd-card-text">Reading order to internalize: axes → individual points and outliers → overall pattern (form, direction, strength) → only then any fitted summary.</p>
+</div>
+</details><div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The detergent line and the shoe-size band were straight. But nature does not sign a contract to be linear: the body absorbs calcium eagerly at low intakes and then hits diminishing returns; learning curves shoot up and flatten; growth is S-shaped. <strong>What if the pattern is real but not a line?</strong> Two honest options: bend the <em>summary</em> to fit the data (smoothing), or bend the <em>data</em> until the pattern straightens (transformation). The next figures show both.</p>
 </div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
@@ -643,7 +729,11 @@ Scatterplot Smoothers</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="correlation">
-<h2><span class="section-number">10.3. </span>Correlation<a class="headerlink" href="#correlation" title="Link to this heading">#</a></h2>
+<span id="ch10-correlation"></span><h2><span class="section-number">10.3. </span>Correlation<a class="headerlink" href="#correlation" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Look again at the 8-student scatterplot. Your eye says “positive, fairly strong.” Mine says “moderate.” A classmate, squinting at a version with stretched axes, says “very strong.” All three of us are looking at the same 8 points — and the scale of the plot alone can change what our eyes report. <strong>We need a number that settles it</strong>: one that everyone computes from the data the same way, that does not care how the axes are drawn, and that lands on the same value for all of us. That number is the correlation <span class="math notranslate nohighlight">\(r\)</span>.</p>
+</div>
 <p>We have data on variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, two quantitative variables for <span class="math notranslate nohighlight">\(n\)</span> cases.</p>
 <ul class="simple">
 <li><p>Example: Measuring <strong>height</strong> and <strong>weight</strong> of <span class="math notranslate nohighlight">\(n\)</span> people.</p></li>
@@ -737,11 +827,144 @@ Correlation is usually written as <span class="math notranslate nohighlight">\(r
 </ul>
 </li>
 </ul>
-<figure class="align-center">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: r as an average product of z-scores, by hand</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The formula stops being mysterious the moment you compute it once by hand. Take just four students (a subset small enough to do honestly): shoe sizes <span class="math notranslate nohighlight">\(x = 6, 8, 10, 12\)</span> and heights <span class="math notranslate nohighlight">\(y = 64, 66, 71, 71\)</span>.</p>
+<p class="sd-card-text">First the ingredients: <span class="math notranslate nohighlight">\(\bar{x} = 9\)</span>, <span class="math notranslate nohighlight">\(\bar{y} = 68\)</span>, <span class="math notranslate nohighlight">\(s_x \approx 2.58\)</span>, <span class="math notranslate nohighlight">\(s_y \approx 3.56\)</span>. Now standardize each coordinate and multiply:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Student</p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(y_i\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(z_x = \frac{x_i - \bar{x}}{s_x}\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(z_y = \frac{y_i - \bar{y}}{s_y}\)</span></p></th>
+<th class="head"><p class="sd-card-text">product <span class="math notranslate nohighlight">\(z_x z_y\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">1</p></td>
+<td><p class="sd-card-text">6</p></td>
+<td><p class="sd-card-text">64</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(-1.16\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(-1.12\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+1.31\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">2</p></td>
+<td><p class="sd-card-text">8</p></td>
+<td><p class="sd-card-text">66</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(-0.39\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(-0.56\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+0.22\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">3</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">71</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+0.39\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+0.84\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+0.33\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">4</p></td>
+<td><p class="sd-card-text">12</p></td>
+<td><p class="sd-card-text">71</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+1.16\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+0.84\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(+0.98\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[
+r = \frac{1}{n-1}\sum z_x z_y = \frac{1.31 + 0.22 + 0.33 + 0.98}{3} \approx \frac{2.83}{3} \approx 0.94
+\]</div>
+<p class="sd-card-text">Watch <em>why</em> it works. Student 1 is below average in <strong>both</strong> shoe size and height: two negative z-scores, so their product is <strong>positive</strong>. Student 4 is above average in both: two positives, again a <strong>positive</strong> product. Points in the lower-left and upper-right quadrants (relative to the point of means) vote <em>for</em> a positive association; points in the other two quadrants would contribute <strong>negative</strong> products and vote against. The correlation is simply the average of the votes — that is why tight “low-with-low, high-with-high” patterns push <span class="math notranslate nohighlight">\(r\)</span> toward <span class="math notranslate nohighlight">\(+1\)</span>.</p>
+<p class="sd-card-text">And because everything is in z-scores, <span class="math notranslate nohighlight">\(r\)</span> has <strong>no units</strong>: measure height in centimeters instead of inches and every <span class="math notranslate nohighlight">\(z_y\)</span> — hence <span class="math notranslate nohighlight">\(r\)</span> — is unchanged.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: r for the eight students</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For the full 8-student dataset from the scatterplot section, software (or patient arithmetic) gives <span class="math notranslate nohighlight">\(\bar{x} = 8.94\)</span>, <span class="math notranslate nohighlight">\(\bar{y} = 68.5\)</span>, <span class="math notranslate nohighlight">\(s_x \approx 2.01\)</span>, <span class="math notranslate nohighlight">\(s_y \approx 3.46\)</span>, and</p>
+<div class="math notranslate nohighlight">
+\[
+r \approx 0.95.
+\]</div>
+<p class="sd-card-text">This settles the argument from the section opener: not “fairly strong” versus “moderate,” but <span class="math notranslate nohighlight">\(0.95\)</span> — a strong positive linear association, for everyone, on any axis scale. (Keep this number; the regression chapter reuses every ingredient in it.)</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: a negative association — height and legroom comfort</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Positive associations dominate our examples, so here is a negative one. Ask the same 8 students to rate how comfortable the back seat of a compact car feels on a 0–10 scale. Plausible data, from shortest to tallest student (heights 62 to 76 inches): ratings <span class="math notranslate nohighlight">\(9, 9, 8, 7, 6, 5, 3, 2\)</span>. Taller students fold themselves into less legroom, so <strong>above-average heights accompany below-average comfort</strong>: the scatterplot slopes <em>down</em>, most products of z-scores are negative, and the correlation computes to <span class="math notranslate nohighlight">\(r \approx -0.98\)</span> — a strong <strong>negative</strong> association. Note what the sign does and does not say: it gives the <em>direction</em> of the linear relationship; the <em>strength</em> is carried by how close <span class="math notranslate nohighlight">\(|r|\)</span> is to 1, and <span class="math notranslate nohighlight">\(r = -0.98\)</span> is every bit as strong as <span class="math notranslate nohighlight">\(r = +0.98\)</span>.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “<span class="math notranslate nohighlight">\(r = 0\)</span> (or near 0) means the two variables have no relationship.”</p>
+<p><strong>In fact:</strong> <span class="math notranslate nohighlight">\(r\)</span> measures <strong>linear</strong> relationship only. A variable can <em>determine</em> another exactly and still have correlation zero, if the pattern is curved.</p>
+<p><strong>Quick check:</strong> take <span class="math notranslate nohighlight">\(x = -3, -2, -1, 0, 1, 2, 3\)</span> and let <span class="math notranslate nohighlight">\(y = x^2\)</span> — a perfect U-shape where <span class="math notranslate nohighlight">\(y\)</span> is completely determined by <span class="math notranslate nohighlight">\(x\)</span>. Compute (or trust the symmetry): the positive products from the right arm exactly cancel the negative products from the left arm, and <span class="math notranslate nohighlight">\(r = 0\)</span> <em>exactly</em>. This is why you must <strong>always plot the data first</strong> — the correlation comes second.</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Correlation is the general-purpose tool for any two variables — I can ask for the correlation between height and college.”</p>
+<p><strong>In fact:</strong> correlation is defined only when <strong>both variables are quantitative</strong> — the formula needs a mean and a standard deviation for each, and “College of Engineering” has neither. “The correlation between height and college” is not wrong so much as <em>meaningless</em>.</p>
+<p><strong>Quick check:</strong> what is the right tool for “does height differ across colleges”? A quantitative response compared across <strong>categories</strong> — that is exactly the side-by-side comparison of the ANOVA chapter, not a scatterplot. Match the tool to the variable types: two quantitative → scatterplot and <span class="math notranslate nohighlight">\(r\)</span>; quantitative response vs. categorical explanatory → boxplots and ANOVA.</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “With <span class="math notranslate nohighlight">\(r = 0.95\)</span>, surely big feet <em>make</em> students tall — a correlation this strong must mean causation.”</p>
+<p><strong>In fact:</strong> no value of <span class="math notranslate nohighlight">\(r\)</span>, however close to <span class="math notranslate nohighlight">\(\pm 1\)</span>, establishes causation — recall the chocolate–Nobel correlation of Chapter 3, where national wealth drove both. (Here, overall body size and genetics drive both foot length and height.)</p>
+<p><strong>Quick check:</strong> would stretching students’ feet make them taller? The absurdity is the point — revisit Chapter 3’s lurking-variable diagrams whenever a strong <span class="math notranslate nohighlight">\(r\)</span> tempts you.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Caution: the correlation of averages runs high</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The last bullet above deserves its own demonstration. Suppose that instead of individual students we only had <strong>group averages</strong> — say, the average shoe size and average height in each of 5 residence halls. Averaging washes out the individual-to-individual scatter (the short student with big feet cancels the tall one with small feet), and only the smooth group-level trend survives. In one simulation of 100 students split across 5 halls, the correlation for the <strong>individuals</strong> was <span class="math notranslate nohighlight">\(r = 0.75\)</span>, but the correlation of the five <strong>hall averages</strong> was <span class="math notranslate nohighlight">\(r = 0.99\)</span>. Same underlying relationship — dramatically inflated correlation. So when a report announces a striking correlation, always ask: <em>correlation of what — individuals, or averages?</em> A conclusion about averages does <strong>not</strong> transfer to individuals.</p>
+</div>
+</details><figure class="align-center">
 <a class="reference internal image-reference" href="_images/1009.png"><img alt="Six scatterplots with correlations 0, -0.3, 0.5, -0.7, 0.9, and -0.99, points clustering tighter around a line as r nears 1 or -1" src="_images/1009.png" style="width: 100%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (six correlations, two dials)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This panel is your calibration chart — the one to reconstruct mentally whenever someone quotes a correlation. Every plot is decoded by exactly two dials:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>The tightness dial reads <span class="math notranslate nohighlight">\(|r|\)</span>.</strong> Ignore signs for a moment and scan how snugly the cloud wraps its imaginary line. At <span class="math notranslate nohighlight">\(r = 0\)</span> the plot is a formless blob — knowing <span class="math notranslate nohighlight">\(x\)</span> tells you nothing (linear) about <span class="math notranslate nohighlight">\(y\)</span>. At <span class="math notranslate nohighlight">\(|r| = 0.3\)</span> you can barely convince yourself there is a tilt. By <span class="math notranslate nohighlight">\(|r| = 0.7\)</span> the trend is unmistakable but predictions are still sloppy; at <span class="math notranslate nohighlight">\(|r| = 0.9\)</span> the band is tight; at <span class="math notranslate nohighlight">\(|r| = 0.99\)</span> the points all but <em>are</em> the line. Note how nonuniform the dial is: the visual jump from <span class="math notranslate nohighlight">\(0.9\)</span> to <span class="math notranslate nohighlight">\(0.99\)</span> is enormous, while <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(0.3\)</span> is barely perceptible — correlation is not an evenly-spaced “percent of strength.”</p></li>
+<li><p class="sd-card-text"><strong>The tilt direction reads the sign.</strong> Clouds drifting up-to-the-right (<span class="math notranslate nohighlight">\(0.5\)</span>, <span class="math notranslate nohighlight">\(0.9\)</span>) are positive; down-to-the-right (<span class="math notranslate nohighlight">\(-0.3\)</span>, <span class="math notranslate nohighlight">\(-0.7\)</span>, <span class="math notranslate nohighlight">\(-0.99\)</span>) are negative. The sign says nothing about strength: <span class="math notranslate nohighlight">\(-0.99\)</span> is far <em>stronger</em> than <span class="math notranslate nohighlight">\(+0.5\)</span>.</p></li>
+</ul>
+<p class="sd-card-text">Two deliberate features of the panel: all six plots use the <strong>same axis scales</strong> (so your eye’s tightness judgments are comparable — remember, rescaling axes fools the eye but never changes <span class="math notranslate nohighlight">\(r\)</span>), and none of the patterns is curved (for curved patterns, this chart — and <span class="math notranslate nohighlight">\(r\)</span> itself — is the wrong tool).</p>
+<p class="sd-card-text">Calibrate yourself: our 8 students at <span class="math notranslate nohighlight">\(r = 0.95\)</span> should look slightly tighter than the <span class="math notranslate nohighlight">\(0.9\)</span> panel. Sketch where they would sit.</p>
+</div>
+</details></section>
+<section id="putting-it-all-together-from-two-columns-of-numbers-to-a-defensible-sentence">
+<span id="ch10-together"></span><h2><span class="section-number">10.4. </span>Putting It All Together: From Two Columns of Numbers to a Defensible Sentence<a class="headerlink" href="#putting-it-all-together-from-two-columns-of-numbers-to-a-defensible-sentence" title="Link to this heading">#</a></h2>
+<p>Let’s run the whole chapter through the shoe-size data, in the order you should <em>always</em> work.</p>
+<blockquote>
+<div><p><em>Do students with bigger feet tend to be taller? You have shoe size and height for 8 students.</em></p>
+</div></blockquote>
+<p><strong>Step 1 — Describe the data before touching it.</strong> Cases: 8 students. Both variables quantitative (so scatterplot and correlation are legal tools — this is the checkpoint the “height and college” question fails). Explanatory: shoe size; response: height.</p>
+<p><strong>Step 2 — Plot first.</strong> Scatterplot with shoe size on <span class="math notranslate nohighlight">\(x\)</span>. Look for the overall pattern and deviations: linear form, positive direction, fairly strong, no wild outliers — though student 4 (size 8.5, 66 inches) reminds us the pattern is a tendency, not a law. <em>This step is not optional</em>: a U-shaped pattern or a lurking outlier would change everything that follows, and only the plot can reveal them.</p>
+<p><strong>Step 3 — Only now, compute.</strong> <span class="math notranslate nohighlight">\(r \approx 0.95\)</span>: a strong positive linear association, confirming and sharpening the eye’s verdict. Standardization means this number would survive a switch to centimeters and European shoe sizes untouched.</p>
+<p><strong>Step 4 — Say exactly what you may say.</strong> “Among these 8 students, shoe size and height have a strong positive linear association (<span class="math notranslate nohighlight">\(r \approx 0.95\)</span>): students with larger shoe sizes tend to be taller.” What you may <em>not</em> say: that big feet cause height (lurking variables — overall body size — from Chapter 3), or that this holds for all Purdue students (8 students are a tiny sample; inference waits for later chapters), or anything about <em>individuals</em> if your <span class="math notranslate nohighlight">\(r\)</span> had come from group averages.</p>
+<p><strong>Step 5 — Feel the limit of <span class="math notranslate nohighlight">\(r\)</span>.</strong> The correlation certifies that a line is a good summary and says how tightly the points hold to it — but it names no line. <em>Which</em> line? Predicting <em>what height</em> for a size-10 student? That question — prediction — is precisely where the next chapter begins.</p>
 </section>
+<section id="check-your-understanding">
+<h2><span class="section-number">10.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. A classmate reports “the correlation between height and favorite dining court is r = 0.32.” What two things are wrong?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">First, the correlation is meaningless: dining court is a <strong>categorical</strong> variable, and <span class="math notranslate nohighlight">\(r\)</span> is defined only for two quantitative variables. Second, the right analysis for “does height differ by dining court?” is a comparison of the quantitative response across categories — side-by-side boxplots and ANOVA, not correlation. (Software will happily compute nonsense if the categories are coded 1, 2, 3 — the burden of checking variable types is on you.)</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. A dataset of daily temperature (x) and campus heating-plus-cooling energy use (y) gives r ≈ 0. Energy clearly depends on temperature. What happened?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Think about the shape: energy use is <em>high</em> on very cold days (heating) and <em>high</em> on very hot days (cooling), with a minimum at mild temperatures — a U-shaped, strongly <em>nonlinear</em> relationship. Just like <span class="math notranslate nohighlight">\(y = x^2\)</span> on <span class="math notranslate nohighlight">\(x = -3, \dots, 3\)</span>, the positive and negative z-score products cancel and <span class="math notranslate nohighlight">\(r\)</span> lands near 0 even though the relationship is strong. The failure was skipping the scatterplot: <span class="math notranslate nohighlight">\(r\)</span> was never the right summary for this pattern.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. You convert the 8 students’ heights from inches to centimeters and swap the axes (height on x, shoe size on y). What happens to r, and why?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Nothing — <span class="math notranslate nohighlight">\(r \approx 0.95\)</span> both times. Changing units multiplies each deviation <em>and</em> the standard deviation by the same factor, so every z-score is unchanged. And the formula multiplies <span class="math notranslate nohighlight">\(z_x z_y\)</span> symmetrically, so exchanging the roles of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> leaves the products — hence <span class="math notranslate nohighlight">\(r\)</span> — identical: correlation makes no explanatory/response distinction. (Foreshadowing: in the next chapter the <em>regression line</em> will <strong>not</strong> share this symmetry.)</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -813,6 +1036,8 @@ Correlation is usually written as <span class="math notranslate nohighlight">\(r
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationships">10.1. Relationships</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots">10.2. Scatterplots</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">10.3. Correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-from-two-columns-of-numbers-to-a-defensible-sentence">10.4. Putting It All Together: From Two Columns of Numbers to a Defensible Sentence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">10.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

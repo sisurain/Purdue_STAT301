@@ -5,6 +5,28 @@
 This chapter corresponds to **Chapter 1** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
 ```
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Classify variables as **categorical** or **quantitative** and choose an appropriate graph (bar graph/pie chart vs. **stemplot**/**histogram**).
+* Describe a distribution in words — **shape** (modes, symmetry, skewness), **center**, **spread** — and flag **outliers**.
+* Compute and interpret the **mean**, **median**, **quartiles**, **IQR**, **five-number summary**, **standard deviation**, and know which measures are **resistant**.
+* Draw and read **boxplots**, and apply the **1.5 × IQR rule** for suspected outliers.
+* Explain what a **density curve** is and how a histogram approaches one as data accumulate.
+* Use the **Normal distribution**: the **68–95–99.7 rule**, **standardizing** ($z$-scores), the **z-table**, and backwards (inverse) Normal calculations.
+* Judge whether data look Normal using a **Normal quantile plot**.
+```
+
+```{admonition} Key concepts at a glance
+:class: note
+[Displaying distributions with graphs](ch4-graphs) · [Describing distributions with numbers](ch4-numbers) · [Density curves and Normal distributions](ch4-density) · [Putting it all together](ch4-together)
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+Your well-designed survey from the last chapter did its job: the data have arrived. Specifically, 60 randomly chosen fifth-grade students took an IQ test, and you are handed a wall of 60 raw numbers (you will meet this exact table shortly). **What is the very first thing a statistician does with fresh data?** Not a hypothesis test, not a fancy model — always the same first move: *look at it.* This chapter is about how to look: with pictures first, then with a few well-chosen numbers.
+```
+
 Before examining the distributions of our dataset (usually our sample dataset), we first need to understand what we can do with the dataset. The initial step involves calculating some values or creating graphs to describe our data. We use statistical tools and ideas help us examine data to describe their main features. This examination is called <span class="purdue-text">**exploratory data analysis**</span>. In some textbooks, this is referred to as <span class="purdue-text">**descriptive statistics**</span>. However, statistics goes far beyond simply describing data-this is a statistics class, not a drawing class! 
 
 Beyond description, we can use the data to make generalizations about the population, study the causal effects of variables of interest, and make predictions about future data points. These activities fall under <span class="purdue-text">**inferential statistics**</span>, which we will spend more time on throughout the course. 
@@ -25,7 +47,13 @@ Before we dive into the types of graphs, let's first look at the types of data w
 
 A dataset typically contains information on a number of **cases**. Cases are the objects or subjects in a study. For each case, we have measurements for different types of variables, such as height, gender, and age. Additionally, there is often a **label**, which is a special variable used to identify cases in the dataset (e.g., a VIN number to identify a specific car).
 
+(ch4-graphs)=
 ## Displaying Distributions with Graphs
+
+```{admonition} A question before this section
+:class: bridge
+Stare at a table of 60 IQ scores and try to answer: *What is a typical score? Are the scores tightly packed or widely scattered? Is anyone unusual?* You cannot — the human eye is nearly useless at reading **shape** from a table of digits. But it is superb at reading shape from a **picture**. The whole craft of this section is turning a wall of numbers into a picture whose shape your eye can grasp in one glance.
+```
 
 Two frequently used graphs to describe categorical variables are **bar graphs** and **pie charts**. 
 
@@ -37,6 +65,18 @@ Both are easy to understand, and you can refer to Wikipedia or your textbook for
 Now let's turn our focus to graphs for quantitative variables: **stemplots** and **histograms**.
 
 A **stemplot** provides a quick visual representation of the shape of a distribution while also including the actual numerical values. Stemplots work best when the number of observations is small; they are typically used for positive values, though negative values can be handled with negative stems.
+
+:::{dropdown} Example: a stemplot of ten Purdue heights
+:open:
+You measure 10 Purdue students (heights in inches): 66, 71, 68, 77, 70, 62, 73, 68, 65, 69. Use the tens digit as the **stem** and the units digit as the **leaf**, with leaves ordered outward:
+
+```
+6 | 2 5 6 8 8 9
+7 | 0 1 3 7
+```
+
+Rotate the page 90° counterclockwise and the stemplot *is* a small histogram — yet no information was thrown away: every original data value can be read back off the plot (the leaf "7" on stem 7 is the 77-inch student). That double duty — shape *and* the raw numbers — is why stemplots are the tool of choice for small datasets.
+:::
 
 
 `````{tab-set}
@@ -127,12 +167,32 @@ For a large number of observations, a **histogram** is often a better choice. A 
 
 `````
 
+:::{dropdown} How to read this figure (building the IQ histogram, Steps 1–3)
+:open:
+The three "Histogram Step" tabs show one histogram being *built*, and reading them in order is the best way to understand what a histogram really is:
+
+* **Step 1 (classes):** the number line of possible IQ scores is cut into equal-width **classes** of 10 points — $75 \le \text{IQ} < 85$, $85 \le \text{IQ} < 95$, and so on up to 155. The choice of boundaries guarantees every one of the 60 scores lands in *exactly one* class (a score of 85 goes in the 85–95 class, not the 75–85 class).
+* **Step 2 (counting):** the frequency table tallies how many students fall in each class. The largest count is **16 students** in the 105–115 class. At this point the raw values are gone — we have traded individual scores for counts, which is exactly the simplification that makes large datasets readable.
+* **Step 3 (drawing):** each class becomes a bar. The **horizontal axis** is the measurement scale (IQ score), the **vertical axis** is the count, and bars touch because the classes tile the whole interval with no gaps. Now the shape leaps out: a single peak near 110, roughly symmetric slopes on either side, tails reaching about 81 on the left and 145 on the right.
+
+**Takeaway:** a histogram is a *count of the data organized by location*. Different class widths would give a slightly different picture of the same data — coarser or finer — which is why the textbook says to choose classes that show the detail you need.
+:::
+
 Histograms and bar charts may look similar at first glance, but there are key differences:
 
 * The horizontal axis of a **bar chart** does not require a measurement scale; it simply identifies categories, which is why there are blank spaces between the bars. 
 * In contrast, a **histogram** has no spaces between bars, as it represents data over a continuous interval, covering the entire range.
 
 Another observation is the use of a **density curve** or a **density histogram** based on relative frequency. The rationale behind using a smoothed curve is that it can often be parameterized by simple mathematical functions, making it easier to model the distribution mathematically.
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "The height of a histogram bar tells me the probability of that range of values."
+
+**In fact:** it depends on which histogram you drew (see the *Types of Histograms* tab). On a **frequency** histogram, height is a *count*; on a **relative frequency** histogram, height is a *proportion*; only on a **density** histogram does *area* — height $\times$ class width — give the proportion. Height alone is never automatically a probability.
+
+**Quick check:** in the IQ histogram, the 105–115 bar has height 16. Is 16 a probability? (No — it is a count. The *proportion* of students in that class is $16/60 \approx 0.27$, and on a density scale the bar's *height* would be $0.27/10 = 0.027$ per IQ point, with its *area* equal to 0.27.)
+```
 
 The purpose of these graphs is to help us better understand our datasets. After graphing, we can examine the **overall pattern** and identify **striking deviations** from that pattern in the graphs or distributions. We describe the overall pattern of a distribution using its **shape**, **center**, and **spread**. 
 
@@ -174,7 +234,13 @@ For describing the shape of a distribution, we have the following:
 
 Of course, there are many other types of graphs we can create to visualize datasets. For example, a **time plot** displays each observation against the time at which it was measured, making it easier to observe trends or patterns over time. As the number of data points increases, the utility of such graphs becomes even more apparent for understanding temporal relationships.
 
+(ch4-numbers)=
 ## Describing Distributions with Numbers
+
+```{admonition} A question before this section
+:class: bridge
+Your histogram of the 60 IQ scores is beautiful — single peak, symmetric, no stragglers. Then your boss says: *"I don't have time for a picture. Give me ONE number for the typical score, and one more for how spread out they are."* Which numbers do you choose — and does the choice matter? (Spoiler: it matters enormously once the data are skewed or contain an outlier. This section builds the toolbox and, more importantly, the judgment for choosing from it.)
+```
 
 When you have a quantitative variable-like the heights of Purdue students-you want to **summarize its distribution**. A distribution can be described by its **shape**, its **center**, and its **spread**. This section focuses on the **numerical ways** to measure center and spread, and how to handle outliers.
 
@@ -309,6 +375,26 @@ While the five-number summary is quite resistant to outliers, many statistical m
 
 `````
 
+:::{dropdown} Example: one 7-footer walks into the sample
+:open:
+Take the five heights from above — 66, 70, 71, 72, 75 inches — with mean $\bar{x} = 70.8$ and median $M = 71$. Now a 7-foot center from the basketball team (84 inches) joins the sample:
+
+* **Mean:** jumps from $70.8$ to $\bar{x} = (66+70+71+72+75+84)/6 = 73.0$ inches — a shift of over 2 inches from *one* observation.
+* **Median:** with the sorted data 66, 70, 71, 72, 75, 84 and $n = 6$ even, $M = (71+72)/2 = 71.5$ — it barely moves.
+* **Standard deviation:** nearly doubles, from $s \approx 3.3$ to $s \approx 6.1$, because $s$ *squares* deviations and the 7-footer's deviation is huge.
+
+One extreme value dragged the non-resistant measures ($\bar{x}$, $s$) but hardly touched the resistant one ($M$). Neither behavior is "wrong" — the mean faithfully reports that the total height in the room grew — but they answer different questions, which is the subject of the misconception box below.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "The mean is *the* typical value — for any dataset."
+
+**In fact:** the mean is the *balance point*, and in a skewed distribution the long tail pulls it away from where most observations actually sit. For strongly skewed data, the **median** is usually the honest "typical value," which is why household income is almost always reported as a median: a handful of very high incomes inflate the mean far above what a typical family earns.
+
+**Quick check:** in a small town, 99 households earn about \$60{,}000 and one earns \$6{,}000{,}000. The mean income is about \$119{,}000 — nearly double what 99% of households make — while the median stays near \$60{,}000. Which number would you call "typical"? (Look back at the *Skewed Right* figure: the dashed mean line sits out in the tail, beyond the peak, for exactly this reason.)
+```
+
 `````{tab-set}
 ````{tab-item} Boxplot
 ```{figure} _image/0413.png
@@ -328,12 +414,41 @@ While the five-number summary is quite resistant to outliers, many statistical m
 
 `````
 
+:::{dropdown} How to read this figure (the boxplot of the 60 IQ scores)
+:open:
+This is the five-number summary of our 60 IQ scores drawn as a picture. Read it from the inside out:
+
+* **The vertical axis** is the IQ scale — every feature of the plot is located by its IQ value; the horizontal direction carries no information.
+* **The box** runs from $Q_1 = 104$ up to $Q_3 = 125.5$: the middle 50% of students live inside this box, so the box's *length* is the IQR ($21.5$ points).
+* **The line inside the box** is the median, $M = 114$. The **plus sign** just above it marks the mean ($\bar{x} \approx 115.0$). Mean and median nearly coincide — the visual signature of a roughly *symmetric* distribution.
+* **The whiskers** stretch to the minimum (81) and maximum (145). Neither point is flagged as an outlier: the $1.5 \times \mathrm{IQR}$ fences sit at $104 - 32.25 = 71.75$ and $125.5 + 32.25 = 157.75$, and all 60 scores fall comfortably inside.
+
+**Takeaway:** one small picture encodes center (median line), spread (box length and whisker span), symmetry (median centered in the box, whiskers of similar length), and outliers (none here). What it *hides* is the number of modes — a boxplot cannot show two peaks — which is why we still draw histograms.
+:::
+
+:::{dropdown} How to read this figure (side-by-side boxplots: writers' age at death)
+The real power of boxplots appears when you park several of them on a **common scale** to compare groups — here, age at death for authors of nonfiction, novels, and poems.
+
+* **The vertical axis** is age at death, shared by all three plots, so heights are directly comparable across groups.
+* **Compare medians first:** the poets' median line sits visibly lowest — poets in this dataset tended to die youngest ("poets die young" is the textbook's own summary).
+* **Compare boxes next:** the box lengths (IQRs) show which genre's life spans were most variable.
+* **The isolated dot** below the nonfiction plot is a *flagged outlier*: this is a **modified boxplot**, so whiskers stop at the most extreme values inside the $1.5 \times \mathrm{IQR}$ fences, and any point beyond a fence is drawn individually to demand investigation.
+
+**Takeaway:** side-by-side boxplots are the standard tool for the question "does this quantitative variable differ across groups?" — compare medians for center, boxes for spread, and dots for unusual individuals. (Caution from the textbook: this is an observational comparison — it does not show that *choosing* poetry shortens your life.)
+:::
+
 Sometimes, we change the **units** of our measurements. For example, if your heights are measured in **inches** and you convert them to **centimeters** using the formula, $\text{cm} = 2.54 \times \text{inches}$, the new mean in centimeters becomes $2.54 \times \bar{x}$. This kind of conversion is known as a **linear transformation**, represented by $x_{\text{new}} = a + b \times x$, which **shifts** the data by $a$ and/or **scales** it by $b$. Specifically:
 * **Adding** $a$ to each observation shifts measures of center (mean, median) by $a$ but does **not** affect measures of spread (IQR, $s$).
 * **Multiplying** each observation by $b$ multiplies measures of center (mean, median) by $b$, but multiplies measures of spread (IQR, $s$) by $|b|$, since spread cannot be negative. Overall, the center transforms to $a + b \times (\text{center})$ and the spread to $|b| \times (\text{spread})$.
 
 
+(ch4-density)=
 ## Density Curves and Normal Distributions
+
+```{admonition} A question before this section
+:class: bridge
+Our histogram of 60 IQ scores is jagged — its exact bumps depend on which 60 students happened to be sampled and on where we cut the classes. Now imagine the sample growing: 600 students, 60,000, the whole **empirical population** from Chapter 0's layers picture. With so much data we can afford ever-narrower classes, and the staircase of bars smooths out toward a fixed curve. **What is that limiting curve?** It is the *density curve* — the theoretical distribution sitting one layer above our data. Chapter 0 promised you would see histograms approach an idealized curve in this chapter; here is where it happens.
+```
 
 For **histograms**, the *y*-axis typically shows frequency or relative frequency. If we **divide** the relative frequency by the corresponding bin or class width, we obtain **densities**. Connecting these densities with a smooth line or curve creates what is called a **density curve**.
 
@@ -369,6 +484,11 @@ Histogram and Density Curve
 ````
 
 `````
+
+```{admonition} A question before this section
+:class: bridge
+Density curves can have any shape — flat, lumpy, three-peaked (you just saw one). Yet one particular bell shape keeps showing up: heights, birthweights, measurement errors, IQ scores. **Of all possible smooth curves, why does the same bell appear everywhere?** Recall the argument from the last chapter: when an outcome is the sum of *many small, independent* contributions — genetics plus nutrition plus environment plus ... — the results tend toward this bell shape (the Central-Limit-Theorem-style reasoning). Nature runs that recipe constantly, so the bell earned itself a name: the *Normal distribution*. The rest of this chapter is about mastering this one curve.
+```
 
 One famous type of density curve is the <span class="purdue-text">**normal density curve**</span>. It is used in many real-world applications (such as modeling heights or the birthweights of babies). **Normal distributions** are described by bell-shaped, symmetric, unimodal density curves. This density curve function only has two parameters: the mean $\mu$ and the standard deviation $\sigma$. Depending on their values, the shape of the distribution may vary, but it still retains the aforementioned bell-shaped and symmetric features.
 
@@ -427,6 +547,16 @@ $$f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( - \frac{(x - \mu)^2}{2 \sig
 
 `````
 
+:::{dropdown} How to read this figure (the two Normal families: varying $\sigma$, varying $\mu$)
+:open:
+The first two tabs are a controlled experiment on the Normal's two parameters — each tab freezes one parameter and lets the other vary:
+
+* **Tab "Normal $\mu = 0$":** all five curves share the same center (mean 0) but have variances from 0.25 up to 4. On both axes: the horizontal axis is the value of the variable, the vertical axis is *density* (not probability, not count). Watch what larger $\sigma$ does — the bell gets **shorter and wider**. It *must* get shorter as it widens, because every density curve encloses total area exactly 1: spread the area out and the peak has to come down.
+* **Tab "Normal $\sigma = 1$":** now the shape is frozen (variance 1) and the mean slides from $-4$ to $4$. The five bells are *identical rubber stamps* shifted left or right — changing $\mu$ relocates the curve without reshaping it.
+
+**Takeaway:** $\mu$ says *where* the bell sits; $\sigma$ says *how wide* it is — and that is the complete story, because a Normal distribution is fully determined by these two numbers. This is also why one **standard** Normal table suffices: every curve in both tabs is just $\mu + \sigma Z$, a shift and a rescale of the single curve $Z \sim \mathcal{N}(0,1)$.
+:::
+
 Remember, **densities** are quite useful because they tell us the probability of statements like $\mathbb{P}(X < x)$ or $\mathbb{P}(\text{Height} < 70).$ If our variable of interest is a **standard Normal** variable (i.e., a variable with a standard Normal density), then probabilities such as $\mathbb{P}(Z < z) \text{ or } \mathbb{P}(Z < 1)$ can be found directly using a **z-table**.
 
 Theoretically, we could create a similar table for **each** Normal distribution to tell us these probabilities, but that’s not practical. Instead, we keep a **single** z-table for the standard Normal distribution. If our variable of interest is Normal (but **not** standard Normal), we can still find probabilities by **standardizing**:
@@ -436,6 +566,25 @@ So, if $X \sim N(\mu, \sigma)$ (where the second parameter $\sigma$ is the stand
 
 $$P(X \leq x) = P \left( \frac{X - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right) = \Phi \left( \frac{x - \mu}{\sigma} \right)$$
 Since we have this relationship, the only thing left is to become **familiar** with the areas under the **standard Normal** density and how to use the **z-table**.  
+
+:::{dropdown} Example: you are 71 inches tall — how unusual is that?
+:open:
+The answer depends entirely on *which distribution you are standing in*. Suppose Purdue students' heights are roughly $N(68.5, 4)$ and the basketball team's heights are roughly $N(77, 3.5)$ (second parameter = standard deviation). Standardize the **same** 71 inches twice:
+
+* **Among all Purdue students:** $z = \dfrac{71 - 68.5}{4} = 0.625$ — you stand about 0.6 standard deviations *above* the mean; the z-table puts you near the **73rd percentile**. Slightly tall, nothing remarkable.
+* **On the basketball team:** $z = \dfrac{71 - 77}{3.5} \approx -1.71$ — the same body is now 1.7 standard deviations *below* the mean, around the **4th percentile**. On that roster, you are strikingly short.
+
+This is the whole point of a $z$-score: it converts a raw value into "how many standard deviations from the mean," a **unit-free** measure of unusualness that makes values comparable *across different distributions* — the identical 71 inches is mildly tall in one population and extreme in another.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "You're only allowed to compute a $z$-score if the data are Normal."
+
+**In fact:** standardizing, $z = (x - \mu)/\sigma$, is pure arithmetic — it is *always* legal, for any distribution with a mean and standard deviation, and it always means "number of standard deviations from the mean." What **requires Normality** is the next step: converting that $z$ into a probability or percentile using the z-table or the 68–95–99.7 rule. Those areas belong to the Normal curve; if your distribution isn't Normal, its areas are different.
+
+**Quick check:** roll two dice; the sum has mean 7 and standard deviation about 2.42, so a sum of 10 has $z = (10-7)/2.42 \approx 1.24$ — a perfectly valid $z$-score. But the z-table would claim $P(\text{sum} \ge 10) \approx 0.11$, while the true probability is $6/36 \approx 0.17$. The $z$ was legal; the *table lookup* was not, because the sum's distribution is triangular, not Normal (see the dice example below).
+```
 
 For **any** Normal density, there is the **68–95–99.7** empirical rule that we can use for quick approximations.
  
@@ -448,6 +597,16 @@ In the Normal distribution with mean $\mu$ and standard deviation $\sigma$:
 * Approximately $95\%$ of the observations fall within $2\sigma$ of the mean $\mu$.
 * Approximately $99.7\%$ of the observations fall within $3\sigma$ of the mean $\mu$.
 ```
+
+:::{dropdown} Example: the rule is a *Normal* rule — ask the dice
+:open:
+The 68–95–99.7 rule belongs to the bell curve, not to distributions in general. Dice make this vivid, because for dice we can compute everything exactly:
+
+* **One fair die** is *flat* (uniform): each face has probability $1/6$, mean $\mu = 3.5$, standard deviation $\sigma \approx 1.71$. Within $1\sigma$ of the mean (faces 2–5) sits $4/6 \approx 66.7\%$ — deceptively close to 68%. But within $2\sigma$ sits **100%** of the outcomes, not 95%: a flat distribution has no tails at all, so the rule's "95" and "99.7" fail completely.
+* **The sum of two dice** is *triangular*, not bell-shaped: probabilities climb in a straight line from $P(2) = \frac{1}{36}$ up to $P(7) = \frac{6}{36}$ and back down to $P(12) = \frac{1}{36}$. Same physical dice, different *process* (summing), different shape.
+
+The lesson runs in both directions. **Shape depends on the process that generates the data** — one die gives a flat histogram, a sum gives a triangle, and only summing *many* small contributions produces the Normal bell. And the 68–95–99.7 percentages are trustworthy only when a Normal model fits; check the *68-95-99.7 for $Height$* tab below to see the rule where it genuinely belongs.
+:::
 
 `````{tab-set}
 ````{tab-item} Area under $Z$
@@ -484,6 +643,17 @@ In the Normal distribution with mean $\mu$ and standard deviation $\sigma$:
 
 `````
 
+:::{dropdown} How to read this figure (the 68–95–99.7 rule, from $Z$ to $Height$)
+:open:
+The three rule tabs are the same picture told three times, moving from abstract to concrete:
+
+* **"68-95-99.7 for $Z$":** the horizontal axis is the standard Normal scale, tick-marked at $-3, -2, -1, 0, 1, 2, 3$. Each horizontal arrow spans an interval centered at 0, and the percentage on the arrow is the **area under the curve** over that span: 68% between $-1$ and $1$, 95% between $-2$ and $2$, 99.7% between $-3$ and $3$.
+* **"68-95-99.7 for $X$":** identical curve, but the axis is relabeled $\mu - 3\sigma, \dots, \mu, \dots, \mu + 3\sigma$. Nothing else changes — which *is* the point: every Normal distribution is the standard one with its axis re-stretched, so the same three percentages apply with "$1, 2, 3$" replaced by "$1\sigma, 2\sigma, 3\sigma$ from $\mu$."
+* **"68-95-99.7 for $Height$":** the axis finally carries real units — young women's heights with $\mu = 64.5$ and $\sigma = 2.5$ inches. Now the arrows read as facts: about 68% of these women are between 62 and 67 inches, 95% between 59.5 and 69.5, and 99.7% between 57 and 72.
+
+**Takeaway:** to use the rule on any Normal problem, do what the tabs do — mark $\mu$, step off $\sigma$ at a time, and label each band. It also gives the mirror facts for free: if 95% are within $2\sigma$, the remaining 5% splits into 2.5% in each tail (that split is exactly what the *Area under $Z$* tab shades).
+:::
+
 Now, you should be able to use a **z-table** to handle several types of probability statements, such as:
 
 * **Given** $X \sim \mathcal{N}(4, 1.5)$, where $1.5$ is the standard deviation:  
@@ -506,4 +676,44 @@ One last thing to mention is how to use **Normal Quantile Plots** to check Norma
   * If the resulting plot is roughly a straight line, then the data follow a Normal pattern.  
   * Systematic curvature in the plot indicates non-Normal data.  
   * Outliers appear as points that deviate noticeably from the pattern.
+
+(ch4-together)=
+## Putting It All Together: The 60 IQ Scores, Start to Finish
+
+Let's run the complete descriptive-analysis playbook on the dataset that has threaded through this chapter — the 60 fifth-graders' IQ scores from the *IQ data* tab — exactly the way you would attack any fresh dataset.
+
+**Step 1 — Look at it (graphs first, always).** The raw table answers nothing by eye. Build the histogram as in Steps 1–3: classes of width 10 from 75 to 155, count, draw. The counts per class are 2, 3, 10, 16, 13, 10, 5, 1 — a single peak in the 105–115 class, sloping off on both sides. (With only 60 observations, a stemplot with stems 8–14 would have worked too, and would keep the raw values visible.)
+
+**Step 2 — Describe in words: shape, center, spread, deviations.** Shape: **unimodal** and roughly **symmetric** — no long tail in either direction. Center: the peak sits near 110–115. Spread: scores run from the low 80s to the mid 140s. Deviations: no gaps, no values detached from the pattern.
+
+**Step 3 — Numerical summary.** Because we should summarize *both* ways and compare:
+* **Five-number summary:** $\text{Min} = 81$, $Q_1 = 104$, $M = 114$, $Q_3 = 125.5$, $\text{Max} = 145$; so $\mathrm{IQR} = 21.5$. The $1.5 \times \mathrm{IQR}$ fences are $104 - 32.25 = 71.75$ and $125.5 + 32.25 = 157.75$ — **no flagged outliers**, matching the boxplot figure.
+* **Mean and standard deviation:** $\bar{x} \approx 115.0$ and $s \approx 14.8$. Note $\bar{x} \approx M$ (115.0 vs. 114) — the numerical echo of the symmetry we *saw* in Step 2. With a symmetric, outlier-free distribution, $\bar{x}$ and $s$ are appropriate summaries; had the data been skewed, we would lead with the five-number summary instead.
+
+**Step 4 — Is a Normal model reasonable?** Three checks agree. The histogram is bell-shaped. The empirical counts track the 68–95–99.7 rule startlingly well: $41/60 = 68.3\%$ of scores fall within $\bar{x} \pm s$ (100.2 to 129.8), $57/60 = 95.0\%$ within $\bar{x} \pm 2s$, and $60/60 = 100\%$ within $\bar{x} \pm 3s$. And a Normal quantile plot of these scores is close to a straight line. Modeling these IQ scores as approximately $N(115, 14.8)$ is defensible.
+
+**Step 5 — Standardize one student.** The top scorer hit 145. How unusual is that? $z = (145 - 115)/14.8 \approx 2.03$ — about two standard deviations above the mean. Under the Normal model, that is roughly the **98th percentile** (the 68–95–99.7 shortcut says: 95% within $2\sigma$, so about 2.5% beyond $+2\sigma$). Step 4 is what *licensed* this table lookup — remember, the $z$-score itself is always legal, but the percentile claim leans on Normality.
+
+**Step 6 — Know what we still CANNOT say.** Everything above describes *these 60 students*. We cannot yet say how far $\bar{x} = 115.0$ might sit from the mean IQ $\mu$ of **all** fifth-graders in the population, cannot attach a margin of error to it, and certainly cannot explain *why* scores differ (no causal claims from observed data — last chapter's lesson stands). Turning "our sample looks like this" into "the population is like this, give or take *this much*" is **statistical inference**, and it begins in the next chapter with the question: what would happen to $\bar{x}$ if we drew a *different* 60 students?
+
+**The descriptive-analysis checklist** (use it on every dataset you ever meet):
+1. **Plot first** — histogram or stemplot (boxplots for group comparisons).
+2. **Words** — shape, center, spread, outliers.
+3. **Numbers** — five-number summary *and* $\bar{x}, s$; let shape decide which leads.
+4. **Model check** — bell-shaped histogram? 68–95–99.7 roughly satisfied? straight Normal quantile plot?
+5. **Standardize** to locate individuals — and only trust table-based percentiles if step 4 passed.
+
+## Check Your Understanding
+
+:::{dropdown} 1. A report on Purdue graduates' starting salaries gives mean \$78{,}000 and median \$64{,}000. What does the gap tell you about the shape, and which number should the admissions brochure honestly report as "typical"?
+The mean sits well *above* the median, the signature of a distribution **skewed to the right**: a minority of very high salaries (say, a few software or finance offers) pulls the mean into the upper tail, while the median stays with the bulk of graduates. The honest "typical graduate" number is the **median** — it is resistant to those extreme offers. (Mirror-image check: if the mean were far *below* the median, you would suspect left skew.)
+:::
+
+:::{dropdown} 2. Purdue heights are approximately $N(68.5, 4)$ (sd = 4 inches). Without a z-table, approximately what proportion of students are between 60.5 and 76.5 inches tall? Taller than 72.5 inches?
+Both intervals are built for the 68–95–99.7 rule. $60.5 = 68.5 - 2(4)$ and $76.5 = 68.5 + 2(4)$, so the interval is $\mu \pm 2\sigma$: about **95%**. For heights above $72.5 = \mu + 1\sigma$: 68% lie within $\mu \pm \sigma$, so 32% lie outside, and by symmetry half of that is in the upper tail — about **16%**.
+:::
+
+:::{dropdown} 3. Your friend computes $z = 1.8$ for one household in a strongly right-skewed income dataset and announces: "the z-table says only about 3.6% of households earn more." Which part of this is valid, and which is not?
+Computing $z = (x - \bar{x})/s = 1.8$ is **valid** — standardizing is pure arithmetic and works for any distribution: this household really does sit 1.8 standard deviations above the mean. The **table lookup is not valid**: z-table areas are areas under the *Normal* curve, and income is strongly skewed, so its true upper-tail proportion can differ substantially from the Normal answer. (For right-skewed data the tail is fatter and longer than a Normal tail, so the "3.6%" figure is not trustworthy.) Before quoting any table percentage, check Normality — for instance with a **Normal quantile plot**, which for skewed income data would bend away from a straight line.
+:::
 

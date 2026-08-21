@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toward-statistical-inference">5.1. Toward Statistical Inference</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-distribution-of-a-sample-mean">5.2. The Sampling Distribution of a Sample Mean</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions-for-counts-and-proportions">5.3. Sampling Distributions for Counts and Proportions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-one-bar-x-fully-decoded">5.4. Putting It All Together: One <span class="math notranslate nohighlight">\(\bar{x}\)</span>, Fully Decoded</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">5.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -493,6 +495,25 @@
 <div class="seealso admonition">
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 5</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Explain the three <strong>stages of a statistic</strong> (random variable → formula with data → number) and define the <strong>sampling distribution</strong> of a statistic.</p></li>
+<li><p>Describe the quality of an estimator in terms of <strong>bias</strong> and <strong>variability</strong>, and interpret the bullseye picture of the four combinations.</p></li>
+<li><p>State and use the facts <span class="math notranslate nohighlight">\(\mu_{\bar{x}} = \mu\)</span> and <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \sigma/\sqrt{n}\)</span>, and explain what the <strong>Central Limit Theorem</strong> does (and does not) say.</p></li>
+<li><p>Recognize a <strong>binomial setting</strong>, give the mean <span class="math notranslate nohighlight">\(np\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sqrt{np(1-p)}\)</span> of a count, and check the <strong>Normal approximation</strong> rule of thumb.</p></li>
+<li><p>Given a population mean and standard deviation, describe the sampling distribution of <span class="math notranslate nohighlight">\(\bar{x}\)</span> and use it to say how close <span class="math notranslate nohighlight">\(\bar{x}\)</span> typically falls to <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch5-toward"><span class="std std-ref">Toward statistical inference</span></a> · <a class="reference internal" href="#ch5-mean"><span class="std std-ref">Sampling distribution of a sample mean, CLT</span></a> · <a class="reference internal" href="#ch5-counts"><span class="std std-ref">Counts and proportions, binomial</span></a> · <a class="reference internal" href="#ch5-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>Your sample of 25 students averages <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches; your classmate’s <em>different</em> 25 students give <span class="math notranslate nohighlight">\(\bar{x} = 66.4\)</span>. Both are “the” sample mean — computed by the same recipe, both perfectly legitimate. But if <span class="math notranslate nohighlight">\(\bar{x}\)</span> changes with every sample, <strong>what can one <span class="math notranslate nohighlight">\(\bar{x}\)</span> possibly tell us about <span class="math notranslate nohighlight">\(\mu\)</span>?</strong> The answer of this chapter: quite a lot — <em>provided</em> we stop staring at any single <span class="math notranslate nohighlight">\(\bar{x}\)</span> and instead study how <span class="math notranslate nohighlight">\(\bar{x}\)</span> itself varies from sample to sample. That pattern of variation is called the <strong>sampling distribution</strong>, and it is the engine behind every inference method in the rest of the course.</p>
 </div>
 <p>In this chapter, we will begin to study <strong>statistical inference</strong>-the process of drawing conclusions about the population from the sample dataset. This involves a directional arrow from the <strong>sample dataset</strong> to the <strong>population</strong>. Typically, we are interested in either the <strong>values of population parameters</strong> or in addressing <strong>claims/statements</strong> about the population. Using information from the sample and following specific statistical procedures, we aim to:</p>
 <ol class="arabic simple">
@@ -518,7 +539,11 @@
 </ul>
 <p>Details of hypothesis testing will be explored further in later chapters.</p>
 <section id="toward-statistical-inference">
-<h2><span class="section-number">5.1. </span>Toward Statistical Inference<a class="headerlink" href="#toward-statistical-inference" title="Link to this heading">#</a></h2>
+<span id="ch5-toward"></span><h2><span class="section-number">5.1. </span>Toward Statistical Inference<a class="headerlink" href="#toward-statistical-inference" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>In Chapter 3 you met the sample mean as a <em>number you compute</em>. Here is the shift in perspective this section demands: <strong>before</strong> you collect the data, what is <span class="math notranslate nohighlight">\(\bar{X}\)</span>? You cannot name its value — it depends on which 25 students the random draw happens to pick. A quantity whose value is determined by a random draw is… a <strong>random variable</strong>. And random variables have distributions. So the sample mean — the humble average — secretly has a distribution of its own. What does it look like?</p>
+</div>
 <p>Since a <strong>statistic</strong> is a central concept in the whole process, let’s revisit it and delve deeper into its meaning-like peeling an onion.</p>
 <p>Let’s use our friend, the <strong>sample mean</strong>, as an example. In the previous chapter, we introduced the formula to calculate the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> using observed sample observations:</p>
 <div class="math notranslate nohighlight">
@@ -536,7 +561,19 @@
 <p>In summary, a statistic evolves through these three stages as part of the analysis process.</p>
 <p>An <strong>estimator</strong> corresponds to <strong>Stage 1</strong>, and the <strong>estimate</strong> corresponds to <strong>Stage 3</strong>. There is another term, <strong>estimand</strong>, which refers to the quantity or parameter in the population that we aim to estimate using data. The estimand represents the true but unknown value of interest, such as a mean, proportion, variance, difference, or another statistical measure describing the population.</p>
 <p>Now that we know the three stages, let’s revisit <strong>Stage 1</strong>. At this stage, a statistic is actually a <strong>random variable</strong>, and as a random variable, it has a distribution. Imagine a thought experiment where we take one sample repeatedly, and each time, we calculate the statistic. These values form a distribution both empirically (based on repeated sampling) and hypothetically (what the statistic would look like if we had taken a different sample). This distribution is called the <span class="purdue-text"><strong>Sampling Distribution</strong></span><a class="footnote-reference brackets" href="#footnote03" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
-<p>For a <strong>sampling distribution</strong>, we can also measure its center (mean) and its spread (variability). A statistic is an <strong>unbiased estimator</strong> of a parameter if the mean of its sampling distribution equals the true value of the population parameter. In other words, the statistic, on average, is correct.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the sampling distribution you can SEE — dice</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Heights make the “repeated sampling” thought experiment abstract, because we can never actually redo the sample. Dice make it concrete, because we can redo the “sample” as many times as we like.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>The population distribution</strong> (one roll of a fair die): each face <span class="math notranslate nohighlight">\(1, 2, \dots, 6\)</span> has probability <span class="math notranslate nohighlight">\(1/6\)</span>. The histogram is perfectly <strong>flat</strong> — nothing bell-shaped about it. Its mean is <span class="math notranslate nohighlight">\(\mu = 3.5\)</span> and its standard deviation is <span class="math notranslate nohighlight">\(\sigma = 1.708\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>The statistic:</strong> roll the die <span class="math notranslate nohighlight">\(n\)</span> times and take the average, <span class="math notranslate nohighlight">\(\bar{x}\)</span>. That is a “sample of size <span class="math notranslate nohighlight">\(n\)</span>” from this population.</p></li>
+<li><p class="sd-card-text"><strong>The sampling distribution of <span class="math notranslate nohighlight">\(\bar{x}\)</span> for <span class="math notranslate nohighlight">\(n = 2\)</span>:</strong> roll two dice and average them, over and over. Now <span class="math notranslate nohighlight">\(\bar{x}\)</span> can be <span class="math notranslate nohighlight">\(1, 1.5, 2, \dots, 6\)</span>, and the values are <em>not</em> equally likely: there is only 1 way to average to 1 (both dice show 1), but 6 ways to average to 3.5 (1-6, 2-5, 3-4, 4-3, 5-2, 6-1). The histogram is a <strong>triangle</strong>, peaked at 3.5.</p></li>
+<li><p class="sd-card-text"><strong>For larger <span class="math notranslate nohighlight">\(n\)</span></strong> (average of 10 dice, of 100 dice…): the histogram of <span class="math notranslate nohighlight">\(\bar{x}\)</span> grows a smooth, symmetric <strong>bell shape</strong>, centered at 3.5, and squeezes narrower and narrower.</p></li>
+</ul>
+<p class="sd-card-text">Flat → triangle → bell. Nothing about any individual die changed — each roll stays flat forever. What changed is the distribution of the <strong>average</strong>. You have just watched the Central Limit Theorem (coming up in the next section) happen before your eyes. Every simulation you run in lab of “many samples, histogram of the <span class="math notranslate nohighlight">\(\bar{x}\)</span>’s” is exactly this picture, with students in place of dice.</p>
+</div>
+</details><p>For a <strong>sampling distribution</strong>, we can also measure its center (mean) and its spread (variability). A statistic is an <strong>unbiased estimator</strong> of a parameter if the mean of its sampling distribution equals the true value of the population parameter. In other words, the statistic, on average, is correct.</p>
 <p>We have already discussed the sources of bias in the sampling design section. Using <strong>random sampling</strong> can help reduce bias.</p>
 <p>Variability describes the spread of the sampling distribution. It quantifies how much the statistic (e.g., sample mean, sample proportion) fluctuates from sample to sample. Larger samples have less variability because the sampling distribution becomes narrower as <span class="math notranslate nohighlight">\(n\)</span> increases. Variability usually comes from two sources:</p>
 <ul class="simple">
@@ -552,9 +589,25 @@
 <p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Bias and Variability</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (four targets, four estimators)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Think of each panel as an archery target. The <strong>bullseye</strong> is the true parameter value (say, <span class="math notranslate nohighlight">\(\mu\)</span>). Each <strong>dot</strong> is the value of the statistic from one sample — one full “take a sample, compute <span class="math notranslate nohighlight">\(\bar{x}\)</span>” cycle. Many dots = many repeated samples, i.e., the sampling distribution made visible.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>High bias, low variability:</strong> the shots cluster tightly — but around the wrong spot. Chapter 3’s “always survey the men’s basketball team” estimator lives here: nearly the same (wrong) answer every time.</p></li>
+<li><p class="sd-card-text"><strong>Low bias, high variability:</strong> the shots center on the bullseye <em>on average</em>, but scatter widely. Chapter 3’s “SRS of only <span class="math notranslate nohighlight">\(n = 5\)</span> students”: right on average, wild in any single sample.</p></li>
+<li><p class="sd-card-text"><strong>High bias, high variability:</strong> scattered <em>and</em> off-center — the worst of both diseases.</p></li>
+<li><p class="sd-card-text"><strong>Low bias, low variability:</strong> tightly clustered on the bullseye. This is the ideal, and the rest of the chapter shows how to get there: <strong>random sampling</strong> kills bias (centers the shots), and a <strong>larger <span class="math notranslate nohighlight">\(n\)</span></strong> tames variability (tightens the cluster).</p></li>
+</ul>
+<p class="sd-card-text">One reading trap: a <em>single</em> dot tells you almost nothing — a high-bias estimator can land one lucky shot on the bullseye. Bias and variability are properties of the whole <em>pattern</em> (the sampling distribution), never of one sample.</p>
+</div>
+</details></section>
 <section id="the-sampling-distribution-of-a-sample-mean">
-<h2><span class="section-number">5.2. </span>The Sampling Distribution of a Sample Mean<a class="headerlink" href="#the-sampling-distribution-of-a-sample-mean" title="Link to this heading">#</a></h2>
+<span id="ch5-mean"></span><h2><span class="section-number">5.2. </span>The Sampling Distribution of a Sample Mean<a class="headerlink" href="#the-sampling-distribution-of-a-sample-mean" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The dice example <em>showed</em> us the pattern: averages pile up in a bell shape around 3.5, and the more dice we average, the tighter the pile. But “I saw it happen with dice” is not a theory. <strong>Where exactly is the bell centered? How fast does it narrow as <span class="math notranslate nohighlight">\(n\)</span> grows? And does this work for heights, incomes, and reaction times — or only for dice?</strong> This section answers all three with two short formulas and one celebrated theorem.</p>
+</div>
 <p>From the sample mean formula presented in the previous chapter, we can see that the sample mean, <span class="math notranslate nohighlight">\(\bar{X}\)</span>, is a sum of random variables. These random variables, <span class="math notranslate nohighlight">\(X_1\)</span> to <span class="math notranslate nohighlight">\(X_n\)</span>, come from the same population distribution. If the sample size <span class="math notranslate nohighlight">\(n\)</span> is large, then the sampling distribution of <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately normal, regardless of the shape of the population distribution<a class="footnote-reference brackets" href="#footnote04" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 <p>This powerful result is one of the most central mathematical results in statistics, the <span class="purdue-text"><strong>Central Limit Theorem (CLT)</strong></span>. In simple terms, the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank"><strong>CLT</strong></a> states that the sum (or mean) of random variables follows a normal distribution as the sample size grows large.</p>
 <p>For normal distributions, there are two parameters-mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>-that govern the shape of the distribution. Using basic algebra and knowledge of probability, we can derive these two parameters for the sampling distribution.</p>
@@ -603,9 +656,36 @@ Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutil
 <p>If a population has the <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma)\)</span> distribution, then the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> of <span class="math notranslate nohighlight">\(n\)</span> independent observations has the <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma / \sqrt{n})\)</span> distribution.</p>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: <span class="math notranslate nohighlight">\(\sigma/\sqrt{n}\)</span> at work — averaging washes out individual variation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Purdue student heights have standard deviation about <span class="math notranslate nohighlight">\(\sigma = 4\)</span> inches: individual students routinely differ from <span class="math notranslate nohighlight">\(\mu\)</span> by several inches.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>One student</strong> (<span class="math notranslate nohighlight">\(n = 1\)</span>): the “sample mean” is just that student’s height, with standard deviation <span class="math notranslate nohighlight">\(4\)</span> inches.</p></li>
+<li><p class="sd-card-text"><strong>Average of <span class="math notranslate nohighlight">\(n = 25\)</span> students:</strong> <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \dfrac{4}{\sqrt{25}} = 0.8\)</span> inches.</p></li>
+<li><p class="sd-card-text"><strong>Average of <span class="math notranslate nohighlight">\(n = 100\)</span> students:</strong> <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \dfrac{4}{\sqrt{100}} = 0.4\)</span> inches.</p></li>
+</ul>
+<p class="sd-card-text">Why does averaging help? In any sample of 25, you will draw some unusually tall students and some unusually short ones — and inside the average, those individual quirks partially <strong>cancel out</strong>. The average is steadier than any of its ingredients. Note the <span class="math notranslate nohighlight">\(\sqrt{n}\)</span> price tag, though: cutting the standard deviation in half (from 0.8 to 0.4) required <em>quadrupling</em> the sample size (25 → 100), not doubling it. Precision gets expensive.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The CLT says that if I collect a large enough sample, my <em>data</em> will look Normal.”</p>
+<p><strong>In fact:</strong> the CLT is a statement about the <strong>sample mean</strong> <span class="math notranslate nohighlight">\(\bar{x}\)</span>, not about the data. The distribution of <span class="math notranslate nohighlight">\(\bar{x}\)</span> (over repeated samples) becomes approximately Normal as <span class="math notranslate nohighlight">\(n\)</span> grows — but the data keep whatever shape the population has. Roll a die 10,000 times: the histogram of the rolls is as flat as ever. The die stays flat; only the <em>average</em> of many rolls is bell-shaped.</p>
+<p><strong>Quick check:</strong> household incomes are strongly right-skewed. You take an SRS of <span class="math notranslate nohighlight">\(n = 1{,}000\)</span> households. Which is approximately Normal — the histogram of the 1,000 incomes, or the sampling distribution of their mean? (The second. The 1,000 incomes will look just as skewed as the population.)</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Since <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \sigma/\sqrt{n}\)</span>, taking a bigger sample makes the individual observations less variable.”</p>
+<p><strong>In fact:</strong> nothing about individuals changes — students in a sample of 100 are exactly as diverse (sd <span class="math notranslate nohighlight">\(\approx 4\)</span> inches) as students in a sample of 25. What shrinks is the variability of the <strong>mean</strong> from sample to sample. The <span class="math notranslate nohighlight">\(\sqrt{n}\)</span> divides the spread of the <em>average</em>, not the spread of the people.</p>
+<p><strong>Quick check:</strong> with <span class="math notranslate nohighlight">\(n = 100\)</span> and <span class="math notranslate nohighlight">\(\sigma = 4\)</span>, roughly what fraction of <em>individual students</em> in your sample are within 0.4 inches of <span class="math notranslate nohighlight">\(\mu\)</span>? (Very few — 0.4 inches is only a tenth of the individual sd. It is <span class="math notranslate nohighlight">\(\bar{x}\)</span>, not any individual, that lands within about 0.4 of <span class="math notranslate nohighlight">\(\mu\)</span> in most samples.)</p>
+</div>
 </section>
 <section id="sampling-distributions-for-counts-and-proportions">
-<h2><span class="section-number">5.3. </span>Sampling Distributions for Counts and Proportions<a class="headerlink" href="#sampling-distributions-for-counts-and-proportions" title="Link to this heading">#</a></h2>
+<span id="ch5-counts"></span><h2><span class="section-number">5.3. </span>Sampling Distributions for Counts and Proportions<a class="headerlink" href="#sampling-distributions-for-counts-and-proportions" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Not every question is an average of a measurement. “What proportion of Purdue students are from Indiana?” — each student answers only <em>yes</em> or <em>no</em>. “How many sixes in 60 rolls of a die?” — each roll either is a six or is not. <strong>Do such yes/no counts have sampling distributions too?</strong> They do — and pleasingly, a yes/no variable is just a variable that takes values 1 and 0, so a <em>proportion</em> is secretly a <em>sample mean</em> and everything from the last section carries over.</p>
+</div>
 <p>Before we dive into this section’s material, let us explore a new random variable and its associated distributions. The setting, with its list of requirements, is as follows. This setting appears frequently in many applications or experiments:</p>
 <ol class="arabic simple">
 <li><p>The experiment consists of a sequence of <span class="math notranslate nohighlight">\(n\)</span> smaller experiments called <strong>trials</strong>, where <span class="math notranslate nohighlight">\(n\)</span> is fixed in advance of the experiment. You can think of <span class="math notranslate nohighlight">\(n\)</span> data points as being drawn from the same population.</p></li>
@@ -624,7 +704,63 @@ Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutil
 <li><p><strong>Mean</strong>: <span class="math notranslate nohighlight">\(\mu_{\bar{x}} = \mu_{\text{population}} = p\)</span></p></li>
 <li><p><strong>Standard deviation</strong>: <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \frac{\sigma_{\text{population}}}{\sqrt{n}} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}\)</span></p></li>
 </ul>
-<hr class="footnotes docutils" />
+<p>In this dichotomous setting, the sample mean is usually written <span class="math notranslate nohighlight">\(\hat{p}\)</span> and called the <strong>sample proportion</strong>. Its close companion is the <strong>count of successes</strong> itself, <span class="math notranslate nohighlight">\(X = x_1 + x_2 + \cdots + x_n\)</span>, so that <span class="math notranslate nohighlight">\(\hat{p} = X/n\)</span>. The count <span class="math notranslate nohighlight">\(X\)</span> has a distribution important enough to carry its own name.</p>
+<div class="proof definition admonition" id="binom-dist-definition">
+<p class="admonition-title"><span class="caption-number">Definition 5.2 </span> (Binomial Distribution)</p>
+<section class="definition-content" id="proof-content">
+<p>The <strong>count of successes</strong> <span class="math notranslate nohighlight">\(X\)</span> in a binomial experiment with <span class="math notranslate nohighlight">\(n\)</span> trials and success probability <span class="math notranslate nohighlight">\(p\)</span> has the <strong>binomial distribution</strong>, written <span class="math notranslate nohighlight">\(X \sim B(n, p)\)</span>. Its mean and standard deviation are</p>
+<div class="math notranslate nohighlight">
+\[\mu_X = np, \qquad \sigma_X = \sqrt{np(1-p)}.\]</div>
+<p>(These follow from the rules for means and variances: <span class="math notranslate nohighlight">\(X\)</span> is a sum of <span class="math notranslate nohighlight">\(n\)</span> independent 0/1 variables, each with mean <span class="math notranslate nohighlight">\(p\)</span> and variance <span class="math notranslate nohighlight">\(p(1-p)\)</span>.)</p>
+</section>
+</div><p>For large <span class="math notranslate nohighlight">\(n\)</span>, the same Central Limit Theorem reasoning that made <span class="math notranslate nohighlight">\(\bar{x}\)</span> approximately Normal makes the count <span class="math notranslate nohighlight">\(X\)</span> (a sum) and the proportion <span class="math notranslate nohighlight">\(\hat{p}\)</span> (a mean) approximately Normal as well:</p>
+<ul class="simple">
+<li><p><strong>Count:</strong> <span class="math notranslate nohighlight">\(X\)</span> is approximately <span class="math notranslate nohighlight">\(\mathcal{N}\left(np, \sqrt{np(1-p)}\right)\)</span>.</p></li>
+<li><p><strong>Proportion:</strong> <span class="math notranslate nohighlight">\(\hat{p}\)</span> is approximately <span class="math notranslate nohighlight">\(\mathcal{N}\left(p, \sqrt{\frac{p(1-p)}{n}}\right)\)</span>.</p></li>
+</ul>
+<p>How large is “large”? The usual <strong>rule of thumb</strong>: use the Normal approximation when</p>
+<div class="math notranslate nohighlight">
+\[np \geq 10 \quad \text{and} \quad n(1-p) \geq 10,\]</div>
+<p>that is, when we <em>expect</em> at least 10 successes and at least 10 failures. (The approximation struggles when <span class="math notranslate nohighlight">\(p\)</span> is close to 0 or 1, because the binomial distribution is then strongly skewed — the rule of thumb guards against exactly that.)</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: how many sixes in 60 rolls?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Roll a fair die <span class="math notranslate nohighlight">\(n = 60\)</span> times and count the sixes. Each roll is a trial; “success” means rolling a six, so <span class="math notranslate nohighlight">\(p = 1/6\)</span>, and the four binomial conditions hold (fixed <span class="math notranslate nohighlight">\(n\)</span>, two outcomes, independent rolls, constant <span class="math notranslate nohighlight">\(p\)</span>). Thus <span class="math notranslate nohighlight">\(X \sim B(60, \tfrac{1}{6})\)</span>, with</p>
+<div class="math notranslate nohighlight">
+\[\mu_X = np = 60 \cdot \tfrac{1}{6} = 10, \qquad \sigma_X = \sqrt{np(1-p)} = \sqrt{60 \cdot \tfrac{1}{6} \cdot \tfrac{5}{6}} = 2.887.\]</div>
+<p class="sd-card-text">Checking the rule of thumb: <span class="math notranslate nohighlight">\(np = 10 \geq 10\)</span> and <span class="math notranslate nohighlight">\(n(1-p) = 50 \geq 10\)</span> — we just barely qualify, so <span class="math notranslate nohighlight">\(X\)</span> is approximately <span class="math notranslate nohighlight">\(\mathcal{N}(10, 2.887)\)</span>. Getting 7 or 13 sixes (about one <span class="math notranslate nohighlight">\(\sigma_X\)</span> from 10) would be completely unremarkable; getting 2 sixes (nearly three <span class="math notranslate nohighlight">\(\sigma_X\)</span> below 10) should make you look hard at that die. Chapter 6 turns exactly this instinct — “how far from expected is <em>too</em> far?” — into a formal procedure.</p>
+</div>
+</details></section>
+<section id="putting-it-all-together-one-bar-x-fully-decoded">
+<span id="ch5-together"></span><h2><span class="section-number">5.4. </span>Putting It All Together: One <span class="math notranslate nohighlight">\(\bar{x}\)</span>, Fully Decoded<a class="headerlink" href="#putting-it-all-together-one-bar-x-fully-decoded" title="Link to this heading">#</a></h2>
+<p>Let’s return to where the chapter began and run the whole framework over it.</p>
+<blockquote>
+<div><p><em>You take an SRS of <span class="math notranslate nohighlight">\(n = 25\)</span> Purdue students and get <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches. Population heights have standard deviation <span class="math notranslate nohighlight">\(\sigma = 4\)</span> inches. What does this one number tell us about <span class="math notranslate nohighlight">\(\mu\)</span>?</em></p>
+</div></blockquote>
+<p><strong>Step 1 — Name what kind of object <span class="math notranslate nohighlight">\(\bar{x}\)</span> is.</strong> Before sampling, <span class="math notranslate nohighlight">\(\bar{X}\)</span> was a random variable (Stage 1); 67.1 is one realization of it (Stage 3). Asking “what can 67.1 tell us?” really means asking “how does the random variable <span class="math notranslate nohighlight">\(\bar{X}\)</span> behave?”</p>
+<p><strong>Step 2 — Write down the sampling distribution.</strong> By the rules for means and variances, <span class="math notranslate nohighlight">\(\mu_{\bar{x}} = \mu\)</span> (unbiased — the bullseye picture’s shots are centered) and <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \sigma/\sqrt{n} = 4/\sqrt{25} = 0.8\)</span> inches. Heights are approximately Normal to begin with, so <span class="math notranslate nohighlight">\(\bar{X} \sim \mathcal{N}(\mu, 0.8)\)</span> — and even if they weren’t, the CLT would deliver approximate Normality.</p>
+<p><strong>Step 3 — Translate the distribution into a plain-English guarantee.</strong> By the 68–95–99.7 rule, in about <strong>95% of all possible samples</strong>, <span class="math notranslate nohighlight">\(\bar{x}\)</span> lands within <span class="math notranslate nohighlight">\(2 \times 0.8 = 1.6\)</span> inches of <span class="math notranslate nohighlight">\(\mu\)</span>. Individual students routinely miss <span class="math notranslate nohighlight">\(\mu\)</span> by 4+ inches; the <em>average of 25</em> almost never misses by more than 1.6.</p>
+<p><strong>Step 4 — Be honest about what we still don’t know.</strong> Our particular <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> is either one of the lucky 95% (within 1.6 of <span class="math notranslate nohighlight">\(\mu\)</span>) or one of the unlucky 5% — and we cannot tell which. What we <em>can</em> say: the procedure that produced 67.1 lands close to the truth in the vast majority of samples. Turning that statement about the <em>procedure</em> into an interval of believable values for <span class="math notranslate nohighlight">\(\mu\)</span> — from <span class="math notranslate nohighlight">\(67.1\)</span> itself — is precisely the first job of Chapter 6.</p>
+<p><strong>The chapter in one sentence:</strong> a statistic is a random variable; its sampling distribution has a center (bias question), a spread (variability question, shrinking like <span class="math notranslate nohighlight">\(\sigma/\sqrt{n}\)</span>), and — thanks to the CLT — a Normal shape; and those three facts are what make inference from one sample possible.</p>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">5.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. A fair die is rolled 10,000 times. Sketch (in words) the histogram of the 10,000 rolls, and the histogram of <span class="math notranslate nohighlight">\(\bar{x}\)</span>’s from many samples of 10,000 rolls. Why do they differ?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The 10,000 individual rolls form an essentially <strong>flat</strong> histogram over <span class="math notranslate nohighlight">\(1, \dots, 6\)</span> — the data always keep the population’s shape, no matter how large <span class="math notranslate nohighlight">\(n\)</span> gets. The sampling distribution of <span class="math notranslate nohighlight">\(\bar{x}\)</span> is an extremely narrow <strong>bell</strong> centered at 3.5 with standard deviation <span class="math notranslate nohighlight">\(1.708/\sqrt{10000} \approx 0.017\)</span>. The CLT describes the second histogram, never the first.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. To cut the standard deviation of <span class="math notranslate nohighlight">\(\bar{x}\)</span> from 0.8 inches to 0.2 inches, how must the sample size change from <span class="math notranslate nohighlight">\(n = 25\)</span>?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(\sigma_{\bar{x}} = \sigma/\sqrt{n}\)</span>, dividing the standard deviation by 4 requires multiplying <span class="math notranslate nohighlight">\(n\)</span> by <span class="math notranslate nohighlight">\(4^2 = 16\)</span>: from 25 to <span class="math notranslate nohighlight">\(n = 400\)</span> students (<span class="math notranslate nohighlight">\(4/\sqrt{400} = 0.2\)</span>). Precision improves only at the slow <span class="math notranslate nohighlight">\(\sqrt{n}\)</span> rate — one reason real surveys must balance accuracy against cost.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. A pollster interviews <span class="math notranslate nohighlight">\(n = 50\)</span> voters in a county where <span class="math notranslate nohighlight">\(p = 0.5\)</span> support a measure; another interviews <span class="math notranslate nohighlight">\(n = 50\)</span> in a county where <span class="math notranslate nohighlight">\(p = 0.04\)</span>. For which count of supporters is the Normal approximation reasonable?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Only the first. County one: <span class="math notranslate nohighlight">\(np = 25\)</span> and <span class="math notranslate nohighlight">\(n(1-p) = 25\)</span> — both comfortably at least 10, so <span class="math notranslate nohighlight">\(X\)</span> is approximately <span class="math notranslate nohighlight">\(\mathcal{N}(25, \sqrt{50 \cdot 0.5 \cdot 0.5}) = \mathcal{N}(25, 3.536)\)</span>. County two: <span class="math notranslate nohighlight">\(np = 2\)</span>, far below 10; with successes that rare, <span class="math notranslate nohighlight">\(B(50, 0.04)\)</span> is strongly right-skewed (counts of 0, 1, 2 dominate) and no bell curve fits it. Same <span class="math notranslate nohighlight">\(n\)</span>, very different verdicts — the rule of thumb <span class="math notranslate nohighlight">\(np \geq 10\)</span> and <span class="math notranslate nohighlight">\(n(1-p) \geq 10\)</span> exists precisely to catch the skewness caused by extreme <span class="math notranslate nohighlight">\(p\)</span>.</p>
+</div>
+</details><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote01" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -715,6 +851,8 @@ Sampling Distribution of a Sample Mean</label><div class="sd-tab-content docutil
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toward-statistical-inference">5.1. Toward Statistical Inference</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-distribution-of-a-sample-mean">5.2. The Sampling Distribution of a Sample Mean</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions-for-counts-and-proportions">5.3. Sampling Distributions for Counts and Proportions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-one-bar-x-fully-decoded">5.4. Putting It All Together: One <span class="math notranslate nohighlight">\(\bar{x}\)</span>, Fully Decoded</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">5.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

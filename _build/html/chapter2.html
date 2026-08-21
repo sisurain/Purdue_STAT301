@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -478,7 +478,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-and-random-variable">2.2. Variable and Random Variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution">2.3. Distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-parameters">2.4. Population Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-the-big-picture">2.5. Revisiting the Big Picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-one-sentence-from-the-news">2.5. Putting It All Together: One Sentence from the News</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">2.6. Check Your Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-the-big-picture">2.7. Revisiting the Big Picture</a></li>
 </ul>
             </nav>
         </div>
@@ -493,16 +495,44 @@
   <section class="tex2jax_ignore mathjax_ignore" id="some-important-concepts">
 <h1><span class="section-number">2. </span>Some Important Concepts<a class="headerlink" href="#some-important-concepts" title="Link to this heading">#</a></h1>
 <p>The textbook we will reference is <strong>Introduction to the Practice of Statistics by Moore, McCabe, and Craig</strong>. Past editions are fine; the major difference in the latest edition is the inclusion of new examples and scenarios to illustrate the concepts and ideas. However, the core material remains the same.</p>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Define <strong>population</strong> and <strong>sample</strong>, and explain why we almost always work with a sample instead of the whole population.</p></li>
+<li><p>Explain precisely what a <strong>random variable</strong> is — a <em>function</em> from the sample space to the real line — and read probability statements such as <span class="math notranslate nohighlight">\(\mathbb{P}(X &lt; x)\)</span>.</p></li>
+<li><p>Distinguish a <strong>variable</strong> in a dataset from a <strong>random variable</strong> in a model, and build new random variables from old ones (like the sum of two dice).</p></li>
+<li><p>Distinguish the <strong>empirical distribution</strong> of observed data from the <strong>theoretical distribution</strong> of a random variable.</p></li>
+<li><p>Define a <strong>parameter</strong>, explain why it is fixed but unknown, and tell it apart from a number computed from a sample.</p></li>
+<li><p>Place every one of these concepts onto the Big Picture diagram from <a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0</span></a>.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch2-popsample"><span class="std std-ref">Population and sample</span></a> · <a class="reference internal" href="#ch2-randomvar"><span class="std std-ref">Variable and random variable</span></a> · <a class="reference internal" href="#ch2-distribution"><span class="std std-ref">Distribution</span></a> · <a class="reference internal" href="#ch2-parameters"><span class="std std-ref">Population parameters</span></a> · <a class="reference internal" href="#ch2-together"><span class="std std-ref">Putting it all together</span></a> · <a class="reference internal" href="#ch2-bigpicture"><span class="std std-ref">Revisiting the Big Picture</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>A news article reports: <em>“A new poll finds 54% of Americans support the policy, with a margin of error of ±3 percentage points.”</em> One ordinary sentence — yet nobody asked <em>you</em>, and nobody asked 330 million people either. About a thousand phone calls somehow became a claim about an entire country. <strong>What is “54%” actually a measurement of? And 54% of <em>whom</em>?</strong> To answer, you need four ideas this chapter builds: who “Americans” refers to (a <em>population</em>), who actually picked up the phone (a <em>sample</em>), the true level of support nobody knows (a <em>parameter</em>), and the number the pollster computed (a <em>statistic</em>). At the end of the chapter we will come back and dissect this sentence word by word.</p>
+</div>
 <p>Before we dive into data, there are some important concepts I would like to discuss. You can regard these as foundational knowledge for this course. To understand the materials more clearly, it is essential to have a precise and clear understanding of these concepts. That’s why I have placed this discussion at the beginning of the course.</p>
 <section id="population-and-sample">
-<h2><span class="section-number">2.1. </span>Population and Sample<a class="headerlink" href="#population-and-sample" title="Link to this heading">#</a></h2>
+<span id="ch2-popsample"></span><h2><span class="section-number">2.1. </span>Population and Sample<a class="headerlink" href="#population-and-sample" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Suppose your job is to report the average height of Purdue students by Friday. There are roughly 40,000 of them — measuring everyone is out of the question, so you measure 1,000 and average those. But notice what just happened: the number you <em>wanted</em> describes all 40,000 students; the number you <em>computed</em> describes only your 1,000. <strong>Are those the same number? If not, what is the relationship between them?</strong> This section gives the two sides of that gap their official names — and that gap is, honestly, what the entire course is about.</p>
+</div>
 <p>Let’s use a simple scenario to facilitate our discussion. Suppose we want to determine the <strong>average height</strong> of all Purdue students. One way to find this out is by measuring the height of every student at Purdue, recording the data, and then calculating the average. However, this method might be time-consuming, costly, or even infeasible because the total number of students might be too large or constantly changing while we’re conducting the measurements.</p>
 <p>An alternative approach is to <strong>randomly select</strong> a specific number of students from the entire Purdue student body to form a <span class="purdue-text"><strong>SAMPLE</strong></span>. For instance, let’s say we select 1,000 students. Once we have the height measurements for these 1,000 students, we can calculate the <strong>sample average</strong>.</p>
 <p>For now, let’s not worry about the new terminologies and focus on the big picture. In this setting, we are curious about something related to all Purdue students. This group of all Purdue students is referred to as the <span class="purdue-text"><strong>POPULATION</strong></span>. Since it is impractical to gather measurements for the entire <strong>population</strong>, we instead draw a <strong>sample</strong> from the population to make our observations and calculations.</p>
 <p>When you encounter a scenario or question in this course, always remember that the concept of a population is present in the background, whether it is mentioned explicitly or implicitly. In most cases, we do not, or cannot, have all the measurements for the population. If we did, there would be no need to learn most of the statistical techniques introduced later in this course. Instead, we typically form a <strong>sample</strong> from the population and use the information and measurements (data) obtained from the sample to infer or make statements about what we are interested in within the population.</p>
 </section>
 <section id="variable-and-random-variable">
-<h2><span class="section-number">2.2. </span>Variable and Random Variable<a class="headerlink" href="#variable-and-random-variable" title="Link to this heading">#</a></h2>
+<span id="ch2-randomvar"></span><h2><span class="section-number">2.2. </span>Variable and Random Variable<a class="headerlink" href="#variable-and-random-variable" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>You are about to roll a die, and a friend says: “Let <span class="math notranslate nohighlight">\(X\)</span> be the number the die will show.” Now pause <em>before</em> the roll and ask: <strong>what is <span class="math notranslate nohighlight">\(X\)</span>?</strong> It is not 1. It is not 6. It has no value yet — and yet we can already compute with it exactly, e.g. <span class="math notranslate nohighlight">\(\mathbb{P}(X \leq 3) = \frac{1}{2}\)</span> for a fair die. What kind of mathematical object has <em>no value</em> but supports <em>exact calculations</em>? Whatever <span class="math notranslate nohighlight">\(X\)</span> is, it cannot simply be a number. This section reveals what it actually is — and the answer (a <em>function</em>) is the single most clarifying idea in the early part of this course.</p>
+</div>
 <p>We use these terms so often that we may not have a precise definition of them. The term <span class="purdue-text"><strong>variable</strong></span> will appear as early as the first week of this course. The term <span class="purdue-text"><strong>random variable</strong></span>, on the other hand, is central to probability. Often, we simply refer to it as a <strong>variable</strong> for short. Because these two terms are closely related, students often find them confusing.</p>
 <p>Using the Purdue students’ height example, once we have the measurements from the sample, we have our data or dataset. Let’s assume that in addition to <strong>height</strong>, we also collect <strong>age</strong> measurements. Each student in the sample is described by this dataset. In the textbook, the term <strong>cases</strong> is used to refer to the objects described by a set of data. You can think of cases as individual units of observation in the dataset. From this, we can derive a definition for <strong>variable</strong>.</p>
 <div class="proof definition admonition" id="variable-definition">
@@ -528,7 +558,35 @@
 <div class="math notranslate nohighlight">
 \[X : \Omega \longrightarrow \mathbb{R}\]</div>
 </section>
-</div><p>When you see a random variable or a probability statement, you need to consider the sample space context in the background. Now, let’s break down the meaning of <span class="math notranslate nohighlight">\(\mathbb{P}(X &lt; x)\)</span>:</p>
+</div><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the die as a function</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Roll a fair die once. The sample space is the set of <strong>physical outcomes</strong> — the six faces of the die that can end up on top:</p>
+<div class="math notranslate nohighlight">
+\[\Omega = \{\text{face with 1 dot}, \ \text{face with 2 dots}, \ \dots, \ \text{face with 6 dots}\}.\]</div>
+<p class="sd-card-text">Note that these are <em>physical objects</em> (plastic faces with dots), not numbers. The random variable <span class="math notranslate nohighlight">\(X\)</span> is the <strong>function</strong> that maps each physical face to a number: <span class="math notranslate nohighlight">\(X(\text{face with 3 dots}) = 3\)</span>, and so on.</p>
+<p class="sd-card-text">Here is the key insight: the <em>randomness</em> lives entirely in <strong>which outcome <span class="math notranslate nohighlight">\(\omega\)</span> occurs</strong> when you roll. The function <span class="math notranslate nohighlight">\(X\)</span> itself is a fixed, perfectly deterministic rule — “count the dots on the upturned face.” Same face in, same number out, every time. A “random variable” is thus a deterministic function applied to a random outcome. If the die is fair, each face — and hence each of the values <span class="math notranslate nohighlight">\(1\)</span> through <span class="math notranslate nohighlight">\(6\)</span> — has probability <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: building a new random variable — the sum of two dice</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Now roll <strong>two</strong> fair dice. The sample space is the set of ordered pairs <span class="math notranslate nohighlight">\(\Omega = \{(1,1), (1,2), \dots, (6,6)\}\)</span> — all <span class="math notranslate nohighlight">\(36\)</span> outcomes, each equally likely with probability <span class="math notranslate nohighlight">\(\frac{1}{36}\)</span>. Define a new function on this sample space:</p>
+<div class="math notranslate nohighlight">
+\[S(\omega) = S\big((a, b)\big) = a + b.\]</div>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(S\)</span> is a brand-new random variable — the <strong>sum</strong> — built from the same random experiment. Its possible values are <span class="math notranslate nohighlight">\(2, 3, \dots, 12\)</span>. But here is the striking part: even though the <span class="math notranslate nohighlight">\(36\)</span> <em>outcomes</em> in <span class="math notranslate nohighlight">\(\Omega\)</span> are equally likely, the <em>values</em> of <span class="math notranslate nohighlight">\(S\)</span> are <strong>not</strong>:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(S = 7\)</span> can happen six ways — <span class="math notranslate nohighlight">\((1,6), (2,5), (3,4), (4,3), (5,2), (6,1)\)</span> — so <span class="math notranslate nohighlight">\(\mathbb{P}(S = 7) = \frac{6}{36} = \frac{1}{6} \approx 0.167\)</span>;</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(S = 2\)</span> can happen only one way — <span class="math notranslate nohighlight">\((1,1)\)</span> — so <span class="math notranslate nohighlight">\(\mathbb{P}(S = 2) = \frac{1}{36} \approx 0.028\)</span>.</p></li>
+</ul>
+<p class="sd-card-text">Rolling a 7 is six times as likely as rolling a 2 (ask anyone who plays board games). Two lessons: <strong>new random variables can be built from old ones</strong> (here <span class="math notranslate nohighlight">\(S = X_1 + X_2\)</span>, the sum of the two individual dice) — we will do this constantly later, most importantly with the sample average <span class="math notranslate nohighlight">\(\bar{x}\)</span> — and <strong>the function decides how probability on <span class="math notranslate nohighlight">\(\Omega\)</span> gets transferred to the values</strong>, so equally likely outcomes do not mean equally likely values.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “A random variable is a number — just one whose value happens to be random. If I rolled a 4, then <span class="math notranslate nohighlight">\(X\)</span> is 4.”</p>
+<p><strong>In fact:</strong> a random variable is a <strong>function</strong> (a rule attached to a random process), not a number. A number like 4 is one <strong>realization</strong> — the output produced on one particular run of the experiment. Before the roll, <span class="math notranslate nohighlight">\(X\)</span> has no value at all; what it has is a <em>distribution</em> of possible values. After the roll, what you hold is a realization, while <span class="math notranslate nohighlight">\(X\)</span> itself is unchanged and ready to produce a different realization tomorrow.</p>
+<p><strong>Quick check:</strong> you roll a die and see 5. Which one is the random variable and which is the realization — <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(5\)</span>? (<span class="math notranslate nohighlight">\(X\)</span> is the function “report the number on the upturned face”; <span class="math notranslate nohighlight">\(5\)</span> is today’s realization. Roll again and <span class="math notranslate nohighlight">\(X\)</span> stays the same while the realization may not.)</p>
+</div>
+<p>When you see a random variable or a probability statement, you need to consider the sample space context in the background. Now, let’s break down the meaning of <span class="math notranslate nohighlight">\(\mathbb{P}(X &lt; x)\)</span>:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\cdot)\)</span>: This denotes <em>the probability of</em>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(X\)</span>: This is a <strong>random variable</strong>, meaning it can take on different values based on some random process or experiment.</p></li>
@@ -541,18 +599,119 @@
 <p><span class="math notranslate nohighlight">\(\mathbb{P}(X &lt; x)\)</span>: The probability that the random variable <span class="math notranslate nohighlight">\(X\)</span> takes on a value less than <span class="math notranslate nohighlight">\(x\)</span>.</p>
 </section>
 </div><p>For example, <span class="math notranslate nohighlight">\(\mathbb{P}(X &lt; 65)\)</span> or <span class="math notranslate nohighlight">\(\mathbb{P}(Height &lt; 65)\)</span> represents the probability that, if you pick a student at random, their height will be under 65 inches. While we have not yet defined the meaning of <em>at random</em> mathematically, we can assume that every Purdue student has an equal chance of being selected.</p>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the die vs. <span class="math notranslate nohighlight">\(Height\)</span> — discrete and continuous random variables</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Both the die’s <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Height\)</span> fit the same definition — a function from a sample space to the real line — but they differ in the <em>kind</em> of values they produce.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>The die is discrete:</strong> <span class="math notranslate nohighlight">\(X\)</span> can land on exactly six separate values, <span class="math notranslate nohighlight">\(\{1, 2, \dots, 6\}\)</span>, and nothing in between. It makes sense to ask <span class="math notranslate nohighlight">\(\mathbb{P}(X = 3)\)</span>, and the answer is a positive number (<span class="math notranslate nohighlight">\(\frac{1}{6}\)</span> for a fair die).</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(Height\)</span> is continuous:</strong> it maps a randomly chosen student to a value on a continuous scale — <span class="math notranslate nohighlight">\(67\)</span> inches, <span class="math notranslate nohighlight">\(67.2\)</span>, <span class="math notranslate nohighlight">\(67.24601\ldots\)</span> — with no gaps. For continuous random variables, the natural questions are about <strong>ranges</strong>, like <span class="math notranslate nohighlight">\(\mathbb{P}(Height &lt; 65)\)</span> or <span class="math notranslate nohighlight">\(\mathbb{P}(64 &lt; Height &lt; 70)\)</span>; the probability of hitting any <em>single exact</em> value (a student measuring <span class="math notranslate nohighlight">\(67.000000\ldots\)</span> inches exactly) is essentially zero.</p></li>
+</ul>
+<p class="sd-card-text">Same definition, two flavors. Keep both mental prototypes handy: <strong>the die</strong> for discrete, <strong>Purdue heights</strong> for continuous — nearly every random variable in this course will resemble one of the two.</p>
+</div>
+</details></section>
 <section id="distribution">
-<h2><span class="section-number">2.3. </span>Distribution<a class="headerlink" href="#distribution" title="Link to this heading">#</a></h2>
+<span id="ch2-distribution"></span><h2><span class="section-number">2.3. </span>Distribution<a class="headerlink" href="#distribution" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>In <a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0</span></a> you met a fair die and a loaded die that favors six. Both have <em>exactly</em> the same faces — the values <span class="math notranslate nohighlight">\(1\)</span> through <span class="math notranslate nohighlight">\(6\)</span> are stamped into the plastic of each. So if I hand you a die and tell you only its possible values, I have told you <strong>nothing</strong> about which die you are holding. <strong>What is the missing piece of information that separates the fair die from the loaded one?</strong> That missing piece — <em>how probability is spread over the possible values</em> — is precisely what this section names: the <strong>distribution</strong>.</p>
+</div>
 <p>In the previous section, we learned about <strong>variables</strong> and <strong>random variables</strong>. For both concepts, we can also discuss their <strong>distribution</strong>. In simple terms, a <span class="purdue-text"><strong>distribution</strong></span> describes <strong>how values are spread out</strong> (or how likely different values are) for a given variable or random variable. It defines the <strong>probabilities</strong> associated with different ranges of values that the variable or random variable can take.</p>
 <ul class="simple">
 <li><p>If we have a dataset containing observed values, a <strong>variable</strong> (typically a column in the dataset) has an <strong>empirical distribution</strong> (the frequencies of the observed values).</p></li>
 <li><p>If we have a <strong>random variable</strong>, in probability theory it has a <strong>theoretical probability distribution</strong> (theoretical probabilities of values). In this course, we will also encounter some famous probability distributions.</p></li>
 </ul>
-<p>In our height example, once we have a sample of 1,000 students, we have 1,000 height measurements for the students in the sample. These values form an <strong>empirical distribution</strong>. Meanwhile, if we consider the aforementioned <span class="math notranslate nohighlight">\(Height\)</span> random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank"><strong>Normal (Gaussian) distribution</strong></a>. Thus, the <strong>theoretical distribution</strong> of <span class="math notranslate nohighlight">\(Height\)</span> is a normal distribution<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: same values, different distributions — the fair and the loaded die</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Recall the loaded die from <a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0</span></a>, which favors six: say <span class="math notranslate nohighlight">\(\mathbb{P}(X = 6) = \frac{1}{3}\)</span>, with the remaining probability <span class="math notranslate nohighlight">\(\frac{2}{3}\)</span> split equally among the other five faces (<span class="math notranslate nohighlight">\(\frac{2}{15} \approx 0.133\)</span> each).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">value</p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(1\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(2\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(3\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(4\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(5\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(6\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">fair die</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{6}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{6}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{6}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{6}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{6}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{6}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">loaded die</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{2}{15}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{2}{15}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{2}{15}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{2}{15}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{2}{15}\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{1}{3}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">The two dice have <strong>identical possible values</strong> but <strong>different distributions</strong> — and the distribution is what actually distinguishes them. Listing the possible values is only half of specifying a random variable; the distribution is the other, decisive half. (This is Chapter 0’s “two ingredients” idea wearing its official name.) The sum of two dice from the previous section is another case in point: its distribution — heavy at <span class="math notranslate nohighlight">\(7\)</span>, thin at <span class="math notranslate nohighlight">\(2\)</span> and <span class="math notranslate nohighlight">\(12\)</span> — is what made it interesting.</p>
+</div>
+</details><p>In our height example, once we have a sample of 1,000 students, we have 1,000 height measurements for the students in the sample. These values form an <strong>empirical distribution</strong>. Meanwhile, if we consider the aforementioned <span class="math notranslate nohighlight">\(Height\)</span> random variable, we can assume it follows a <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank"><strong>Normal (Gaussian) distribution</strong></a>. Thus, the <strong>theoretical distribution</strong> of <span class="math notranslate nohighlight">\(Height\)</span> is a normal distribution<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: empirical vs. theoretical — roll a fair die 60 times</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The die makes the empirical/theoretical pair concrete. The <strong>theoretical</strong> distribution of a fair die is the flat line: probability exactly <span class="math notranslate nohighlight">\(\frac{1}{6} \approx 0.167\)</span> for each face. Now actually roll a fair die 60 times (we simulated this on a computer) and tally:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">face</p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(1\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(2\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(3\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(4\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(5\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(6\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">count (out of 60)</p></td>
+<td><p class="sd-card-text">12</p></td>
+<td><p class="sd-card-text">8</p></td>
+<td><p class="sd-card-text">9</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">11</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">observed proportion</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.200\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.133\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.150\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.183\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">theoretical probability</p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+<td><p class="sd-card-text"><span class="math notranslate nohighlight">\(0.167\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">The middle rows are the <strong>empirical distribution</strong> of this dataset of 60 rolls: observed frequencies, which wobble around the flat line (<span class="math notranslate nohighlight">\(0.133\)</span> here, <span class="math notranslate nohighlight">\(0.200\)</span> there) — a perfectly fair die does <em>not</em> produce a perfectly flat table in 60 rolls. The bottom row is the <strong>theoretical distribution</strong> of the random variable <span class="math notranslate nohighlight">\(X\)</span>: exact, flat, and untouched by any particular set of rolls.</p>
+<p class="sd-card-text">The connection between them: as the number of rolls grows, the empirical proportions settle toward the theoretical ones. When we continued the simulation to <span class="math notranslate nohighlight">\(6{,}000\)</span> rolls, every face’s proportion landed between <span class="math notranslate nohighlight">\(0.161\)</span> and <span class="math notranslate nohighlight">\(0.171\)</span> — the histogram was nearly flat. The same story holds for heights: the histogram of 1,000 measured heights is empirical and a bit lumpy; the smooth normal curve of <span class="math notranslate nohighlight">\(Height\)</span> is theoretical; and with more and more data, the histogram traces out the curve. This “empirical approaches theoretical” idea is exactly the link between the middle circle and the model world in <a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0’s Big Picture</span></a>.</p>
+</div>
+</details></section>
 <section id="population-parameters">
-<h2><span class="section-number">2.4. </span>Population Parameters<a class="headerlink" href="#population-parameters" title="Link to this heading">#</a></h2>
+<span id="ch2-parameters"></span><h2><span class="section-number">2.4. </span>Population Parameters<a class="headerlink" href="#population-parameters" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Someone asks you, plainly: “So how tall <em>are</em> Purdue students?” You cannot answer by reciting 40,000 numbers — what they want is <strong>one number</strong> that summarizes the whole population, something like <em>the</em> average height, <span class="math notranslate nohighlight">\(\mu\)</span>. Here is the strange part: that number genuinely <strong>exists</strong> (the 40,000 students are out there, each with a height), yet <strong>nobody knows it</strong> — not you, not the registrar, not anyone. <strong>What do we call a number that is perfectly well-defined, completely fixed, and completely unknown?</strong> This section gives it a name — <em>parameter</em> — and that name marks the exact spot where statistics gets its mission.</p>
+</div>
 <p>Once we have learned the concept of a <strong>distribution</strong> and assume that the <span class="math notranslate nohighlight">\(Height\)</span> random variable follows a normal distribution, we can use a mathematical function to define the shape of the normal distribution. This function has two <strong>parameters</strong>: the mean <span class="math notranslate nohighlight">\(\mu\)</span> and the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span><a class="footnote-reference brackets" href="#footnote02" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <p>Our population consists of all Purdue students, each with a height value. These height values in the population are considered <strong>realizations</strong> of the random variable <span class="math notranslate nohighlight">\(Height\)</span>.</p>
 <p>In the textbook and this course, the mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> are referred to as the <span class="purdue-text"><strong>parameters</strong></span> associated with the <strong>population</strong>.</p>
@@ -562,11 +721,61 @@
 <p>A <strong>parameter</strong> is a number that describes the <strong>population</strong>.</p>
 <p>While it is a fixed value, its true value is typically unknown in practice.</p>
 </section>
-</div><p>Since these parameters are unknown, except in cases where the question explicitly provides a fixed value, we need to use our <strong>sample</strong> to estimate the unknown parameter or make inferences about it.</p>
+</div><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: parameters you know, parameters you don’t</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><strong>The die:</strong> if you <em>assume</em> the die is fair, the parameter is handed to you — each face has probability <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span>. But pick up a stranger’s die, and the honest model is “each face <span class="math notranslate nohighlight">\(i\)</span> has some probability <span class="math notranslate nohighlight">\(p_i\)</span>” — six parameters, values unknown. Fair vs. loaded is now a question <strong>about the parameters</strong>: is every <span class="math notranslate nohighlight">\(p_i\)</span> equal to <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span>, or is <span class="math notranslate nohighlight">\(p_6\)</span> larger?</p></li>
+<li><p class="sd-card-text"><strong>Heights:</strong> modeling <span class="math notranslate nohighlight">\(Height\)</span> as normal hands us the <em>shape family</em>, but the two parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> that pin down <em>which</em> normal curve are unknown — and <span class="math notranslate nohighlight">\(\mu\)</span> is exactly the “average height of all Purdue students” we set out to find in the first section.</p></li>
+</ul>
+<p class="sd-card-text">Textbook problems often say “suppose <span class="math notranslate nohighlight">\(\mu = 67\)</span> and <span class="math notranslate nohighlight">\(\sigma = 3\)</span>” — that is the <em>probability</em> direction from <a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0</span></a>, where parameters are given so you can practice. In the real world, and in the second half of this course, the parameters are the unknowns we chase.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “I took a new sample and got a different average — so the parameter <span class="math notranslate nohighlight">\(\mu\)</span> must have changed.”</p>
+<p><strong>In fact:</strong> the parameter never moved. <span class="math notranslate nohighlight">\(\mu\)</span> is a fixed property of the <strong>population</strong> (all ~40,000 heights have one single average, whether or not anyone knows it). What changes from sample to sample is the <strong>sample average</strong> — a quantity computed from data, called a <em>statistic</em> (formally defined next chapter). New sample, new statistic value; same population, same parameter.</p>
+<p><strong>Quick check:</strong> two project teams each measure 100 randomly chosen Purdue students. Team A reports an average of <span class="math notranslate nohighlight">\(66.8\)</span> inches; Team B reports <span class="math notranslate nohighlight">\(67.3\)</span>. How many values of <span class="math notranslate nohighlight">\(\mu\)</span> are there in this story? (Exactly <strong>one</strong> — unknown, fixed, and merely <em>estimated</em> twice, a little differently each time.)</p>
+</div>
+<p>Since these parameters are unknown, except in cases where the question explicitly provides a fixed value, we need to use our <strong>sample</strong> to estimate the unknown parameter or make inferences about it.</p>
 <p>There is one subtle gap to bridge. In the first section, we mentioned the <em><strong>average height</strong> of all Purdue students</em> and treated it as unknown, linking it to the population. We can think of this as the <strong>empirical population parameter</strong>. When the population size <span class="math notranslate nohighlight">\(N\)</span> is very large, this <strong>empirical population parameter</strong> should be very close to the <strong>theoretical population parameter</strong>, <span class="math notranslate nohighlight">\(\mu\)</span>. The textbook does not distinguish between these two perspectives.</p>
 </section>
+<section id="putting-it-all-together-one-sentence-from-the-news">
+<span id="ch2-together"></span><h2><span class="section-number">2.5. </span>Putting It All Together: One Sentence from the News<a class="headerlink" href="#putting-it-all-together-one-sentence-from-the-news" title="Link to this heading">#</a></h2>
+<p>Let’s return to the sentence from the start of the chapter and dissect it with our new vocabulary:</p>
+<blockquote>
+<div><p><em>“A new poll finds 54% of Americans support the policy, with a margin of error of ±3 percentage points.”</em></p>
+</div></blockquote>
+<p><strong>Step 1 — Find the population.</strong> “Americans” is the <strong>population</strong>: all U.S. adults, roughly 260 million people. As always, it sits in the background — never fully measured, yet it is who the sentence claims to be about.</p>
+<p><strong>Step 2 — Find the sample.</strong> The pollster called roughly 1,000 people. Those 1,000 respondents are the <strong>sample</strong> — the only humans who actually generated data. (Whether 1,000 can fairly stand in for 260 million depends on <em>how</em> they were chosen — that is the next chapter’s subject.)</p>
+<p><strong>Step 3 — Find the random variable.</strong> Pick one adult at random and ask the question. Define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X(\omega) = \begin{cases} 1 &amp; \text{if person } \omega \text{ supports the policy}, \\ 0 &amp; \text{if not.} \end{cases}\end{split}\]</div>
+<p>This is a genuine random variable in exactly our formal sense: a <strong>function</strong> from the sample space <span class="math notranslate nohighlight">\(\Omega\)</span> (all American adults — the people, not numbers) to the real line. It is the yes/no cousin of <span class="math notranslate nohighlight">\(Height\)</span> — discrete like the die, with just two values instead of six.</p>
+<p><strong>Step 4 — Find the theoretical distribution and its parameter.</strong> The two ingredients: the possible values are <span class="math notranslate nohighlight">\(\{0, 1\}\)</span>, and the probabilities are <span class="math notranslate nohighlight">\(\mathbb{P}(X = 1) = p\)</span> and <span class="math notranslate nohighlight">\(\mathbb{P}(X = 0) = 1 - p\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is the true proportion of all American adults who support the policy. That <span class="math notranslate nohighlight">\(p\)</span> is the <strong>parameter</strong>: one fixed number, perfectly well-defined, known to nobody. It plays the exact role <span class="math notranslate nohighlight">\(\mu\)</span> plays in the height story.</p>
+<p><strong>Step 5 — Find the statistic.</strong> The pollster’s dataset is 1,000 recorded 0’s and 1’s — 540 ones and 460 zeros. Its <strong>empirical distribution</strong> is “54% ones, 46% zeros.” The number <span class="math notranslate nohighlight">\(\hat{p} = 0.54\)</span> (read “p-hat,” the sample proportion) is computed from the sample: a <strong>statistic</strong>. Call a <em>different</em> 1,000 people and you would get a different <span class="math notranslate nohighlight">\(\hat{p}\)</span> — maybe <span class="math notranslate nohighlight">\(0.52\)</span>, maybe <span class="math notranslate nohighlight">\(0.56\)</span> — while <span class="math notranslate nohighlight">\(p\)</span> itself sits unmoved.</p>
+<p><strong>Step 6 — Decode the fine print.</strong> “Margin of error ±3” is the pollster admitting exactly that: <span class="math notranslate nohighlight">\(\hat{p}\)</span> varies from sample to sample, so <span class="math notranslate nohighlight">\(0.54\)</span> is an <em>estimate</em> of <span class="math notranslate nohighlight">\(p\)</span>, not <span class="math notranslate nohighlight">\(p\)</span> itself — and the ±3 quantifies how far off it is likely to be. Where that number comes from is Goal 2 of the course (<a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0</span></a>), delivered in Chapters 5 and beyond.</p>
+<p>So one news sentence, fully translated: <em>a statistic (<span class="math notranslate nohighlight">\(\hat{p} = 0.54\)</span>), computed from the empirical distribution of a sample (<span class="math notranslate nohighlight">\(n = 1{,}000\)</span>), estimating the unknown parameter (<span class="math notranslate nohighlight">\(p\)</span>) of the theoretical distribution of a random variable (<span class="math notranslate nohighlight">\(X\)</span>) defined on a population (U.S. adults) — with an honest confession of sampling uncertainty (±3).</em> Every concept in this chapter, in one line of newsprint.</p>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">2.6. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. Your roommate says: “The sum of two fair dice is a random variable, so every value from 2 to 12 is equally likely.” What’s wrong?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Being a random variable says nothing about values being equally likely — a random variable is just a function from the sample space to the real line, and the function shapes the probabilities. Here the 36 <em>outcomes</em> <span class="math notranslate nohighlight">\((a,b)\)</span> are equally likely, but the <em>values</em> of the sum are not: <span class="math notranslate nohighlight">\(\mathbb{P}(S = 7) = \frac{6}{36} = \frac{1}{6}\)</span> while <span class="math notranslate nohighlight">\(\mathbb{P}(S = 2) = \frac{1}{36}\)</span> — a 7 is six times as likely as a 2. “Equally likely” lives on <span class="math notranslate nohighlight">\(\Omega\)</span>, not automatically on the values.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. In the height study, classify each item: (a) all Purdue students; (b) the 1,000 students measured; (c) <span class="math notranslate nohighlight">\(\mu\)</span>; (d) the computed average of the 1,000 measurements, say 67.1 inches. Which of these are fixed, and which would change if we redid the study?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">(a) The <strong>population</strong>. (b) The <strong>sample</strong>. (c) The <strong>parameter</strong> — a fixed, unknown number describing the population. (d) A <strong>statistic’s value</strong> (a realization of the sample average) — known once we have data, but it <em>varies</em>: redo the study with a fresh random sample and (b) and (d) both change, while (a) and (c) stay exactly the same. Fixed: population and parameter. Changing: sample and statistic.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. You roll a fair die 60 times and record the results. What is the difference between the empirical distribution of your recorded rolls and the theoretical distribution of <span class="math notranslate nohighlight">\(X\)</span>? What happens as 60 rolls become 6,000?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The <strong>empirical distribution</strong> is the table of observed frequencies from <em>your</em> 60 rolls — it wobbles (perhaps face 1 appeared 12 times but face 2 only 8) and would come out differently for a classmate. The <strong>theoretical distribution</strong> is the model’s exact flat assignment of <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span> to each face — the same for everyone and untouched by any actual rolls. As the number of rolls grows to 6,000 and beyond, the empirical proportions settle toward <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span>: the empirical histogram approaches the theoretical shape. That convergence is what lets data (the inner circles of the Big Picture) tell us about the model (the right side).</p>
+</div>
+</details></section>
 <section id="revisiting-the-big-picture">
-<h2><span class="section-number">2.5. </span>Revisiting the Big Picture<a class="headerlink" href="#revisiting-the-big-picture" title="Link to this heading">#</a></h2>
+<span id="ch2-bigpicture"></span><h2><span class="section-number">2.7. </span>Revisiting the Big Picture<a class="headerlink" href="#revisiting-the-big-picture" title="Link to this heading">#</a></h2>
 <p>You have now met this chapter’s concepts twice: informally in <a class="reference internal" href="bigpicture.html"><span class="doc std std-doc">Chapter 0</span></a> — through dice, heights, and pictures — and formally here, with definitions. Go back to the Big Picture diagram one more time; every formal name in this chapter labels one specific piece of it.</p>
 <ul class="simple">
 <li><p>The dashed outer circle — the <strong>true population world</strong> — is what our formal <span class="purdue-text">population</span> refers to: all Purdue students, never fully observed.</p></li>
@@ -660,7 +869,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-and-random-variable">2.2. Variable and Random Variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution">2.3. Distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-parameters">2.4. Population Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-the-big-picture">2.5. Revisiting the Big Picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-one-sentence-from-the-news">2.5. Putting It All Together: One Sentence from the News</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">2.6. Check Your Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-the-big-picture">2.7. Revisiting the Big Picture</a></li>
 </ul>
   </nav></div>
 

@@ -1,5 +1,19 @@
 # At the Beginning
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Describe the **three levels of understanding** course material: knowing **what**, knowing **why**, and asking **what if..., and then what?**
+* Identify what it takes to **pass this course** — completing every assignment on time, especially group and milestone assignments.
+* Plan how to **build a solid foundation**: reading and digesting the materials in manageable sections and using assignments as checkpoints.
+* Know where to get **help** (office hours, email) and which core concepts will be highlighted for deeper mastery.
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+Two students sit in the same lectures all semester. The first memorizes the procedure: given A, B, and C, apply steps 1–3 to get D. The second also asks *why* step 2 follows from step 1. On the exam, a familiar question appears — but reworded: this time you are given A, B, and D, and asked for C. **Which student is in trouble?** This short chapter is about that difference: what it means to *learn* this course rather than merely survive it, and — very concretely — what you must do to pass it.
+```
+
 Let me be more transparent here. Every student wishes to achieve a better grade when it comes to college courses. To obtain a grade, we still follow the standard test or exam-based evaluation system for most courses, especially introductory-level ones. In terms of **learning, understanding, and mastering knowledge**, this exam-based approach might not always be the best way to assess a student's understanding of the material. But that is a topic for another discussion.
 
 In the test or exam, you will be given several well-defined questions. For example, you might be given A, B, and C, and you need to solve for D. In class, you will learn the step-by-step procedure to find D when you have A, B, and C. You only need to understand <span class="purdue-text">**what**</span> A, B, C, and D are, and remember <span class="purdue-text">**what**</span> the procedure to get D from A, B, and C is. 

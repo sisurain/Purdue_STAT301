@@ -5,6 +5,25 @@
 This chapter corresponds to **Chapter 11** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
 ```
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Write down the **multiple linear regression model** and identify $n$ (cases), $p$ (explanatory variables), the coefficients $\beta_j$, and $\sigma$.
+* Interpret each estimated coefficient $b_j$ as a per-unit effect **holding the other predictors fixed** — and explain why a coefficient changes when the set of predictors changes.
+* Explain how leaving a relevant predictor out of the model connects to Chapter 3's **confounding** (omitted-variable bias).
+* Read software output in the right order: the overall **ANOVA $F$ test** first, then individual **$t$ tests**, then $R^2$ and the regression standard error $s$.
+* Given a study description, decide whether it calls for **simple regression, multiple regression, or ANOVA**.
+```
+
+```{admonition} Key concepts at a glance
+:class: note
+[The model and estimation](ch13-model) · [Inference: $t$ tests, the $F$ test, and $R^2$](ch13-inference) · [Putting it all together](ch13-together)
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+In Chapter 10 we predicted a student's height from shoe size alone. But height surely also depends on parent height, on sex, on nutrition. Leaving real predictors **out** of the model does not make their effects disappear — it dumps them into the error term. And if a left-out variable is **correlated with shoe size**, its effect gets partly credited to shoe size, **biasing** the slope: part of what we called "the shoe-size effect" was really mother's height in disguise. This is Chapter 3's **confounding**, wearing regression clothes. The fix is as direct as it sounds: put the other predictors **in** the model. That is exactly what multiple regression does — and this chapter shows what happens to the coefficients when we do.
+```
 
 In Chapters 2 and 10, we studied methods for inference in the setting of a linear relationship between a quantitative response variable $y$ and a *single* explanatory variable $x$. In this chapter, we investigate situations in which *multiple* explanatory variables work together to explain, or predict, the response variable.
 
@@ -52,7 +71,13 @@ As in simple linear regression, we can also think of this model in terms of subp
 In each subpopulation, $y$ varies Normally with a mean given by the population regression equation. The regression model assumes that the standard deviation $\sigma$ of the responses is the same in all subpopulations.
 
 
+(ch13-model)=
 ## The model and estimation
+
+```{admonition} A question before this section
+:class: bridge
+With one predictor, the slope had a clean reading: "one more shoe size, about $b_1$ more inches of height." With three predictors in the model at once, **what does $b_1$ even mean now?** The crucial phrase — the one that appears in every correct interpretation in this chapter — is **holding the others fixed**. Watch for it in the model, in the coefficient interpretations, and again in the $t$ tests.
+```
 
 ``````{tab-set}
 `````{tab-item} Multiple Linear Regression Model
@@ -191,7 +216,105 @@ s
 `````
 ``````
 
+::::{dropdown} Example: the height study grows a second predictor
+:open:
+Ten students report their shoe size ($x_1$), their mother's height ($x_2$, inches), and their own height ($y$, inches):
+
+:::{list-table}
+:header-rows: 1
+:widths: 25 25 25 25
+
+* - Student
+  - Shoe size $x_1$
+  - Mother's height $x_2$
+  - Height $y$
+* - 1
+  - 7
+  - 61
+  - 63
+* - 2
+  - 7.5
+  - 63
+  - 66
+* - 3
+  - 8
+  - 62
+  - 66
+* - 4
+  - 8.5
+  - 64
+  - 68
+* - 5
+  - 9
+  - 63
+  - 66
+* - 6
+  - 9.5
+  - 66
+  - 70
+* - 7
+  - 10
+  - 64
+  - 69
+* - 8
+  - 11
+  - 66
+  - 70
+* - 9
+  - 12
+  - 67
+  - 73
+* - 10
+  - 13
+  - 68
+  - 74
+:::
+
+**Fit 1 — simple regression** (Chapter 10 style), height on shoe size alone:
+
+```{math}
+\hat{y} = 52.75 + 1.65\,x_1, \qquad r^2 = 0.903 .
+```
+
+The slope is strongly significant ($P < 0.0001$): each extra shoe size predicts about 1.65 more inches of height.
+
+**Fit 2 — multiple regression**, adding mother's height:
+
+```{math}
+\hat{y} = -2.85 + 0.55\,x_1 + 1.03\,x_2, \qquad R^2 = 0.967 .
+```
+
+Look at what happened to the shoe-size coefficient: it collapsed from **1.65** to **0.55**. Nothing about the students changed — only the model did.
+
+**Why?** In these data, shoe size and mother's height are highly correlated ($r = 0.93$): students with bigger feet tend to have taller mothers. In Fit 1, mother's height was an *omitted variable*, so shoe size collected the credit for its own effect **plus** much of the mother's-height effect that traveled along with it — the omitted-variable bias promised in the chapter bridge, now visible in the numbers. Once mother's height enters the model, each coefficient describes only its *own* per-unit contribution, **holding the other predictor fixed**.
+::::
+
+::::{dropdown} Example: reading the fitted coefficients — "holding the others fixed"
+Using the fitted equation $\hat{y} = -2.85 + 0.55\,x_1 + 1.03\,x_2$:
+
+* $b_1 = 0.55$: comparing two students **whose mothers are the same height**, the one whose shoe size is one size larger is predicted to be about 0.55 inches taller. (Check: shoe 10 and mom 65 gives $\hat{y} \approx 69.36$; shoe 11 and mom 65 gives $\hat{y} \approx 69.90$ — a rise of 0.55.)
+* $b_2 = 1.03$: comparing two students **with the same shoe size**, each extra inch of mother's height predicts about 1.03 more inches of student height. (Shoe 10, mom 66: $\hat{y} \approx 70.39$.)
+* $b_0 = -2.85$: the predicted height when shoe size = 0 and mother's height = 0 inches — a meaningless extrapolation far outside the data, kept only to anchor the plane. Do not interpret it.
+
+The phrase *holding the others fixed* is not decoration — drop it and the interpretation is simply wrong, because in the raw data shoe size and mother's height move together.
+::::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "A coefficient means the same thing in multiple regression as in simple regression — $b_1$ is just 'the effect of $x_1$ on $y$.'"
+
+**In fact:** in multiple regression, $b_1$ is a per-unit effect **holding all the other predictors in the model fixed** — and its value depends on *which* other predictors those are. The example above just showed it: shoe size's coefficient was 1.65 alone, but 0.55 once mother's height entered. Neither number is "wrong"; they answer different questions.
+
+**Quick check:** if we added *father's* height as a third predictor, should we expect the shoe-size coefficient to stay at 0.55? (No — any new predictor correlated with shoe size can shift it again. A coefficient is only defined relative to its model.)
+```
+
+(ch13-inference)=
 ## Confidence intervals, significant tests and ANOVA
+
+```{admonition} A question before this section
+:class: bridge
+We now have $p$ coefficients, so it is tempting to run $p$ individual $t$ tests and simply see which predictors "win." But didn't we learn in the ANOVA chapter what's wrong with running many tests at once — each test brings its own chance of a false alarm? The overall **$F$ test** asks one question first: *does this set of predictors, as a group, explain anything at all?* Only after that gate do the individual $t$ tests — each one answering "does this predictor add value, **given** the others?" — earn their turn.
+```
 
 ``````{tab-set}
 `````{tab-item} Confidence Intervals & Significance Tests for Regression Coefficients
@@ -330,10 +453,13 @@ and the $P$-value is $P\bigl(F(p,\,n - p - 1)\,\ge\,F_{\text{obs}}\bigr)$.
 
 **Common Misinterpretation of the $F$ Test**
 
-```{admonition} Warning
+```{admonition} Common misunderstanding
 :class: warning
+**Students often think:** "The overall $F$ test came back significant, so every predictor in the model matters."
 
-A common error in multiple regression is to assume that **all** coefficients are nonzero whenever $F$ has a small $P$-value.
+**In fact:** a common error in multiple regression is to assume that **all** coefficients are nonzero whenever $F$ has a small $P$-value. A significant $F$ only says that *at least one* $\beta_j$ is nonzero.
+
+**Quick check:** in the two-predictor height example, $F = 103.0$ with $P < 0.0001$ — yet the individual $t$ test for shoe size gives $P = 0.13$. Which predictors matter is a question for the individual $t$ tests (each one *given* the others), not for $F$.
 ```
 
 The $F$ test provides an **overall** assessment of the regression model in explaining $y$, while the **individual $t$ tests** look at each variable’s importance **given** the others. Especially with correlated explanatory variables, a small $P$-value for $F$ does not guarantee each $\beta_j$ is statistically significant.
@@ -378,5 +504,56 @@ We use a capital $R$ here to reinforce the fact that this statistic depends on a
 `````
 
 ``````
+
+(ch13-together)=
+## Putting It All Together: Which Procedure, and in What Order?
+
+**Part 1 — identify the procedure.** When a problem hands you a quantitative response variable, ask two questions about the explanatory side: *how many* explanatory variables, and are they *quantitative or categorical*?
+
+* **One quantitative predictor** → **simple linear regression** (Chapter 10): one slope, one $t$ test.
+* **Two or more quantitative predictors** → **multiple regression** (this chapter): several slopes, an overall $F$ test, then individual $t$ tests.
+* **One categorical predictor** (group membership) → **ANOVA**: compare group means with an $F$ test.
+* (**Both variables categorical?** Then there are no means to compare at all — that is the next chapter's territory: two-way tables.)
+
+Three quick drills:
+
+1. Predict exam score from hours studied. (*One quantitative predictor → simple regression.*)
+2. Predict exam score from hours studied, hours slept, and prior GPA. (*Three quantitative predictors → multiple regression.*)
+3. Compare mean exam scores across three lecture sections. (*One categorical predictor with three levels → ANOVA.*)
+
+**Part 2 — the two-predictor height model, start to finish.** Here is the full analysis of the model $\text{height} = \beta_0 + \beta_1\,\text{shoe} + \beta_2\,\text{mom} + \epsilon$ with $n = 10$ and $p = 2$, in the order a statistician reads the output.
+
+**Step 1 — the overall $F$ test first.** From the ANOVA table: $\text{SSM} = 101.07$ with $\text{DFM} = p = 2$, $\text{SSE} = 3.43$ with $\text{DFE} = n - p - 1 = 7$, $\text{SST} = 104.50$ with $\text{DFT} = 9$. So $\text{MSM} = 50.53$, $\text{MSE} = 0.49$, and
+
+```{math}
+F = \frac{\text{MSM}}{\text{MSE}} = \frac{50.53}{0.49} = 103.0 ,
+```
+
+compared with the $F(2, 7)$ distribution ($P < 0.0001$; the 0.05 critical value is 4.74). We reject $H_0\!: \beta_1 = \beta_2 = 0$: the two predictors, as a group, explain height. The gate is open.
+
+**Step 2 — individual $t$ tests, each "given the other."** With $\text{df} = 7$ (so $t^* = 2.365$ for 95% confidence):
+
+* Mother's height: $b_2 = 1.03$, $\text{SE}_{b_2} = 0.28$, $t = 3.69$, $P = 0.008$ — significant *given shoe size*. A 95% confidence interval is $1.03 \pm 2.365 \times 0.28$, i.e., about $(0.37,\ 1.69)$.
+* Shoe size: $b_1 = 0.55$, $\text{SE}_{b_1} = 0.32$, $t = 1.70$, $P = 0.13$ — **not** significant *given mother's height*. Its 95% interval, about $(-0.22,\ 1.31)$, contains 0.
+
+Note carefully what Step 2 does **not** say: shoe size is not "unrelated to height" — the simple regression showed a strong relationship ($P < 0.0001$). It says shoe size adds little *once mother's height is already in the model*, exactly the pattern the correlated-predictors warning anticipated.
+
+**Step 3 — how much is explained.** $R^2 = \text{SSM}/\text{SST} = 101.07/104.50 = 0.967$: the two predictors together explain about 96.7% of the variation in these students' heights. The regression standard error is $s = \sqrt{\text{MSE}} = 0.70$ inches — the typical size of a prediction miss.
+
+The order matters: $F$ first (*is there anything here?*), then the $t$'s (*which predictors, given the others?*), then $R^2$ and $s$ (*how much, and how precisely?*).
+
+## Check Your Understanding
+
+:::{dropdown} 1. In the multiple model, shoe size's $t$ test gives $P = 0.13$. A student concludes "shoe size is unrelated to height." What is wrong?
+The $t$ test in multiple regression is conditional: it asks whether shoe size adds predictive value **given that mother's height is already in the model**. In the simple regression, shoe size was strongly related to height ($P < 0.0001$). Because the two predictors are highly correlated ($r = 0.93$), mother's height already carries most of the information shoe size would contribute. "Not significant given the others" is not "unrelated."
+:::
+
+:::{dropdown} 2. A model uses $p = 4$ predictors with $n = 30$ cases. What are the degrees of freedom for the individual $t$ tests and for the overall $F$ test?
+The error degrees of freedom are $n - p - 1 = 30 - 4 - 1 = 25$. Each $t$ test uses the $t(25)$ distribution; the overall $F$ test uses the $F(4,\ 25)$ distribution ($\text{DFM} = p = 4$, $\text{DFE} = 25$).
+:::
+
+:::{dropdown} 3. A friend argues: "$R^2$ rose from 0.903 to 0.967 when we added mother's height, and $R^2$ always rises when you add a variable — so the increase proves nothing." Is the increase meaningful here?
+The friend's premise is right: $R^2$ never decreases when a predictor is added, even a useless one, so an increase *by itself* proves nothing. That is exactly why we do not judge a new predictor by $R^2$ alone — we test it. Here the $t$ test for mother's height (given shoe size) gives $t = 3.69$, $P = 0.008$: the improvement is real, not an automatic bookkeeping gain.
+:::
 
 

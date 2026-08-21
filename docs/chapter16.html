@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-in-matrix-form">16.2. Mean Squared Error in Matrix Form</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-mse-matrix">16.3. Expanding the MSE Matrix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimizing-the-mse">16.4. Minimizing the MSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">16.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -493,6 +494,20 @@
 <div class="seealso admonition">
 <p class="admonition-title">Note</p>
 <p>This is an optional special topic beyond the required course material, for students who want to see how regression is actually computed by software.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Write the simple linear regression model in <strong>matrix form</strong> <span class="math notranslate nohighlight">\(\mathbf{y} = \mathbf{x}\beta + \boldsymbol{\epsilon}\)</span>, and explain the role of the column of 1’s in the <strong>design matrix</strong>.</p></li>
+<li><p>Express the least-squares criterion as <span class="math notranslate nohighlight">\(\frac{1}{n}\mathbf{e}^\top\mathbf{e}\)</span> and follow the gradient derivation of the <strong>normal equations</strong>.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(\hat{\beta} = (\mathbf{x}^\top\mathbf{x})^{-1}\mathbf{x}^\top\mathbf{y}\)</span> by hand for a small dataset, and verify it matches the familiar formulas <span class="math notranslate nohighlight">\(b_1 = r\,s_y/s_x\)</span> and <span class="math notranslate nohighlight">\(b_0 = \bar{y} - b_1\bar{x}\)</span>.</p></li>
+<li><p>Explain why the matrix formula is the one <strong>software actually uses</strong>, and why it generalizes to multiple predictors while the <span class="math notranslate nohighlight">\(r\,s_y/s_x\)</span> formula does not.</p></li>
+</ul>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? Same regression, one line of linear algebra</p>
+<p>Everything in this chapter ends in a single line: <span class="math notranslate nohighlight">\(\hat{\beta} = (\mathbf{x}^\top\mathbf{x})^{-1}\mathbf{x}^\top\mathbf{y}\)</span>. Why bother, when we already have <span class="math notranslate nohighlight">\(b_1 = r\,s_y/s_x\)</span>? Two reasons. First, this is <strong>literally how software computes it</strong> — when you call a regression routine, a matrix expression like this (or a numerically safer cousin) is what runs. Second, unlike the <span class="math notranslate nohighlight">\(r\,s_y/s_x\)</span> formula, the matrix formula <strong>generalizes untouched to any number of predictors</strong>: add more columns to <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and the same line still delivers every coefficient. This chapter is the doorway from STAT 301 to real statistical computing.</p>
 </div>
 <p>We have a data set consisting of <span class="math notranslate nohighlight">\(n\)</span> paired observations of the predictor/explanatory variable <span class="math notranslate nohighlight">\(X\)</span> and the response variable <span class="math notranslate nohighlight">\(Y\)</span>, i.e., <span class="math notranslate nohighlight">\((x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\)</span>. We wish to fit the model with a regression line:</p>
 <div class="math notranslate nohighlight">
@@ -612,11 +627,86 @@ MSE(\hat{\beta})
 \[\hat{\beta} = (\mathbf{x}^\top \mathbf{x})^{-1}\,\mathbf{x}^\top \mathbf{y},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{x}^\top \mathbf{x}\)</span> is invertible provided the <span class="math notranslate nohighlight">\(x_i\)</span> are not all equal.</p>
 <p>A very compact result!</p>
-<figure class="align-center">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the formula by hand, on three points</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Take the tiniest interesting dataset: <span class="math notranslate nohighlight">\(x = (1, 2, 3)\)</span> and <span class="math notranslate nohighlight">\(y = (2, 3, 5)\)</span>.</p>
+<p class="sd-card-text"><strong>Step 1 — Build the design matrix</strong> (a column of 1’s, then the <span class="math notranslate nohighlight">\(x\)</span> values):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x} =
+\begin{bmatrix}
+1 &amp; 1 \\
+1 &amp; 2 \\
+1 &amp; 3
+\end{bmatrix},
+\qquad
+\mathbf{y} =
+\begin{bmatrix}
+2 \\ 3 \\ 5
+\end{bmatrix}.\end{split}\]</div>
+<p class="sd-card-text"><strong>Step 2 — Compute <span class="math notranslate nohighlight">\(\mathbf{x}^\top\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\top\mathbf{y}\)</span>.</strong> Each entry is a simple sum: <span class="math notranslate nohighlight">\(n = 3\)</span>, <span class="math notranslate nohighlight">\(\sum x_i = 6\)</span>, <span class="math notranslate nohighlight">\(\sum x_i^2 = 1 + 4 + 9 = 14\)</span>, <span class="math notranslate nohighlight">\(\sum y_i = 10\)</span>, <span class="math notranslate nohighlight">\(\sum x_i y_i = 2 + 6 + 15 = 23\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}^\top\mathbf{x} =
+\begin{bmatrix}
+3 &amp; 6 \\
+6 &amp; 14
+\end{bmatrix},
+\qquad
+\mathbf{x}^\top\mathbf{y} =
+\begin{bmatrix}
+10 \\ 23
+\end{bmatrix}.\end{split}\]</div>
+<p class="sd-card-text"><strong>Step 3 — Invert the <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix.</strong> The determinant is <span class="math notranslate nohighlight">\(3 \cdot 14 - 6 \cdot 6 = 6\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(\mathbf{x}^\top\mathbf{x})^{-1} = \frac{1}{6}
+\begin{bmatrix}
+14 &amp; -6 \\
+-6 &amp; 3
+\end{bmatrix}.\end{split}\]</div>
+<p class="sd-card-text"><strong>Step 4 — Multiply:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\beta} = \frac{1}{6}
+\begin{bmatrix}
+14 &amp; -6 \\
+-6 &amp; 3
+\end{bmatrix}
+\begin{bmatrix}
+10 \\ 23
+\end{bmatrix}
+= \frac{1}{6}
+\begin{bmatrix}
+140 - 138 \\
+-60 + 69
+\end{bmatrix}
+= \frac{1}{6}
+\begin{bmatrix}
+2 \\ 9
+\end{bmatrix}
+=
+\begin{bmatrix}
+1/3 \\ 3/2
+\end{bmatrix}.\end{split}\]</div>
+<p class="sd-card-text">So <span class="math notranslate nohighlight">\(b_0 = 1/3\)</span> and <span class="math notranslate nohighlight">\(b_1 = 1.5\)</span>: the fitted line is <span class="math notranslate nohighlight">\(\hat{y} = \tfrac{1}{3} + 1.5\,x\)</span>.</p>
+<p class="sd-card-text"><strong>Step 5 — Confirm against the familiar formulas.</strong> With <span class="math notranslate nohighlight">\(\bar{x} = 2\)</span>, <span class="math notranslate nohighlight">\(\bar{y} = 10/3\)</span>, <span class="math notranslate nohighlight">\(s_x = 1\)</span>, <span class="math notranslate nohighlight">\(s_y \approx 1.528\)</span>, and <span class="math notranslate nohighlight">\(r \approx 0.982\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[b_1 = r\,\frac{s_y}{s_x} \approx 0.982 \times \frac{1.528}{1} = 1.5,
+\qquad
+b_0 = \bar{y} - b_1\bar{x} = \frac{10}{3} - 1.5 \times 2 = \frac{1}{3}.\]</div>
+<p class="sd-card-text">Identical. The matrix route and the summary-statistics route are the same estimator wearing different clothes — but only the matrix route survives when you add a second predictor column to <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+</div>
+</details><figure class="align-center">
 <a class="reference internal image-reference" href="_images/1601.png"><img alt="Least-squares regression line y hat equals b0 plus b1 x, with slope b1 equals r times sy over sx and intercept b0 equals y bar minus b1 x bar" src="_images/1601.png" style="width: 100%;" />
 </a>
 </figure>
 </section>
+<section id="check-your-understanding">
+<h2><span class="section-number">16.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Suppose we add a second predictor, so the model becomes <span class="math notranslate nohighlight">\(y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i\)</span>. What changes in the matrix solution <span class="math notranslate nohighlight">\(\hat{\beta} = (\mathbf{x}^\top\mathbf{x})^{-1}\mathbf{x}^\top\mathbf{y}\)</span> — and what would we need for it to still exist?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Remarkably little changes: the design matrix <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> gains one column (it becomes <span class="math notranslate nohighlight">\(n \times 3\)</span>: a column of 1’s, then the <span class="math notranslate nohighlight">\(x_{i1}\)</span>’s, then the <span class="math notranslate nohighlight">\(x_{i2}\)</span>’s), <span class="math notranslate nohighlight">\(\beta\)</span> becomes <span class="math notranslate nohighlight">\(3 \times 1\)</span>, and the <em>same formula</em> <span class="math notranslate nohighlight">\(\hat{\beta} = (\mathbf{x}^\top\mathbf{x})^{-1}\mathbf{x}^\top\mathbf{y}\)</span> delivers all three coefficients at once — now inverting a <span class="math notranslate nohighlight">\(3 \times 3\)</span> matrix instead of a <span class="math notranslate nohighlight">\(2 \times 2\)</span>. The formula <span class="math notranslate nohighlight">\(b_1 = r\,s_y/s_x\)</span> has no such extension; this is exactly why software works in matrix form. For the solution to exist, <span class="math notranslate nohighlight">\(\mathbf{x}^\top\mathbf{x}\)</span> must be invertible, which requires the columns of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> to be linearly independent — no predictor may be constant or an exact linear combination of the others (in the simple-regression case, this reduces to “the <span class="math notranslate nohighlight">\(x_i\)</span> are not all equal”).</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -680,6 +770,7 @@ MSE(\hat{\beta})
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-in-matrix-form">16.2. Mean Squared Error in Matrix Form</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-mse-matrix">16.3. Expanding the MSE Matrix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimizing-the-mse">16.4. Minimizing the MSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">16.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

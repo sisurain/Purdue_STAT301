@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -484,6 +484,8 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-observation-prediction-interval">12.6.2. Future Observation (Prediction Interval)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-one-dataset-three-tests-two-intervals">12.7. Putting It All Together: One Dataset, Three Tests, Two Intervals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">12.8. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -500,6 +502,26 @@
 <div class="seealso admonition">
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 10</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Write down the <strong>simple linear regression model</strong> <span class="math notranslate nohighlight">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span> and state the <strong>conditions</strong> required for inference (linearity, constant <span class="math notranslate nohighlight">\(\sigma\)</span>, Normal model deviations, SRS).</p></li>
+<li><p>Estimate <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span> from data using <span class="math notranslate nohighlight">\(b_0\)</span>, <span class="math notranslate nohighlight">\(b_1\)</span>, and the <strong>regression standard error</strong> <span class="math notranslate nohighlight">\(s\)</span>, and explain the difference between the model deviations <span class="math notranslate nohighlight">\(\epsilon_i\)</span> and the residuals <span class="math notranslate nohighlight">\(e_i\)</span>.</p></li>
+<li><p>Construct a <strong>confidence interval</strong> and carry out a <strong><span class="math notranslate nohighlight">\(t\)</span> test</strong> for the slope <span class="math notranslate nohighlight">\(\beta_1\)</span> using <span class="math notranslate nohighlight">\(\text{SE}_{b_1}\)</span> and the <span class="math notranslate nohighlight">\(t(n-2)\)</span> distribution.</p></li>
+<li><p>Read and complete the <strong>ANOVA table</strong> for regression, carry out the <strong><span class="math notranslate nohighlight">\(F\)</span> test</strong>, and explain why <span class="math notranslate nohighlight">\(F = t^2\)</span> in simple linear regression.</p></li>
+<li><p>Distinguish a <strong>confidence interval for the mean response</strong> at <span class="math notranslate nohighlight">\(x^*\)</span> from a <strong>prediction interval for a single future observation</strong> at <span class="math notranslate nohighlight">\(x^*\)</span>, and explain why the prediction interval is wider.</p></li>
+<li><p>Test <span class="math notranslate nohighlight">\(H_0\!: \rho = 0\)</span> for a population correlation and connect this test to the slope test.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch12-model"><span class="std std-ref">The regression model</span></a> · <a class="reference internal" href="#ch12-estimation"><span class="std std-ref">Estimating the parameters</span></a> · <a class="reference internal" href="#ch12-inference"><span class="std std-ref">Inference for the slope</span></a> · <a class="reference internal" href="#ch12-anova"><span class="std std-ref">ANOVA for regression</span></a> · <a class="reference internal" href="#ch12-se"><span class="std std-ref">Standard errors, CI vs. PI, and correlation</span></a> · <a class="reference internal" href="#ch12-appendix"><span class="std std-ref">Derivations for the curious</span></a> · <a class="reference internal" href="#ch12-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>You measure the shoe sizes and heights of 8 classmates and fit the least-squares line <span class="math notranslate nohighlight">\(\hat{y} = 52.67 + 1.67x\)</span> to <strong>your</strong> sample. A classmate repeats the survey with 8 <em>different</em> students — and gets a different line. So which line is “the” relationship between shoe size and height? <strong>Is the true slope even nonzero, or did we just fit a line through noise?</strong> This is exactly the move we made in Chapter 5 for <span class="math notranslate nohighlight">\(\bar{x}\)</span>: treat the slope <span class="math notranslate nohighlight">\(b_1\)</span> as a <em>statistic with a sampling distribution</em>, attach a standard error to it, and use <span class="math notranslate nohighlight">\(t\)</span> procedures to test hypotheses and build confidence intervals for the <em>parameter</em> <span class="math notranslate nohighlight">\(\beta_1\)</span>.</p>
 </div>
 <p>In this chapter, we will study the <span class="purdue-text"><strong>inference for regression</strong></span>. In the previous chapter, when we had one sample—one dataset—we could plot a regression line in that scatterplot. But what if we have a different sample, a different dataset from the population? We might end up with a different regression line.</p>
 <p>The values <span class="math notranslate nohighlight">\(b_0\)</span> and <span class="math notranslate nohighlight">\(b_1\)</span> are our estimates of the true population parameters of the linear model, which are <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>. Just as we use <span class="math notranslate nohighlight">\(\bar{x}\)</span> to estimate <span class="math notranslate nohighlight">\(\mu\)</span>, we need to calculate the standard errors of our estimates to quantify the sampling variability of our estimates and to conduct similar statistical inference procedures.</p>
@@ -523,7 +545,11 @@
 </div></blockquote>
 </div>
 </details><section id="simple-linear-regression">
-<h2><span class="section-number">12.1. </span>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Link to this heading">#</a></h2>
+<span id="ch12-model"></span><h2><span class="section-number">12.1. </span>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Before we can do any inference, we have to ask: <strong>what exactly do we assume the world looks like</strong> for “the true slope” to even be a meaningful phrase? Back in Chapter 0 we wrote the data-generating story <span class="math notranslate nohighlight">\(y = ax + b + \epsilon\)</span> — a deterministic line plus random noise. The simple linear regression model below is precisely that story with official statistical notation: <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x\)</span> is the line built into the <em>population</em>, and <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0, \sigma^2)\)</span> is the noise. Every inference procedure in this chapter lives <em>inside</em> this model — which is why checking its conditions is not optional fine print.</p>
+</div>
 <p>Having this sampling variability in mind, we can imagine observing all the data points—that is, every pair of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values—in the population. We also assume that <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> share a linear relationship, which can be expressed by the simple linear regression model (called “simple” because it includes only one independent variable):</p>
 <div class="note admonition">
 <p class="admonition-title"><strong>Simple Linear Regression Model</strong></p>
@@ -574,10 +600,21 @@
 </ul>
 </li>
 </ul>
-<p>In reality, we cannot observe all the data points for each subpopulation; we only have a sample of data points for them. Thus, we can only obtain the estimates, <span class="math notranslate nohighlight">\(b_0\)</span> and <span class="math notranslate nohighlight">\(b_1\)</span>, for the true parameters, <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>, respectively.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (the single most important picture in this chapter)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This figure <em>is</em> the simple linear regression model — every assumption in the bullet list above is drawn somewhere in it. Read it in three passes:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Find the straight line first.</strong> That is the <em>population</em> regression line <span class="math notranslate nohighlight">\(\mu_y = \beta_0 + \beta_1 x\)</span>. It is not a fitted line through data points — there are no data points in this picture at all. It is the “truth” that our <span class="math notranslate nohighlight">\(\hat{y} = b_0 + b_1 x\)</span> tries to estimate.</p></li>
+<li><p class="sd-card-text"><strong>Now look at one Normal curve.</strong> Each curve sits at one particular value of <span class="math notranslate nohighlight">\(x\)</span> and is drawn <em>sideways</em>: it shows the distribution of the response <span class="math notranslate nohighlight">\(y\)</span> within that <strong>subpopulation</strong> (e.g., all subjects receiving that particular calcium dose, or all students with that shoe size). The peak of each curve sits exactly <em>on</em> the line — the subpopulation mean is <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x\)</span>. An individual <span class="math notranslate nohighlight">\(y\)</span> lands somewhere under its curve; its vertical distance from the line is its personal <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Compare the curves to each other.</strong> They are deliberately drawn <em>identical</em> in shape and spread — only their centers slide along the line. That is the constant-<span class="math notranslate nohighlight">\(\sigma\)</span> assumption: same scatter at every <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+</ol>
+<p class="sd-card-text">What the figure does <strong>not</strong> claim is just as important: it says nothing about the distribution of <span class="math notranslate nohighlight">\(x\)</span>, and it does <em>not</em> say the <span class="math notranslate nohighlight">\(y\)</span> values as a whole are Normal. Only <span class="math notranslate nohighlight">\(y\)</span> <em>within each vertical slice</em> is Normal — a distinction the next section’s “common misunderstanding” box returns to.</p>
+</div>
+</details><p>In reality, we cannot observe all the data points for each subpopulation; we only have a sample of data points for them. Thus, we can only obtain the estimates, <span class="math notranslate nohighlight">\(b_0\)</span> and <span class="math notranslate nohighlight">\(b_1\)</span>, for the true parameters, <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>, respectively.</p>
 </section>
 <section id="estimating-the-regression-parameters">
-<h2><span class="section-number">12.2. </span>Estimating the regression parameters<a class="headerlink" href="#estimating-the-regression-parameters" title="Link to this heading">#</a></h2>
+<span id="ch12-estimation"></span><h2><span class="section-number">12.2. </span>Estimating the regression parameters<a class="headerlink" href="#estimating-the-regression-parameters" title="Link to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
@@ -632,6 +669,12 @@ Linear Regression Model Conditions</label><div class="sd-tab-content docutils">
 <p class="admonition-title">Model Conditions vs. <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(x\)</span> Distributions</p>
 <p><em>It is a common mistake to assess the Normality of <span class="math notranslate nohighlight">\(y\)</span> when checking model conditions. Even though examining the distributions of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> can help identify outliers or influential observations, the key requirement is that the <strong>model deviations</strong> (the residuals) are approximately Normal, not necessarily <span class="math notranslate nohighlight">\(x\)</span> or <span class="math notranslate nohighlight">\(y\)</span> individually.</em></p>
 </div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “To check the Normality condition, make a histogram or Normal quantile plot of the <span class="math notranslate nohighlight">\(y\)</span> values and see whether it looks Normal.”</p>
+<p><strong>In fact:</strong> as the note above emphasizes, the model requires the <strong>deviations</strong> <span class="math notranslate nohighlight">\(\epsilon_i\)</span> — checked in practice through the <strong>residuals</strong> <span class="math notranslate nohighlight">\(e_i\)</span> — to be approximately Normal. The raw <span class="math notranslate nohighlight">\(y\)</span> values mix together many subpopulations with <em>different</em> means <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x_i\)</span>, so the histogram of <span class="math notranslate nohighlight">\(y\)</span> can look skewed or even bimodal while the model holds perfectly.</p>
+<p><strong>Quick check:</strong> suppose height truly follows the model, and your sample happens to contain one clump of small shoe sizes and one clump of large ones. What would the histogram of the raw heights look like? (Two clumps — one per group — even though every single residual is perfectly Normal. Plot the residuals, not <span class="math notranslate nohighlight">\(y\)</span>.)</p>
+</div>
 <div class="important admonition">
 <p class="admonition-title">Linear Regression Model Conditions</p>
 <p>To use the least-squares regression line as a basis for inference about a population, each of the following conditions should be <strong>approximately met</strong>:</p>
@@ -651,9 +694,67 @@ Linear Regression Model Conditions</label><div class="sd-tab-content docutils">
 </ul>
 </div>
 </div>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: heights and shoe sizes — meet the dataset for this chapter</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We will carry one small dataset through the entire chapter, so that every formula gets a number attached to it. Eight randomly chosen students report their shoe size <span class="math notranslate nohighlight">\(x\)</span> and height <span class="math notranslate nohighlight">\(y\)</span> (in inches):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Student</p></th>
+<th class="head"><p class="sd-card-text">1</p></th>
+<th class="head"><p class="sd-card-text">2</p></th>
+<th class="head"><p class="sd-card-text">3</p></th>
+<th class="head"><p class="sd-card-text">4</p></th>
+<th class="head"><p class="sd-card-text">5</p></th>
+<th class="head"><p class="sd-card-text">6</p></th>
+<th class="head"><p class="sd-card-text">7</p></th>
+<th class="head"><p class="sd-card-text">8</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Shoe size <span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td><p class="sd-card-text">8</p></td>
+<td><p class="sd-card-text">9</p></td>
+<td><p class="sd-card-text">9</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">11</p></td>
+<td><p class="sd-card-text">12</p></td>
+<td><p class="sd-card-text">13</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Height <span class="math notranslate nohighlight">\(y\)</span></p></td>
+<td><p class="sd-card-text">66</p></td>
+<td><p class="sd-card-text">69</p></td>
+<td><p class="sd-card-text">66</p></td>
+<td><p class="sd-card-text">71</p></td>
+<td><p class="sd-card-text">68</p></td>
+<td><p class="sd-card-text">72</p></td>
+<td><p class="sd-card-text">71</p></td>
+<td><p class="sd-card-text">75</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">The summary statistics are <span class="math notranslate nohighlight">\(\bar{x} = 10.25\)</span>, <span class="math notranslate nohighlight">\(\bar{y} = 69.75\)</span>, <span class="math notranslate nohighlight">\(s_x = 1.669\)</span>, <span class="math notranslate nohighlight">\(s_y = 3.105\)</span>, <span class="math notranslate nohighlight">\(r = 0.896\)</span>, and <span class="math notranslate nohighlight">\(\sum (x_i - \bar{x})^2 = 19.5\)</span>. Using the Chapter 2 formulas:</p>
+<div class="math notranslate nohighlight">
+\[
+b_1 = r\,\frac{s_y}{s_x} = 0.896 \times \frac{3.105}{1.669} \approx 1.667,
+\qquad
+b_0 = \bar{y} - b_1\,\bar{x} = 69.75 - 1.667 \times 10.25 \approx 52.667.
+\]</div>
+<p class="sd-card-text">So the fitted line is <span class="math notranslate nohighlight">\(\hat{y} = 52.67 + 1.67x\)</span>: each additional shoe size predicts about <span class="math notranslate nohighlight">\(1.67\)</span> additional inches of height. (This line is the one from the chapter-opening question — <em>your</em> sample’s line.)</p>
+<p class="sd-card-text">Next we estimate <span class="math notranslate nohighlight">\(\sigma\)</span>. The residuals <span class="math notranslate nohighlight">\(e_i = y_i - \hat{y}_i\)</span> are <span class="math notranslate nohighlight">\(0,\ 1.33,\ -1.67,\ 1.67,\ -1.33,\ 1.00,\ -1.67,\ 0.67\)</span> — they sum to <span class="math notranslate nohighlight">\(0\)</span>, as they must — and their sum of squares is <span class="math notranslate nohighlight">\(\sum e_i^2 = 13.333\)</span>. With <span class="math notranslate nohighlight">\(n - 2 = 6\)</span> degrees of freedom,</p>
+<div class="math notranslate nohighlight">
+\[
+s^2 = \frac{\sum e_i^2}{n-2} = \frac{13.333}{6} = 2.222,
+\qquad
+s = \sqrt{2.222} = 1.491 \text{ inches}.
+\]</div>
+<p class="sd-card-text">This <strong>regression standard error</strong> <span class="math notranslate nohighlight">\(s = 1.491\)</span> estimates <span class="math notranslate nohighlight">\(\sigma\)</span>: the typical vertical scatter of individual heights around the population line. Keep <span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\sum (x_i - \bar{x})^2 = 19.5\)</span>, and the fitted line in view — the rest of the chapter reuses them constantly.</p>
+</div>
+</details></section>
 <section id="confidence-intervals-and-significance-tests">
-<h2><span class="section-number">12.3. </span>Confidence intervals and significance tests<a class="headerlink" href="#confidence-intervals-and-significance-tests" title="Link to this heading">#</a></h2>
+<span id="ch12-inference"></span><h2><span class="section-number">12.3. </span>Confidence intervals and significance tests<a class="headerlink" href="#confidence-intervals-and-significance-tests" title="Link to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
@@ -760,9 +861,43 @@ The margin of error is <span class="math notranslate nohighlight">\(m = t^* \cdo
 </div>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example continued: is the shoe-size slope real? A test and a confidence interval</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For our 8 students we found <span class="math notranslate nohighlight">\(b_1 = 1.667\)</span>, <span class="math notranslate nohighlight">\(s = 1.491\)</span>, and <span class="math notranslate nohighlight">\(\sum (x_i - \bar{x})^2 = 19.5\)</span>. The standard error of the slope (formula in the Standard Errors section below) is</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SE}_{b_1} = \frac{s}{\sqrt{\sum (x_i - \bar{x})^2}} = \frac{1.491}{\sqrt{19.5}} = \frac{1.491}{4.416} = 0.338.
+\]</div>
+<p class="sd-card-text"><strong>Test</strong> <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = 0\)</span> against <span class="math notranslate nohighlight">\(H_a\!: \beta_1 \ne 0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+t = \frac{b_1}{\text{SE}_{b_1}} = \frac{1.667}{0.338} = 4.94,
+\qquad \text{df} = n - 2 = 6,
+\qquad P\text{-value} = 2\,P(T \ge 4.94) = 0.0026.
+\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(0.0026 &lt; 0.05\)</span>, we reject <span class="math notranslate nohighlight">\(H_0\)</span>: even with only 8 students, the data give strong evidence of a linear relationship between shoe size and height.</p>
+<p class="sd-card-text"><strong>Confidence interval:</strong> for 95% confidence with 6 degrees of freedom, <span class="math notranslate nohighlight">\(t^* = 2.447\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[
+b_1 \pm t^* \cdot \text{SE}_{b_1} = 1.667 \pm 2.447 \times 0.338 = 1.667 \pm 0.83
+\;\Longrightarrow\; (0.84,\ 2.49).
+\]</div>
+<p class="sd-card-text">We are 95% confident that in the population, each additional shoe size corresponds to between <span class="math notranslate nohighlight">\(0.84\)</span> and <span class="math notranslate nohighlight">\(2.49\)</span> additional inches of mean height. Notice the interval excludes <span class="math notranslate nohighlight">\(0\)</span> — the same verdict as the test — but it says much more than “nonzero”: it quantifies <em>how large</em> the slope plausibly is.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The <span class="math notranslate nohighlight">\(P\)</span>-value for the slope is tiny, so <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> must have a <em>strong</em> relationship.”</p>
+<p><strong>In fact:</strong> the test only weighs evidence that <span class="math notranslate nohighlight">\(\beta_1 \ne 0\)</span> — that there is <em>some</em> linear relationship. <strong>Significance measures evidence; <span class="math notranslate nohighlight">\(r^2\)</span> measures strength.</strong> In large samples, a microscopic <span class="math notranslate nohighlight">\(P\)</span>-value can coexist with a relationship too weak to matter, because <span class="math notranslate nohighlight">\(t = r\sqrt{n-2}\big/\sqrt{1-r^2}\)</span> grows with <span class="math notranslate nohighlight">\(n\)</span> even when <span class="math notranslate nohighlight">\(r\)</span> stays small.</p>
+<p><strong>Quick check:</strong> with <span class="math notranslate nohighlight">\(n = 10{,}000\)</span> students and <span class="math notranslate nohighlight">\(r = 0.1\)</span> (so <span class="math notranslate nohighlight">\(r^2 = 0.01\)</span>: <span class="math notranslate nohighlight">\(x\)</span> explains 1% of the variation in <span class="math notranslate nohighlight">\(y\)</span>), how big is <span class="math notranslate nohighlight">\(t\)</span>? (About <span class="math notranslate nohighlight">\(t = 0.1\sqrt{9998}/\sqrt{0.99} \approx 10\)</span>, giving a <span class="math notranslate nohighlight">\(P\)</span>-value around <span class="math notranslate nohighlight">\(10^{-23}\)</span> — overwhelming evidence of an almost useless relationship. Always report <span class="math notranslate nohighlight">\(r^2\)</span> or a confidence interval alongside the <span class="math notranslate nohighlight">\(P\)</span>-value.)</p>
+</div>
 </section>
 <section id="more-detail-about-simple-linear-regression">
-<h2><span class="section-number">12.4. </span>More detail about simple linear regression<a class="headerlink" href="#more-detail-about-simple-linear-regression" title="Link to this heading">#</a></h2>
+<span id="ch12-anova"></span><h2><span class="section-number">12.4. </span>More detail about simple linear regression<a class="headerlink" href="#more-detail-about-simple-linear-regression" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>We just tested <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = 0\)</span> with a <span class="math notranslate nohighlight">\(t\)</span> statistic. But software output always includes a second, seemingly different test of the <em>very same hypothesis</em>: an <strong>ANOVA <span class="math notranslate nohighlight">\(F\)</span> test</strong>, built not by standardizing a slope but by splitting the total variation in <span class="math notranslate nohighlight">\(y\)</span> into an “explained” piece and a “leftover” piece. <strong>Why would statisticians keep two tests for one question?</strong> Work through this section and you will find the punchline: they are the <em>same</em> test in disguise — <span class="math notranslate nohighlight">\(F = t^2\)</span>. In our shoe-size example, <span class="math notranslate nohighlight">\(t = 4.94\)</span> and the ANOVA table will report <span class="math notranslate nohighlight">\(F = 24.375 = (4.937)^2\)</span>, with an identical <span class="math notranslate nohighlight">\(P\)</span>-value of <span class="math notranslate nohighlight">\(0.0026\)</span>.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-8">
@@ -847,7 +982,18 @@ The ANOVA <span class="math notranslate nohighlight">\(F\)</span> Test</label><d
 <a class="reference internal image-reference" href="_images/1203.png"><img alt="Density curve of the F distribution with 9 and 10 degrees of freedom, peaking near 1 and skewed right with a long upper tail" src="_images/1203.png" style="width: 80%;" />
 </a>
 </figure>
-<p>If software does not provide <span class="math notranslate nohighlight">\(P\)</span>-values, you can consult tables of critical <span class="math notranslate nohighlight">\(F\)</span> values (for example, <span class="math notranslate nohighlight">\(p = 0.100, 0.050, 0.025, 0.010, 0.001\)</span>). In simple linear regression, the numerator degrees of freedom = 1, and denominator df = <span class="math notranslate nohighlight">\(n - 2\)</span>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (an <span class="math notranslate nohighlight">\(F\)</span> density curve)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This curve looks different from every <span class="math notranslate nohighlight">\(t\)</span> curve you have seen, and each difference carries meaning:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>It starts at <span class="math notranslate nohighlight">\(0\)</span> and lives only on the right.</strong> <span class="math notranslate nohighlight">\(F\)</span> is a ratio of two sums of squares, so it can never be negative. There is no “left tail” and no two-sided version: <em>all</em> evidence against <span class="math notranslate nohighlight">\(H_0\)</span> lands in the upper tail, which is why the <span class="math notranslate nohighlight">\(P\)</span>-value is always <span class="math notranslate nohighlight">\(P(F \ge F_{\text{obs}})\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>It peaks near <span class="math notranslate nohighlight">\(1\)</span>.</strong> When <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = 0\)</span> is true, MSM and MSE both estimate the same <span class="math notranslate nohighlight">\(\sigma^2\)</span>, so their ratio hovers around <span class="math notranslate nohighlight">\(1\)</span>. An <span class="math notranslate nohighlight">\(F\)</span> far above <span class="math notranslate nohighlight">\(1\)</span> means the model is explaining far more variation than chance scatter would — evidence against <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>It is right-skewed with a long upper tail.</strong> Ratios of variances occasionally come out large by chance, so moderate <span class="math notranslate nohighlight">\(F\)</span> values (say, <span class="math notranslate nohighlight">\(2\)</span> or <span class="math notranslate nohighlight">\(3\)</span>) are not automatically convincing; the <span class="math notranslate nohighlight">\(P\)</span>-value calibrates how far into the tail you actually are.</p></li>
+<li><p class="sd-card-text"><strong>It carries <em>two</em> degrees-of-freedom labels.</strong> The curve shown is <span class="math notranslate nohighlight">\(F(9, 10)\)</span>: <span class="math notranslate nohighlight">\(9\)</span> for the numerator, <span class="math notranslate nohighlight">\(10\)</span> for the denominator. In simple linear regression ours is always <span class="math notranslate nohighlight">\(F(1,\ n-2)\)</span> — numerator df <span class="math notranslate nohighlight">\(= 1\)</span> because a single predictor contributes one model degree of freedom.</p></li>
+</ul>
+</div>
+</details><p>If software does not provide <span class="math notranslate nohighlight">\(P\)</span>-values, you can consult tables of critical <span class="math notranslate nohighlight">\(F\)</span> values (for example, <span class="math notranslate nohighlight">\(p = 0.100, 0.050, 0.025, 0.010, 0.001\)</span>). In simple linear regression, the numerator degrees of freedom = 1, and denominator df = <span class="math notranslate nohighlight">\(n - 2\)</span>.</p>
 <p>ANOVA Table Structure:</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id2">
 <caption><span class="caption-number">Table 12.1 </span><span class="caption-text">Analysis of Variance</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
@@ -905,9 +1051,64 @@ The ANOVA <span class="math notranslate nohighlight">\(F\)</span> Test</label><d
 </div>
 </div>
 </div>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example continued: the ANOVA table for heights vs. shoe sizes</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For our 8 students, the three sums of squares are</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SST} = \sum (y_i - \bar{y})^2 = 67.500,
+\qquad
+\text{SSM} = \sum (\hat{y}_i - \bar{y})^2 = 54.167,
+\qquad
+\text{SSE} = \sum (y_i - \hat{y}_i)^2 = 13.333,
+\]</div>
+<p class="sd-card-text">and indeed <span class="math notranslate nohighlight">\(54.167 + 13.333 = 67.500\)</span>: <strong>DATA = FIT + RESIDUAL</strong> in squared form. The full table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Source</p></th>
+<th class="head"><p class="sd-card-text">Degrees of Freedom</p></th>
+<th class="head"><p class="sd-card-text">Sum of Squares</p></th>
+<th class="head"><p class="sd-card-text">Mean Square</p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(F\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Model</p></td>
+<td><p class="sd-card-text">1</p></td>
+<td><p class="sd-card-text">54.167</p></td>
+<td><p class="sd-card-text">54.167</p></td>
+<td><p class="sd-card-text">24.375</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Error</p></td>
+<td><p class="sd-card-text">6</p></td>
+<td><p class="sd-card-text">13.333</p></td>
+<td><p class="sd-card-text">2.222</p></td>
+<td><p class="sd-card-text"></p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">Total</p></td>
+<td><p class="sd-card-text">7</p></td>
+<td><p class="sd-card-text">67.500</p></td>
+<td><p class="sd-card-text"></p></td>
+<td><p class="sd-card-text"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">Reading it off:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{MSE} = 13.333/6 = 2.222 = s^2\)</span> — the same <span class="math notranslate nohighlight">\(s = 1.491\)</span> we computed earlier, now living in the ANOVA table.</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(F = \text{MSM}/\text{MSE} = 54.167/2.222 = 24.375\)</span>, and the <span class="math notranslate nohighlight">\(P\)</span>-value is <span class="math notranslate nohighlight">\(P\big(F(1, 6) \ge 24.375\big) = 0.0026\)</span> — <em>exactly</em> the <span class="math notranslate nohighlight">\(P\)</span>-value of the slope <span class="math notranslate nohighlight">\(t\)</span> test, because <span class="math notranslate nohighlight">\(t^2 = (4.937)^2 = 24.375 = F\)</span>. (We quoted <span class="math notranslate nohighlight">\(t = 4.94\)</span> rounded; the identity is exact in full precision.)</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(r^2 = \text{SSM}/\text{SST} = 54.167/67.500 = 0.802\)</span>: shoe size explains about <span class="math notranslate nohighlight">\(80\%\)</span> of the variation in height in this sample — here, a relationship that is both <em>significant</em> and <em>strong</em>. The misconception box above shows those two properties need not travel together.</p></li>
+</ul>
+</div>
+</details></section>
 <section id="standard-errors">
-<h2><span class="section-number">12.5. </span>Standard Errors<a class="headerlink" href="#standard-errors" title="Link to this heading">#</a></h2>
+<span id="ch12-se"></span><h2><span class="section-number">12.5. </span>Standard Errors<a class="headerlink" href="#standard-errors" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Two questions about size-10 students sound almost identical but are fundamentally different. (1) <em>“What is the <strong>average</strong> height of all students who wear size 10?”</em> (2) <em>“My friend wears size 10 — how tall is <strong>she</strong>?”</em> Both answers start from the same fitted value <span class="math notranslate nohighlight">\(\hat{y} = 52.67 + 1.67 \times 10 \approx 69.3\)</span> inches, yet the uncertainties differ enormously: an average is far easier to pin down than a single person, who carries her own personal deviation <span class="math notranslate nohighlight">\(\epsilon\)</span> <em>on top of</em> our uncertainty about where the line is. As you read the formulas below, watch for a lone extra “<span class="math notranslate nohighlight">\(1\)</span>” inside a square root — that inconspicuous term is the entire difference between a <strong>confidence interval</strong> for a mean response and a <strong>prediction interval</strong> for an individual.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-10">
@@ -983,9 +1184,52 @@ H_a\!: \rho \ne 0 &amp; \quad\Rightarrow\quad 2\,P(T \ge |t|).
 </figure>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example continued: a confidence interval and a prediction interval at shoe size <span class="math notranslate nohighlight">\(x^* = 10\)</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The fitted value at <span class="math notranslate nohighlight">\(x^* = 10\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mu}_y = \hat{y} = 52.667 + 1.667 \times 10 = 69.33 \text{ inches}.
+\]</div>
+<p class="sd-card-text"><strong>Confidence interval for the mean response</strong> (the <em>average</em> height of all size-10 students). With <span class="math notranslate nohighlight">\(n = 8\)</span>, <span class="math notranslate nohighlight">\(\bar{x} = 10.25\)</span>, and <span class="math notranslate nohighlight">\(\sum (x_i - \bar{x})^2 = 19.5\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SE}_{\hat{\mu}} = s \sqrt{\frac{1}{n} + \frac{(x^* - \bar{x})^2}{\sum (x_i - \bar{x})^2}}
+= 1.491 \sqrt{\frac{1}{8} + \frac{(10 - 10.25)^2}{19.5}}
+= 1.491 \times 0.358 = 0.534,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+69.33 \pm 2.447 \times 0.534 = 69.33 \pm 1.31
+\;\Longrightarrow\; (68.03,\ 70.64).
+\]</div>
+<p class="sd-card-text"><strong>Prediction interval for one future observation</strong> (the height of <em>one particular</em> size-10 student). The only change is the extra “<span class="math notranslate nohighlight">\(1\)</span>” under the square root:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SE}_{\hat{y}} = s \sqrt{1 + \frac{1}{8} + \frac{(10 - 10.25)^2}{19.5}}
+= 1.491 \times 1.062 = 1.583,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+69.33 \pm 2.447 \times 1.583 = 69.33 \pm 3.87
+\;\Longrightarrow\; (65.46,\ 73.21).
+\]</div>
+<p class="sd-card-text">The prediction interval is almost <strong>three times as wide</strong> (<span class="math notranslate nohighlight">\(7.75\)</span> inches versus <span class="math notranslate nohighlight">\(2.61\)</span> inches). Both are centered at <span class="math notranslate nohighlight">\(69.33\)</span>; they differ only in <em>which question they answer</em>.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “A confidence interval and a prediction interval at <span class="math notranslate nohighlight">\(x^*\)</span> are basically interchangeable — both tell me where <span class="math notranslate nohighlight">\(y\)</span> will be for a size-10 student.”</p>
+<p><strong>In fact:</strong> they answer different questions. In our example, the CI <span class="math notranslate nohighlight">\((68.03,\ 70.64)\)</span> locates the <strong>average</strong> height of <em>all</em> size-10 students; the PI <span class="math notranslate nohighlight">\((65.46,\ 73.21)\)</span> says where <strong>one new</strong> size-10 student’s height will land — and it is nearly three times as wide. The gap is structural, not cosmetic: <span class="math notranslate nohighlight">\(\text{SE}_{\hat{\mu}}\)</span> contains only line-estimation uncertainty and shrinks toward <span class="math notranslate nohighlight">\(0\)</span> as <span class="math notranslate nohighlight">\(n\)</span> grows, while <span class="math notranslate nohighlight">\(\text{SE}_{\hat{y}}\)</span> also contains the individual’s own scatter and can never fall below <span class="math notranslate nohighlight">\(s \approx 1.49\)</span>.</p>
+<p><strong>Quick check:</strong> if we surveyed <span class="math notranslate nohighlight">\(800\)</span> students instead of <span class="math notranslate nohighlight">\(8\)</span>, which interval would collapse to essentially a single point, and which would remain wide? (The CI collapses onto the population line; the PI settles at roughly <span class="math notranslate nohighlight">\(\hat{y} \pm t^* s\)</span> — an individual’s personal <span class="math notranslate nohighlight">\(\epsilon\)</span> never averages away.)</p>
+</div>
 </section>
 <section id="more-details-on-standard-errors-of-mean-response-and-prediction">
-<h2><span class="section-number">12.6. </span>More details on standard errors of mean response and prediction<a class="headerlink" href="#more-details-on-standard-errors-of-mean-response-and-prediction" title="Link to this heading">#</a></h2>
+<span id="ch12-appendix"></span><h2><span class="section-number">12.6. </span>More details on standard errors of mean response and prediction<a class="headerlink" href="#more-details-on-standard-errors-of-mean-response-and-prediction" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>For the curious: <strong>where do formulas like <span class="math notranslate nohighlight">\(\text{SE}_{b_1} = s\big/\sqrt{\sum (x_i - \bar{x})^2}\)</span> actually come from?</strong> Everything below is the algebra behind the standard errors — the variance rules for random variables, applied to <span class="math notranslate nohighlight">\(\hat{\beta}_0 + \hat{\beta}_1 x_0\)</span>, reproduce both the CI formula and (after adding the new observation’s own <span class="math notranslate nohighlight">\(\sigma^2\)</span>) the wider PI formula. This appendix is optional for the exam, but it is the shortest honest answer to “why is there an extra <span class="math notranslate nohighlight">\(1\)</span> under the prediction-interval square root?”</p>
+</div>
 <div class="math notranslate nohighlight" id="equation-eq-linear-model">
 <span class="eqno">(12.1)<a class="headerlink" href="#equation-eq-linear-model" title="Link to this equation">#</a></span>\[y_i = \beta_0 + \beta_1 x_i + \varepsilon_i 
 \quad\text{where}\quad 
@@ -1082,14 +1326,58 @@ x_0^2\; \sigma^2\!\biggl/\!\sum (x_i - \overline{x})^2
       \frac{(x_0 - \overline{x})^2}{\sum_{i=1}^n (x_i - \overline{x})^2}
    \right]
 }.\]</div>
-<hr class="footnotes docutils" />
+</section>
+</section>
+<section id="putting-it-all-together-one-dataset-three-tests-two-intervals">
+<span id="ch12-together"></span><h2><span class="section-number">12.7. </span>Putting It All Together: One Dataset, Three Tests, Two Intervals<a class="headerlink" href="#putting-it-all-together-one-dataset-three-tests-two-intervals" title="Link to this heading">#</a></h2>
+<p>Let’s close the chapter the way an exam (or a real consulting question) opens it: with a plain-English question and the job of picking — and then executing — the right procedure.</p>
+<p><strong>Part 1 — Which procedure is being asked for?</strong> Match the phrasing of the question to the tool:</p>
+<ul>
+<li><p><em>“Is there a linear relationship between shoe size and height?”</em> → a test of <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = 0\)</span> — and in simple linear regression you have <strong>three equivalent phrasings</strong> of this same null hypothesis:</p>
+<ul class="simple">
+<li><p>the <strong>slope <span class="math notranslate nohighlight">\(t\)</span> test</strong> (<span class="math notranslate nohighlight">\(t = b_1/\text{SE}_{b_1} = 4.94\)</span>) — natural when the <em>line</em> is the object of interest, and the only version that handles one-sided alternatives (<span class="math notranslate nohighlight">\(H_a\!: \beta_1 &gt; 0\)</span>) and pairs with a confidence interval for <span class="math notranslate nohighlight">\(\beta_1\)</span>;</p></li>
+<li><p>the <strong>ANOVA <span class="math notranslate nohighlight">\(F\)</span> test</strong> (<span class="math notranslate nohighlight">\(F = 24.375 = t^2\)</span>) — natural when you think in terms of <em>explained versus unexplained variation</em>, and the form that generalizes to regression with several predictors;</p></li>
+<li><p>the <strong>correlation test</strong> (<span class="math notranslate nohighlight">\(t = r\sqrt{n-2}\big/\sqrt{1-r^2} = 0.896\sqrt{6}\big/\sqrt{1 - 0.802} = 4.94\)</span>) — natural when <em>neither</em> variable plays the role of explanatory variable and you only care about association, not the line itself.</p></li>
+</ul>
+<p>All three give <span class="math notranslate nohighlight">\(P = 0.0026\)</span> on our data. They are one test wearing three outfits — do not report them as if they were independent pieces of evidence.</p>
+</li>
+<li><p><em>“<strong>How much</strong> taller, on average, per shoe size?”</em> → the <strong>confidence interval for <span class="math notranslate nohighlight">\(\beta_1\)</span></strong>: <span class="math notranslate nohighlight">\((0.84,\ 2.49)\)</span> inches per size.</p></li>
+<li><p><em>“How <strong>strong</strong> is the relationship?”</em> → <span class="math notranslate nohighlight">\(r^2 = 0.802\)</span>, the proportion of variation in height explained by shoe size — not the <span class="math notranslate nohighlight">\(P\)</span>-value.</p></li>
+<li><p><em>“Estimate the <strong>average</strong> height of size-10 students.”</em> → the <strong>CI for the mean response</strong>: <span class="math notranslate nohighlight">\((68.03,\ 70.64)\)</span>.</p></li>
+<li><p><em>“<strong>Predict</strong> the height of my friend, who wears size 10.”</em> → the <strong>prediction interval</strong>: <span class="math notranslate nohighlight">\((65.46,\ 73.21)\)</span>.</p></li>
+</ul>
+<p><strong>Part 2 — The complete four-step slope test</strong>, written out once, exam-style, on the shoe-size data:</p>
+<ol class="arabic simple">
+<li><p><strong>State.</strong> <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = 0\)</span> versus <span class="math notranslate nohighlight">\(H_a\!: \beta_1 \ne 0\)</span>, at significance level <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>. (In words: mean height does not change with shoe size, versus it does.)</p></li>
+<li><p><strong>Check.</strong> The 8 students are an SRS; the scatterplot is roughly linear with no outliers; the residuals <span class="math notranslate nohighlight">\(0, 1.33, -1.67, 1.67, -1.33, 1.00, -1.67, 0.67\)</span> show no pattern against <span class="math notranslate nohighlight">\(x\)</span>, roughly constant spread, and no strong departure from Normality. (Remember: we check the <em>residuals</em>, never the raw <span class="math notranslate nohighlight">\(y\)</span>’s.) With <span class="math notranslate nohighlight">\(n = 8\)</span> these checks are necessarily rough — proceed, but with appropriate humility.</p></li>
+<li><p><strong>Compute.</strong> <span class="math notranslate nohighlight">\(b_1 = 1.667\)</span>, <span class="math notranslate nohighlight">\(\text{SE}_{b_1} = 1.491/\sqrt{19.5} = 0.338\)</span>, so <span class="math notranslate nohighlight">\(t = 1.667/0.338 = 4.94\)</span> with <span class="math notranslate nohighlight">\(\text{df} = n - 2 = 6\)</span>, giving <span class="math notranslate nohighlight">\(P = 2\,P(T \ge 4.94) = 0.0026\)</span>.</p></li>
+<li><p><strong>Conclude.</strong> Since <span class="math notranslate nohighlight">\(0.0026 &lt; 0.05\)</span>, reject <span class="math notranslate nohighlight">\(H_0\)</span>. The data give strong evidence of a linear relationship between shoe size and mean height. Better yet, quantify it: we are 95% confident the population slope lies in <span class="math notranslate nohighlight">\((0.84,\ 2.49)\)</span> inches per shoe size, and shoe size explains about <span class="math notranslate nohighlight">\(80\%\)</span> of the height variation in this sample.</p></li>
+</ol>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">12.8. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. Software reports <span class="math notranslate nohighlight">\(t = 4.94\)</span> for the slope but the ANOVA block got cut off. What is <span class="math notranslate nohighlight">\(F\)</span>, and what is its <span class="math notranslate nohighlight">\(P\)</span>-value relative to the <span class="math notranslate nohighlight">\(t\)</span> test’s?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">No new computation needed: in simple linear regression <span class="math notranslate nohighlight">\(F = t^2 = (4.94)^2 \approx 24.4\)</span> (exactly <span class="math notranslate nohighlight">\(24.375\)</span> in full precision), with degrees of freedom <span class="math notranslate nohighlight">\((1,\ n-2)\)</span>. Its <span class="math notranslate nohighlight">\(P\)</span>-value is <em>identical</em> to the two-sided <span class="math notranslate nohighlight">\(t\)</span> test’s, <span class="math notranslate nohighlight">\(0.0026\)</span> — the two are the same test of <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = 0\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. A friend concludes: “We are 95% confident that a new size-10 student’s height is between 68.03 and 70.64 inches.” What went wrong?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">They used the wrong interval. <span class="math notranslate nohighlight">\((68.03,\ 70.64)\)</span> is the <strong>confidence interval for the mean response</strong> — it locates the <em>average</em> height of all size-10 students. A statement about one <em>new individual</em> requires the <strong>prediction interval</strong>, <span class="math notranslate nohighlight">\((65.46,\ 73.21)\)</span>, which adds the individual’s own deviation <span class="math notranslate nohighlight">\(\epsilon\)</span> (the extra “<span class="math notranslate nohighlight">\(1\)</span>” in <span class="math notranslate nohighlight">\(\text{SE}_{\hat{y}}\)</span>) and is nearly three times as wide.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. To check the Normality condition, your roommate makes a histogram of the 8 heights and worries that it doesn’t look bell-shaped. What should they have plotted, and why?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The <strong>residuals</strong> <span class="math notranslate nohighlight">\(e_i = y_i - \hat{y}_i\)</span>, not the raw heights. The model assumes the <em>deviations</em> <span class="math notranslate nohighlight">\(\epsilon_i\)</span> are Normal within each subpopulation; the raw <span class="math notranslate nohighlight">\(y\)</span> values mix subpopulations with different means <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x_i\)</span>, so their histogram can look non-Normal even when the model is exactly right. (With <span class="math notranslate nohighlight">\(n = 8\)</span>, any histogram is rough anyway — a Normal quantile plot of the residuals is the better tool.)</p>
+</div>
+</details><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote01" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>In frequentist inference, we consider the parameters as fixed (but unknown) quantities, and the data as random due to sampling variability. In Bayesian inference, we treat the parameters as random variables with their own distributions (priors), and once the data is observed, it is considered fixed while we update our beliefs about the parameters through the posterior distribution.</p>
 </aside>
 </aside>
-</section>
 </section>
 </section>
 
@@ -1169,6 +1457,8 @@ x_0^2\; \sigma^2\!\biggl/\!\sum (x_i - \overline{x})^2
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-observation-prediction-interval">12.6.2. Future Observation (Prediction Interval)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-one-dataset-three-tests-two-intervals">12.7. Putting It All Together: One Dataset, Three Tests, Two Intervals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">12.8. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

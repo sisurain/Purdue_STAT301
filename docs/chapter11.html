@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -479,6 +479,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-regression-line">11.3. Least-Squares Regression Line</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facts-about-least-squares-regression">11.4. Facts about Least-Squares Regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coefficient-of-determination-r-2-and-square-of-correlation-coefficient-r-2">11.5. Coefficient of Determination (<span class="math notranslate nohighlight">\(R^2\)</span>) and Square of Correlation Coefficient (<span class="math notranslate nohighlight">\(r^2\)</span>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-full-descriptive-regression-walkthrough">11.6. Putting It All Together: The Full Descriptive Regression Walkthrough</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">11.7. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -496,6 +498,25 @@
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 2</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Explain what a <strong>regression line</strong> is and state the <strong>least-squares criterion</strong> that singles out <em>the</em> line among all candidates.</p></li>
+<li><p>Compute the slope <span class="math notranslate nohighlight">\(b_1 = r\,s_y/s_x\)</span> and intercept <span class="math notranslate nohighlight">\(b_0 = \bar{y} - b_1\bar{x}\)</span> from summary statistics, and <strong>interpret both in context</strong>.</p></li>
+<li><p>Use the fitted line to <strong>predict</strong> <span class="math notranslate nohighlight">\(\hat{y}\)</span>, compute and interpret a <strong>residual</strong> <span class="math notranslate nohighlight">\(e = y - \hat{y}\)</span>, and recognize the danger of <strong>extrapolation</strong>.</p></li>
+<li><p>State the key facts of least-squares regression: the slope–correlation link, that the line passes through <span class="math notranslate nohighlight">\((\bar{x}, \bar{y})\)</span>, and that swapping <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> changes the line.</p></li>
+<li><p>Interpret <span class="math notranslate nohighlight">\(r^2\)</span> as the <strong>fraction of the variation in <span class="math notranslate nohighlight">\(y\)</span> explained</strong> by the regression on <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch11-fitting"><span class="std std-ref">Fitting a line</span></a> · <a class="reference internal" href="#ch11-zooming"><span class="std std-ref">Zooming into scatterplots</span></a> · <a class="reference internal" href="#ch11-lsline"><span class="std std-ref">The least-squares line</span></a> · <a class="reference internal" href="#ch11-facts"><span class="std std-ref">Facts about least-squares regression</span></a> · <a class="reference internal" href="#ch11-r2"><span class="std std-ref">r-squared</span></a> · <a class="reference internal" href="#ch11-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>Last chapter ended with the detergent data: price and rating, <span class="math notranslate nohighlight">\(r = 0.7\)</span>, say. That number answers “how strong, which direction?” — positive, fairly strong. Now your boss asks a different kind of question: <em>“So if we charge 10 cents more per load, what rating do we predict?”</em> Stare at <span class="math notranslate nohighlight">\(r = 0.7\)</span> as long as you like — no prediction comes out of it. Correlation grades the relationship but names no line; prediction needs an actual equation, <span class="math notranslate nohighlight">\(\hat{y} = b_0 + b_1 x\)</span>, with numbers in it. Finding the <strong>best-fitting line</strong> — and saying precisely what “best” means — is this chapter.</p>
+</div>
 <p>In the last chapter, we have seen that we can use a straight line to study the strength of the linear relationship between two quantitative variables in the scatterplots. This line is called a <span class="purdue-text"><strong>regression line</strong></span> when one of the variables helps explain or predict the other. That is, regression describes a relationship between a response variable and an explanatory variable. It also allows us to make another type of claim about our dataset (unseen dataset), which is <span class="purdue-text"><strong>prediction</strong></span>. Because for every value on the <span class="math notranslate nohighlight">\(x\)</span>-axis—even if we don’t have a corresponding <span class="math notranslate nohighlight">\(x\)</span> value in the dataset—this regression line can still provide a corresponding <span class="math notranslate nohighlight">\(y\)</span> value that can be used as the prediction for the unseen <span class="math notranslate nohighlight">\(x\)</span> value. Keep in mind, however, that such predictions are reliable only within the range of <span class="math notranslate nohighlight">\(x\)</span>-values used to fit the line. Predicting far outside that range—called <strong>extrapolation</strong>—is often inaccurate, because we have no data there to tell us whether the linear pattern still holds. Prediction is a hot topic nowadays in the era of AI and Machine Learning.</p>
 <div class="note admonition">
 <p class="admonition-title"><strong>Regression Line</strong></p>
@@ -504,7 +525,7 @@
 <p>We often use a regression line to <strong>predict</strong> the value of <span class="math notranslate nohighlight">\(y\)</span> for a given value of <span class="math notranslate nohighlight">\(x\)</span>.</p>
 </div>
 <section id="fitting-a-line-to-data">
-<h2><span class="section-number">11.1. </span>Fitting a Line to Data<a class="headerlink" href="#fitting-a-line-to-data" title="Link to this heading">#</a></h2>
+<span id="ch11-fitting"></span><h2><span class="section-number">11.1. </span>Fitting a Line to Data<a class="headerlink" href="#fitting-a-line-to-data" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A <strong>scatterplot</strong> displays a <strong>linear pattern</strong>, which can be summarized using a <strong>regression line</strong>.</p></li>
 <li><p><strong>Fitting a line</strong> means <em>drawing</em> a line that is as close as possible to the data points.</p></li>
@@ -540,7 +561,7 @@
 </figure>
 </section>
 <section id="zooming-into-scatterplots">
-<h2><span class="section-number">11.2. </span>Zooming into Scatterplots<a class="headerlink" href="#zooming-into-scatterplots" title="Link to this heading">#</a></h2>
+<span id="ch11-zooming"></span><h2><span class="section-number">11.2. </span>Zooming into Scatterplots<a class="headerlink" href="#zooming-into-scatterplots" title="Link to this heading">#</a></h2>
 <p>Here we have a scatterplot (top left corner) showing many data points of the two component scores, Verbal and Math, for 200 students. The <span class="math notranslate nohighlight">\(x\)</span>-axis represents their Verbal scores and the <span class="math notranslate nohighlight">\(y\)</span>-axis represents their Math scores. As the number of data points increases, it becomes challenging to discern relationships clearly. However, we can see that for some of the data points, they share the same <span class="math notranslate nohighlight">\(x\)</span>-value. In these cases, the Verbal scores are identical while the Math scores differ among the students. We can focus on these data points with the same <span class="math notranslate nohighlight">\(x\)</span>-value, treating them as a <strong>subpopulation</strong>. By calculating the means of these points, we can better understand the relationship. We can do this for all subpopulations; these means are called the <em>conditional means</em> because they are conditioned on the same <span class="math notranslate nohighlight">\(x\)</span>-value. Then the scatterplot simplifies to the second plot, which is at the top right corner. For each <span class="math notranslate nohighlight">\(x\)</span>-value in this plot, we only have one <span class="math notranslate nohighlight">\(y\)</span>-value representing the conditional mean or average. We can interpret this as the <strong>average value</strong> of the Math score for a collection of cases at a given Verbal score.</p>
 <p>In the third plot (bottom right corner), we fit a straight line through these conditional means, summarizing these means with a line. Finally, the last plot (bottom left corner) shows the original data points along with the regression line fit to the original data, which nearly coincides with the line through the conditional means.</p>
 <blockquote>
@@ -550,7 +571,19 @@
 <a class="reference internal image-reference" href="_images/1102.png"><img alt="Four panels of SAT Math vs Verbal scores, moving from raw scatterplot to conditional means to regression lines summarizing the upward trend" src="_images/1102.png" style="width: 100%;" />
 </a>
 </figure>
-<div class="sd-tab-set docutils">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (four panels, one idea: the line is a summary of averages)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Read the panels <strong>counterclockwise from the top left</strong> — each one performs a step of the simplification described in the text:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Top left — the raw cloud.</strong> 200 students, one dot each: Verbal score on <span class="math notranslate nohighlight">\(x\)</span>, Math score on <span class="math notranslate nohighlight">\(y\)</span>. The upward drift is visible but drowning in scatter. Pick one <span class="math notranslate nohighlight">\(x\)</span>-value and run your eye up the vertical strip above it: those are the students who share that Verbal score — a <strong>subpopulation</strong> — and their Math scores vary.</p></li>
+<li><p class="sd-card-text"><strong>Top right — each strip collapsed to its average.</strong> Every vertical strip has been replaced by a single point: its <strong>conditional mean</strong>, the average Math score <em>given</em> that Verbal score. Two hundred points have become a short chain of averages, and suddenly the trend is clean.</p></li>
+<li><p class="sd-card-text"><strong>Bottom right — a line through the chain.</strong> The conditional means march upward in a nearly straight path, so a straight line summarizes them well. This is what the regression line <em>means</em>: for each <span class="math notranslate nohighlight">\(x\)</span>, its height estimates the <strong>average</strong> <span class="math notranslate nohighlight">\(y\)</span> in that subpopulation.</p></li>
+<li><p class="sd-card-text"><strong>Bottom left — back to reality.</strong> The line fitted to the <em>original</em> 200 points is overlaid on the raw cloud — and it nearly coincides with the line through the conditional means. The regression line was the averages-line all along; the raw-data fit just computes it without you having to bin anything.</p></li>
+</ul>
+<p class="sd-card-text">The payoff sentence to remember: <span class="math notranslate nohighlight">\(\hat{y}\)</span> at a given <span class="math notranslate nohighlight">\(x\)</span> is our estimate of the <strong>average response</strong> for cases with that <span class="math notranslate nohighlight">\(x\)</span> — and no point is obligated to sit on the line, which is why residuals exist (next figure).</p>
+</div>
+</details><div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Example: IDI and Median Income</label><div class="sd-tab-content docutils">
@@ -574,11 +607,26 @@ Example: The Least-Squares Idea</label><div class="sd-tab-content docutils">
 <a class="reference internal image-reference" href="_images/1105.png"><img alt="Zoomed regression plot marking observed y, predicted y, and the vertical distances whose squared sum the least-squares line minimizes" src="_images/1105.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (observed, predicted, and what gets squared)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This is a zoomed-in view of a few data points and the fitted line — the picture that <em>defines</em> least squares. For each marked point, identify three objects:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Observed <span class="math notranslate nohighlight">\(y\)</span>:</strong> the data point itself — where reality put the response.</p></li>
+<li><p class="sd-card-text"><strong>Predicted <span class="math notranslate nohighlight">\(\hat{y}\)</span>:</strong> the point on the line directly <strong>above or below</strong> it — the line’s answer at that same <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>The vertical segment between them:</strong> its signed length is the <strong>residual</strong> <span class="math notranslate nohighlight">\(e = y - \hat{y}\)</span> — positive for points above the line, negative below. The figure suggests attaching a <em>square</em> to each segment: a literal square with area <span class="math notranslate nohighlight">\(e^2\)</span>.</p></li>
+</ul>
+<p class="sd-card-text">Two things to notice about the geometry. First, the segments are strictly <strong>vertical</strong> — never perpendicular to the line, never horizontal — because regression cares only about errors in predicting <span class="math notranslate nohighlight">\(y\)</span>; this is exactly why swapping <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> produces a different line (Fact 3 below). Second, the line drawn is the one making the <strong>total area of all the squares as small as possible</strong>. Wiggle the line mentally: tilt or shift it, and some squares shrink while others grow — the least-squares line is the unique position where the sum of the areas bottoms out. Squaring also explains regression’s Achilles’ heel: a point far from the line contributes area quadratically, so a single outlier can drag the whole line toward itself.</p>
 </div>
+</details></div>
 </div>
 </section>
 <section id="least-squares-regression-line">
-<h2><span class="section-number">11.3. </span>Least-Squares Regression Line<a class="headerlink" href="#least-squares-regression-line" title="Link to this heading">#</a></h2>
+<span id="ch11-lsline"></span><h2><span class="section-number">11.3. </span>Least-Squares Regression Line<a class="headerlink" href="#least-squares-regression-line" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Print the shoe-size scatterplot and hand rulers to three classmates: each draws a line that looks “pretty good,” and the three lines all disagree — slightly different slopes, different predictions for a size-10 student. Eyeballing cannot break the tie, and science cannot run on “my line looks better than yours.” <strong>What exact rule picks THE line?</strong> We need a criterion: a single number that scores <em>any</em> candidate line against the data, so that “best” means “lowest score.” The least-squares criterion — the total area of the squares in the figure you just read — is that rule, and it crowns a unique winner.</p>
+</div>
 <p>We can use a <strong>regression line</strong> to make a <strong>prediction</strong> of the response <span class="math notranslate nohighlight">\(y\)</span> for a specific value of the explanatory variable <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <ul class="simple">
 <li><p>The prediction can be interpreted as:</p>
@@ -628,9 +676,50 @@ Example: The Least-Squares Idea</label><div class="sd-tab-content docutils">
 </ul>
 <p><span class="math notranslate nohighlight">\(b_0\)</span> and <span class="math notranslate nohighlight">\(b_1\)</span> are the <strong>regression coefficients</strong> of the least-squares equation.</p>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: fitting the line to the 8 students</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Everything the formulas need, we already computed in the correlation chapter for the 8-student shoe-size (<span class="math notranslate nohighlight">\(x\)</span>) and height (<span class="math notranslate nohighlight">\(y\)</span>) data:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{x} = 8.94, \quad s_x \approx 2.01, \quad \bar{y} = 68.5, \quad s_y \approx 3.46, \quad r \approx 0.95.
+\]</div>
+<p class="sd-card-text"><strong>Slope:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+b_1 = r\,\frac{s_y}{s_x} \approx 0.95 \times \frac{3.46}{2.01} \approx 1.64
+\]</div>
+<p class="sd-card-text"><strong>Intercept:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+b_0 = \bar{y} - b_1\bar{x} \approx 68.5 - 1.64 \times 8.94 \approx 53.85
+\]</div>
+<p class="sd-card-text"><strong>The least-squares line:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\text{height}} = 53.85 + 1.64 \times \text{shoe size}
+\]</div>
+<p class="sd-card-text">Now put each coefficient into words — this is where exam points live:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Slope in context:</strong> each additional shoe size <strong>predicts</strong> about <span class="math notranslate nohighlight">\(1.64\)</span> additional inches of height. (“Predicts,” not “causes” — the line inherits every causal caution from the correlation.)</p></li>
+<li><p class="sd-card-text"><strong>Intercept in context:</strong> <span class="math notranslate nohighlight">\(b_0 = 53.85\)</span> is the predicted height at shoe size <span class="math notranslate nohighlight">\(0\)</span> — an <span class="math notranslate nohighlight">\(x\)</span>-value no human has. Here the intercept is just the mathematical anchor of the line, not a statement about real students. Interpret the intercept only when <span class="math notranslate nohighlight">\(x = 0\)</span> is meaningful and inside the range of the data.</p></li>
+</ul>
+<p class="sd-card-text"><strong>Prediction and residual for one student.</strong> Student 5 wears size <span class="math notranslate nohighlight">\(9\)</span> and stands <span class="math notranslate nohighlight">\(70\)</span> inches. The line predicts</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = 53.85 + 1.64 \times 9 \approx 68.60 \text{ inches},
+\]</div>
+<p class="sd-card-text">so the residual is <span class="math notranslate nohighlight">\(e = y - \hat{y} = 70 - 68.60 = +1.40\)</span> inches: this student is about <span class="math notranslate nohighlight">\(1.4\)</span> inches <strong>taller</strong> than the line predicts (positive residual — the point sits above the line). Check Fact 2 while we are here: at <span class="math notranslate nohighlight">\(\bar{x} = 8.94\)</span>, the line gives <span class="math notranslate nohighlight">\(53.85 + 1.64 \times 8.94 \approx 68.5 = \bar{y}\)</span> — it passes through the point of means, exactly as promised.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The regression line is the line that passes through the most data points.”</p>
+<p><strong>In fact:</strong> the least-squares line minimizes the <strong>sum of squared vertical distances to all points at once</strong> — and it may pass through <em>none</em> of them. For our 8 students, every residual is nonzero: the fitted line threads <em>between</em> the points and touches not a single one, yet no other line achieves a smaller sum of squared residuals. A line chasing points exactly (like a jagged connect-the-dots path) would fit <em>these</em> data perfectly and predict new cases terribly; the line is a <strong>summary of the average pattern</strong>, not a collector of points.</p>
+<p><strong>Quick check:</strong> your classmate fits the line the other way around — shoe size on <span class="math notranslate nohighlight">\(y\)</span>, height on <span class="math notranslate nohighlight">\(x\)</span> — and expects the same line, “since it’s the same 8 points.” Same points, yes; same line, no. Least squares measures distances <strong>only in the <span class="math notranslate nohighlight">\(y\)</span>-direction</strong>, so changing which variable plays <span class="math notranslate nohighlight">\(y\)</span> changes what is being minimized (Fact 3 below makes this official). Correlation is symmetric in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>; regression is not.</p>
+</div>
 </section>
 <section id="facts-about-least-squares-regression">
-<h2><span class="section-number">11.4. </span>Facts about Least-Squares Regression<a class="headerlink" href="#facts-about-least-squares-regression" title="Link to this heading">#</a></h2>
+<span id="ch11-facts"></span><h2><span class="section-number">11.4. </span>Facts about Least-Squares Regression<a class="headerlink" href="#facts-about-least-squares-regression" title="Link to this heading">#</a></h2>
 <p>The use of regression to describe the relationship between a <strong>response variable</strong> and an <strong>explanatory variable</strong> is one of the most commonly encountered statistical methods. Least-squares regression is the most commonly used technique for fitting a regression line to data. Here are some key facts about least-squares regression lines.</p>
 <ul>
 <li><p><strong>Fact 1</strong>: Connection Between Correlation and Slope</p>
@@ -668,7 +757,11 @@ The slope is given by:</p>
 </ul>
 </section>
 <section id="coefficient-of-determination-r-2-and-square-of-correlation-coefficient-r-2">
-<h2><span class="section-number">11.5. </span>Coefficient of Determination (<span class="math notranslate nohighlight">\(R^2\)</span>) and Square of Correlation Coefficient (<span class="math notranslate nohighlight">\(r^2\)</span>)<a class="headerlink" href="#coefficient-of-determination-r-2-and-square-of-correlation-coefficient-r-2" title="Link to this heading">#</a></h2>
+<span id="ch11-r2"></span><h2><span class="section-number">11.5. </span>Coefficient of Determination (<span class="math notranslate nohighlight">\(R^2\)</span>) and Square of Correlation Coefficient (<span class="math notranslate nohighlight">\(r^2\)</span>)<a class="headerlink" href="#coefficient-of-determination-r-2-and-square-of-correlation-coefficient-r-2" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The line makes predictions — but <em>any</em> method makes predictions, including the laziest one imaginable: ignore <span class="math notranslate nohighlight">\(x\)</span> entirely and predict <span class="math notranslate nohighlight">\(\bar{y} = 68.5\)</span> inches for every student, big feet or small. Your regression only earns its keep if it beats that baseline. <strong>How much better are the line’s predictions than just guessing <span class="math notranslate nohighlight">\(\bar{y}\)</span>?</strong> The answer — comparing the prediction errors with and without <span class="math notranslate nohighlight">\(x\)</span> — is a single number between 0 and 1, and it is the most-quoted statistic in all of regression: <span class="math notranslate nohighlight">\(r^2\)</span>.</p>
+</div>
 <p>In the one-way ANOVA chapter, we have studied the coefficient of determination, <span class="math notranslate nohighlight">\(R^2\)</span>, which represents the proportion of variance in the dependent variable <span class="math notranslate nohighlight">\(y\)</span> that is explained by the independent variable <span class="math notranslate nohighlight">\(x\)</span> in the regression model. For a simple linear regression model, where we have only one independent variable, this <span class="math notranslate nohighlight">\(R^2\)</span> is equal to the square of the correlation coefficient, <span class="math notranslate nohighlight">\(r^2\)</span>, and it is also a measure of <strong>how well the regression explains the response</strong>.</p>
 <ul class="simple">
 <li><p><strong>Correlation</strong> <span class="math notranslate nohighlight">\(r\)</span> ignores the distinction between <strong>explanatory</strong> and <strong>response variables</strong>.</p></li>
@@ -738,7 +831,109 @@ R^2 &amp;\longleftrightarrow \text{Proportion of variance in } Y \text{ explaine
 <div><p>In <strong>Chapter 11 of the textbook</strong>, where <span class="math notranslate nohighlight">\(\hat{y}\)</span> is based on <strong>multiple explanatory variables</strong>, we use <span class="math notranslate nohighlight">\(R^2\)</span> to denote the <strong>coefficient of determination</strong>.</p>
 </div></blockquote>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: interpreting r-squared for the 8 students</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For the shoe-size data, <span class="math notranslate nohighlight">\(r \approx 0.95\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[
+r^2 \approx (0.95)^2 \approx 0.90.
+\]</div>
+<p class="sd-card-text">You can verify this the long way with the sums-of-squares definition: computing <span class="math notranslate nohighlight">\(\hat{y}\)</span> for all 8 students gives <span class="math notranslate nohighlight">\(\sum(\hat{y} - \bar{y})^2 / \sum(y - \bar{y})^2 = 0.9024\)</span> — the same number, as the identity promises.</p>
+<p class="sd-card-text">The interpretation, in one careful sentence: <strong>about 90% of the variation in these students’ heights is explained by the linear regression on shoe size; the remaining 10% is variation the line leaves unexplained</strong> (student 4 sitting low, student 5 sitting high — the residuals). Concretely: heights vary from 64 to 74 inches. If you had to predict with no shoe information, your best guess is <span class="math notranslate nohighlight">\(\bar{y} = 68.5\)</span> for everyone, and you eat the full spread of <span class="math notranslate nohighlight">\(y - \bar{y}\)</span> errors. Knowing shoe size shrinks those squared errors by 90%.</p>
+<p class="sd-card-text">Note what dies in the squaring: the <strong>sign</strong>. Our legroom-comfort example from last chapter had <span class="math notranslate nohighlight">\(r \approx -0.98\)</span>, so <span class="math notranslate nohighlight">\(r^2 \approx 0.96\)</span> — a <em>negative</em> association with a <em>higher</em> <span class="math notranslate nohighlight">\(r^2\)</span> than our positive one. Report <span class="math notranslate nohighlight">\(r^2\)</span> for explanatory power, but look to <span class="math notranslate nohighlight">\(r\)</span> (or the slope) for direction.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “<span class="math notranslate nohighlight">\(r^2 = 0.64\)</span> means 64% of the data points lie on the regression line.”</p>
+<p><strong>In fact:</strong> <span class="math notranslate nohighlight">\(r^2\)</span> counts <strong>variation, not points</strong>. It says that 64% of the <strong>variation in <span class="math notranslate nohighlight">\(y\)</span></strong> — measured by sums of squares, <span class="math notranslate nohighlight">\(\sum(\hat{y}-\bar{y})^2 \big/ \sum(y-\bar{y})^2\)</span> — is explained by the regression on <span class="math notranslate nohighlight">\(x\)</span>. The line may pass through <em>zero</em> of the points (ours does exactly that, with <span class="math notranslate nohighlight">\(r^2 = 0.90\)</span>). Nor does it mean “predictions are 64% accurate” or “the line is 64% correct.”</p>
+<p><strong>Quick check:</strong> our 8-student fit has <span class="math notranslate nohighlight">\(r^2 \approx 0.90\)</span>. How many of the 8 points lie exactly on the line? (None — every residual is nonzero. Ninety percent of the <em>variation</em> explained, zero percent of the <em>points</em> touched. If those two facts can coexist, you understand <span class="math notranslate nohighlight">\(r^2\)</span>.)</p>
+</div>
 </section>
+<section id="putting-it-all-together-the-full-descriptive-regression-walkthrough">
+<span id="ch11-together"></span><h2><span class="section-number">11.6. </span>Putting It All Together: The Full Descriptive Regression Walkthrough<a class="headerlink" href="#putting-it-all-together-the-full-descriptive-regression-walkthrough" title="Link to this heading">#</a></h2>
+<p>One dataset, every tool from the last two chapters, in the order a statistician actually uses them. The 8 students, shoe size <span class="math notranslate nohighlight">\(x\)</span> and height <span class="math notranslate nohighlight">\(y\)</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Student</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Shoe size <span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td><p>6</p></td>
+<td><p>7</p></td>
+<td><p>8</p></td>
+<td><p>8.5</p></td>
+<td><p>9</p></td>
+<td><p>10</p></td>
+<td><p>11</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-odd"><td><p>Height <span class="math notranslate nohighlight">\(y\)</span></p></td>
+<td><p>64</p></td>
+<td><p>65</p></td>
+<td><p>68</p></td>
+<td><p>66</p></td>
+<td><p>70</p></td>
+<td><p>69</p></td>
+<td><p>72</p></td>
+<td><p>74</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Step 1 — Scatterplot first.</strong> Shoe size (explanatory) on <span class="math notranslate nohighlight">\(x\)</span>, height (response) on <span class="math notranslate nohighlight">\(y\)</span>. Overall pattern: <strong>linear form, positive direction, fairly strong</strong>, no outliers alarming enough to drag the line (remember the squares: an outlier’s influence grows quadratically).</p>
+<p><strong>Step 2 — Quantify the strength.</strong> <span class="math notranslate nohighlight">\(r \approx 0.95\)</span>. Strong positive linear association — a line is a sensible summary, so fitting one is justified. (Had the plot shown a U-shape, we would stop here or transform, no matter what <span class="math notranslate nohighlight">\(r\)</span> said.)</p>
+<p><strong>Step 3 — Fit the least-squares line.</strong> From the five summary numbers <span class="math notranslate nohighlight">\(\bar{x} = 8.94\)</span>, <span class="math notranslate nohighlight">\(s_x \approx 2.01\)</span>, <span class="math notranslate nohighlight">\(\bar{y} = 68.5\)</span>, <span class="math notranslate nohighlight">\(s_y \approx 3.46\)</span>, <span class="math notranslate nohighlight">\(r \approx 0.95\)</span> (Fact 2: they fully determine the line):</p>
+<div class="math notranslate nohighlight">
+\[
+b_1 = 0.95 \times \frac{3.46}{2.01} \approx 1.64, \qquad b_0 = 68.5 - 1.64 \times 8.94 \approx 53.85
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{\text{height}} = 53.85 + 1.64 \times \text{shoe size}
+\]</div>
+<p><strong>Step 4 — Interpret the slope in words.</strong> Each extra shoe size predicts about <strong>1.64 additional inches</strong> of height. Direction of the sentence matters: we predict height <em>from</em> shoe size; the reversed regression would be a different line (Fact 3).</p>
+<p><strong>Step 5 — Predict, then face the residual.</strong> For a size-9 student: <span class="math notranslate nohighlight">\(\hat{y} = 53.85 + 1.64 \times 9 \approx 68.6\)</span> inches. Our actual size-9 student is 70 inches: residual <span class="math notranslate nohighlight">\(= 70 - 68.6 = +1.4\)</span> inches, a point above the line. The prediction is the <em>average</em> height we would expect among size-9 students, not a promise about any individual.</p>
+<p><strong>Step 6 — Grade the regression.</strong> <span class="math notranslate nohighlight">\(r^2 \approx 0.90\)</span>: the regression on shoe size explains about 90% of the variation in these heights. Excellent by most standards — and still 10% of the variation belongs to everything shoe size cannot see.</p>
+<p><strong>Step 7 — Respect the range.</strong> A visitor wears size 20. The equation cheerfully outputs <span class="math notranslate nohighlight">\(53.85 + 1.64 \times 20 \approx 86.6\)</span> inches — over 7 feet 2. Our data live between sizes 6 and 12; at size 20 we have <em>no evidence the linear pattern still holds</em>. That is <strong>extrapolation</strong>, and the polite refusal — “our line was fit for sizes 6–12; I won’t predict at 20” — is the correct professional answer.</p>
+<p><strong>The regression checklist</strong> (run it on every bivariate analysis you ever do):</p>
+<ol class="arabic simple">
+<li><p>Plot. Form linear? Outliers?</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span>: direction and strength. Line justified?</p></li>
+<li><p>Fit: <span class="math notranslate nohighlight">\(b_1 = r\,s_y/s_x\)</span>, <span class="math notranslate nohighlight">\(b_0 = \bar{y} - b_1\bar{x}\)</span>.</p></li>
+<li><p>Interpret slope (and intercept only if <span class="math notranslate nohighlight">\(x=0\)</span> makes sense) <strong>in context</strong>.</p></li>
+<li><p>Predict within range; examine residuals.</p></li>
+<li><p>Report <span class="math notranslate nohighlight">\(r^2\)</span> as variation explained.</p></li>
+<li><p>Never extrapolate; never let “predicts” slide into “causes.”</p></li>
+</ol>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">11.7. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. Predict the height of student 6 (shoe size 10, actual height 69 inches), and compute and interpret the residual.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\hat{y} = 53.85 + 1.64 \times 10 \approx 70.2\)</span> inches. Residual: <span class="math notranslate nohighlight">\(e = y - \hat{y} = 69 - 70.2 = -1.2\)</span> inches. The sign carries meaning: this student is about <span class="math notranslate nohighlight">\(1.2\)</span> inches <strong>shorter</strong> than the line predicts for a size-10 shoe — the point sits <em>below</em> the line. (Reporting “1.2 inches off” without the sign discards half the information a residual holds.)</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. A study of study-hours (x) and exam score (y) reports r = -0.8. Your friend concludes: “r² = 0.64, so 64% of students’ scores fall on the regression line, and more hours lower scores for sure.” Find all the errors.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Three of them. (1) <span class="math notranslate nohighlight">\(r^2 = (-0.8)^2 = 0.64\)</span> means 64% of the <strong>variation in scores</strong> is explained by the linear regression on hours — not that any points lie on the line. (2) The regression describes association; “lower scores <em>for sure</em>” smuggles in causation, which no descriptive fit can establish (lurking variables: perhaps struggling students both study longer <em>and</em> score lower). (3) Nothing is wrong with the arithmetic <span class="math notranslate nohighlight">\(r^2 = 0.64\)</span> itself — note it quietly forgot the negative direction, which must be reported from <span class="math notranslate nohighlight">\(r\)</span> or the slope, not from <span class="math notranslate nohighlight">\(r^2\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. Using the five summary statistics of the shoe-size data, your classmate regresses shoe size on height and gets slope 0.55. Why isn’t this just 1/1.64, and what principle is at work?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Fact 3: least squares minimizes vertical distances <strong>in the response direction</strong>, so swapping the roles of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> poses a genuinely different minimization and yields a genuinely different line. The reversed slope is <span class="math notranslate nohighlight">\(r\,s_x/s_y \approx 0.95 \times 2.01/3.46 \approx 0.55\)</span>, whereas inverting our slope would give <span class="math notranslate nohighlight">\(1/1.64 \approx 0.61\)</span>. The two lines agree only when <span class="math notranslate nohighlight">\(|r| = 1\)</span> (indeed <span class="math notranslate nohighlight">\(0.55 \times 1.64 \approx 0.90 = r^2\)</span>, which equals 1 exactly when the points are perfectly linear). Moral: decide which variable is the response <em>before</em> fitting — the regression line, unlike the correlation, is not symmetric.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -812,6 +1007,8 @@ R^2 &amp;\longleftrightarrow \text{Proportion of variance in } Y \text{ explaine
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-regression-line">11.3. Least-Squares Regression Line</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facts-about-least-squares-regression">11.4. Facts about Least-Squares Regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coefficient-of-determination-r-2-and-square-of-correlation-coefficient-r-2">11.5. Coefficient of Determination (<span class="math notranslate nohighlight">\(R^2\)</span>) and Square of Correlation Coefficient (<span class="math notranslate nohighlight">\(r^2\)</span>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-full-descriptive-regression-walkthrough">11.6. Putting It All Together: The Full Descriptive Regression Walkthrough</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">11.7. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

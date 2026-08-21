@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-way-table">14.1. The two-way table</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox-and-two-way-tables">14.2. Simpson’s paradox and two-way tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-of-two-way-tables">14.3. Inference of two-way tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-counting-our-way-to-a-conclusion">14.4. Putting It All Together: Counting Our Way to a Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">14.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -494,6 +496,25 @@
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapters 2.5 and 9</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Organize counts of two categorical variables into a <strong>two-way table</strong> and compute the <strong>joint</strong>, <strong>marginal</strong>, and <strong>conditional</strong> distributions.</p></li>
+<li><p>Choose the right percentage — row, column, or total — for the question being asked.</p></li>
+<li><p>Recognize <strong>Simpson’s paradox</strong> and identify the <strong>lurking variable</strong> that makes an aggregated comparison reverse.</p></li>
+<li><p>Compute <strong>expected counts</strong> under “no association” and carry out the <strong>chi-square test of independence</strong>, checking its sample-size conditions.</p></li>
+<li><p>Use <strong>Pearson residuals</strong> to see which cells drive a significant chi-square, and state conclusions as <strong>association</strong>, not causation.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch14-table"><span class="std std-ref">The two-way table: joint, marginal, conditional</span></a> · <a class="reference internal" href="#ch14-simpson"><span class="std std-ref">Simpson’s paradox</span></a> · <a class="reference internal" href="#ch14-inference"><span class="std std-ref">Inference: the chi-square test</span></a> · <a class="reference internal" href="#ch14-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>Every relationship we have studied so far had at least one quantitative variable in it — something to average, something to draw a line through. But what if <strong>both</strong> variables are categorical: smoker yes/no versus disease yes/no? There are no means to compare and no line to fit. All we can do is <strong>count</strong> — how many individuals land in each combination of categories. Tables of counts turn out to need their own descriptive tools, their own famous trap, and their own test. That is this chapter.</p>
+</div>
 <p>When analyzing relationships between two variables, it’s important to determine whether the variables are quantitative or categorical:</p>
 <ul class="simple">
 <li><p><strong>Two Quantitative variables</strong> are analyzed using scatterplots, examining the relationship, and fitting a line to the data if it is approximately linear.</p></li>
@@ -501,7 +522,11 @@
 <li><p><strong>Two Categorical variables</strong> are analyzed using counts (frequencies) or percents (relative frequencies). We can use a <strong>two-way table</strong> to summarize the raw data that gives counts of observations for each combination of values of the two categorical variables.</p></li>
 </ul>
 <section id="the-two-way-table">
-<h2><span class="section-number">14.1. </span>The two-way table<a class="headerlink" href="#the-two-way-table" title="Link to this heading">#</a></h2>
+<span id="ch14-table"></span><h2><span class="section-number">14.1. </span>The two-way table<a class="headerlink" href="#the-two-way-table" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>In the calcium study below, 861 younger children met the requirement but only 417 older children did. Case closed — younger children eat better? Not so fast: there were more younger children in the study to begin with. <strong>Raw counts mislead whenever the group sizes differ.</strong> The whole game in a two-way table is asking <em>percentages of what</em> — and joint, marginal, and conditional distributions are the three well-defined answers to that question.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
@@ -681,11 +706,76 @@ Conditional Distributions</label><div class="sd-tab-content docutils">
 <a class="reference internal image-reference" href="_images/1401.png"><img alt="Minitab, SPSS, and JMP outputs for the calcium two-way table, showing counts with row, column, and total percents, plus a JMP mosaic plot" src="_images/1401.png" style="width: 80%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (three packages, one table)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">All three outputs describe the <em>same</em> calcium two-way table; the skill is locating each percentage and knowing which question it answers. Each package prints, in every cell, the <strong>count</strong> together with up to three percentages — a <strong>row percent</strong> (cell <span class="math notranslate nohighlight">\(\div\)</span> row total), a <strong>column percent</strong> (cell <span class="math notranslate nohighlight">\(\div\)</span> column total), and a <strong>total percent</strong> (cell <span class="math notranslate nohighlight">\(\div\)</span> grand total). Minitab lists them stacked in each cell with a cell-contents legend; SPSS labels each line inside the cell (”% within” the row variable, “% within” the column variable, “% of Total”); JMP shows the same numbers and adds a <strong>mosaic plot</strong>, where the column widths display the marginal distribution of age and the split within each column displays the conditional distribution of Met Requirement given age.</p>
+<p class="sd-card-text">Match the percentage to the question (row variable = Met Requirement, column variable = age group):</p>
+<ul class="simple">
+<li><p class="sd-card-text"><em>“What percent of children aged 5 to 10 met the requirement?”</em> — a percent <strong>within an age column</strong>: the column percent, <span class="math notranslate nohighlight">\(861/1055 = 81.61\%\)</span>. This is the <strong>conditional distribution given age</strong>.</p></li>
+<li><p class="sd-card-text"><em>“What percent of the requirement-meeters are aged 5 to 10?”</em> — a percent <strong>within the Yes row</strong>: the row percent, <span class="math notranslate nohighlight">\(861/1278 \approx 67.4\%\)</span>. Same cell, different denominator, different question.</p></li>
+<li><p class="sd-card-text"><em>“What percent of all children are young AND met the requirement?”</em> — the total percent, <span class="math notranslate nohighlight">\(861/2029 \approx 42.4\%\)</span>: the <strong>joint distribution</strong>.</p></li>
+</ul>
+<p class="sd-card-text">Whenever you read such output, decide <em>first</em> which question you are asking, <em>then</em> pick the matching percent — never the other way around.</p>
 </div>
+</details></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: heights become a two-way table</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Height is quantitative — but the moment we ask a <em>categorical</em> question about it (“is this student taller than 5′10″?”) and pair it with a categorical variable (sex), we are in this chapter’s territory. Suppose we measure 100 students, 50 male and 50 female, and record who is taller than 70 inches:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p class="sd-card-text">Taller than 5′10″</p></th>
+<th class="head"><p class="sd-card-text">Not taller</p></th>
+<th class="head"><p class="sd-card-text">Total</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Male</strong></p></td>
+<td><p class="sd-card-text">22</p></td>
+<td><p class="sd-card-text">28</p></td>
+<td><p class="sd-card-text">50</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text"><strong>Female</strong></p></td>
+<td><p class="sd-card-text">1</p></td>
+<td><p class="sd-card-text">49</p></td>
+<td><p class="sd-card-text">50</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Total</strong></p></td>
+<td><p class="sd-card-text">23</p></td>
+<td><p class="sd-card-text">77</p></td>
+<td><p class="sd-card-text">100</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Marginal distribution</strong> of “taller than 5′10″”: <span class="math notranslate nohighlight">\(23/100 = 23\%\)</span> of all students.</p></li>
+<li><p class="sd-card-text"><strong>Conditional distributions given sex</strong> (row percents): among males, <span class="math notranslate nohighlight">\(22/50 = 44\%\)</span> are taller than 5′10″; among females, <span class="math notranslate nohighlight">\(1/50 = 2\%\)</span>. The two conditional distributions are wildly different — a strong <strong>association</strong> between sex and the tall/not-tall classification.</p></li>
+</ul>
+<p class="sd-card-text">These counts are no accident: with the Normal models from earlier chapters, <span class="math notranslate nohighlight">\(P(\text{male height} &gt; 70) \approx 0.43\)</span> for heights <span class="math notranslate nohighlight">\(N(69.5,\ 3)\)</span> and <span class="math notranslate nohighlight">\(P(\text{female height} &gt; 70) \approx 0.01\)</span> for heights <span class="math notranslate nohighlight">\(N(64.5,\ 2.5)\)</span> — close to the 44% and 2% our table shows. Discretizing a quantitative variable throws away detail, but the two-way table still captures the essential relationship.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Row percents and column percents tell the same story — a percentage is a percentage.”</p>
+<p><strong>In fact:</strong> they divide the <em>same cell count</em> by <em>different totals</em> and answer <em>different questions</em>. In the heights table: among <strong>males</strong>, <span class="math notranslate nohighlight">\(22/50 = 44\%\)</span> are taller than 5′10″ (a row percent). Among the <strong>taller-than-5′10″ group</strong>, <span class="math notranslate nohighlight">\(22/23 \approx 96\%\)</span> are male (a column percent). Same cell — the 22 tall males — but 44% and 96% are answers to two entirely different questions, and neither can substitute for the other.</p>
+<p><strong>Quick check:</strong> in the calcium table, <span class="math notranslate nohighlight">\(861/1055 \approx 81.6\%\)</span> and <span class="math notranslate nohighlight">\(861/1278 \approx 67.4\%\)</span> both use the same cell. Which one is “the percent of younger children who met the requirement”? (The first — it conditions on age, dividing by the 1,055 younger children.)</p>
 </div>
 </section>
 <section id="simpson-s-paradox-and-two-way-tables">
-<h2><span class="section-number">14.2. </span>Simpson’s paradox and two-way tables<a class="headerlink" href="#simpson-s-paradox-and-two-way-tables" title="Link to this heading">#</a></h2>
+<span id="ch14-simpson"></span><h2><span class="section-number">14.2. </span>Simpson’s paradox and two-way tables<a class="headerlink" href="#simpson-s-paradox-and-two-way-tables" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Conditional distributions fixed the unequal-group-size problem — but percentages can still ambush you. In the tables below, the treatment beats the control <strong>in every subgroup of patients</strong>, yet loses to the control <strong>overall</strong>. That is not a typo and not a rounding error. Watch an association <em>reverse</em> when data are aggregated — and then find the lurking variable responsible.</p>
+</div>
 <p>Simpson’s paradox happens when the pattern (or relationship) you observe in the <strong>aggregated</strong> two-way table <strong>reverses</strong> or <strong>disappears</strong> once you <strong>break the data down</strong> by a third (lurking) variable—making it effectively a three-dimensional table. Aggregating the data hides the third variable; disaggregating reveals it.</p>
 <ul class="simple">
 <li><p>Simpson’s paradox is a reminder to look out for <strong>hidden or confounding variables</strong> and to be careful with <strong>aggregate data</strong>.</p></li>
@@ -844,7 +934,11 @@ Simpson’s paradox reveals how misleading it can be to interpret <strong>aggreg
 </div>
 </section>
 <section id="inference-of-two-way-tables">
-<h2><span class="section-number">14.3. </span>Inference of two-way tables<a class="headerlink" href="#inference-of-two-way-tables" title="Link to this heading">#</a></h2>
+<span id="ch14-inference"></span><h2><span class="section-number">14.3. </span>Inference of two-way tables<a class="headerlink" href="#inference-of-two-way-tables" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>In the calcium table, 81.6% of younger children met the requirement versus only 42.8% of older children — the conditional distributions clearly differ <em>in this sample</em>. But eyeballing percentage differences is description, not inference: even if age and calcium intake were completely unrelated in the population, two sample percentages would rarely come out identical. The real question is the one Chapter 7 trained you to ask: <strong>are these differences bigger than chance alone would produce?</strong> For tables of counts, the test that answers it is the <strong>chi-square test</strong>.</p>
+</div>
 <p>Below is an overview of the key ideas, steps, and basic mathematical derivations for inference on two-way (contingency, crosstab) tables in statistics. We’ll focus on the classical approaches: <strong>Chi-square tests</strong>,</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
@@ -1048,7 +1142,104 @@ The <strong>Pearson residual</strong> measures how far <span class="math notrans
 </div>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: is the second die loaded? A chi-square by hand</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">You roll a die you trust (Die A) 60 times and a die you suspect is loaded (Die B) 60 times, recording whether each roll is a six:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p class="sd-card-text">Six</p></th>
+<th class="head"><p class="sd-card-text">Not six</p></th>
+<th class="head"><p class="sd-card-text">Total</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Die A (fair)</strong></p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">50</p></td>
+<td><p class="sd-card-text">60</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text"><strong>Die B (suspect)</strong></p></td>
+<td><p class="sd-card-text">20</p></td>
+<td><p class="sd-card-text">40</p></td>
+<td><p class="sd-card-text">60</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Total</strong></p></td>
+<td><p class="sd-card-text">30</p></td>
+<td><p class="sd-card-text">90</p></td>
+<td><p class="sd-card-text">120</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text"><strong>Hypotheses.</strong> <span class="math notranslate nohighlight">\(H_0\)</span>: outcome is not associated with which die — both dice have the same probability of a six. <span class="math notranslate nohighlight">\(H_a\)</span>: the dice differ.</p>
+<p class="sd-card-text"><strong>Expected counts</strong> under no association, <span class="math notranslate nohighlight">\(E = (\text{row total} \times \text{column total})/\text{grand total}\)</span>: for each die’s “six” cell, <span class="math notranslate nohighlight">\(E = (60 \times 30)/120 = 15\)</span>; for each “not six” cell, <span class="math notranslate nohighlight">\(E = (60 \times 90)/120 = 45\)</span>. All four expected counts are at least 5, so the 2×2 condition is met.</p>
+<p class="sd-card-text"><strong>The statistic</strong>, cell by cell:</p>
+<div class="math notranslate nohighlight">
+\[\chi^2 = \frac{(10-15)^2}{15} + \frac{(50-45)^2}{45} + \frac{(20-15)^2}{15} + \frac{(40-45)^2}{45}
+= 1.667 + 0.556 + 1.667 + 0.556 = 4.44 .\]</div>
+<p class="sd-card-text"><strong>Decision.</strong> <span class="math notranslate nohighlight">\(\text{df} = (2-1)(2-1) = 1\)</span>; the 0.05 critical value is 3.84. Since <span class="math notranslate nohighlight">\(4.44 &gt; 3.84\)</span>, we <strong>reject <span class="math notranslate nohighlight">\(H_0\)</span></strong> (software gives <span class="math notranslate nohighlight">\(P = 0.035\)</span>). The data give evidence that the two dice do not share the same chance of rolling a six.</p>
+<p class="sd-card-text"><strong>Direction, via Pearson residuals</strong> <span class="math notranslate nohighlight">\(Z = (O-E)/\sqrt{E}\)</span>: Die A’s six cell has <span class="math notranslate nohighlight">\(Z = (10-15)/\sqrt{15} = -1.29\)</span> and Die B’s six cell <span class="math notranslate nohighlight">\(Z = +1.29\)</span> — sixes came up <em>below</em> expectation on the fair die and <em>above</em> expectation on the suspect one, exactly the loaded-die pattern. (The not-six cells contribute <span class="math notranslate nohighlight">\(Z = \pm 0.75\)</span>.)</p>
+<p class="sd-card-text">Note what the test compares: not each die against the theoretical <span class="math notranslate nohighlight">\(1/6\)</span>, but the two dice <strong>against each other</strong> — “no association” here means “same distribution of outcomes in both rows.”</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The chi-square test was significant, so it has told me <em>which</em> cells differ — presumably the ones with the biggest counts.”</p>
+<p><strong>In fact:</strong> chi-square is an <strong>omnibus</strong> test. A small <span class="math notranslate nohighlight">\(P\)</span>-value says only that <em>somewhere</em> the table departs from independence; the statistic is a sum over all cells and points at none of them. To see <em>which</em> cells drive the result and in <em>which direction</em>, examine the <strong>Pearson residuals</strong> <span class="math notranslate nohighlight">\(Z = (O - E)/\sqrt{E}\)</span>: the sign gives the direction of the departure, and the magnitude (roughly a standard normal scale) shows which cells contribute most. Raw cell size is irrelevant — a big count can sit exactly at its expected value.</p>
+<p><strong>Quick check:</strong> in the dice example, the four Pearson residuals are <span class="math notranslate nohighlight">\(-1.29\)</span> and <span class="math notranslate nohighlight">\(+0.75\)</span> for Die A, <span class="math notranslate nohighlight">\(+1.29\)</span> and <span class="math notranslate nohighlight">\(-0.75\)</span> for Die B. Which cells tell the loaded-die story? (The two “six” cells: below expectation for A, above for B — even though the <em>largest counts</em> in the table are the not-six cells.)</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “A significant chi-square proves that one variable causes the other.”</p>
+<p><strong>In fact:</strong> the chi-square test detects <strong>association only</strong> — as Chapter 3 taught, an association can arise from causation, common response, or confounding, and Simpson’s paradox earlier in this chapter showed a lurking variable actively reversing one.</p>
+<p><strong>Quick check:</strong> an observational study finds a significant chi-square between “drinks coffee daily” and “heart disease.” Established? (No — smoking, age, and stress are all candidate lurking variables. Only a randomized experiment could isolate cause.)</p>
+</div>
 </section>
+<section id="putting-it-all-together-counting-our-way-to-a-conclusion">
+<span id="ch14-together"></span><h2><span class="section-number">14.4. </span>Putting It All Together: Counting Our Way to a Conclusion<a class="headerlink" href="#putting-it-all-together-counting-our-way-to-a-conclusion" title="Link to this heading">#</a></h2>
+<p><strong>Part 1 — identify the procedure.</strong> The decisive question is: <em>what type are the two variables?</em></p>
+<ul class="simple">
+<li><p><strong>Both quantitative</strong> → scatterplot, correlation, regression (Chapters 10 and 13).</p></li>
+<li><p><strong>Quantitative response, categorical explanatory</strong> → compare the distribution of the quantitative variable across groups: a two-sample <span class="math notranslate nohighlight">\(t\)</span> for two groups, <strong>ANOVA</strong> for several.</p></li>
+<li><p><strong>Both categorical</strong> → a two-way table and the <strong>chi-square test</strong> (this chapter). In the special case of a 2×2 table, this is equivalent to <strong>comparing two proportions</strong>: the chi-square statistic with df = 1 is exactly the square of the two-proportion <span class="math notranslate nohighlight">\(z\)</span> statistic, and the two tests give the same <span class="math notranslate nohighlight">\(P\)</span>-value.</p></li>
+</ul>
+<p>Three quick drills:</p>
+<ol class="arabic simple">
+<li><p>Does class year (freshman/sophomore/junior/senior) relate to preferred study spot (library/dorm/cafe)? (<em>Two categorical variables → chi-square on a 4×3 table.</em>)</p></li>
+<li><p>Do freshmen and seniors differ in average daily study hours? (<em>Quantitative response, two groups → two-sample <span class="math notranslate nohighlight">\(t\)</span>.</em>)</p></li>
+<li><p>Is the proportion of students who own a car different between freshmen and seniors? (<em>Two categorical variables, 2×2 → chi-square, or equivalently a two-proportion <span class="math notranslate nohighlight">\(z\)</span> test.</em>)</p></li>
+</ol>
+<p><strong>Part 2 — the four-step chi-square walkthrough</strong>, reusing the gender × product-preference table (Male: 40 A, 20 B; Female: 50 A, 30 B; <span class="math notranslate nohighlight">\(n = 140\)</span>).</p>
+<p><strong>Step 1 — hypotheses.</strong> <span class="math notranslate nohighlight">\(H_0\)</span>: gender and product preference are independent. <span class="math notranslate nohighlight">\(H_a\)</span>: they are not independent.</p>
+<p><strong>Step 2 — expected counts and conditions.</strong> Using <span class="math notranslate nohighlight">\(E = (\text{row total} \times \text{column total})/\text{grand total}\)</span>: 38.57 and 21.43 for males, 51.43 and 28.57 for females. All four are at least 5, so the 2×2 chi-square conditions hold.</p>
+<p><strong>Step 3 — the statistic.</strong> Summing <span class="math notranslate nohighlight">\((O-E)^2/E\)</span> over the four cells: <span class="math notranslate nohighlight">\(0.053 + 0.095 + 0.040 + 0.071 = 0.26\)</span>, with <span class="math notranslate nohighlight">\(\text{df} = (2-1)(2-1) = 1\)</span>.</p>
+<p><strong>Step 4 — decision and conclusion in context.</strong> <span class="math notranslate nohighlight">\(\chi^2 = 0.26\)</span> is far below the 0.05 critical value of 3.84 (software gives <span class="math notranslate nohighlight">\(P \approx 0.61\)</span>), so we fail to reject <span class="math notranslate nohighlight">\(H_0\)</span>. In percentage terms: <span class="math notranslate nohighlight">\(40/60 = 66.7\%\)</span> of males and <span class="math notranslate nohighlight">\(50/80 = 62.5\%\)</span> of females preferred Product A — a 4-point gap, entirely consistent with chance. The data give no evidence of an association between gender and product preference.</p>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">14.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. From the gender × product table, compute the percent of males who prefer A and the percent of A-preferrers who are male. Which one addresses “do preferences differ by gender?”</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Percent of males preferring A: <span class="math notranslate nohighlight">\(40/60 \approx 66.7\%\)</span> (row percent). Percent of A-preferrers who are male: <span class="math notranslate nohighlight">\(40/90 \approx 44.4\%\)</span> (column percent). The first — to compare preferences <em>by gender</em>, you need the conditional distribution of preference <strong>given</strong> gender (<span class="math notranslate nohighlight">\(66.7\%\)</span> for males versus <span class="math notranslate nohighlight">\(62.5\%\)</span> for females), not the makeup of each preference group.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. In the medical-trial tables, the control group looked better overall (82.6% vs. 78.0%). Should a new patient therefore choose the control?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">No. Within <em>each</em> severity level, the treatment wins (93.1% vs. 86.7% for mild; 73.0% vs. 68.8% for severe) — and every patient <em>is</em> either a mild or a severe case. The overall comparison is distorted by the lurking variable, disease severity: the treatment was given mostly to severe cases (263 of 350), the control mostly to mild ones (270 of 350). The subgroup comparisons are the relevant ones. This is Simpson’s paradox.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. A student repeats the dice study with only 6 rolls per die (2 sixes for Die B, 1 for Die A) and runs a chi-square test. What’s wrong?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The expected counts are far too small: with 12 rolls and 3 sixes total, each die’s expected “six” count is <span class="math notranslate nohighlight">\((6 \times 3)/12 = 1.5\)</span> — well below the minimum of 5 required in every cell of a 2×2 table. The chi-square approximation is unreliable here; the student should collect more rolls or use <strong>Fisher’s Exact Test</strong>.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1120,6 +1311,8 @@ The <strong>Pearson residual</strong> measures how far <span class="math notrans
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-way-table">14.1. The two-way table</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox-and-two-way-tables">14.2. Simpson’s paradox and two-way tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-of-two-way-tables">14.3. Inference of two-way tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-counting-our-way-to-a-conclusion">14.4. Putting It All Together: Counting Our Way to a Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">14.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,7 +477,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-the-mean-of-a-population">7.1. Inference for the Mean of a Population</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-two-means">7.2. Comparing Two Means</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-calculations">7.3. Sample Size Calculations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-s-2-and-s-unbiasedness-and-consistency">7.4. Properties of <span class="math notranslate nohighlight">\(s^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span>: Unbiasedness and Consistency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-which-t-procedure">7.4. Putting It All Together: Which <span class="math notranslate nohighlight">\(t\)</span> Procedure?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">7.5. Check Your Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-s-2-and-s-unbiasedness-and-consistency">7.6. Properties of <span class="math notranslate nohighlight">\(s^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span>: Unbiasedness and Consistency</a></li>
 </ul>
             </nav>
         </div>
@@ -494,6 +496,27 @@
 <div class="seealso admonition">
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 7</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Explain why replacing the unknown <span class="math notranslate nohighlight">\(\sigma\)</span> with the sample estimate <span class="math notranslate nohighlight">\(s\)</span> turns the <span class="math notranslate nohighlight">\(z\)</span> statistic into the <strong><span class="math notranslate nohighlight">\(t\)</span> statistic</strong>, and describe the <strong><span class="math notranslate nohighlight">\(t\)</span> distribution</strong> and its <strong>degrees of freedom</strong>.</p></li>
+<li><p>Carry out <strong>one-sample <span class="math notranslate nohighlight">\(t\)</span></strong> confidence intervals and significance tests, including for <strong>matched pairs</strong> data analyzed through within-pair differences.</p></li>
+<li><p>Compare two population means with the <strong>two-sample <span class="math notranslate nohighlight">\(t\)</span> procedures</strong>, and explain when the <strong>pooled</strong> version is (and is not) appropriate.</p></li>
+<li><p>State the <strong>robustness</strong> guidelines for <span class="math notranslate nohighlight">\(t\)</span> procedures and the options available when data are clearly non-Normal.</p></li>
+<li><p>Plan a study: choose a <strong>sample size</strong> to meet a target margin of error, and list the factors that drive <strong>power</strong>.</p></li>
+<li><p>Explain why “not statistically significant” does not mean “equal,” and how <strong>equivalence testing</strong> addresses that question properly.</p></li>
+<li><p>Given a study description, decide <strong>which <span class="math notranslate nohighlight">\(t\)</span> procedure applies and why</strong> (how many samples, and are the observations linked?).</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch7-onesample"><span class="std std-ref">The <span class="math notranslate nohighlight">\(t\)</span> distribution and one-sample <span class="math notranslate nohighlight">\(t\)</span></span></a> · <a class="reference internal" href="#ch7-pairs"><span class="std std-ref">Matched pairs</span></a> · <a class="reference internal" href="#ch7-equivalence"><span class="std std-ref">Equivalence testing</span></a> · <a class="reference internal" href="#ch7-robust"><span class="std std-ref">Robustness</span></a> · <a class="reference internal" href="#ch7-twosample"><span class="std std-ref">Comparing two means</span></a> · <a class="reference internal" href="#ch7-samplesize"><span class="std std-ref">Sample size and power</span></a> · <a class="reference internal" href="#ch7-together"><span class="std std-ref">Putting it all together</span></a> · <a class="reference internal" href="#ch7-s2"><span class="std std-ref">Properties of <span class="math notranslate nohighlight">\(s^2\)</span></span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>Every <span class="math notranslate nohighlight">\(z\)</span> formula so far assumed we <strong>know</strong> <span class="math notranslate nohighlight">\(\sigma\)</span>. Be honest: when have you ever known a population’s standard deviation while not knowing its mean? If you already knew everything about the spread of all Purdue heights, you would almost surely know their average too. In practice we know <em>neither</em> — so we must estimate <span class="math notranslate nohighlight">\(\sigma\)</span> from the same small sample we use to estimate <span class="math notranslate nohighlight">\(\mu\)</span>. Replacing <span class="math notranslate nohighlight">\(\sigma\)</span> with <span class="math notranslate nohighlight">\(s\)</span> costs something, and a Guinness brewery chemist named William Gosset — publishing under the pen name “Student” because the brewery would not let employees publish — worked out <strong>exactly what it costs</strong>. His answer, the <span class="math notranslate nohighlight">\(t\)</span> distribution, is what this chapter is about.</p>
 </div>
 <p>In the last chapter, we encountered the population parameter <strong><span class="math notranslate nohighlight">\(\sigma\)</span></strong> when calculating the <strong>margin of error</strong> for confidence intervals and computing the <strong><span class="math notranslate nohighlight">\(z\)</span> test statistic</strong> for hypothesis testing. However, in practice, this <strong><span class="math notranslate nohighlight">\(\sigma\)</span></strong> is usually <strong>unknown</strong>.</p>
 <p><strong>Addressing the Unknown <span class="math notranslate nohighlight">\(\sigma\)</span>:</strong></p>
@@ -520,7 +543,11 @@
 <li><p>Many real-world problems fit into one of these two frameworks. Whether comparing <strong>before-and-after treatment effects, different experimental conditions, or population differences</strong>, these two settings provide a foundation for statistical inference when the <strong>population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is unknown</strong>.</p></li>
 </ul>
 <section id="inference-for-the-mean-of-a-population">
-<h2><span class="section-number">7.1. </span>Inference for the Mean of a Population<a class="headerlink" href="#inference-for-the-mean-of-a-population" title="Link to this heading">#</a></h2>
+<span id="ch7-onesample"></span><h2><span class="section-number">7.1. </span>Inference for the Mean of a Population<a class="headerlink" href="#inference-for-the-mean-of-a-population" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The fix seems obvious: you don’t know <span class="math notranslate nohighlight">\(\sigma\)</span>, so plug in <span class="math notranslate nohighlight">\(s\)</span> and keep using the <span class="math notranslate nohighlight">\(z\)</span> table. But notice what changed. <span class="math notranslate nohighlight">\(\sigma\)</span> is a <strong>fixed number</strong>; <span class="math notranslate nohighlight">\(s\)</span> is <strong>computed from your data</strong> and varies from sample to sample — with <span class="math notranslate nohighlight">\(n = 16\)</span> heights, it can easily come out too small just by luck. Divide by a too-small <span class="math notranslate nohighlight">\(s\)</span> and your statistic comes out too <em>large</em> more often than the Normal curve predicts. <strong>Should the substitution really be free?</strong> It isn’t — and the <span class="math notranslate nohighlight">\(t\)</span> distribution’s thicker tails are precisely the bill.</p>
+</div>
 <p>If we do <strong>not</strong> know the population standard deviation <strong><span class="math notranslate nohighlight">\(\sigma\)</span></strong>, we need to find an <strong>estimator</strong> to approximate it-just as we use the <strong>sample mean</strong> <strong><span class="math notranslate nohighlight">\(\bar{x}\)</span></strong> to estimate the <strong>population mean</strong> <strong><span class="math notranslate nohighlight">\(\mu\)</span></strong>. Naturally, a reasonable choice is the <strong>sample standard deviation</strong> <strong><span class="math notranslate nohighlight">\(s\)</span></strong> as an estimator for the <strong>population standard deviation</strong> <strong><span class="math notranslate nohighlight">\(\sigma\)</span></strong>.</p>
 <p><strong>Why Use <span class="math notranslate nohighlight">\(s\)</span> Instead of <span class="math notranslate nohighlight">\(\sigma\)</span>?</strong></p>
 <ul class="simple">
@@ -582,6 +609,34 @@ The <span class="math notranslate nohighlight">\(t\)</span>-Distribution</label>
 </ul>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Why <span class="math notranslate nohighlight">\(n - 1\)</span> degrees of freedom? The case of two heights</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Measure just <span class="math notranslate nohighlight">\(n = 2\)</span> heights: 66 and 70 inches. Their mean is <span class="math notranslate nohighlight">\(\bar{x} = 68\)</span>, and the deviations from the mean are <span class="math notranslate nohighlight">\(-2\)</span> and <span class="math notranslate nohighlight">\(+2\)</span>. Now notice: once you know the <em>first</em> deviation is <span class="math notranslate nohighlight">\(-2\)</span>, the second is <strong>forced</strong> to be <span class="math notranslate nohighlight">\(+2\)</span> — deviations from <span class="math notranslate nohighlight">\(\bar{x}\)</span> must always sum to zero. Two deviations, but only <strong>one</strong> of them is free.</p>
+<p class="sd-card-text">In general, the <span class="math notranslate nohighlight">\(n\)</span> deviations <span class="math notranslate nohighlight">\(x_i - \bar{x}\)</span> satisfy one constraint (<span class="math notranslate nohighlight">\(\sum_{i=1}^n (x_i - \bar{x}) = 0\)</span>), because <span class="math notranslate nohighlight">\(\bar{x}\)</span> was computed <em>from the same data</em>. So only <span class="math notranslate nohighlight">\(n - 1\)</span> deviations carry independent information — that is the “degrees of freedom” of <span class="math notranslate nohighlight">\(s\)</span>, and it is why the <span class="math notranslate nohighlight">\(t\)</span> statistic based on <span class="math notranslate nohighlight">\(s\)</span> follows <span class="math notranslate nohighlight">\(t(n-1)\)</span>, not <span class="math notranslate nohighlight">\(t(n)\)</span>. (It is also why <span class="math notranslate nohighlight">\(s^2\)</span> divides by <span class="math notranslate nohighlight">\(n - 1\)</span> rather than <span class="math notranslate nohighlight">\(n\)</span>; see the <a class="reference internal" href="#ch7-s2"><span class="std std-ref">appendix</span></a> for the proof that this makes <span class="math notranslate nohighlight">\(s^2\)</span> unbiased.)</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: a one-sample <span class="math notranslate nohighlight">\(t\)</span> test on heights, start to finish</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Suppose the national average height for college-age adults is claimed to be 68 inches, and you wonder whether Purdue students differ. You take an SRS of <span class="math notranslate nohighlight">\(n = 16\)</span> students and find <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches, <span class="math notranslate nohighlight">\(s = 3.8\)</span> inches.</p>
+<p class="sd-card-text"><strong>Hypotheses:</strong> <span class="math notranslate nohighlight">\(H_0: \mu = 68\)</span> vs. <span class="math notranslate nohighlight">\(H_a: \mu \neq 68\)</span>.</p>
+<p class="sd-card-text"><strong>Test statistic:</strong> the standard error is <span class="math notranslate nohighlight">\(\text{SE}_{\bar{x}} = 3.8/\sqrt{16} = 0.95\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[t = \frac{67.1 - 68}{0.95} = -0.947, \qquad df = 16 - 1 = 15.\]</div>
+<p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(p\)</span>-value:</strong> software gives <span class="math notranslate nohighlight">\(p = 2\,P(T_{15} \le -0.947) \approx 0.358\)</span>.</p>
+<p class="sd-card-text"><strong>Conclusion:</strong> <span class="math notranslate nohighlight">\(p = 0.358\)</span> is far above any common <span class="math notranslate nohighlight">\(\alpha\)</span> — the data are entirely consistent with <span class="math notranslate nohighlight">\(\mu = 68\)</span>. The 95% confidence interval, <span class="math notranslate nohighlight">\(67.1 \pm 2.131 \times 0.95 = (65.1,\ 69.1)\)</span> inches, tells the same story: 68 sits comfortably inside.</p>
+<p class="sd-card-text"><em>Where the “cost” shows up:</em> if we had (wrongly) treated <span class="math notranslate nohighlight">\(s = 3.8\)</span> as the known <span class="math notranslate nohighlight">\(\sigma\)</span> and used the Normal table, we would report <span class="math notranslate nohighlight">\(p \approx 0.343\)</span> — slightly smaller. And the <span class="math notranslate nohighlight">\(z\)</span> critical value <span class="math notranslate nohighlight">\(1.960\)</span> is smaller than <span class="math notranslate nohighlight">\(t^*_{15} = 2.131\)</span>, so the <span class="math notranslate nohighlight">\(z\)</span> interval would be narrower than it should be. The thicker tails of <span class="math notranslate nohighlight">\(t(15)\)</span> are Gosset’s honest accounting for the extra uncertainty in <span class="math notranslate nohighlight">\(s\)</span>.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Use <span class="math notranslate nohighlight">\(t\)</span> when <span class="math notranslate nohighlight">\(n\)</span> is small, and switch to <span class="math notranslate nohighlight">\(z\)</span> once <span class="math notranslate nohighlight">\(n \geq 30\)</span>.”</p>
+<p><strong>In fact:</strong> the choice between <span class="math notranslate nohighlight">\(z\)</span> and <span class="math notranslate nohighlight">\(t\)</span> is driven by <strong>whether <span class="math notranslate nohighlight">\(\sigma\)</span> is known</strong>, not by the sample size. Since <span class="math notranslate nohighlight">\(\sigma\)</span> is essentially never known in practice, you use <span class="math notranslate nohighlight">\(t\)</span> whenever you estimate it with <span class="math notranslate nohighlight">\(s\)</span> — at <em>any</em> <span class="math notranslate nohighlight">\(n\)</span>. This is harmless for large samples because <span class="math notranslate nohighlight">\(t(n-1)\)</span> converges to <span class="math notranslate nohighlight">\(N(0,1)\)</span>: the folklore survives only because the error from using <span class="math notranslate nohighlight">\(z\)</span> shrinks as <span class="math notranslate nohighlight">\(n\)</span> grows. But the principled rule is simple: estimated <span class="math notranslate nohighlight">\(\sigma\)</span> <span class="math notranslate nohighlight">\(\Rightarrow\)</span> <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p><strong>Quick check:</strong> you measure <span class="math notranslate nohighlight">\(n = 400\)</span> heights and compute <span class="math notranslate nohighlight">\(s\)</span> from the data. <span class="math notranslate nohighlight">\(z\)</span> or <span class="math notranslate nohighlight">\(t\)</span>? (<span class="math notranslate nohighlight">\(t\)</span> with 399 degrees of freedom. Numerically it barely matters — <span class="math notranslate nohighlight">\(t^*_{399} = 1.966\)</span> vs. <span class="math notranslate nohighlight">\(z^* = 1.960\)</span> for 95% confidence — but the <em>reason</em> to use <span class="math notranslate nohighlight">\(z\)</span> would be a known <span class="math notranslate nohighlight">\(\sigma\)</span>, and you don’t have one.)</p>
+</div>
+<div class="bridge admonition" id="ch7-pairs">
+<p class="admonition-title">A question before this section</p>
+<p>Your morning height and your evening height differ — people shrink about a centimeter during the day as the discs in the spine compress. Suppose you want to <em>detect</em> this small effect. Would you compare 30 morning-people against 30 <strong>different</strong> evening-people, or measure the <strong>same</strong> 30 people twice — once at 8 am, once at 8 pm? Think about what varies in each plan: in the first, the 1 cm signal must fight through person-to-person height differences of several inches; in the second, each person is compared only with <em>themselves</em>. That second plan is the <strong>matched pairs</strong> design, and the payoff for analyzing it correctly is enormous.</p>
+</div>
 <p>Another setting where the one-sample <em>t</em> procedure is often used is in a <strong>matched-pairs</strong> design.</p>
 <p><strong>In a matched-pairs setup:</strong></p>
 <ul class="simple">
@@ -603,7 +658,19 @@ Example 7.7 Scenario</label><div class="sd-tab-content docutils">
 <a class="reference internal image-reference" href="_images/0701.png"><img alt="Table of paired measurements for 20 machine parts with the software option on and off, where the differences are small and scatter around zero" src="_images/0701.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (a paired-data table)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This table <em>is</em> the matched-pairs design, laid out row by row:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Each row is one part — one pair.</strong> The two measurements in a row belong to the <em>same</em> physical part, measured twice (option on, option off). That within-row link is what makes the data “paired.”</p></li>
+<li><p class="sd-card-text"><strong>The two measurement columns</strong> (<em>Option On</em>, <em>Option Off</em>) vary a lot from row to row — the parts themselves differ in size. That part-to-part variation is real, but it is <em>not</em> what we are studying.</p></li>
+<li><p class="sd-card-text"><strong>The difference column</strong> (<span class="math notranslate nohighlight">\(d_i = \text{Off}_i - \text{On}_i\)</span>) is where the analysis lives. Notice the differences are tiny compared with the measurements themselves, and they carry <strong>both signs</strong>, scattering around zero — a first visual hint that the option may make no systematic difference.</p></li>
+<li><p class="sd-card-text"><strong>After subtracting, the original columns are discarded.</strong> The one-sample <span class="math notranslate nohighlight">\(t\)</span> procedure sees only the 51 differences: one number per pair, <span class="math notranslate nohighlight">\(n = 51\)</span>, <span class="math notranslate nohighlight">\(df = 50\)</span>. Subtracting within each row cancels the part-to-part variation entirely, which is exactly the point of pairing.</p></li>
+</ul>
+<p class="sd-card-text">When you meet any paired table: first identify what links the two measurements in a row, then form the differences, then treat those differences as an ordinary one-sample problem.</p>
 </div>
+</details></div>
 <input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-4">
 Hypotheses</label><div class="sd-tab-content docutils">
@@ -645,6 +712,23 @@ Interpretation</label><div class="sd-tab-content docutils">
 </div></blockquote>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: do you shrink during the day? (the morning/evening heights, carried through)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let’s answer the bridge question with numbers. Measure the <strong>same</strong> <span class="math notranslate nohighlight">\(n = 30\)</span> students at 8 am and again at 8 pm, and form one difference per person: <span class="math notranslate nohighlight">\(d_i = \text{morning}_i - \text{evening}_i\)</span> (in cm). Suppose the data give <span class="math notranslate nohighlight">\(\bar{d} = 0.95\)</span> cm and <span class="math notranslate nohighlight">\(s_d = 0.52\)</span> cm.</p>
+<p class="sd-card-text"><strong>Hypotheses:</strong> <span class="math notranslate nohighlight">\(H_0: \mu_d = 0\)</span> vs. <span class="math notranslate nohighlight">\(H_a: \mu_d &gt; 0\)</span> (one-sided, pre-specified: disc compression predicts shrinkage, not growth).</p>
+<p class="sd-card-text"><strong>Test statistic:</strong></p>
+<div class="math notranslate nohighlight">
+\[t = \frac{\bar{d} - 0}{s_d/\sqrt{n}} = \frac{0.95}{0.52/\sqrt{30}} = \frac{0.95}{0.0949} \approx 10.0, \qquad df = 29.\]</div>
+<p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(p\)</span>-value:</strong> <span class="math notranslate nohighlight">\(P(T_{29} \ge 10.0) \approx 3 \times 10^{-11}\)</span> — overwhelming evidence. The 95% confidence interval for the mean shrinkage is <span class="math notranslate nohighlight">\(0.95 \pm 2.045 \times 0.0949 = (0.76,\ 1.14)\)</span> cm.</p>
+<p class="sd-card-text"><strong>Why pairing won:</strong> now try the other design from the bridge — 30 morning-people vs. 30 <em>different</em> evening-people, analyzed as two independent samples. Heights vary from person to person with <span class="math notranslate nohighlight">\(s \approx 7\)</span> cm, so the standard error becomes <span class="math notranslate nohighlight">\(\sqrt{7^2/30 + 7^2/30} \approx 1.81\)</span> cm and the same 0.95 cm signal gives <span class="math notranslate nohighlight">\(t \approx 0.53\)</span> — completely undetectable. Pairing subtracted away the person-to-person variation and shrank the standard error from about <span class="math notranslate nohighlight">\(1.81\)</span> to <span class="math notranslate nohighlight">\(0.095\)</span>: the same effect went from invisible to unmistakable.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Matched pairs is just a two-sample problem that happens to have <span class="math notranslate nohighlight">\(n_1 = n_2\)</span>.”</p>
+<p><strong>In fact:</strong> pairing changes the <em>analysis</em>, not just the bookkeeping. Paired data become <strong>one</strong> sample of within-pair differences, analyzed with a one-sample <span class="math notranslate nohighlight">\(t\)</span> on <span class="math notranslate nohighlight">\(n - 1\)</span> degrees of freedom (<span class="math notranslate nohighlight">\(n\)</span> = number of <em>pairs</em>). The two-sample formula assumes the samples are <strong>independent</strong> — but two measurements on the same person (or part) are strongly correlated, and treating them as independent throws away exactly the advantage the design bought. Analyze the design you <em>ran</em>.</p>
+<p><strong>Quick check:</strong> in the shrinkage study, the paired analysis gave <span class="math notranslate nohighlight">\(t \approx 10.0\)</span>; the same numbers wrongly run through the two-sample formula gave <span class="math notranslate nohighlight">\(t \approx 0.53\)</span>. Which analysis matches how the data were actually collected? (The paired one — each row of data came from a single person measured twice.)</p>
+</div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p><strong>A Lack of Statistical Significance <span class="math notranslate nohighlight">\(\neq\)</span> Proof of <span class="math notranslate nohighlight">\(H_0\)</span></strong></p>
@@ -653,7 +737,7 @@ Interpretation</label><div class="sd-tab-content docutils">
 <li><p>If we could “prove” a null hypothesis by simply getting a non-significant result, we could always design weak experiments to achieve that outcome. Clearly, this is not sound science.</p></li>
 </ul>
 </div>
-<p>Here, we can <strong>shift our question</strong> slightly to:</p>
+<p id="ch7-equivalence">Here, we can <strong>shift our question</strong> slightly to:</p>
 <blockquote>
 <div><p><strong>“Is any difference too <em>small</em> to be important?”</strong></p>
 </div></blockquote>
@@ -708,7 +792,28 @@ Example 7.8</label><div class="sd-tab-content docutils">
 <a class="reference internal image-reference" href="_images/0702.png"><img alt="Minitab equivalence test plot where the 95 percent CI from minus 0.113 to 0.213 crosses the upper limit 0.2, so equivalence cannot be claimed" src="_images/0702.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (Minitab equivalence output)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Read the plot in this order:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Find the equivalence zone.</strong> The two vertical reference lines mark the <em>lower equivalence limit</em> (LEL <span class="math notranslate nohighlight">\(= -0.20\)</span>) and <em>upper equivalence limit</em> (UEL <span class="math notranslate nohighlight">\(= 0.20\)</span>) — the researcher-chosen <span class="math notranslate nohighlight">\(\pm\delta\)</span> inside which a difference is “too small to matter.” These limits were fixed <em>before</em> looking at the data.</p></li>
+<li><p class="sd-card-text"><strong>Find the interval.</strong> The horizontal bar is the confidence interval for the mean difference, <span class="math notranslate nohighlight">\((-0.113,\ 0.213)\)</span>. Note the label says “95% CI for equivalence”: by the one-sided-<span class="math notranslate nohighlight">\(\alpha\)</span> convention of the TOST procedure, this is numerically the <em>90% two-sided</em> interval used for a 5%-level equivalence test.</p></li>
+<li><p class="sd-card-text"><strong>Apply the containment rule.</strong> Equivalence is declared only if the <em>entire</em> bar sits strictly between the two vertical lines. Here the right end of the bar (<span class="math notranslate nohighlight">\(0.213\)</span>) pokes past the UEL (<span class="math notranslate nohighlight">\(0.20\)</span>) — so Minitab prints “cannot claim equivalence.”</p></li>
+<li><p class="sd-card-text"><strong>Notice how close the call is.</strong> The bar barely crosses the line. The point estimate (<span class="math notranslate nohighlight">\(0.0504\)</span>) is near zero; a somewhat larger sample would shrink the bar and could pull its right end inside the zone. “Cannot claim equivalence” — like “fail to reject” — is a statement about <em>evidence</em>, not a verdict that the two settings differ.</p></li>
+</ol>
 </div>
+</details></div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “Our test gave <span class="math notranslate nohighlight">\(p = 0.61\)</span> — we failed to reject <span class="math notranslate nohighlight">\(H_0\)</span>, so we’ve shown the two settings are equivalent.”</p>
+<p><strong>In fact:</strong> failing to reject <span class="math notranslate nohighlight">\(H_0\)</span> is <em>absence of evidence of a difference</em>, not <em>evidence of absence</em>. A tiny or noisy study almost always fails to reject — that proves nothing about equivalence. Demonstrating equivalence requires its own procedure: pre-specify the largest unimportant difference <span class="math notranslate nohighlight">\(\delta\)</span>, then show the entire <span class="math notranslate nohighlight">\(1 - 2\alpha\)</span> confidence interval fits inside <span class="math notranslate nohighlight">\((-\delta,\ \delta)\)</span> — the TOST logic. That is <em>exactly why equivalence testing exists</em>. Example 7.8 makes the point sharply: the very same data that gave <span class="math notranslate nohighlight">\(p \approx 0.61\)</span> against <span class="math notranslate nohighlight">\(H_0: \mu = 0\)</span> <strong>fail</strong> the stricter equivalence standard, because the CI pokes past <span class="math notranslate nohighlight">\(\delta = 0.20\)</span>.</p>
+<p><strong>Quick check:</strong> a lab compares two instruments with only <span class="math notranslate nohighlight">\(n = 3\)</span> paired measurements and gets <span class="math notranslate nohighlight">\(p = 0.70\)</span>. Have they demonstrated the instruments are interchangeable? (No — with <span class="math notranslate nohighlight">\(n = 3\)</span> the confidence interval is enormous; it will not fit inside any reasonable <span class="math notranslate nohighlight">\((-\delta, \delta)\)</span>, and the large <span class="math notranslate nohighlight">\(p\)</span>-value reflects low power, not agreement.)</p>
+</div>
+<div class="bridge admonition" id="ch7-robust">
+<p class="admonition-title">A question before this section</p>
+<p>All of this — one-sample <span class="math notranslate nohighlight">\(t\)</span>, matched pairs, the equivalence procedure — assumed the population is <strong>Normal</strong>. Real data rarely oblige: incomes are skewed, reaction times have outliers, and nobody hands you a certificate that heights are exactly Gaussian. <strong>How much does the Normality assumption actually matter?</strong> The happy answer: much less than you might fear, and predictably less as <span class="math notranslate nohighlight">\(n\)</span> grows. The guidelines below tell you when to trust <span class="math notranslate nohighlight">\(t\)</span>, and what to reach for when you shouldn’t.</p>
 </div>
 <p>Finally, we should discuss the <strong>robustness</strong> of <em>t</em> procedures and possible <strong>alternatives</strong>, especially when dealing with <strong>non-normal datasets</strong>.</p>
 <div class="sd-tab-set docutils">
@@ -760,7 +865,11 @@ Inference for Non-Normal Populations</label><div class="sd-tab-content docutils"
 </div>
 </section>
 <section id="comparing-two-means">
-<h2><span class="section-number">7.2. </span>Comparing Two Means<a class="headerlink" href="#comparing-two-means" title="Link to this heading">#</a></h2>
+<span id="ch7-twosample"></span><h2><span class="section-number">7.2. </span>Comparing Two Means<a class="headerlink" href="#comparing-two-means" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Matched pairs was the star of the last section — but what if the two groups <strong>can’t</strong> be the same people? Suppose you want to compare the average height of students at two different colleges. No student attends both; there is no natural way to link a student at one college with a student at the other. Now you genuinely have <strong>two independent samples from two populations</strong>, and you need a procedure built for that: the two-sample <span class="math notranslate nohighlight">\(t\)</span>. The key question of this chapter — <em>are the observations linked?</em> — is answered “no” here, and the analysis changes accordingly.</p>
+</div>
 <p>Now, let’s shift our focus to <strong>two samples from two distinct populations</strong>. This scenario arises frequently in many real-world applications where we wish to compare <strong>two population means</strong>.</p>
 <p>Fortunately, under <strong>mild conditions</strong>, the difference between the two sample means, <strong><span class="math notranslate nohighlight">\(\bar{X}_1 - \bar{X}_2\)</span></strong>, is <strong>approximately normal</strong>. This allows us to extend the <strong>statistical procedures</strong> we learned for the <strong>one-sample case</strong> to this new <strong>two-sample setting</strong>.</p>
 <p><strong>Key Insights:</strong></p>
@@ -969,9 +1078,29 @@ Pooled Two-Sample <em>t</em> Procedures</label><div class="sd-tab-content docuti
 </ul>
 </div>
 </div>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: heights at two colleges (two-sample <span class="math notranslate nohighlight">\(t\)</span>, start to finish)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Do students at College A and College B differ in average height? We take independent SRSs — there is no way to pair a student at A with a student at B — and find:</p>
+<ul class="simple">
+<li><p class="sd-card-text">College A: <span class="math notranslate nohighlight">\(n_1 = 35\)</span>, <span class="math notranslate nohighlight">\(\bar{x}_1 = 68.2\)</span> in, <span class="math notranslate nohighlight">\(s_1 = 3.6\)</span> in</p></li>
+<li><p class="sd-card-text">College B: <span class="math notranslate nohighlight">\(n_2 = 40\)</span>, <span class="math notranslate nohighlight">\(\bar{x}_2 = 66.9\)</span> in, <span class="math notranslate nohighlight">\(s_2 = 3.9\)</span> in</p></li>
+</ul>
+<p class="sd-card-text"><strong>Hypotheses:</strong> <span class="math notranslate nohighlight">\(H_0: \mu_1 = \mu_2\)</span> vs. <span class="math notranslate nohighlight">\(H_a: \mu_1 \neq \mu_2\)</span>.</p>
+<p class="sd-card-text"><strong>Test statistic:</strong></p>
+<div class="math notranslate nohighlight">
+\[t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \frac{68.2 - 66.9}{\sqrt{\dfrac{3.6^2}{35} + \dfrac{3.9^2}{40}}} = \frac{1.3}{0.866} \approx 1.50.\]</div>
+<p class="sd-card-text"><strong>Degrees of freedom and <span class="math notranslate nohighlight">\(p\)</span>-value:</strong> software (Satterthwaite) gives <span class="math notranslate nohighlight">\(k \approx 72.8\)</span> and a two-sided <span class="math notranslate nohighlight">\(p \approx 0.138\)</span>. Without software, the conservative choice <span class="math notranslate nohighlight">\(k = \min(35-1,\ 40-1) = 34\)</span> gives <span class="math notranslate nohighlight">\(p \approx 0.143\)</span> — same conclusion either way.</p>
+<p class="sd-card-text"><strong>Conclusion:</strong> the observed 1.3-inch difference is <em>not</em> statistically significant at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>. The 95% confidence interval for <span class="math notranslate nohighlight">\(\mu_1 - \mu_2\)</span>, <span class="math notranslate nohighlight">\(1.3 \pm 1.993 \times 0.866 = (-0.43,\ 3.03)\)</span> inches, includes 0: the data are consistent with no difference, but also with a difference as large as 3 inches — these samples simply aren’t big enough to pin it down.</p>
+<p class="sd-card-text"><em>Contrast with the shrinkage study:</em> there, a difference of less than half an inch produced <span class="math notranslate nohighlight">\(t \approx 10\)</span>; here, a 1.3-inch difference produces only <span class="math notranslate nohighlight">\(t \approx 1.5\)</span>. The difference is the <strong>design</strong>: pairing eliminated person-to-person variation, while independent samples must carry it in the standard error. (Since <span class="math notranslate nohighlight">\(s_1 \approx s_2\)</span> here, the pooled procedure with <span class="math notranslate nohighlight">\(df = 73\)</span> would also be defensible and gives a nearly identical result.)</p>
+</div>
+</details></section>
 <section id="sample-size-calculations">
-<h2><span class="section-number">7.3. </span>Sample Size Calculations<a class="headerlink" href="#sample-size-calculations" title="Link to this heading">#</a></h2>
+<span id="ch7-samplesize"></span><h2><span class="section-number">7.3. </span>Sample Size Calculations<a class="headerlink" href="#sample-size-calculations" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Your advisor approves the height study and asks one deceptively simple question: <strong>“How many students will you measure?”</strong> Answer “as many as possible” and you’ll be sent back to your desk — each measurement costs time and money. Measure too few, and your confidence interval comes out uselessly wide; measure too many, and you’ve wasted resources proving what half the sample would have shown. There is a defensible number, and remarkably, you can compute it <em>before collecting a single observation</em>.</p>
+</div>
 <p>For all the <strong>statistical procedures</strong> we have introduced so far, in addition to the <strong>population standard deviation</strong> <strong><span class="math notranslate nohighlight">\(\sigma\)</span></strong> and <strong>sample standard deviation</strong> <strong><span class="math notranslate nohighlight">\(s\)</span></strong>, we also see the <strong>sample size</strong> <strong><span class="math notranslate nohighlight">\(n\)</span></strong> in the formulas.</p>
 <p>In theory, the <strong>sample size</strong> <strong><span class="math notranslate nohighlight">\(n\)</span></strong> is known to researchers, but in <strong>practice</strong>, when planning a study, <strong>choosing the right sample size</strong> is an important decision. The goal is to ensure that the <strong>margin of error</strong> stays <strong>below a prespecified value</strong> <strong><span class="math notranslate nohighlight">\(m\)</span></strong> at a given <strong>confidence level</strong>.</p>
 <p><strong>Trade-off: Precision vs. Cost</strong></p>
@@ -1100,8 +1229,55 @@ Since we won’t know the actual <span class="math notranslate nohighlight">\(s\
 </li>
 </ul>
 </section>
+<section id="putting-it-all-together-which-t-procedure">
+<span id="ch7-together"></span><h2><span class="section-number">7.4. </span>Putting It All Together: Which <span class="math notranslate nohighlight">\(t\)</span> Procedure?<a class="headerlink" href="#putting-it-all-together-which-t-procedure" title="Link to this heading">#</a></h2>
+<p>Every problem in this chapter reduces to one diagnostic question: <strong>how many samples do I have, and are the observations linked?</strong> Ask it first, every time:</p>
+<ul class="simple">
+<li><p><strong>One column of numbers, one population</strong> → <strong>one-sample <span class="math notranslate nohighlight">\(t\)</span></strong> (<span class="math notranslate nohighlight">\(df = n - 1\)</span>).</p></li>
+<li><p><strong>Two measurements per unit</strong> (same person twice, same part twice, natural pairs) → <strong>matched pairs</strong>: subtract within each pair, then run a <strong>one-sample <span class="math notranslate nohighlight">\(t\)</span> on the differences</strong> (<span class="math notranslate nohighlight">\(df = n_{\text{pairs}} - 1\)</span>).</p></li>
+<li><p><strong>Two unrelated groups, no link between an observation in one and an observation in the other</strong> → <strong>two-sample <span class="math notranslate nohighlight">\(t\)</span></strong> (Satterthwaite <span class="math notranslate nohighlight">\(df\)</span> from software, or the conservative <span class="math notranslate nohighlight">\(\min(n_1 - 1, n_2 - 1)\)</span>).</p></li>
+</ul>
+<p>Practice on three mini-scenarios:</p>
+<blockquote>
+<div><p><strong>Scenario A.</strong> Campus dining wants to know whether the mean sodium content of its lunch entrées differs from its 800 mg target. A dietitian samples 20 entrées and measures each once.</p>
+</div></blockquote>
+<p><em>One</em> sample of 20 measurements, compared against a fixed benchmark (800 mg) — nothing is linked to anything. <strong>One-sample <span class="math notranslate nohighlight">\(t\)</span></strong>, <span class="math notranslate nohighlight">\(df = 19\)</span>.</p>
+<blockquote>
+<div><p><strong>Scenario B.</strong> Do students type faster after a one-hour keyboard-shortcuts workshop? The <em>same</em> 25 students take a typing test before the workshop and again after.</p>
+</div></blockquote>
+<p>Two measurements — but per <em>student</em>: each “after” score is linked to its own “before” score. <strong>Matched pairs</strong> → one-sample <span class="math notranslate nohighlight">\(t\)</span> on the 25 differences, <span class="math notranslate nohighlight">\(df = 24\)</span>. (Running a two-sample <span class="math notranslate nohighlight">\(t\)</span> with <span class="math notranslate nohighlight">\(n_1 = n_2 = 25\)</span> would be the misconception from earlier in the chapter.)</p>
+<blockquote>
+<div><p><strong>Scenario C.</strong> Do engineering majors and liberal-arts majors differ in average nightly sleep? Researchers survey 40 engineers and 45 liberal-arts majors.</p>
+</div></blockquote>
+<p>Two groups of <em>different</em> people with no pairing possible. <strong>Two-sample <span class="math notranslate nohighlight">\(t\)</span></strong> with Satterthwaite degrees of freedom.</p>
+<p><strong>Now run Scenario B through the four steps.</strong> Suppose the differences <span class="math notranslate nohighlight">\(d_i = \text{after}_i - \text{before}_i\)</span> (words per minute) give <span class="math notranslate nohighlight">\(\bar{d} = 6.8\)</span> and <span class="math notranslate nohighlight">\(s_d = 9.5\)</span>.</p>
+<p><strong>Step 1 — State.</strong> Let <span class="math notranslate nohighlight">\(\mu_d\)</span> be the population mean change in typing speed. <span class="math notranslate nohighlight">\(H_0: \mu_d = 0\)</span> vs. <span class="math notranslate nohighlight">\(H_a: \mu_d &gt; 0\)</span> (one-sided, chosen <em>before</em> the data: the workshop is intended to help). Use <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>.</p>
+<p><strong>Step 2 — Plan and check conditions.</strong> Paired design → one-sample <span class="math notranslate nohighlight">\(t\)</span> on the differences, <span class="math notranslate nohighlight">\(n = 25\)</span>, <span class="math notranslate nohighlight">\(df = 24\)</span>. With <span class="math notranslate nohighlight">\(15 \le n &lt; 40\)</span>, the robustness guidelines say to check the histogram of the 25 differences for strong skew or outliers; suppose it looks unremarkable.</p>
+<p><strong>Step 3 — Solve.</strong></p>
+<div class="math notranslate nohighlight">
+\[\text{SE}_{\bar{d}} = \frac{9.5}{\sqrt{25}} = 1.9, \qquad t = \frac{6.8 - 0}{1.9} \approx 3.58, \qquad p = P(T_{24} \ge 3.58) \approx 0.0008.\]</div>
+<p><strong>Step 4 — Conclude.</strong> <span class="math notranslate nohighlight">\(p \approx 0.0008 &lt; 0.05\)</span>: strong evidence that mean typing speed increased after the workshop. The 95% confidence interval, <span class="math notranslate nohighlight">\(6.8 \pm 2.064 \times 1.9 = (2.9,\ 10.7)\)</span> wpm, estimates the size of the gain. One design caution from Chapter 3 still applies: with no control group, a practice effect (taking the test twice) is confounded with the workshop itself — a cross-over design with a control activity would separate them.</p>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">7.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. A researcher with <span class="math notranslate nohighlight">\(n = 500\)</span> observations says: “My sample is large, so I’ll use <span class="math notranslate nohighlight">\(z\)</span> with <span class="math notranslate nohighlight">\(s\)</span> in place of <span class="math notranslate nohighlight">\(\sigma\)</span>.” What’s the principled objection — and does it matter numerically?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The principled rule: <span class="math notranslate nohighlight">\(\sigma\)</span> is unknown and estimated by <span class="math notranslate nohighlight">\(s\)</span>, so the correct procedure is <span class="math notranslate nohighlight">\(t\)</span> with 499 degrees of freedom — a large <span class="math notranslate nohighlight">\(n\)</span> is not what justifies <span class="math notranslate nohighlight">\(z\)</span>; a <em>known</em> <span class="math notranslate nohighlight">\(\sigma\)</span> would be. Numerically it barely matters here (<span class="math notranslate nohighlight">\(t^*_{499} = 1.965\)</span> vs. <span class="math notranslate nohighlight">\(z^* = 1.960\)</span> for 95% confidence), which is exactly why the shortcut survives — but “use <span class="math notranslate nohighlight">\(t\)</span> whenever <span class="math notranslate nohighlight">\(\sigma\)</span> is estimated” is the rule that is <em>always</em> correct, at every sample size.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. Each of 18 vineyards is measured by two different soil-moisture sensors (both sensors used at every vineyard). The analyst runs a two-sample <span class="math notranslate nohighlight">\(t\)</span> with <span class="math notranslate nohighlight">\(n_1 = n_2 = 18\)</span>. What went wrong, and what would it cost?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The data are <strong>paired</strong> — the two readings at each vineyard share that vineyard’s soil, weather, and slope. The correct analysis subtracts within each vineyard and runs a one-sample <span class="math notranslate nohighlight">\(t\)</span> on 18 differences (<span class="math notranslate nohighlight">\(df = 17\)</span>). The two-sample formula treats the samples as independent, so its standard error wrongly includes vineyard-to-vineyard variation; the SE is inflated, <span class="math notranslate nohighlight">\(t\)</span> shrinks, and a real sensor discrepancy can be masked entirely — just as the shrinkage example collapsed from <span class="math notranslate nohighlight">\(t \approx 10\)</span> to <span class="math notranslate nohighlight">\(t \approx 0.5\)</span> under the wrong analysis.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. A generic drug must be shown “equivalent” to the brand within <span class="math notranslate nohighlight">\(\delta = 0.20\)</span>. The study reports a standard test of <span class="math notranslate nohighlight">\(H_0\)</span>: difference <span class="math notranslate nohighlight">\(= 0\)</span> with <span class="math notranslate nohighlight">\(p = 0.45\)</span>, and a 90% confidence interval for the difference of <span class="math notranslate nohighlight">\((-0.08,\ 0.15)\)</span>. Which fact establishes equivalence?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The confidence interval does. <span class="math notranslate nohighlight">\((-0.08,\ 0.15)\)</span> lies entirely inside the equivalence zone <span class="math notranslate nohighlight">\((-0.20,\ 0.20)\)</span>, so the TOST criterion is met at the 5% level: any true difference is demonstrably too small to matter. The <span class="math notranslate nohighlight">\(p = 0.45\)</span> by itself establishes nothing — failing to reject <span class="math notranslate nohighlight">\(H_0\)</span> could equally reflect a small, noisy study. (Note the reversal: here the <em>interval</em>, not a small <span class="math notranslate nohighlight">\(p\)</span>-value against zero, is the evidence.)</p>
+</div>
+</details></section>
 <section id="properties-of-s-2-and-s-unbiasedness-and-consistency">
-<h2><span class="section-number">7.4. </span>Properties of <span class="math notranslate nohighlight">\(s^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span>: Unbiasedness and Consistency<a class="headerlink" href="#properties-of-s-2-and-s-unbiasedness-and-consistency" title="Link to this heading">#</a></h2>
+<span id="ch7-s2"></span><h2><span class="section-number">7.6. </span>Properties of <span class="math notranslate nohighlight">\(s^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span>: Unbiasedness and Consistency<a class="headerlink" href="#properties-of-s-2-and-s-unbiasedness-and-consistency" title="Link to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-17">
@@ -1250,7 +1426,9 @@ s \xrightarrow{\;p\;} \sigma.\]</div>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-the-mean-of-a-population">7.1. Inference for the Mean of a Population</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-two-means">7.2. Comparing Two Means</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-calculations">7.3. Sample Size Calculations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-s-2-and-s-unbiasedness-and-consistency">7.4. Properties of <span class="math notranslate nohighlight">\(s^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span>: Unbiasedness and Consistency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-which-t-procedure">7.4. Putting It All Together: Which <span class="math notranslate nohighlight">\(t\)</span> Procedure?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">7.5. Check Your Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-s-2-and-s-unbiasedness-and-consistency">7.6. Properties of <span class="math notranslate nohighlight">\(s^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span>: Unbiasedness and Consistency</a></li>
 </ul>
   </nav></div>
 

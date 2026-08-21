@@ -5,6 +5,28 @@
 This chapter corresponds to **Chapter 7** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
 ```
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Explain why replacing the unknown $\sigma$ with the sample estimate $s$ turns the $z$ statistic into the **$t$ statistic**, and describe the **$t$ distribution** and its **degrees of freedom**.
+* Carry out **one-sample $t$** confidence intervals and significance tests, including for **matched pairs** data analyzed through within-pair differences.
+* Compare two population means with the **two-sample $t$ procedures**, and explain when the **pooled** version is (and is not) appropriate.
+* State the **robustness** guidelines for $t$ procedures and the options available when data are clearly non-Normal.
+* Plan a study: choose a **sample size** to meet a target margin of error, and list the factors that drive **power**.
+* Explain why "not statistically significant" does not mean "equal," and how **equivalence testing** addresses that question properly.
+* Given a study description, decide **which $t$ procedure applies and why** (how many samples, and are the observations linked?).
+```
+
+```{admonition} Key concepts at a glance
+:class: note
+[The $t$ distribution and one-sample $t$](ch7-onesample) · [Matched pairs](ch7-pairs) · [Equivalence testing](ch7-equivalence) · [Robustness](ch7-robust) · [Comparing two means](ch7-twosample) · [Sample size and power](ch7-samplesize) · [Putting it all together](ch7-together) · [Properties of $s^2$](ch7-s2)
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+Every $z$ formula so far assumed we **know** $\sigma$. Be honest: when have you ever known a population's standard deviation while not knowing its mean? If you already knew everything about the spread of all Purdue heights, you would almost surely know their average too. In practice we know *neither* — so we must estimate $\sigma$ from the same small sample we use to estimate $\mu$. Replacing $\sigma$ with $s$ costs something, and a Guinness brewery chemist named William Gosset — publishing under the pen name "Student" because the brewery would not let employees publish — worked out **exactly what it costs**. His answer, the $t$ distribution, is what this chapter is about.
+```
+
 In the last chapter, we encountered the population parameter **$\sigma$** when calculating the **margin of error** for confidence intervals and computing the **$z$ test statistic** for hypothesis testing. However, in practice, this **$\sigma$** is usually **unknown**. 
 
 **Addressing the Unknown $\sigma$:**
@@ -21,7 +43,13 @@ In the last chapter, we encountered the population parameter **$\sigma$** when c
 - Many real-world problems fit into one of these two frameworks. Whether comparing **before-and-after treatment effects, different experimental conditions, or population differences**, these two settings provide a foundation for statistical inference when the **population standard deviation $\sigma$ is unknown**.
 
 
+(ch7-onesample)=
 ## Inference for the Mean of a Population
+
+```{admonition} A question before this section
+:class: bridge
+The fix seems obvious: you don't know $\sigma$, so plug in $s$ and keep using the $z$ table. But notice what changed. $\sigma$ is a **fixed number**; $s$ is **computed from your data** and varies from sample to sample — with $n = 16$ heights, it can easily come out too small just by luck. Divide by a too-small $s$ and your statistic comes out too *large* more often than the Normal curve predicts. **Should the substitution really be free?** It isn't — and the $t$ distribution's thicker tails are precisely the bill.
+```
 
 If we do **not** know the population standard deviation **$\sigma$**, we need to find an **estimator** to approximate it-just as we use the **sample mean** **$\bar{x}$** to estimate the **population mean** **$\mu$**. Naturally, a reasonable choice is the **sample standard deviation** **$s$** as an estimator for the **population standard deviation** **$\sigma$**.
 
@@ -82,6 +110,44 @@ The standard error quantifies the expected variability of the sample mean $\bar{
 ````
 `````
 
+:::{dropdown} Why $n - 1$ degrees of freedom? The case of two heights
+Measure just $n = 2$ heights: 66 and 70 inches. Their mean is $\bar{x} = 68$, and the deviations from the mean are $-2$ and $+2$. Now notice: once you know the *first* deviation is $-2$, the second is **forced** to be $+2$ — deviations from $\bar{x}$ must always sum to zero. Two deviations, but only **one** of them is free.
+
+In general, the $n$ deviations $x_i - \bar{x}$ satisfy one constraint ($\sum_{i=1}^n (x_i - \bar{x}) = 0$), because $\bar{x}$ was computed *from the same data*. So only $n - 1$ deviations carry independent information — that is the "degrees of freedom" of $s$, and it is why the $t$ statistic based on $s$ follows $t(n-1)$, not $t(n)$. (It is also why $s^2$ divides by $n - 1$ rather than $n$; see the [appendix](ch7-s2) for the proof that this makes $s^2$ unbiased.)
+:::
+
+:::{dropdown} Example: a one-sample $t$ test on heights, start to finish
+:open:
+Suppose the national average height for college-age adults is claimed to be 68 inches, and you wonder whether Purdue students differ. You take an SRS of $n = 16$ students and find $\bar{x} = 67.1$ inches, $s = 3.8$ inches.
+
+**Hypotheses:** $H_0: \mu = 68$ vs. $H_a: \mu \neq 68$.
+
+**Test statistic:** the standard error is $\text{SE}_{\bar{x}} = 3.8/\sqrt{16} = 0.95$, so
+
+$$t = \frac{67.1 - 68}{0.95} = -0.947, \qquad df = 16 - 1 = 15.$$
+
+**$p$-value:** software gives $p = 2\,P(T_{15} \le -0.947) \approx 0.358$.
+
+**Conclusion:** $p = 0.358$ is far above any common $\alpha$ — the data are entirely consistent with $\mu = 68$. The 95% confidence interval, $67.1 \pm 2.131 \times 0.95 = (65.1,\ 69.1)$ inches, tells the same story: 68 sits comfortably inside.
+
+*Where the "cost" shows up:* if we had (wrongly) treated $s = 3.8$ as the known $\sigma$ and used the Normal table, we would report $p \approx 0.343$ — slightly smaller. And the $z$ critical value $1.960$ is smaller than $t^*_{15} = 2.131$, so the $z$ interval would be narrower than it should be. The thicker tails of $t(15)$ are Gosset's honest accounting for the extra uncertainty in $s$.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "Use $t$ when $n$ is small, and switch to $z$ once $n \geq 30$."
+
+**In fact:** the choice between $z$ and $t$ is driven by **whether $\sigma$ is known**, not by the sample size. Since $\sigma$ is essentially never known in practice, you use $t$ whenever you estimate it with $s$ — at *any* $n$. This is harmless for large samples because $t(n-1)$ converges to $N(0,1)$: the folklore survives only because the error from using $z$ shrinks as $n$ grows. But the principled rule is simple: estimated $\sigma$ $\Rightarrow$ $t$.
+
+**Quick check:** you measure $n = 400$ heights and compute $s$ from the data. $z$ or $t$? ($t$ with 399 degrees of freedom. Numerically it barely matters — $t^*_{399} = 1.966$ vs. $z^* = 1.960$ for 95% confidence — but the *reason* to use $z$ would be a known $\sigma$, and you don't have one.)
+```
+
+(ch7-pairs)=
+
+```{admonition} A question before this section
+:class: bridge
+Your morning height and your evening height differ — people shrink about a centimeter during the day as the discs in the spine compress. Suppose you want to *detect* this small effect. Would you compare 30 morning-people against 30 **different** evening-people, or measure the **same** 30 people twice — once at 8 am, once at 8 pm? Think about what varies in each plan: in the first, the 1 cm signal must fight through person-to-person height differences of several inches; in the second, each person is compared only with *themselves*. That second plan is the **matched pairs** design, and the payoff for analyzing it correctly is enormous.
+```
 
 Another setting where the one-sample *t* procedure is often used is in a **matched-pairs** design.  
 
@@ -106,6 +172,18 @@ The logic of a one-sample test remains the same-now we simply use within-pair di
 :width: 70%
 
 ```
+
+:::{dropdown} How to read this figure (a paired-data table)
+:open:
+This table *is* the matched-pairs design, laid out row by row:
+
+* **Each row is one part — one pair.** The two measurements in a row belong to the *same* physical part, measured twice (option on, option off). That within-row link is what makes the data "paired."
+* **The two measurement columns** (*Option On*, *Option Off*) vary a lot from row to row — the parts themselves differ in size. That part-to-part variation is real, but it is *not* what we are studying.
+* **The difference column** ($d_i = \text{Off}_i - \text{On}_i$) is where the analysis lives. Notice the differences are tiny compared with the measurements themselves, and they carry **both signs**, scattering around zero — a first visual hint that the option may make no systematic difference.
+* **After subtracting, the original columns are discarded.** The one-sample $t$ procedure sees only the 51 differences: one number per pair, $n = 51$, $df = 50$. Subtracting within each row cancels the part-to-part variation entirely, which is exactly the point of pairing.
+
+When you meet any paired table: first identify what links the two measurements in a row, then form the differences, then treat those differences as an ordinary one-sample problem.
+:::
 ````
 
 ````{tab-item} Hypotheses
@@ -152,6 +230,30 @@ When reporting results, it is common to say:
 
 `````
 
+:::{dropdown} Example: do you shrink during the day? (the morning/evening heights, carried through)
+:open:
+Let's answer the bridge question with numbers. Measure the **same** $n = 30$ students at 8 am and again at 8 pm, and form one difference per person: $d_i = \text{morning}_i - \text{evening}_i$ (in cm). Suppose the data give $\bar{d} = 0.95$ cm and $s_d = 0.52$ cm.
+
+**Hypotheses:** $H_0: \mu_d = 0$ vs. $H_a: \mu_d > 0$ (one-sided, pre-specified: disc compression predicts shrinkage, not growth).
+
+**Test statistic:**
+
+$$t = \frac{\bar{d} - 0}{s_d/\sqrt{n}} = \frac{0.95}{0.52/\sqrt{30}} = \frac{0.95}{0.0949} \approx 10.0, \qquad df = 29.$$
+
+**$p$-value:** $P(T_{29} \ge 10.0) \approx 3 \times 10^{-11}$ — overwhelming evidence. The 95% confidence interval for the mean shrinkage is $0.95 \pm 2.045 \times 0.0949 = (0.76,\ 1.14)$ cm.
+
+**Why pairing won:** now try the other design from the bridge — 30 morning-people vs. 30 *different* evening-people, analyzed as two independent samples. Heights vary from person to person with $s \approx 7$ cm, so the standard error becomes $\sqrt{7^2/30 + 7^2/30} \approx 1.81$ cm and the same 0.95 cm signal gives $t \approx 0.53$ — completely undetectable. Pairing subtracted away the person-to-person variation and shrank the standard error from about $1.81$ to $0.095$: the same effect went from invisible to unmistakable.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "Matched pairs is just a two-sample problem that happens to have $n_1 = n_2$."
+
+**In fact:** pairing changes the *analysis*, not just the bookkeeping. Paired data become **one** sample of within-pair differences, analyzed with a one-sample $t$ on $n - 1$ degrees of freedom ($n$ = number of *pairs*). The two-sample formula assumes the samples are **independent** — but two measurements on the same person (or part) are strongly correlated, and treating them as independent throws away exactly the advantage the design bought. Analyze the design you *ran*.
+
+**Quick check:** in the shrinkage study, the paired analysis gave $t \approx 10.0$; the same numbers wrongly run through the two-sample formula gave $t \approx 0.53$. Which analysis matches how the data were actually collected? (The paired one — each row of data came from a single person measured twice.)
+```
+
 ```{caution}
 **A Lack of Statistical Significance $\neq$ Proof of $H_0$**
 
@@ -159,6 +261,7 @@ When reporting results, it is common to say:
 - If we could "prove" a null hypothesis by simply getting a non-significant result, we could always design weak experiments to achieve that outcome. Clearly, this is not sound science.
 ```
 
+(ch7-equivalence)=
 Here, we can **shift our question** slightly to:  
 > **"Is any difference too *small* to be important?"**  
 
@@ -206,11 +309,37 @@ Note that Minitab labels this interval a "95% CI for Equivalence" because it fol
 
 ```
 
+:::{dropdown} How to read this figure (Minitab equivalence output)
+:open:
+Read the plot in this order:
+
+1. **Find the equivalence zone.** The two vertical reference lines mark the *lower equivalence limit* (LEL $= -0.20$) and *upper equivalence limit* (UEL $= 0.20$) — the researcher-chosen $\pm\delta$ inside which a difference is "too small to matter." These limits were fixed *before* looking at the data.
+2. **Find the interval.** The horizontal bar is the confidence interval for the mean difference, $(-0.113,\ 0.213)$. Note the label says "95% CI for equivalence": by the one-sided-$\alpha$ convention of the TOST procedure, this is numerically the *90% two-sided* interval used for a 5%-level equivalence test.
+3. **Apply the containment rule.** Equivalence is declared only if the *entire* bar sits strictly between the two vertical lines. Here the right end of the bar ($0.213$) pokes past the UEL ($0.20$) — so Minitab prints "cannot claim equivalence."
+4. **Notice how close the call is.** The bar barely crosses the line. The point estimate ($0.0504$) is near zero; a somewhat larger sample would shrink the bar and could pull its right end inside the zone. "Cannot claim equivalence" — like "fail to reject" — is a statement about *evidence*, not a verdict that the two settings differ.
+:::
+
 
 ````
 
 
 `````
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "Our test gave $p = 0.61$ — we failed to reject $H_0$, so we've shown the two settings are equivalent."
+
+**In fact:** failing to reject $H_0$ is *absence of evidence of a difference*, not *evidence of absence*. A tiny or noisy study almost always fails to reject — that proves nothing about equivalence. Demonstrating equivalence requires its own procedure: pre-specify the largest unimportant difference $\delta$, then show the entire $1 - 2\alpha$ confidence interval fits inside $(-\delta,\ \delta)$ — the TOST logic. That is *exactly why equivalence testing exists*. Example 7.8 makes the point sharply: the very same data that gave $p \approx 0.61$ against $H_0: \mu = 0$ **fail** the stricter equivalence standard, because the CI pokes past $\delta = 0.20$.
+
+**Quick check:** a lab compares two instruments with only $n = 3$ paired measurements and gets $p = 0.70$. Have they demonstrated the instruments are interchangeable? (No — with $n = 3$ the confidence interval is enormous; it will not fit inside any reasonable $(-\delta, \delta)$, and the large $p$-value reflects low power, not agreement.)
+```
+
+(ch7-robust)=
+
+```{admonition} A question before this section
+:class: bridge
+All of this — one-sample $t$, matched pairs, the equivalence procedure — assumed the population is **Normal**. Real data rarely oblige: incomes are skewed, reaction times have outliers, and nobody hands you a certificate that heights are exactly Gaussian. **How much does the Normality assumption actually matter?** The happy answer: much less than you might fear, and predictably less as $n$ grows. The guidelines below tell you when to trust $t$, and what to reach for when you shouldn't.
+```
 
 Finally, we should discuss the **robustness** of *t* procedures and possible **alternatives**, especially when dealing with **non-normal datasets**.
 
@@ -255,7 +384,13 @@ When data are clearly non-Normal and $n$ is not large enough to rely on the robu
 
 `````
 
+(ch7-twosample)=
 ## Comparing Two Means
+
+```{admonition} A question before this section
+:class: bridge
+Matched pairs was the star of the last section — but what if the two groups **can't** be the same people? Suppose you want to compare the average height of students at two different colleges. No student attends both; there is no natural way to link a student at one college with a student at the other. Now you genuinely have **two independent samples from two populations**, and you need a procedure built for that: the two-sample $t$. The key question of this chapter — *are the observations linked?* — is answered "no" here, and the analysis changes accordingly.
+```
 
 Now, let's shift our focus to **two samples from two distinct populations**. This scenario arises frequently in many real-world applications where we wish to compare **two population means**.
 
@@ -478,7 +613,33 @@ Just as with the one-sample *t*, these two-sample procedures are generally **rob
 
 `````
 
+:::{dropdown} Example: heights at two colleges (two-sample $t$, start to finish)
+:open:
+Do students at College A and College B differ in average height? We take independent SRSs — there is no way to pair a student at A with a student at B — and find:
+
+* College A: $n_1 = 35$, $\bar{x}_1 = 68.2$ in, $s_1 = 3.6$ in
+* College B: $n_2 = 40$, $\bar{x}_2 = 66.9$ in, $s_2 = 3.9$ in
+
+**Hypotheses:** $H_0: \mu_1 = \mu_2$ vs. $H_a: \mu_1 \neq \mu_2$.
+
+**Test statistic:**
+
+$$t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \frac{68.2 - 66.9}{\sqrt{\dfrac{3.6^2}{35} + \dfrac{3.9^2}{40}}} = \frac{1.3}{0.866} \approx 1.50.$$
+
+**Degrees of freedom and $p$-value:** software (Satterthwaite) gives $k \approx 72.8$ and a two-sided $p \approx 0.138$. Without software, the conservative choice $k = \min(35-1,\ 40-1) = 34$ gives $p \approx 0.143$ — same conclusion either way.
+
+**Conclusion:** the observed 1.3-inch difference is *not* statistically significant at $\alpha = 0.05$. The 95% confidence interval for $\mu_1 - \mu_2$, $1.3 \pm 1.993 \times 0.866 = (-0.43,\ 3.03)$ inches, includes 0: the data are consistent with no difference, but also with a difference as large as 3 inches — these samples simply aren't big enough to pin it down.
+
+*Contrast with the shrinkage study:* there, a difference of less than half an inch produced $t \approx 10$; here, a 1.3-inch difference produces only $t \approx 1.5$. The difference is the **design**: pairing eliminated person-to-person variation, while independent samples must carry it in the standard error. (Since $s_1 \approx s_2$ here, the pooled procedure with $df = 73$ would also be defensible and gives a nearly identical result.)
+:::
+
+(ch7-samplesize)=
 ## Sample Size Calculations
+
+```{admonition} A question before this section
+:class: bridge
+Your advisor approves the height study and asks one deceptively simple question: **"How many students will you measure?"** Answer "as many as possible" and you'll be sent back to your desk — each measurement costs time and money. Measure too few, and your confidence interval comes out uselessly wide; measure too many, and you've wasted resources proving what half the sample would have shown. There is a defensible number, and remarkably, you can compute it *before collecting a single observation*.
+```
 
 For all the **statistical procedures** we have introduced so far, in addition to the **population standard deviation** **$\sigma$** and **sample standard deviation** **$s$**, we also see the **sample size** **$n$** in the formulas. 
 
@@ -592,6 +753,56 @@ In addition to planning for the **sample size** **$n$**, we often also need to c
 
 
 
+(ch7-together)=
+## Putting It All Together: Which $t$ Procedure?
+
+Every problem in this chapter reduces to one diagnostic question: **how many samples do I have, and are the observations linked?** Ask it first, every time:
+
+* **One column of numbers, one population** → **one-sample $t$** ($df = n - 1$).
+* **Two measurements per unit** (same person twice, same part twice, natural pairs) → **matched pairs**: subtract within each pair, then run a **one-sample $t$ on the differences** ($df = n_{\text{pairs}} - 1$).
+* **Two unrelated groups, no link between an observation in one and an observation in the other** → **two-sample $t$** (Satterthwaite $df$ from software, or the conservative $\min(n_1 - 1, n_2 - 1)$).
+
+Practice on three mini-scenarios:
+
+> **Scenario A.** Campus dining wants to know whether the mean sodium content of its lunch entrées differs from its 800 mg target. A dietitian samples 20 entrées and measures each once.
+
+*One* sample of 20 measurements, compared against a fixed benchmark (800 mg) — nothing is linked to anything. **One-sample $t$**, $df = 19$.
+
+> **Scenario B.** Do students type faster after a one-hour keyboard-shortcuts workshop? The *same* 25 students take a typing test before the workshop and again after.
+
+Two measurements — but per *student*: each "after" score is linked to its own "before" score. **Matched pairs** → one-sample $t$ on the 25 differences, $df = 24$. (Running a two-sample $t$ with $n_1 = n_2 = 25$ would be the misconception from earlier in the chapter.)
+
+> **Scenario C.** Do engineering majors and liberal-arts majors differ in average nightly sleep? Researchers survey 40 engineers and 45 liberal-arts majors.
+
+Two groups of *different* people with no pairing possible. **Two-sample $t$** with Satterthwaite degrees of freedom.
+
+**Now run Scenario B through the four steps.** Suppose the differences $d_i = \text{after}_i - \text{before}_i$ (words per minute) give $\bar{d} = 6.8$ and $s_d = 9.5$.
+
+**Step 1 — State.** Let $\mu_d$ be the population mean change in typing speed. $H_0: \mu_d = 0$ vs. $H_a: \mu_d > 0$ (one-sided, chosen *before* the data: the workshop is intended to help). Use $\alpha = 0.05$.
+
+**Step 2 — Plan and check conditions.** Paired design → one-sample $t$ on the differences, $n = 25$, $df = 24$. With $15 \le n < 40$, the robustness guidelines say to check the histogram of the 25 differences for strong skew or outliers; suppose it looks unremarkable.
+
+**Step 3 — Solve.**
+
+$$\text{SE}_{\bar{d}} = \frac{9.5}{\sqrt{25}} = 1.9, \qquad t = \frac{6.8 - 0}{1.9} \approx 3.58, \qquad p = P(T_{24} \ge 3.58) \approx 0.0008.$$
+
+**Step 4 — Conclude.** $p \approx 0.0008 < 0.05$: strong evidence that mean typing speed increased after the workshop. The 95% confidence interval, $6.8 \pm 2.064 \times 1.9 = (2.9,\ 10.7)$ wpm, estimates the size of the gain. One design caution from Chapter 3 still applies: with no control group, a practice effect (taking the test twice) is confounded with the workshop itself — a cross-over design with a control activity would separate them.
+
+## Check Your Understanding
+
+:::{dropdown} 1. A researcher with $n = 500$ observations says: "My sample is large, so I'll use $z$ with $s$ in place of $\sigma$." What's the principled objection — and does it matter numerically?
+The principled rule: $\sigma$ is unknown and estimated by $s$, so the correct procedure is $t$ with 499 degrees of freedom — a large $n$ is not what justifies $z$; a *known* $\sigma$ would be. Numerically it barely matters here ($t^*_{499} = 1.965$ vs. $z^* = 1.960$ for 95% confidence), which is exactly why the shortcut survives — but "use $t$ whenever $\sigma$ is estimated" is the rule that is *always* correct, at every sample size.
+:::
+
+:::{dropdown} 2. Each of 18 vineyards is measured by two different soil-moisture sensors (both sensors used at every vineyard). The analyst runs a two-sample $t$ with $n_1 = n_2 = 18$. What went wrong, and what would it cost?
+The data are **paired** — the two readings at each vineyard share that vineyard's soil, weather, and slope. The correct analysis subtracts within each vineyard and runs a one-sample $t$ on 18 differences ($df = 17$). The two-sample formula treats the samples as independent, so its standard error wrongly includes vineyard-to-vineyard variation; the SE is inflated, $t$ shrinks, and a real sensor discrepancy can be masked entirely — just as the shrinkage example collapsed from $t \approx 10$ to $t \approx 0.5$ under the wrong analysis.
+:::
+
+:::{dropdown} 3. A generic drug must be shown "equivalent" to the brand within $\delta = 0.20$. The study reports a standard test of $H_0$: difference $= 0$ with $p = 0.45$, and a 90% confidence interval for the difference of $(-0.08,\ 0.15)$. Which fact establishes equivalence?
+The confidence interval does. $(-0.08,\ 0.15)$ lies entirely inside the equivalence zone $(-0.20,\ 0.20)$, so the TOST criterion is met at the 5% level: any true difference is demonstrably too small to matter. The $p = 0.45$ by itself establishes nothing — failing to reject $H_0$ could equally reflect a small, noisy study. (Note the reversal: here the *interval*, not a small $p$-value against zero, is the evidence.)
+:::
+
+(ch7-s2)=
 ## Properties of $s^2$ and $s$: Unbiasedness and Consistency
 
 `````{tab-set}

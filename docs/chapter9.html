@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-way-anova-model">9.1. The Two-Way ANOVA Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-two-way-anova">9.2. Inference for Two Way ANOVA</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squares-calculations-in-two-way-anova-optional">9.3. Mean Squares Calculations in Two Way ANOVA (Optional)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-heart-rate-study-start-to-finish">9.4. Putting It All Together: The Heart-Rate Study, Start to Finish</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">9.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -493,6 +495,25 @@
 <div class="seealso admonition">
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 13</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Explain why studying <strong>two factors at once</strong> beats two separate one-factor studies: efficiency, error control, and — above all — the ability to detect an <strong>interaction</strong>.</p></li>
+<li><p>Write the two-way ANOVA model in both the <strong>cell-means</strong> and <strong>decomposed</strong> forms, and compute <strong>cell means, marginal means, and the grand mean</strong> from a two-way table.</p></li>
+<li><p>Define <strong>main effects</strong> and <strong>interaction</strong>, recognize interaction as a <strong>difference of differences</strong>, and read an <strong>interaction plot</strong> (parallel vs. non-parallel lines).</p></li>
+<li><p>Construct and interpret the <strong>two-way ANOVA table</strong>: degrees of freedom, sums of squares, mean squares, and the three <span class="math notranslate nohighlight">\(F\)</span> tests that share a single <span class="math notranslate nohighlight">\(MSE\)</span>.</p></li>
+<li><p>Interpret <strong>software (JMP) output</strong> for a two-way ANOVA — and know when a significant interaction makes main-effect comparisons misleading.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch9-model"><span class="std std-ref">The two-way ANOVA model, main effects, and interaction</span></a> · <a class="reference internal" href="#ch9-inference"><span class="std std-ref">Inference: three F tests, one ANOVA table</span></a> · <a class="reference internal" href="#ch9-meansquares"><span class="std std-ref">Mean squares calculations (optional)</span></a> · <a class="reference internal" href="#ch9-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>One-way ANOVA told us the three diets differ. But suppose the best diet for men is the <strong>worst</strong> for women. Averaging over sex would hide — or fake — the effect: a “no difference” verdict when both sexes respond strongly, or an “overall winner” that is actually wrong for half the people. Studying two factors at once buys us something one-at-a-time studies can never see: the <strong>interaction</strong>. This chapter is about how to measure it, test it, and know when it changes the whole story.</p>
 </div>
 <p>One-way ANOVA examines the differences in a continuous response variable across groups defined by a <strong>single</strong> categorical factor. <span class="purdue-text"><strong>Two-way ANOVA</strong></span> extends this framework to study the effects of <strong>two</strong> categorical factors on a continuous response variable, and it also allows for the evaluation of an <span class="purdue-text"><strong>interaction effect</strong></span> between the two factors.</p>
 <p><strong>Why Use Two-Way ANOVA?</strong></p>
@@ -602,7 +623,11 @@ The variability not explained by the factors or their interaction.</p></li>
 <p class="sd-card-text">This example shows how two-way ANOVA combines two factors to provide a more comprehensive analysis of how different treatments and conditions jointly influence the outcome.</p>
 </div>
 </details><section id="the-two-way-anova-model">
-<h2><span class="section-number">9.1. </span>The Two-Way ANOVA Model<a class="headerlink" href="#the-two-way-anova-model" title="Link to this heading">#</a></h2>
+<span id="ch9-model"></span><h2><span class="section-number">9.1. </span>The Two-Way ANOVA Model<a class="headerlink" href="#the-two-way-anova-model" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The diet-and-exercise example said an interaction means “the effect of diet <strong>depends on</strong> the exercise level.” That sounds intuitive — but what exactly does “depends on” mean <em>in numbers</em>? The answer turns out to be delightfully concrete: an interaction is a <strong>difference of differences</strong>. Compute the effect of one factor at each level of the other factor; if those effects are not equal, their gap <em>is</em> the interaction. This section builds the model, the notation, and the tables that make that idea precise.</p>
+</div>
 <p>For a two-way ANOVA model, we typically construct two-way tables to either display the sample sizes in each cell or present the measured response averages (cell means) for each combination of factor levels. Here are some examples:</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id1">
 <caption><span class="caption-number">Table 9.1 </span><span class="caption-text">Haptic Feedback Study</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
@@ -827,7 +852,24 @@ Interaction is about differences of differences: the effect of one factor (a dif
 <a class="reference internal image-reference" href="_images/0901.png"><img alt="Interaction plot of mean daily calories from sugar-sweetened beverages by age group in 2010 and 2016, with the largest drop among adolescents" src="_images/0901.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (the interaction plot)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">An interaction plot is a picture of the <strong>cell means</strong> — nothing more. Read it in this order:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Axes:</strong> the horizontal axis lists the levels of one factor (here Age Group); the vertical axis is the mean response (calories per day). The second factor (Year) does not get an axis — it gets <strong>one line per level</strong>: a blue line connecting the three 2010 cell means, a red line for 2016.</p></li>
+<li><p class="sd-card-text"><strong>Vertical gaps = the effect of the line factor.</strong> At each age group, the vertical distance between the blue and red points is the effect of Year <em>for that group</em>: about 17.3 calories for preadolescents, 78.6 for adolescents, 26.6 for adults.</p></li>
+<li><p class="sd-card-text"><strong>Parallel lines = no interaction.</strong> If the Year effect were the same for every age group, all three gaps would be equal and the two lines would be parallel. Then the picture would separate cleanly: line spacing shows one main effect, the common up-and-down shape shows the other.</p></li>
+<li><p class="sd-card-text"><strong>Non-parallel lines = interaction.</strong> Here the gap balloons at Adolescents — the lines pinch together at the ends and spread apart in the middle. That non-parallelism <em>is</em> the interaction. Two flavors to recognize:</p>
+<ul>
+<li><p class="sd-card-text"><strong>Diverging/converging lines</strong> (this figure): both levels move in the same direction, but by different amounts — the effect changes <em>size</em> across groups.</p></li>
+<li><p class="sd-card-text"><strong>Crossing lines</strong> (the more dramatic case): the effect changes <em>sign</em> — the level that is best at one group is worst at another. Crossing is when averaging over a factor becomes truly dangerous.</p></li>
+</ul>
+</li>
+</ul>
+<p class="sd-card-text">One caution: these are <strong>sample</strong> means, so small wiggles from perfect parallelism are expected even with no true interaction. The plot suggests; the <span class="math notranslate nohighlight">\(F\)</span> test (next section) judges.</p>
 </div>
+</details></div>
 <input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-4">
 Example 13.5</label><div class="sd-tab-content docutils">
@@ -978,9 +1020,91 @@ Although two-way ANOVA can be conducted with unequal sample sizes (unbalanced de
 </ul>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: heights by Sex × College — parallel vs. non-parallel, the heart of the chapter</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Back to our favorite variable. Suppose we record mean heights (inches) of Purdue students cross-classified by <strong>Sex</strong> (Male/Female) and <strong>College</strong> (Engineering/Liberal Arts). Compare two possible worlds.</p>
+<p class="sd-card-text"><strong>World 1 — no interaction (parallel).</strong> Suppose the true cell means are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text"></p></th>
+<th class="head"><p class="sd-card-text"><strong>Engineering</strong></p></th>
+<th class="head"><p class="sd-card-text"><strong>Liberal Arts</strong></p></th>
+<th class="head"><p class="sd-card-text"><strong>Marginal mean</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Male</strong></p></td>
+<td><p class="sd-card-text">70.0</p></td>
+<td><p class="sd-card-text">69.5</p></td>
+<td><p class="sd-card-text">69.75</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text"><strong>Female</strong></p></td>
+<td><p class="sd-card-text">65.0</p></td>
+<td><p class="sd-card-text">64.5</p></td>
+<td><p class="sd-card-text">64.75</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Marginal mean</strong></p></td>
+<td><p class="sd-card-text">67.5</p></td>
+<td><p class="sd-card-text">67.0</p></td>
+<td><p class="sd-card-text">67.25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p class="sd-card-text">College effect <strong>for men</strong>: <span class="math notranslate nohighlight">\(70.0 - 69.5 = 0.5\)</span>. College effect <strong>for women</strong>: <span class="math notranslate nohighlight">\(65.0 - 64.5 = 0.5\)</span>. The same! The <strong>interaction contrast</strong> (difference of differences) is <span class="math notranslate nohighlight">\(0.5 - 0.5 = 0\)</span>.</p></li>
+<li><p class="sd-card-text">Equivalently, the sex gap is <span class="math notranslate nohighlight">\(5.0\)</span> inches in <em>both</em> colleges (<span class="math notranslate nohighlight">\(70.0-65.0 = 69.5-64.5 = 5.0\)</span>).</p></li>
+<li><p class="sd-card-text">An interaction plot would show two <strong>parallel</strong> lines. The marginal means tell the whole story: men average <span class="math notranslate nohighlight">\(69.75 - 64.75 = 5.0\)</span> inches taller, Engineering averages <span class="math notranslate nohighlight">\(67.5 - 67.0 = 0.5\)</span> inches taller, and each statement holds <em>at every level</em> of the other factor.</p></li>
+</ul>
+<p class="sd-card-text"><strong>World 2 — interaction (non-parallel).</strong> Now suppose instead:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text"></p></th>
+<th class="head"><p class="sd-card-text"><strong>Engineering</strong></p></th>
+<th class="head"><p class="sd-card-text"><strong>Liberal Arts</strong></p></th>
+<th class="head"><p class="sd-card-text"><strong>Marginal mean</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Male</strong></p></td>
+<td><p class="sd-card-text">70.0</p></td>
+<td><p class="sd-card-text">68.5</p></td>
+<td><p class="sd-card-text">69.25</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text"><strong>Female</strong></p></td>
+<td><p class="sd-card-text">64.5</p></td>
+<td><p class="sd-card-text">66.0</p></td>
+<td><p class="sd-card-text">65.25</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text"><strong>Marginal mean</strong></p></td>
+<td><p class="sd-card-text">67.25</p></td>
+<td><p class="sd-card-text">67.25</p></td>
+<td><p class="sd-card-text">67.25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p class="sd-card-text">College effect <strong>for men</strong>: <span class="math notranslate nohighlight">\(70.0 - 68.5 = +1.5\)</span>. College effect <strong>for women</strong>: <span class="math notranslate nohighlight">\(64.5 - 66.0 = -1.5\)</span>. Opposite signs! The <strong>interaction contrast</strong> is <span class="math notranslate nohighlight">\(1.5 - (-1.5) = 3.0\)</span> inches.</p></li>
+<li><p class="sd-card-text">Now look at the marginal means for College: <span class="math notranslate nohighlight">\(67.25\)</span> vs. <span class="math notranslate nohighlight">\(67.25\)</span> — the <strong>main effect of College is exactly zero</strong>, even though College clearly matters for each sex separately. Averaging over Sex made a real (opposite-direction) effect vanish.</p></li>
+<li><p class="sd-card-text">The interaction plot would show <strong>crossing-pattern</strong> lines. Asking “what is <em>the</em> effect of College?” has no single answer — the honest answer is “<span class="math notranslate nohighlight">\(+1.5\)</span> for men, <span class="math notranslate nohighlight">\(-1.5\)</span> for women,” which is a statement about <strong>cell means</strong>, not marginal means.</p></li>
+</ul>
+<p class="sd-card-text">This pair of tables is the entire chapter in miniature: <strong>parallel <span class="math notranslate nohighlight">\(\Rightarrow\)</span> main effects tell the story; non-parallel <span class="math notranslate nohighlight">\(\Rightarrow\)</span> you must look at the cells.</strong></p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “An interaction means both factors matter — if Diet and Exercise interact, then Diet matters and Exercise matters.”</p>
+<p><strong>In fact:</strong> interaction is about the effect of one factor <strong>changing</strong> across the levels of the other — it says nothing about whether the main effects are large, small, or zero. Both main effects can be exactly zero while the interaction is huge.</p>
+<p><strong>Quick check:</strong> take cell means <span class="math notranslate nohighlight">\(\mu_{11} = 10\)</span>, <span class="math notranslate nohighlight">\(\mu_{12} = 20\)</span>, <span class="math notranslate nohighlight">\(\mu_{21} = 20\)</span>, <span class="math notranslate nohighlight">\(\mu_{22} = 10\)</span>. Every marginal mean is <span class="math notranslate nohighlight">\(\frac{10+20}{2} = 15\)</span> — both main effects are <strong>zero</strong>. Yet the effect of Factor <span class="math notranslate nohighlight">\(B\)</span> is <span class="math notranslate nohighlight">\(10 - 20 = -10\)</span> at the first level of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(20 - 10 = +10\)</span> at the second: a difference of differences of <span class="math notranslate nohighlight">\(20\)</span>. The interaction plot is a perfect X. (World 2 of the heights example is the same phenomenon: a zero College main effect hiding two real, opposite effects.)</p>
+</div>
 </section>
 <section id="inference-for-two-way-anova">
-<h2><span class="section-number">9.2. </span>Inference for Two Way ANOVA<a class="headerlink" href="#inference-for-two-way-anova" title="Link to this heading">#</a></h2>
+<span id="ch9-inference"></span><h2><span class="section-number">9.2. </span>Inference for Two Way ANOVA<a class="headerlink" href="#inference-for-two-way-anova" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The model section left us with <strong>three</strong> distinct questions about the same data set: does Factor <span class="math notranslate nohighlight">\(A\)</span> matter? does Factor <span class="math notranslate nohighlight">\(B\)</span> matter? do they interact? Three questions need <strong>three <span class="math notranslate nohighlight">\(F\)</span> tests</strong> — but here is the elegant part: all three share <strong>one error term</strong>, the pooled within-cell variance <span class="math notranslate nohighlight">\(MSE\)</span>. Each test asks, “is the variation attributable to this source large <em>compared with the variation inside the cells</em>?” One denominator, three numerators — that is the entire architecture of the two-way ANOVA table below.</p>
+</div>
 <p>Inference for two-way ANOVA naturally includes an <em>F</em> statistic for each of the two main effects and the interaction. These are summarized in the table below:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
 <summary class="sd-summary-title sd-card-header">
@@ -1114,12 +1238,30 @@ The <span class="math notranslate nohighlight">\(P\)</span>-value is the probabi
 </li>
 </ul>
 </div>
-</details><p>This example comes from a study of cardiovascular risk factors that compared runners (who averaged at least 15 miles per week) with a control group described as “generally sedentary.” Both men and women were included in the study. The design is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> ANOVA with the factors Group (Control vs. Runners) and Sex (Female vs. Male). There were 200 subjects in each of the four combinations, and one of the variables measured was the heart rate (HR) after six minutes of exercise on a treadmill.</p>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The lines in my sample’s interaction plot aren’t perfectly parallel, so there must be an interaction.”</p>
+<p><strong>In fact:</strong> the plot shows <strong>sample</strong> cell means, and sample means always carry sampling variability — even when the true population lines are perfectly parallel, the plotted lines will wiggle apart by chance. Exact parallelism in data is essentially impossible. The question is never “are the lines parallel?” but “is the departure from parallelism <strong>larger than chance would produce</strong>?” — and that is precisely what the interaction <span class="math notranslate nohighlight">\(F\)</span> test, <span class="math notranslate nohighlight">\(F_{AB} = MSAB/MSE\)</span>, judges: it compares the difference-of-differences variation against the within-cell noise.</p>
+<p><strong>Quick check:</strong> two lines differ in slope by 0.3 inches in a heights sample with <span class="math notranslate nohighlight">\(n = 5\)</span> students per cell and within-cell standard deviation near 3 inches. Convincing interaction? (No — with so few observations per cell, gaps that size arise routinely by chance; the <span class="math notranslate nohighlight">\(F\)</span> test would return a large <span class="math notranslate nohighlight">\(P\)</span>-value. The same 0.3 with <span class="math notranslate nohighlight">\(n = 500\)</span> per cell might well be significant — <em>and then you would still ask whether 0.3 inches matters practically</em>.)</p>
+</div>
+<p>This example comes from a study of cardiovascular risk factors that compared runners (who averaged at least 15 miles per week) with a control group described as “generally sedentary.” Both men and women were included in the study. The design is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> ANOVA with the factors Group (Control vs. Runners) and Sex (Female vs. Male). There were 200 subjects in each of the four combinations, and one of the variables measured was the heart rate (HR) after six minutes of exercise on a treadmill.</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="_images/0902.png"><img alt="JMP output for the heart rate study with subgroup summary statistics and two way ANOVA showing significant Sex, Group, and interaction effects" src="_images/0902.png" style="width: 70%;" />
 </a>
 </figure>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (a guided tour of the JMP output)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Every number a two-way ANOVA question could ask for lives in one of the four panels. Here is where:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Tabulate (top window) — the raw material.</strong> One row per cell: the four cell means are Control/Female <span class="math notranslate nohighlight">\(148.000\)</span>, Control/Male <span class="math notranslate nohighlight">\(130.000\)</span>, Runners/Female <span class="math notranslate nohighlight">\(115.985\)</span>, Runners/Male <span class="math notranslate nohighlight">\(103.975\)</span>, each with <span class="math notranslate nohighlight">\(N = 200\)</span>. The “All” rows are <strong>marginal means</strong>: Control <span class="math notranslate nohighlight">\(139.000\)</span>, Runners <span class="math notranslate nohighlight">\(109.980\)</span>, and the grand mean <span class="math notranslate nohighlight">\(124.490\)</span> in the bottom-right. You can already do interaction arithmetic from this panel alone: the sex gap is <span class="math notranslate nohighlight">\(148.000 - 130.000 = 18.0\)</span> bpm among controls but <span class="math notranslate nohighlight">\(115.985 - 103.975 = 12.0\)</span> bpm among runners — a difference of differences of about <span class="math notranslate nohighlight">\(6\)</span> bpm.</p></li>
+<li><p class="sd-card-text"><strong>Summary of Fit — the model’s report card.</strong> RSquare <span class="math notranslate nohighlight">\(0.527607\)</span>: the two factors plus interaction explain about 53% of the variation in HR. Root Mean Square Error <span class="math notranslate nohighlight">\(15.5603 = \sqrt{MSE}\)</span>: the typical within-cell spread. Mean of Response <span class="math notranslate nohighlight">\(124.49\)</span> and Observations <span class="math notranslate nohighlight">\(800\)</span> echo the Tabulate panel.</p></li>
+<li><p class="sd-card-text"><strong>Analysis of Variance — the coarse split.</strong> JMP first lumps all three effects into one “Model” row: <span class="math notranslate nohighlight">\(DF = 3\)</span> (<span class="math notranslate nohighlight">\(= 1+1+1\)</span>), <span class="math notranslate nohighlight">\(SS = 215256.09\)</span> (<span class="math notranslate nohighlight">\(= 45030.00 + 168432.08 + 1794.00\)</span>), tested against Error (<span class="math notranslate nohighlight">\(DF = 796 = 800 - 4\)</span> cells, <span class="math notranslate nohighlight">\(MS = 242.1 = MSE\)</span>). “C. Total” is <span class="math notranslate nohighlight">\(SST = 407985.92\)</span> with <span class="math notranslate nohighlight">\(DF = 799\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Effect Tests — the three <span class="math notranslate nohighlight">\(F\)</span> tests you actually want.</strong> Each row divides its Mean Square by the <em>same</em> <span class="math notranslate nohighlight">\(MSE\)</span> (displayed as <span class="math notranslate nohighlight">\(242.1\)</span>; unrounded, <span class="math notranslate nohighlight">\(192729.83/796 = 242.12\)</span>): Sex <span class="math notranslate nohighlight">\(F = 45030.00/242.12 \approx 185.98\)</span>, Group <span class="math notranslate nohighlight">\(F = 168432.08/242.12 \approx 695.65\)</span>, Sex*Group <span class="math notranslate nohighlight">\(F = 1794.00/242.12 \approx 7.41\)</span> with <span class="math notranslate nohighlight">\(P = 0.0066\)</span>. Ranking the <span class="math notranslate nohighlight">\(SS\)</span> column tells you which source dominates: Group (<span class="math notranslate nohighlight">\(168432\)</span>) <span class="math notranslate nohighlight">\(\gg\)</span> Sex (<span class="math notranslate nohighlight">\(45030\)</span>) <span class="math notranslate nohighlight">\(\gg\)</span> Interaction (<span class="math notranslate nohighlight">\(1794\)</span>).</p></li>
+</ul>
+<p class="sd-card-text">Reading order for any such output: <strong>cells first</strong> (Tabulate), <strong>fit second</strong> (Summary of Fit), <strong>tests last</strong> (Effect Tests) — and check the interaction row <em>before</em> interpreting the main effects.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">A Study of Cardiovascular Risk Factors</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <ul>
@@ -1336,9 +1478,19 @@ All three effects are statistically significant. The Group effect has the larges
 </li>
 </ul>
 </div>
-</details></section>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The interaction test came out significant, but I’ll still report the main effects the usual way — ‘Factor <span class="math notranslate nohighlight">\(A\)</span> raises the response by such-and-such.’”</p>
+<p><strong>In fact:</strong> a main effect is an <strong>average over the levels of the other factor</strong>, and once the interaction is substantial, that average can describe <em>no actual group</em> — recall the heights World 2 table, where the College main effect was exactly <span class="math notranslate nohighlight">\(0\)</span> while College mattered by <span class="math notranslate nohighlight">\(\pm 1.5\)</span> inches for each sex. When the interaction is large, the honest summary is a comparison of <strong>cell means</strong> (“for men, Engineering runs <span class="math notranslate nohighlight">\(1.5\)</span> inches taller; for women, <span class="math notranslate nohighlight">\(1.5\)</span> inches shorter”), not marginal means. This is exactly the caution stated at the end of the heart-rate interpretation above: there, the interaction is significant but <strong>small</strong> relative to the main effects (<span class="math notranslate nohighlight">\(SSAB = 1794\)</span> vs. <span class="math notranslate nohighlight">\(SSA = 45030\)</span> and <span class="math notranslate nohighlight">\(SSB = 168432\)</span>), and the effects point the same direction in every subgroup — so the main effects remain interpretable, <em>with that justification stated</em>. Significance tells you the interaction is real; <strong>size and direction</strong> tell you whether main effects still mean anything.</p>
+<p><strong>Quick check:</strong> in the heart-rate study, the sex gap is <span class="math notranslate nohighlight">\(18.0\)</span> bpm among controls and <span class="math notranslate nohighlight">\(12.0\)</span> bpm among runners. Is it misleading to say “women’s HR runs about <span class="math notranslate nohighlight">\(15\)</span> bpm higher”? (Not badly — the gap is positive and sizable in both groups, so the marginal statement is a fair summary, though the full story is “<span class="math notranslate nohighlight">\(18\)</span> for controls, <span class="math notranslate nohighlight">\(12\)</span> for runners.” Now imagine the gaps had been <span class="math notranslate nohighlight">\(+18\)</span> and <span class="math notranslate nohighlight">\(-12\)</span>: the same marginal average, <span class="math notranslate nohighlight">\(3\)</span> bpm, would describe nobody.)</p>
+</div>
+</section>
 <section id="mean-squares-calculations-in-two-way-anova-optional">
-<h2><span class="section-number">9.3. </span>Mean Squares Calculations in Two Way ANOVA (Optional)<a class="headerlink" href="#mean-squares-calculations-in-two-way-anova-optional" title="Link to this heading">#</a></h2>
+<span id="ch9-meansquares"></span><h2><span class="section-number">9.3. </span>Mean Squares Calculations in Two Way ANOVA (Optional)<a class="headerlink" href="#mean-squares-calculations-in-two-way-anova-optional" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">For the curious: a question before this appendix</p>
+<p>The ANOVA table handed us <span class="math notranslate nohighlight">\(SSA\)</span>, <span class="math notranslate nohighlight">\(SSB\)</span>, <span class="math notranslate nohighlight">\(SSAB\)</span>, and <span class="math notranslate nohighlight">\(SSE\)</span> as if from a vending machine. But where do those formulas come from? Each one is the same recipe applied to a different set of means: <strong>square the relevant deviations, and multiply by how many observations stand behind each mean.</strong> <span class="math notranslate nohighlight">\(SSA\)</span> squares the marginal-mean deviations of Factor <span class="math notranslate nohighlight">\(A\)</span>; <span class="math notranslate nohighlight">\(SSAB\)</span> squares exactly the “difference of differences” leftovers (<span class="math notranslate nohighlight">\(\bar{x}_{ij} - \bar{x}_{i\cdot} - \bar{x}_{\cdot j} + \bar{x}_{\cdot\cdot}\)</span>) that neither main effect can explain. This optional section writes out each formula — read it once and the ANOVA table stops being a black box.</p>
+</div>
 <p>In a two-way ANOVA, the total variation in the data is partitioned into components due to the main effects of Factor <span class="math notranslate nohighlight">\(A\)</span> and Factor <span class="math notranslate nohighlight">\(B\)</span>, their interaction, and random error. Under the assumption of equal variances (homoscedasticity), the pooled error variance is estimated by the Mean Squared Error (MSE). In a balanced design—where each cell has the same number of observations <span class="math notranslate nohighlight">\(n\)</span>—the formulas for the sums of squares and the corresponding mean squares are as follows.</p>
 <blockquote>
 <div><p><strong>Note:</strong> For an unbalanced design (i.e., different <span class="math notranslate nohighlight">\(n_{ij}\)</span> across cells), the formulas are similar but involve appropriate weights (using the cell sample sizes). The degrees of freedom are adjusted accordingly.</p>
@@ -1460,6 +1612,47 @@ All three effects are statistically significant. The Group effect has the larges
 </ul>
 <p>These formulas form the backbone of the two-way ANOVA analysis, allowing us to determine whether the main effects and interaction are statistically significant.</p>
 </section>
+<section id="putting-it-all-together-the-heart-rate-study-start-to-finish">
+<span id="ch9-together"></span><h2><span class="section-number">9.4. </span>Putting It All Together: The Heart-Rate Study, Start to Finish<a class="headerlink" href="#putting-it-all-together-the-heart-rate-study-start-to-finish" title="Link to this heading">#</a></h2>
+<p>Let’s run the whole chapter through one problem, the way an exam hands it to you.</p>
+<blockquote>
+<div><p><em>Researchers compare runners (at least 15 miles/week) with sedentary controls, for both men and women — 200 subjects in each of the four combinations. The response is heart rate (HR) after six minutes on a treadmill. Analyze the study.</em></p>
+</div></blockquote>
+<p><strong>Step 1 — Identify the procedure.</strong> One <strong>continuous response</strong> (HR) and <strong>two categorical factors</strong>: Group (Control/Runners, <span class="math notranslate nohighlight">\(I = 2\)</span>) and Sex (Female/Male, <span class="math notranslate nohighlight">\(J = 2\)</span>). That is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> <strong>two-way ANOVA</strong> with <span class="math notranslate nohighlight">\(N = 800\)</span>. Why not two separate one-way ANOVAs (one for Group, one for Sex)? Two reasons, and they are the reasons this chapter exists:</p>
+<ul class="simple">
+<li><p><strong>The interaction is invisible to one-way designs.</strong> A one-way ANOVA on Group averages over Sex; a one-way on Sex averages over Group. Neither can ever ask whether the training effect <em>differs</em> between men and women — the difference of differences simply does not appear in either analysis.</p></li>
+<li><p><strong>Efficiency and error control.</strong> The two-way analysis uses all 800 observations to estimate a single pooled <span class="math notranslate nohighlight">\(MSE\)</span> for every test, removes the variation due to the <em>other</em> factor from the error term (a sharper yardstick), and answers all three questions from one model rather than inflating Type I error across piecemeal analyses.</p></li>
+</ul>
+<p><strong>Step 2 — State the three hypotheses.</strong> No Group effect (<span class="math notranslate nohighlight">\(H_0: \alpha_1 = \alpha_2 = 0\)</span>); no Sex effect (<span class="math notranslate nohighlight">\(H_0: \beta_1 = \beta_2 = 0\)</span>); no interaction (<span class="math notranslate nohighlight">\(H_0:\)</span> all <span class="math notranslate nohighlight">\((\alpha\beta)_{ij} = 0\)</span>, i.e., the training effect is the same for both sexes).</p>
+<p><strong>Step 3 — Look at the cell means first.</strong> From the Tabulate panel: Control/Female <span class="math notranslate nohighlight">\(148.0\)</span>, Control/Male <span class="math notranslate nohighlight">\(130.0\)</span>, Runners/Female <span class="math notranslate nohighlight">\(116.0\)</span> (more precisely <span class="math notranslate nohighlight">\(115.985\)</span>), Runners/Male <span class="math notranslate nohighlight">\(104.0\)</span> (<span class="math notranslate nohighlight">\(103.975\)</span>). Marginal means: Control <span class="math notranslate nohighlight">\(139.0\)</span> vs. Runners <span class="math notranslate nohighlight">\(110.0\)</span> (a <span class="math notranslate nohighlight">\(29.0\)</span> bpm training effect); Female <span class="math notranslate nohighlight">\(132.0\)</span> vs. Male <span class="math notranslate nohighlight">\(117.0\)</span> (a <span class="math notranslate nohighlight">\(15.0\)</span> bpm sex effect); grand mean <span class="math notranslate nohighlight">\(124.49\)</span>. The interaction contrast: the sex gap is <span class="math notranslate nohighlight">\(18.0\)</span> bpm among controls and <span class="math notranslate nohighlight">\(12.0\)</span> bpm among runners — a difference of differences of <span class="math notranslate nohighlight">\(6.0\)</span> bpm. The lines are non-parallel but <strong>do not cross</strong>: runners are lower for both sexes, and women are higher in both groups.</p>
+<p><strong>Step 4 — The ANOVA table.</strong> Degrees of freedom: Group <span class="math notranslate nohighlight">\(I - 1 = 1\)</span>, Sex <span class="math notranslate nohighlight">\(J - 1 = 1\)</span>, interaction <span class="math notranslate nohighlight">\((I-1)(J-1) = 1\)</span>, Error <span class="math notranslate nohighlight">\(N - IJ = 800 - 4 = 796\)</span>, Total <span class="math notranslate nohighlight">\(799\)</span>. With <span class="math notranslate nohighlight">\(MSE = 192729.83 / 796 = 242.12\)</span>, the three <span class="math notranslate nohighlight">\(F\)</span> ratios are <span class="math notranslate nohighlight">\(F_{Group} = 168432.08 / 242.12 \approx 695.65\)</span>, <span class="math notranslate nohighlight">\(F_{Sex} = 45030.00 / 242.12 \approx 185.98\)</span>, and <span class="math notranslate nohighlight">\(F_{Sex \times Group} = 1794.00 / 242.12 \approx 7.41\)</span>. All three <span class="math notranslate nohighlight">\(P\)</span>-values are below <span class="math notranslate nohighlight">\(0.01\)</span> (<span class="math notranslate nohighlight">\(&lt; 0.0001\)</span>, <span class="math notranslate nohighlight">\(&lt; 0.0001\)</span>, and <span class="math notranslate nohighlight">\(0.0066\)</span>).</p>
+<p><strong>Step 5 — Interpret, interaction first.</strong> The interaction is statistically significant: the sex gap genuinely shrinks (from <span class="math notranslate nohighlight">\(18\)</span> to <span class="math notranslate nohighlight">\(12\)</span> bpm) when both sexes train. But it is <strong>small</strong> relative to the main effects (<span class="math notranslate nohighlight">\(SSAB = 1794\)</span> against <span class="math notranslate nohighlight">\(SSA = 45030\)</span> and <span class="math notranslate nohighlight">\(SSB = 168432\)</span>) and both effects keep the same direction in every subgroup — so, per the caution in the inference section, the main effects remain directly interpretable: running is associated with substantially lower exercise HR (about <span class="math notranslate nohighlight">\(29\)</span> bpm), women run higher than men (about <span class="math notranslate nohighlight">\(15\)</span> bpm), and the training benefit is slightly larger for women. Had the interaction been large or sign-changing, we would have skipped the marginal statements and reported the four cell means instead.</p>
+<p><strong>The identification checklist</strong> (use it on every ANOVA problem):</p>
+<ol class="arabic simple">
+<li><p>How many <strong>factors</strong>, how many <strong>levels</strong> each, and is the response continuous? (<span class="math notranslate nohighlight">\(1\)</span> factor <span class="math notranslate nohighlight">\(\to\)</span> one-way; <span class="math notranslate nohighlight">\(2\)</span> factors <span class="math notranslate nohighlight">\(\to\)</span> two-way, <span class="math notranslate nohighlight">\(I \times J\)</span> cells.)</p></li>
+<li><p>Compute or locate the <strong>cell means and marginal means</strong>; sketch the interaction plot mentally — parallel, diverging, or crossing?</p></li>
+<li><p>Read the ANOVA table <strong>interaction row first</strong>; only then decide whether marginal (main-effect) comparisons are honest.</p></li>
+<li><p>Check the assumptions: independence, normal residuals, equal cell variances, and note whether the design is balanced.</p></li>
+</ol>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">9.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. A colleague says: “Skip the two-way ANOVA — just run a one-way ANOVA on Diet, then another on Exercise. Same information, simpler.” What is lost?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Two things. First, the <strong>interaction</strong>: each one-way analysis averages over the other factor, so the question “does the diet effect depend on exercise level?” can never even be asked — and if the best diet under high exercise is the worst under low exercise, the Diet one-way could show a diluted effect or none at all (recall the heights World 2 table, where averaging produced a College effect of exactly <span class="math notranslate nohighlight">\(0\)</span>). Second, <strong>efficiency and error control</strong>: the two-way model pools all the data into one <span class="math notranslate nohighlight">\(MSE\)</span>, removes the other factor’s variation from the error term, and tests all three hypotheses in one framework instead of accumulating Type I error across separate analyses.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. A <span class="math notranslate nohighlight">\(2 \times 2\)</span> study of pain relief gives cell means: Drug X — young 8, old 2; Drug Y — young 4, old 6. Compute the interaction contrast. Are the marginal drug means a fair summary?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The drug effect (X <span class="math notranslate nohighlight">\(-\)</span> Y) is <span class="math notranslate nohighlight">\(8 - 4 = +4\)</span> for the young and <span class="math notranslate nohighlight">\(2 - 6 = -4\)</span> for the old: a difference of differences of <span class="math notranslate nohighlight">\(4 - (-4) = 8\)</span>, a large interaction with a <strong>sign change</strong> — the interaction plot would show crossing lines. The marginal means are X: <span class="math notranslate nohighlight">\((8+2)/2 = 5\)</span> and Y: <span class="math notranslate nohighlight">\((4+6)/2 = 5\)</span>: they say the drugs are <em>identical</em>, which is true for no one. This is exactly when main effects must not be reported as the summary — compare cell means: X is better for younger patients, Y for older ones.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. In the heart-rate study the interaction test gave <span class="math notranslate nohighlight">\(F = 7.41\)</span>, <span class="math notranslate nohighlight">\(P = 0.0066\)</span> — significant. Why was it still acceptable to report the Group and Sex main effects?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Significance says the interaction is real (the sex gap is <span class="math notranslate nohighlight">\(18.0\)</span> bpm among controls but <span class="math notranslate nohighlight">\(12.0\)</span> among runners); it does not say it is large. Here <span class="math notranslate nohighlight">\(SSAB = 1794\)</span> is tiny next to <span class="math notranslate nohighlight">\(SSA = 45030\)</span> and <span class="math notranslate nohighlight">\(SSB = 168432\)</span>, and both effects keep the <strong>same direction</strong> in every subgroup — runners are lower for both sexes, women are higher in both groups (the lines are non-parallel but never cross). So the marginal statements (“about <span class="math notranslate nohighlight">\(29\)</span> bpm lower for runners, about <span class="math notranslate nohighlight">\(15\)</span> bpm higher for women”) describe every subgroup fairly, with the footnote that the training benefit is slightly larger for women. With a large or sign-changing interaction, the honest report would switch to the four cell means.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1531,6 +1724,8 @@ All three effects are statistically significant. The Group effect has the larges
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-way-anova-model">9.1. The Two-Way ANOVA Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-two-way-anova">9.2. Inference for Two Way ANOVA</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squares-calculations-in-two-way-anova-optional">9.3. Mean Squares Calculations in Two Way ANOVA (Optional)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-heart-rate-study-start-to-finish">9.4. Putting It All Together: The Heart-Rate Study, Start to Finish</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">9.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

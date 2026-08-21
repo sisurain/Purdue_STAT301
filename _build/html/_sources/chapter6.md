@@ -5,6 +5,26 @@
 This chapter corresponds to **Chapter 6** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
 ```
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Construct a level $C$ **confidence interval** $\bar{x} \pm z^* \sigma/\sqrt{n}$ for a population mean, and state correctly what the confidence level does — and does not — mean.
+* Explain how the **margin of error** responds to changes in confidence level and sample size, and find the sample size needed for a desired margin of error.
+* Set up the **null and alternative hypotheses** for a significance test, compute the $z$ **test statistic**, and find one-sided and two-sided **p-values**.
+* Interpret a p-value correctly, avoid the classic misreadings, and state conclusions in context at a given significance level $\alpha$.
+* Distinguish **Type I** and **Type II errors**, relate $\alpha$ to Type I error, and describe the idea of **power**.
+```
+
+```{admonition} Key concepts at a glance
+:class: note
+[Estimating with confidence](ch6-ci) · [Tests of significance and p-values](ch6-tests) · [Inference as a decision, error types](ch6-decision) · [Putting it all together](ch6-together)
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+Chapter 5 handed us a guarantee about the *procedure*: $\bar{x}$ falls within $2\,\sigma/\sqrt{n}$ of $\mu$ in about 95% of samples. Useful — but it describes where $\bar{x}$ lands around a $\mu$ we don't know. Now flip it around: **if my $\bar{x}$ is within 2 standard errors of $\mu$, then $\mu$ is within 2 standard errors of my $\bar{x}$.** The same distance, read from the other end. So take the one $\bar{x}$ you actually observed and ask: *which values of $\mu$ are believable, given that most samples land close?* That flip — from "where does $\bar{x}$ fall around $\mu$" to "which $\mu$'s are compatible with my $\bar{x}$" — **is** the confidence interval, and the same logic run as a challenge ("could $\mu$ really be $\mu_0$?") is the significance test. This chapter builds both.
+```
+
 Last chapter, we learned that the sampling distribution of the sample mean $\bar{X}$ is approximately $\mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)$ under mild conditions, thanks to the Central Limit Theorem (CLT). The mean of this sampling distribution is $\mu$, making the sample mean $\bar{X}$ an excellent candidate for a *point estimator* of the population mean $\mu$.[^footnote01]
 
 [^footnote01]: We can also say $\bar{X}$ is an *unbiased estimator* of $\mu$, because $\mathbb{E}[\bar{X}] = \mu$. Among all *linear* unbiased estimators, the sample mean has the smallest variance, meaning it has low variability. (For Normal populations, it is in fact best among all unbiased estimators.)
@@ -58,7 +78,13 @@ Designing or identifying appropriate pivots is a non-trivial task, but they are 
 
 
 
+(ch6-ci)=
 ## Estimating with Confidence
+
+```{admonition} A question before this section
+:class: bridge
+"The average Purdue height is $\bar{x} = 67.1$ inches" sounds precise — suspiciously precise. Nobody believes $\mu$ is *exactly* 67.1; the honest claim is "67.1, give or take a bit." **But how big, exactly, is 'a bit'? And how sure are we of it?** This section replaces the vague "give or take" with a number that has a guarantee attached: the margin of error, and the confidence level that backs it.
+```
 
 Let's begin with the simplest case: we are working with the sample mean $\bar{x}$, and our goal is to construct a confidence interval for the population mean $\mu$. Additionally, we assume that the population standard deviation $\sigma$ is known-a scenario that is rarely true in practice.
 
@@ -103,6 +129,27 @@ This last point is where many people misinterpret confidence levels-thinking tha
 
 Example 6.3, 25 Samples
 ```
+
+:::{dropdown} How to read this figure (the most misread figure in the course)
+:open:
+Twenty-five samples, twenty-five confidence intervals, stacked as horizontal bars under the sampling distribution of $\bar{x}$. Read it by sorting every element into "varies" or "fixed":
+
+* **What varies (sample to sample):** the **intervals**. Each horizontal bar is one sample's $\bar{x} \pm m$ — a new sample gives a new center $\bar{x}$, so the bar slides left or right. The bars are the random objects in this picture.
+* **What is fixed:** $\mu$ — the single vertical line down the middle. The population mean does not move, does not know about our samples, and is not random. The intervals hunt for $\mu$; $\mu$ never hunts for the intervals.
+* **What "95%" counts:** the fraction of *bars* that cross the vertical line, **in the long run over repeated samples**. In any batch of 25 you'd typically see about 24 hits and 1 miss (a bar lying entirely to one side of $\mu$) — but 23 or 25 hits are perfectly possible. The 95% describes the *bar-producing procedure*, not any single bar.
+
+The trap: in real life you get exactly **one** bar and the vertical line is invisible. Your bar either crosses $\mu$ or it doesn't — there is no 95% left *for your bar*; the 95% was spent on the method that drew it.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "My 95% CI is $(65.5, 68.7)$, so there's a 95% chance that $\mu$ is in this interval."
+
+**In fact:** $\mu$ is a fixed number, not a random one — it is either in $(65.5, 68.7)$ or it isn't; no coin is left to flip. The randomness was in the *sampling*, and it's over. The correct reading: this interval was produced by a **procedure** that captures $\mu$ in 95% of samples — we are "95% confident" in the method, and this interval is one output of that method.
+
+**Quick check:** in the 25-intervals figure, pick the one bar that misses $\mu$. Before you knew it missed, was there "a 95% chance $\mu$ was inside it"? (No — $\mu$ was never inside it. Probability statements attach to the repeatable procedure, not to one already-computed interval.)
+```
+
 Of course, we are not limited to a **95% confidence level**-we can choose any other confidence level. However, adjusting the confidence level requires modifying our interval. Instead of using:
 
 ```{math}
@@ -144,7 +191,28 @@ The confidence level of this interval is exactly $C$ when the population distrib
 $C$ level CI
 ```
 
+:::{dropdown} Example: a 95% CI for Purdue heights, start to finish
+:open:
+An SRS of $n = 25$ Purdue students gives $\bar{x} = 67.1$ inches; take the population standard deviation as known, $\sigma = 4$ inches.
+
+1. **Critical value:** for $C = 95\%$, $z^* = 1.960$ (the "2" of the 68–95–99.7 rule, made exact).
+2. **Margin of error:** $m = z^* \dfrac{\sigma}{\sqrt{n}} = 1.960 \times \dfrac{4}{\sqrt{25}} = 1.960 \times 0.8 = 1.568$ inches.
+3. **Interval:** $\bar{x} \pm m = 67.1 \pm 1.568 = (65.53,\ 68.67)$ inches.
+
+**In context:** we are 95% confident that the mean height of all Purdue students is between 65.5 and 68.7 inches — where "95% confident" refers to the procedure, as the previous figure made vivid.
+
+Two follow-ups worth doing in your head:
+* **More confidence costs width:** at $C = 99\%$, $z^* = 2.576$, so $m = 2.061$ — the interval widens to $(65.04, 69.16)$. Certainty is purchased with vagueness.
+* **More data buys precision:** with $n = 100$ (so $\sigma/\sqrt{n} = 0.4$), the 95% margin drops to $0.784$. To *halve* the margin, you must *quadruple* the sample — the $\sqrt{n}$ tax from Chapter 5, again.
+:::
+
+(ch6-tests)=
 ## Tests of Significance
+
+```{admonition} A question before this section
+:class: bridge
+The die from Chapter 0 comes back. A stranger hands you their die; you roll it 100 times and **never see a single 6**. For a fair die that has probability $(5/6)^{100} \approx 0.000000012$ — about one in 80 million. Nobody hesitates here: the die is loaded. But suppose instead you saw sixes a bit *less often* than expected, or an average of the 100 rolls of 3.9 instead of 3.5 — bad luck, or bad die? **At what point does "surprising if fair" become "too surprising to believe it's fair"?** A significance test is nothing more than this instinct made precise: assume fairness, compute how surprising your data would then be, and reject fairness when the surprise crosses a preset line.
+```
 
 The second classical statistical method for using sample information to make inferences about the population-**generalization**-is the <span class="purdue-text">**hypothesis test**</span>. This method is also closely related to the **pivotal quantity** mentioned earlier. However, in this context, we refer to it as a **pivot statistic**, **test statistic**, or **observed pivot**.
 
@@ -235,6 +303,17 @@ Then, we can use a z-table to find the probability statements like, $\mathbb{P}(
 :width: 70%
 
 ```
+
+:::{dropdown} How to read this figure (three curves, three alternatives)
+:open:
+All three curves are the **same** standard Normal — the distribution of the $z$ statistic *if $H_0$ is true*. What differs is only **which region counts as "as extreme or more extreme,"** and that is dictated entirely by $H_a$, which you chose *before* seeing the data:
+
+* **Upper-tail curve** ($H_a: \mu > \mu_0$): the p-value is the shaded area to the **right** of your observed $z$. Only large positive $z$'s count as evidence.
+* **Lower-tail curve** ($H_a: \mu < \mu_0$): the shaded area to the **left** of $z$. Only large negative $z$'s count.
+* **Two-sided curve** ($H_a: \mu \neq \mu_0$): **both** tails beyond $\pm|z|$ are shaded — surprise in either direction counts, so the p-value is twice the one-tail area.
+
+Reading tips: the tick mark on the axis is *your* $z$, computed from data; the shaded area is a probability computed *under $H_0$'s* curve. And note what a two-sided test costs: the same $z = 2.34$ gives $p = 0.0096$ one-sided but $p = 0.019$ two-sided. Choosing the alternative after peeking at the data — "the mean came out high, so I'll test $\mu > \mu_0$" — silently halves your p-value and is a classic form of cheating.
+:::
 ````
 
 ````{tab-item} Two-sided Significance Tests and Confidence Intervals
@@ -266,7 +345,45 @@ A level $\alpha$ two-sided significance test rejects a hypothesis $H_0: \mu = \m
 
 `````
 
+:::{dropdown} Example: is the stranger's die fair? A complete z test
+:open:
+Back to the stranger's die — this time with a subtler dataset than "no sixes at all." You roll it $n = 100$ times and the **average of the faces** is $\bar{x} = 3.9$.
+
+* **Hypotheses.** A fair die has mean $\mu_0 = 3.5$ and standard deviation $\sigma = 1.708$ (computed in Chapter 5). Before rolling, we had no idea *how* the die might be loaded — high or low — so the alternative is two-sided:
+  $$H_0: \mu = 3.5 \qquad \text{vs.} \qquad H_a: \mu \neq 3.5.$$
+* **Test statistic.** Under $H_0$, the CLT says $\bar{X} \approx \mathcal{N}\left(3.5,\ \tfrac{1.708}{\sqrt{100}}\right) = \mathcal{N}(3.5,\ 0.171)$. So
+  $$z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{3.9 - 3.5}{1.708/10} = \frac{0.4}{0.1708} = 2.34.$$
+* **P-value.** Two-sided: $p = 2\,\mathbb{P}(Z \geq 2.34) = 0.019$.
+* **Conclusion in context.** If the die were fair, only about 1.9% of all 100-roll experiments would produce an average this far from 3.5 (in either direction). At $\alpha = 0.05$, we reject $H_0$: the data give good evidence that the die is not fair, tilted toward high faces. At the stricter $\alpha = 0.01$, the same data would *not* clear the bar — the verdict depends on where we set the line, which is exactly why the p-value itself (0.019) is more informative than "reject/don't reject."
+
+Compare the two die stories: "no sixes in 100 rolls" had $p \approx 0.000000012$ — beyond argument. Here $p = 0.019$ — suspicious, but a 1-in-50 fluke under fairness is not unthinkable. The p-value is the ruler that puts both on one scale of surprise.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "$p = 0.019$ means there's a 1.9% chance the null hypothesis is true — so a 98.1% chance the die is loaded."
+
+**In fact:** the p-value is computed *assuming $H_0$ is true* — it is $\mathbb{P}(\text{data this extreme} \mid H_0)$, which cannot also be $\mathbb{P}(H_0 \mid \text{data})$. Those are different conditional probabilities, and frequentist inference treats $\mu$ as fixed, so "the probability $H_0$ is true" isn't even a defined quantity here. The p-value measures how *surprising the data* are under $H_0$ — not how probable $H_0$ is.
+
+**Quick check:** a friend's home pregnancy test logic — "only 1% of non-pregnant users get a positive, I got a positive, so there's a 99% chance I'm pregnant" — makes the same swap. Can you see why the answer also depends on how common pregnancy is among users in the first place? (Swapping $\mathbb{P}(A \mid B)$ for $\mathbb{P}(B \mid A)$ ignores the base rate.)
+```
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "We tested $H_0$ and got $p = 0.40$ — not significant. So we've shown the null hypothesis is true."
+
+**In fact:** failing to reject $H_0$ means the data are *consistent* with $H_0$ — not that $H_0$ is proved. Absence of evidence is not evidence of absence, especially when the test had little chance of detecting a real effect (**low power**). Roll the stranger's die only $n = 4$ times: almost no loading could ever be detected, so "not significant" would be guaranteed — and meaningless.
+
+**Quick check:** with $n = 4$ rolls of a die actually loaded to $\mu = 3.9$, the standard error is $1.708/\sqrt{4} = 0.854$ — the true 0.4 shift is less than half a standard error. Would you expect this test to reject a fair-die $H_0$? (Almost never. A non-significant result here says more about the tiny sample than about the die. This is why a confidence interval — showing the whole range of believable $\mu$'s — beats a bare "not significant.")
+```
+
+(ch6-decision)=
 ## Inference as a Decision
+
+```{admonition} A question before this section
+:class: bridge
+You rejected "the die is fair" at $\alpha = 0.05$ with $p = 0.019$. But pause: **could the die be fair after all — and you just drew a 1-in-50 unlucky sample?** Absolutely. And the reverse can happen too: a genuinely loaded die can produce an innocent-looking 100 rolls. Any procedure that turns noisy data into a yes/no verdict will sometimes give the wrong verdict. The question is not *whether* we can err — we can — but whether we can **name the two ways of erring, control their rates, and choose the trade-off deliberately.** That is this section.
+```
 
 From the last section, we saw that after conducting a **hypothesis test**, we must make a **binary decision** based on the p-value: 
 
@@ -325,3 +442,44 @@ Finally, let's consider a few remarks on the significance-test perspective and t
   - Significance level ($\alpha$) to control Type I error.  
   - **Power** ($1-\beta$) to reduce Type II error.
 ```
+
+(ch6-together)=
+## Putting It All Together: A Complete Test, the Way You'll Write It
+
+Let's run one problem through the full four-step format that homework and exams expect — with the step most students skip made explicit up front.
+
+> *Historical records say the average height of Purdue students is 70 inches. You suspect that's no longer accurate. An SRS of $n = 25$ current students gives $\bar{x} = 67.1$ inches; assume heights are approximately Normal with known $\sigma = 4$ inches. Test at $\alpha = 0.05$.*
+
+**Step 0 — Identify the procedure (before any formula).** Ask three questions: *What parameter?* A population **mean** $\mu$ (heights are quantitative). *How many samples?* **One**. *Is $\sigma$ known?* **Yes** (given as 4). One sample + mean + known $\sigma$ → the **one-sample $z$ test**. This identification step is the whole game later in the course, when $t$ tests, proportion tests, and two-sample procedures all crowd onto the menu; practice it now while there is only one dish.
+
+**Step 1 — Hypotheses.** "No longer accurate" gives no direction — taller or shorter would both matter — so the alternative is two-sided:
+
+$$H_0: \mu = 70 \qquad \text{vs.} \qquad H_a: \mu \neq 70.$$
+
+(Write the hypotheses about $\mu$, never about $\bar{x}$ — we already *know* $\bar{x} = 67.1$; there is nothing to test about it.)
+
+**Step 2 — Conditions.** We have an SRS (stated); the population is approximately Normal, so $\bar{X}$ is exactly Normal even at $n = 25$; $\sigma$ is known. The $z$ procedure applies.
+
+**Step 3 — Calculation.** Under $H_0$, $\bar{X} \sim \mathcal{N}(70,\ 4/\sqrt{25}) = \mathcal{N}(70, 0.8)$.
+
+$$z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{67.1 - 70}{0.8} = -3.63, \qquad p = 2\,\mathbb{P}(Z \leq -3.63) = 0.0003.$$
+
+**Step 4 — Conclusion in context.** Since $p = 0.0003 < \alpha = 0.05$, reject $H_0$. If the mean were still 70 inches, essentially no 25-student samples (about 3 in 10,000) would average this far from 70. The data give very strong evidence that the average height of current Purdue students differs from the historical 70 inches — and the direction of the data says it is lower.
+
+**The duality check.** Our 95% confidence interval from earlier was $(65.53,\ 68.67)$ — and sure enough, $70$ lies **outside** it. A level $\alpha$ two-sided test rejects $\mu_0$ exactly when $\mu_0$ falls outside the level $1 - \alpha$ interval: the test and the interval are the same mathematics wearing different clothes. The interval actually says *more*: not just "not 70," but "the believable values run from about 65.5 to 68.7."
+
+**The chapter in one sentence:** Chapter 5's sampling distribution, read in reverse, answers both inference questions — *which $\mu$'s are believable* (a confidence interval) and *is this particular $\mu_0$ believable* (a significance test) — with the p-value measuring surprise under $H_0$ and $\alpha$, $\beta$ naming the two ways our verdict can be wrong.
+
+## Check Your Understanding
+
+:::{dropdown} 1. Two 95% confidence intervals for mean height are reported: $(65.53, 68.67)$ from $n = 25$ and $(66.32, 67.88)$ from $n = 100$ (same $\bar{x} = 67.1$, $\sigma = 4$). A student says the second interval is "more confident." Fix the language.
+Both intervals carry *exactly* 95% confidence — the same procedure-level guarantee. What the second interval is, is more **precise**: quadrupling $n$ halves $\sigma/\sqrt{n}$ from 0.8 to 0.4, so the margin shrinks from 1.568 to 0.784. Confidence level is chosen; precision is earned with sample size. (To become "more confident" — say 99% — you would *widen* the interval, not narrow it.)
+:::
+
+:::{dropdown} 2. For the stranger's die ($p = 0.019$, two-sided), your friend concludes: "There's a 98.1% probability that the die is loaded." Give the correct one-sentence interpretation.
+Correct version: "**If** the die were fair, only 1.9% of all 100-roll experiments would give an average at least as far from 3.5 as ours — so the data are quite surprising under fairness, which is evidence against it." The p-value conditions on $H_0$; it is not the probability of $H_0$ (or of $H_a$) being true. No probability attaches to "the die is loaded" in this framework — the die either is or isn't.
+:::
+
+:::{dropdown} 3. A campus lab tests a memory supplement on $n = 6$ students and reports "no significant improvement ($p = 0.31$); the supplement does not work." Name *two* distinct problems with this conclusion.
+First, "not significant" never *proves* $H_0$ — the data being consistent with "no effect" is not evidence of no effect. Second, with only 6 subjects the test has very **low power**: even a genuinely helpful supplement would rarely produce a significant result, so the non-rejection was nearly preordained (a Type II error waiting to happen). Better reporting: give a confidence interval for the improvement — if it spans from "slightly harmful" to "hugely helpful," the honest conclusion is "this study was too small to tell," not "it doesn't work."
+:::

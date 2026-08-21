@@ -5,6 +5,27 @@
 This chapter corresponds to **Chapter 10** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
 ```
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Write down the **simple linear regression model** $y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ and state the **conditions** required for inference (linearity, constant $\sigma$, Normal model deviations, SRS).
+* Estimate $\beta_0$, $\beta_1$, and $\sigma$ from data using $b_0$, $b_1$, and the **regression standard error** $s$, and explain the difference between the model deviations $\epsilon_i$ and the residuals $e_i$.
+* Construct a **confidence interval** and carry out a **$t$ test** for the slope $\beta_1$ using $\text{SE}_{b_1}$ and the $t(n-2)$ distribution.
+* Read and complete the **ANOVA table** for regression, carry out the **$F$ test**, and explain why $F = t^2$ in simple linear regression.
+* Distinguish a **confidence interval for the mean response** at $x^*$ from a **prediction interval for a single future observation** at $x^*$, and explain why the prediction interval is wider.
+* Test $H_0\!: \rho = 0$ for a population correlation and connect this test to the slope test.
+```
+
+```{admonition} Key concepts at a glance
+:class: note
+[The regression model](ch12-model) · [Estimating the parameters](ch12-estimation) · [Inference for the slope](ch12-inference) · [ANOVA for regression](ch12-anova) · [Standard errors, CI vs. PI, and correlation](ch12-se) · [Derivations for the curious](ch12-appendix) · [Putting it all together](ch12-together)
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+You measure the shoe sizes and heights of 8 classmates and fit the least-squares line $\hat{y} = 52.67 + 1.67x$ to **your** sample. A classmate repeats the survey with 8 *different* students — and gets a different line. So which line is "the" relationship between shoe size and height? **Is the true slope even nonzero, or did we just fit a line through noise?** This is exactly the move we made in Chapter 5 for $\bar{x}$: treat the slope $b_1$ as a *statistic with a sampling distribution*, attach a standard error to it, and use $t$ procedures to test hypotheses and build confidence intervals for the *parameter* $\beta_1$.
+```
+
 In this chapter, we will study the <span class="purdue-text">**inference for regression**</span>. In the previous chapter, when we had one sample—one dataset—we could plot a regression line in that scatterplot. But what if we have a different sample, a different dataset from the population? We might end up with a different regression line. 
 
 The values $b_0$ and $b_1$ are our estimates of the true population parameters of the linear model, which are $\beta_0$ and $\beta_1$. Just as we use $\bar{x}$ to estimate $\mu$, we need to calculate the standard errors of our estimates to quantify the sampling variability of our estimates and to conduct similar statistical inference procedures.
@@ -32,7 +53,13 @@ The **standard errors** associated with $\hat{\beta}_0$ and $\hat{\beta}_1$ quan
 [^footnote01]: In frequentist inference, we consider the parameters as fixed (but unknown) quantities, and the data as random due to sampling variability. In Bayesian inference, we treat the parameters as random variables with their own distributions (priors), and once the data is observed, it is considered fixed while we update our beliefs about the parameters through the posterior distribution.
 :::
 
+(ch12-model)=
 ## Simple Linear Regression
+
+```{admonition} A question before this section
+:class: bridge
+Before we can do any inference, we have to ask: **what exactly do we assume the world looks like** for "the true slope" to even be a meaningful phrase? Back in Chapter 0 we wrote the data-generating story $y = ax + b + \epsilon$ — a deterministic line plus random noise. The simple linear regression model below is precisely that story with official statistical notation: $\beta_0 + \beta_1 x$ is the line built into the *population*, and $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is the noise. Every inference procedure in this chapter lives *inside* this model — which is why checking its conditions is not optional fine print.
+```
 
 Having this sampling variability in mind, we can imagine observing all the data points—that is, every pair of $x$ and $y$ values—in the population. We also assume that $x$ and $y$ share a linear relationship, which can be expressed by the simple linear regression model (called "simple" because it includes only one independent variable):
 
@@ -86,8 +113,20 @@ We can visualize this **population regression line** with the figure below:
   - Individual responses $y$ vary **Normally** within each subpopulation.
   - Standard deviation $\sigma$ is **constant** for all values of $x$.
 
+:::{dropdown} How to read this figure (the single most important picture in this chapter)
+:open:
+This figure *is* the simple linear regression model — every assumption in the bullet list above is drawn somewhere in it. Read it in three passes:
+
+1. **Find the straight line first.** That is the *population* regression line $\mu_y = \beta_0 + \beta_1 x$. It is not a fitted line through data points — there are no data points in this picture at all. It is the "truth" that our $\hat{y} = b_0 + b_1 x$ tries to estimate.
+2. **Now look at one Normal curve.** Each curve sits at one particular value of $x$ and is drawn *sideways*: it shows the distribution of the response $y$ within that **subpopulation** (e.g., all subjects receiving that particular calcium dose, or all students with that shoe size). The peak of each curve sits exactly *on* the line — the subpopulation mean is $\beta_0 + \beta_1 x$. An individual $y$ lands somewhere under its curve; its vertical distance from the line is its personal $\epsilon$.
+3. **Compare the curves to each other.** They are deliberately drawn *identical* in shape and spread — only their centers slide along the line. That is the constant-$\sigma$ assumption: same scatter at every $x$.
+
+What the figure does **not** claim is just as important: it says nothing about the distribution of $x$, and it does *not* say the $y$ values as a whole are Normal. Only $y$ *within each vertical slice* is Normal — a distinction the next section's "common misunderstanding" box returns to.
+:::
+
 In reality, we cannot observe all the data points for each subpopulation; we only have a sample of data points for them. Thus, we can only obtain the estimates, $b_0$ and $b_1$, for the true parameters, $\beta_0$ and $\beta_1$, respectively.
 
+(ch12-estimation)=
 ## Estimating the regression parameters
 
 ``````{tab-set}
@@ -178,6 +217,15 @@ s = \sqrt{ \frac{1}{n - 2} \,\sum (y_i - \hat{y}_i)^2 }.
 _It is a common mistake to assess the Normality of $y$ when checking model conditions. Even though examining the distributions of $x$ and $y$ can help identify outliers or influential observations, the key requirement is that the **model deviations** (the residuals) are approximately Normal, not necessarily $x$ or $y$ individually._
 ```
 
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "To check the Normality condition, make a histogram or Normal quantile plot of the $y$ values and see whether it looks Normal."
+
+**In fact:** as the note above emphasizes, the model requires the **deviations** $\epsilon_i$ — checked in practice through the **residuals** $e_i$ — to be approximately Normal. The raw $y$ values mix together many subpopulations with *different* means $\beta_0 + \beta_1 x_i$, so the histogram of $y$ can look skewed or even bimodal while the model holds perfectly.
+
+**Quick check:** suppose height truly follows the model, and your sample happens to contain one clump of small shoe sizes and one clump of large ones. What would the histogram of the raw heights look like? (Two clumps — one per group — even though every single residual is perfectly Normal. Plot the residuals, not $y$.)
+```
+
 ```{admonition} Linear Regression Model Conditions
 :class: important
 
@@ -200,7 +248,37 @@ Provided our check of conditions gives no reason to question the use of the simp
 ````
 ``````
 
+:::{dropdown} Example: heights and shoe sizes — meet the dataset for this chapter
+:open:
+We will carry one small dataset through the entire chapter, so that every formula gets a number attached to it. Eight randomly chosen students report their shoe size $x$ and height $y$ (in inches):
 
+| Student | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| Shoe size $x$ | 8 | 9 | 9 | 10 | 10 | 11 | 12 | 13 |
+| Height $y$ | 66 | 69 | 66 | 71 | 68 | 72 | 71 | 75 |
+
+The summary statistics are $\bar{x} = 10.25$, $\bar{y} = 69.75$, $s_x = 1.669$, $s_y = 3.105$, $r = 0.896$, and $\sum (x_i - \bar{x})^2 = 19.5$. Using the Chapter 2 formulas:
+
+$$
+b_1 = r\,\frac{s_y}{s_x} = 0.896 \times \frac{3.105}{1.669} \approx 1.667,
+\qquad
+b_0 = \bar{y} - b_1\,\bar{x} = 69.75 - 1.667 \times 10.25 \approx 52.667.
+$$
+
+So the fitted line is $\hat{y} = 52.67 + 1.67x$: each additional shoe size predicts about $1.67$ additional inches of height. (This line is the one from the chapter-opening question — *your* sample's line.)
+
+Next we estimate $\sigma$. The residuals $e_i = y_i - \hat{y}_i$ are $0,\ 1.33,\ -1.67,\ 1.67,\ -1.33,\ 1.00,\ -1.67,\ 0.67$ — they sum to $0$, as they must — and their sum of squares is $\sum e_i^2 = 13.333$. With $n - 2 = 6$ degrees of freedom,
+
+$$
+s^2 = \frac{\sum e_i^2}{n-2} = \frac{13.333}{6} = 2.222,
+\qquad
+s = \sqrt{2.222} = 1.491 \text{ inches}.
+$$
+
+This **regression standard error** $s = 1.491$ estimates $\sigma$: the typical vertical scatter of individual heights around the population line. Keep $s$, $\sum (x_i - \bar{x})^2 = 19.5$, and the fitted line in view — the rest of the chapter reuses them constantly.
+:::
+
+(ch12-inference)=
 ## Confidence intervals and significance tests
 
 ``````{tab-set}
@@ -350,7 +428,50 @@ Then, $C$% (e.g., 95%) of such intervals will capture the true $y$ for a future 
 `````
 ``````
 
+:::{dropdown} Example continued: is the shoe-size slope real? A test and a confidence interval
+:open:
+For our 8 students we found $b_1 = 1.667$, $s = 1.491$, and $\sum (x_i - \bar{x})^2 = 19.5$. The standard error of the slope (formula in the Standard Errors section below) is
+
+$$
+\text{SE}_{b_1} = \frac{s}{\sqrt{\sum (x_i - \bar{x})^2}} = \frac{1.491}{\sqrt{19.5}} = \frac{1.491}{4.416} = 0.338.
+$$
+
+**Test** $H_0\!: \beta_1 = 0$ against $H_a\!: \beta_1 \ne 0$:
+
+$$
+t = \frac{b_1}{\text{SE}_{b_1}} = \frac{1.667}{0.338} = 4.94,
+\qquad \text{df} = n - 2 = 6,
+\qquad P\text{-value} = 2\,P(T \ge 4.94) = 0.0026.
+$$
+
+Because $0.0026 < 0.05$, we reject $H_0$: even with only 8 students, the data give strong evidence of a linear relationship between shoe size and height.
+
+**Confidence interval:** for 95% confidence with 6 degrees of freedom, $t^* = 2.447$, so
+
+$$
+b_1 \pm t^* \cdot \text{SE}_{b_1} = 1.667 \pm 2.447 \times 0.338 = 1.667 \pm 0.83
+\;\Longrightarrow\; (0.84,\ 2.49).
+$$
+
+We are 95% confident that in the population, each additional shoe size corresponds to between $0.84$ and $2.49$ additional inches of mean height. Notice the interval excludes $0$ — the same verdict as the test — but it says much more than "nonzero": it quantifies *how large* the slope plausibly is.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "The $P$-value for the slope is tiny, so $x$ and $y$ must have a *strong* relationship."
+
+**In fact:** the test only weighs evidence that $\beta_1 \ne 0$ — that there is *some* linear relationship. **Significance measures evidence; $r^2$ measures strength.** In large samples, a microscopic $P$-value can coexist with a relationship too weak to matter, because $t = r\sqrt{n-2}\big/\sqrt{1-r^2}$ grows with $n$ even when $r$ stays small.
+
+**Quick check:** with $n = 10{,}000$ students and $r = 0.1$ (so $r^2 = 0.01$: $x$ explains 1% of the variation in $y$), how big is $t$? (About $t = 0.1\sqrt{9998}/\sqrt{0.99} \approx 10$, giving a $P$-value around $10^{-23}$ — overwhelming evidence of an almost useless relationship. Always report $r^2$ or a confidence interval alongside the $P$-value.)
+```
+
+(ch12-anova)=
 ## More detail about simple linear regression
+
+```{admonition} A question before this section
+:class: bridge
+We just tested $H_0\!: \beta_1 = 0$ with a $t$ statistic. But software output always includes a second, seemingly different test of the *very same hypothesis*: an **ANOVA $F$ test**, built not by standardizing a slope but by splitting the total variation in $y$ into an "explained" piece and a "leftover" piece. **Why would statisticians keep two tests for one question?** Work through this section and you will find the punchline: they are the *same* test in disguise — $F = t^2$. In our shoe-size example, $t = 4.94$ and the ANOVA table will report $F = 24.375 = (4.937)^2$, with an identical $P$-value of $0.0026$.
+```
 
 ``````{tab-set}
 `````{tab-item} Analysis of Variance for Regression
@@ -488,6 +609,15 @@ Critical Values and Tables:
 
 ```
 
+:::{dropdown} How to read this figure (an $F$ density curve)
+:open:
+This curve looks different from every $t$ curve you have seen, and each difference carries meaning:
+
+* **It starts at $0$ and lives only on the right.** $F$ is a ratio of two sums of squares, so it can never be negative. There is no "left tail" and no two-sided version: *all* evidence against $H_0$ lands in the upper tail, which is why the $P$-value is always $P(F \ge F_{\text{obs}})$.
+* **It peaks near $1$.** When $H_0\!: \beta_1 = 0$ is true, MSM and MSE both estimate the same $\sigma^2$, so their ratio hovers around $1$. An $F$ far above $1$ means the model is explaining far more variation than chance scatter would — evidence against $H_0$.
+* **It is right-skewed with a long upper tail.** Ratios of variances occasionally come out large by chance, so moderate $F$ values (say, $2$ or $3$) are not automatically convincing; the $P$-value calibrates how far into the tail you actually are.
+* **It carries *two* degrees-of-freedom labels.** The curve shown is $F(9, 10)$: $9$ for the numerator, $10$ for the denominator. In simple linear regression ours is always $F(1,\ n-2)$ — numerator df $= 1$ because a single predictor contributes one model degree of freedom.
+:::
 
 If software does not provide $P$-values, you can consult tables of critical $F$ values (for example, $p = 0.100, 0.050, 0.025, 0.010, 0.001$). In simple linear regression, the numerator degrees of freedom = 1, and denominator df = $n - 2$.
 
@@ -547,7 +677,40 @@ The $F$ statistic tests the same null as the $t$ statistic. In fact, $t^2 = F$. 
 `````
 ``````
 
+:::{dropdown} Example continued: the ANOVA table for heights vs. shoe sizes
+:open:
+For our 8 students, the three sums of squares are
+
+$$
+\text{SST} = \sum (y_i - \bar{y})^2 = 67.500,
+\qquad
+\text{SSM} = \sum (\hat{y}_i - \bar{y})^2 = 54.167,
+\qquad
+\text{SSE} = \sum (y_i - \hat{y}_i)^2 = 13.333,
+$$
+
+and indeed $54.167 + 13.333 = 67.500$: **DATA = FIT + RESIDUAL** in squared form. The full table:
+
+| Source | Degrees of Freedom | Sum of Squares | Mean Square | $F$ |
+|---|---|---|---|---|
+| Model | 1 | 54.167 | 54.167 | 24.375 |
+| Error | 6 | 13.333 | 2.222 | |
+| Total | 7 | 67.500 | | |
+
+Reading it off:
+
+* $\text{MSE} = 13.333/6 = 2.222 = s^2$ — the same $s = 1.491$ we computed earlier, now living in the ANOVA table.
+* $F = \text{MSM}/\text{MSE} = 54.167/2.222 = 24.375$, and the $P$-value is $P\big(F(1, 6) \ge 24.375\big) = 0.0026$ — *exactly* the $P$-value of the slope $t$ test, because $t^2 = (4.937)^2 = 24.375 = F$. (We quoted $t = 4.94$ rounded; the identity is exact in full precision.)
+* $r^2 = \text{SSM}/\text{SST} = 54.167/67.500 = 0.802$: shoe size explains about $80\%$ of the variation in height in this sample — here, a relationship that is both *significant* and *strong*. The misconception box above shows those two properties need not travel together.
+:::
+
+(ch12-se)=
 ## Standard Errors
+
+```{admonition} A question before this section
+:class: bridge
+Two questions about size-10 students sound almost identical but are fundamentally different. (1) *"What is the **average** height of all students who wear size 10?"* (2) *"My friend wears size 10 — how tall is **she**?"* Both answers start from the same fitted value $\hat{y} = 52.67 + 1.67 \times 10 \approx 69.3$ inches, yet the uncertainties differ enormously: an average is far easier to pin down than a single person, who carries her own personal deviation $\epsilon$ *on top of* our uncertainty about where the line is. As you read the formulas below, watch for a lone extra "$1$" inside a square root — that inconspicuous term is the entire difference between a **confidence interval** for a mean response and a **prediction interval** for an individual.
+```
 
 ``````{tab-set}
 `````{tab-item} Inference for Slope and Intercept
@@ -653,7 +816,58 @@ If $T$ has a $t(n - 2)$ distribution, then for the two-sided alternative the $P$
 `````
 ``````
 
+:::{dropdown} Example continued: a confidence interval and a prediction interval at shoe size $x^* = 10$
+:open:
+The fitted value at $x^* = 10$ is
+
+$$
+\hat{\mu}_y = \hat{y} = 52.667 + 1.667 \times 10 = 69.33 \text{ inches}.
+$$
+
+**Confidence interval for the mean response** (the *average* height of all size-10 students). With $n = 8$, $\bar{x} = 10.25$, and $\sum (x_i - \bar{x})^2 = 19.5$:
+
+$$
+\text{SE}_{\hat{\mu}} = s \sqrt{\frac{1}{n} + \frac{(x^* - \bar{x})^2}{\sum (x_i - \bar{x})^2}}
+= 1.491 \sqrt{\frac{1}{8} + \frac{(10 - 10.25)^2}{19.5}}
+= 1.491 \times 0.358 = 0.534,
+$$
+
+$$
+69.33 \pm 2.447 \times 0.534 = 69.33 \pm 1.31
+\;\Longrightarrow\; (68.03,\ 70.64).
+$$
+
+**Prediction interval for one future observation** (the height of *one particular* size-10 student). The only change is the extra "$1$" under the square root:
+
+$$
+\text{SE}_{\hat{y}} = s \sqrt{1 + \frac{1}{8} + \frac{(10 - 10.25)^2}{19.5}}
+= 1.491 \times 1.062 = 1.583,
+$$
+
+$$
+69.33 \pm 2.447 \times 1.583 = 69.33 \pm 3.87
+\;\Longrightarrow\; (65.46,\ 73.21).
+$$
+
+The prediction interval is almost **three times as wide** ($7.75$ inches versus $2.61$ inches). Both are centered at $69.33$; they differ only in *which question they answer*.
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "A confidence interval and a prediction interval at $x^*$ are basically interchangeable — both tell me where $y$ will be for a size-10 student."
+
+**In fact:** they answer different questions. In our example, the CI $(68.03,\ 70.64)$ locates the **average** height of *all* size-10 students; the PI $(65.46,\ 73.21)$ says where **one new** size-10 student's height will land — and it is nearly three times as wide. The gap is structural, not cosmetic: $\text{SE}_{\hat{\mu}}$ contains only line-estimation uncertainty and shrinks toward $0$ as $n$ grows, while $\text{SE}_{\hat{y}}$ also contains the individual's own scatter and can never fall below $s \approx 1.49$.
+
+**Quick check:** if we surveyed $800$ students instead of $8$, which interval would collapse to essentially a single point, and which would remain wide? (The CI collapses onto the population line; the PI settles at roughly $\hat{y} \pm t^* s$ — an individual's personal $\epsilon$ never averages away.)
+```
+
+(ch12-appendix)=
 ## More details on standard errors of mean response and prediction
+
+```{admonition} A question before this section
+:class: bridge
+For the curious: **where do formulas like $\text{SE}_{b_1} = s\big/\sqrt{\sum (x_i - \bar{x})^2}$ actually come from?** Everything below is the algebra behind the standard errors — the variance rules for random variables, applied to $\hat{\beta}_0 + \hat{\beta}_1 x_0$, reproduce both the CI formula and (after adding the new observation's own $\sigma^2$) the wider PI formula. This appendix is optional for the exam, but it is the shortest honest answer to "why is there an extra $1$ under the prediction-interval square root?"
+```
 
 ```{math}
 :label: eq-linear-model
@@ -780,4 +994,43 @@ Estimating $\sigma^2$ by plugging in $\mathrm{MSE}$, the **standard error** for 
    \right]
 }.
 ```
+
+(ch12-together)=
+## Putting It All Together: One Dataset, Three Tests, Two Intervals
+
+Let's close the chapter the way an exam (or a real consulting question) opens it: with a plain-English question and the job of picking — and then executing — the right procedure.
+
+**Part 1 — Which procedure is being asked for?** Match the phrasing of the question to the tool:
+
+* *"Is there a linear relationship between shoe size and height?"* → a test of $H_0\!: \beta_1 = 0$ — and in simple linear regression you have **three equivalent phrasings** of this same null hypothesis:
+  * the **slope $t$ test** ($t = b_1/\text{SE}_{b_1} = 4.94$) — natural when the *line* is the object of interest, and the only version that handles one-sided alternatives ($H_a\!: \beta_1 > 0$) and pairs with a confidence interval for $\beta_1$;
+  * the **ANOVA $F$ test** ($F = 24.375 = t^2$) — natural when you think in terms of *explained versus unexplained variation*, and the form that generalizes to regression with several predictors;
+  * the **correlation test** ($t = r\sqrt{n-2}\big/\sqrt{1-r^2} = 0.896\sqrt{6}\big/\sqrt{1 - 0.802} = 4.94$) — natural when *neither* variable plays the role of explanatory variable and you only care about association, not the line itself.
+
+  All three give $P = 0.0026$ on our data. They are one test wearing three outfits — do not report them as if they were independent pieces of evidence.
+* *"**How much** taller, on average, per shoe size?"* → the **confidence interval for $\beta_1$**: $(0.84,\ 2.49)$ inches per size.
+* *"How **strong** is the relationship?"* → $r^2 = 0.802$, the proportion of variation in height explained by shoe size — not the $P$-value.
+* *"Estimate the **average** height of size-10 students."* → the **CI for the mean response**: $(68.03,\ 70.64)$.
+* *"**Predict** the height of my friend, who wears size 10."* → the **prediction interval**: $(65.46,\ 73.21)$.
+
+**Part 2 — The complete four-step slope test**, written out once, exam-style, on the shoe-size data:
+
+1. **State.** $H_0\!: \beta_1 = 0$ versus $H_a\!: \beta_1 \ne 0$, at significance level $\alpha = 0.05$. (In words: mean height does not change with shoe size, versus it does.)
+2. **Check.** The 8 students are an SRS; the scatterplot is roughly linear with no outliers; the residuals $0, 1.33, -1.67, 1.67, -1.33, 1.00, -1.67, 0.67$ show no pattern against $x$, roughly constant spread, and no strong departure from Normality. (Remember: we check the *residuals*, never the raw $y$'s.) With $n = 8$ these checks are necessarily rough — proceed, but with appropriate humility.
+3. **Compute.** $b_1 = 1.667$, $\text{SE}_{b_1} = 1.491/\sqrt{19.5} = 0.338$, so $t = 1.667/0.338 = 4.94$ with $\text{df} = n - 2 = 6$, giving $P = 2\,P(T \ge 4.94) = 0.0026$.
+4. **Conclude.** Since $0.0026 < 0.05$, reject $H_0$. The data give strong evidence of a linear relationship between shoe size and mean height. Better yet, quantify it: we are 95% confident the population slope lies in $(0.84,\ 2.49)$ inches per shoe size, and shoe size explains about $80\%$ of the height variation in this sample.
+
+## Check Your Understanding
+
+:::{dropdown} 1. Software reports $t = 4.94$ for the slope but the ANOVA block got cut off. What is $F$, and what is its $P$-value relative to the $t$ test's?
+No new computation needed: in simple linear regression $F = t^2 = (4.94)^2 \approx 24.4$ (exactly $24.375$ in full precision), with degrees of freedom $(1,\ n-2)$. Its $P$-value is *identical* to the two-sided $t$ test's, $0.0026$ — the two are the same test of $H_0\!: \beta_1 = 0$.
+:::
+
+:::{dropdown} 2. A friend concludes: "We are 95% confident that a new size-10 student's height is between 68.03 and 70.64 inches." What went wrong?
+They used the wrong interval. $(68.03,\ 70.64)$ is the **confidence interval for the mean response** — it locates the *average* height of all size-10 students. A statement about one *new individual* requires the **prediction interval**, $(65.46,\ 73.21)$, which adds the individual's own deviation $\epsilon$ (the extra "$1$" in $\text{SE}_{\hat{y}}$) and is nearly three times as wide.
+:::
+
+:::{dropdown} 3. To check the Normality condition, your roommate makes a histogram of the 8 heights and worries that it doesn't look bell-shaped. What should they have plotted, and why?
+The **residuals** $e_i = y_i - \hat{y}_i$, not the raw heights. The model assumes the *deviations* $\epsilon_i$ are Normal within each subpopulation; the raw $y$ values mix subpopulations with different means $\beta_0 + \beta_1 x_i$, so their histogram can look non-Normal even when the model is exactly right. (With $n = 8$, any histogram is rough anyway — a Normal quantile plot of the residuals is the better tool.)
+:::
 

@@ -5,6 +5,26 @@
 This chapter corresponds to **Chapter 13** of *Introduction to the Practice of Statistics* (Moore, McCabe & Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.
 ```
 
+```{admonition} Learning objectives
+:class: tip
+After this chapter, you will be able to:
+* Explain why studying **two factors at once** beats two separate one-factor studies: efficiency, error control, and — above all — the ability to detect an **interaction**.
+* Write the two-way ANOVA model in both the **cell-means** and **decomposed** forms, and compute **cell means, marginal means, and the grand mean** from a two-way table.
+* Define **main effects** and **interaction**, recognize interaction as a **difference of differences**, and read an **interaction plot** (parallel vs. non-parallel lines).
+* Construct and interpret the **two-way ANOVA table**: degrees of freedom, sums of squares, mean squares, and the three $F$ tests that share a single $MSE$.
+* Interpret **software (JMP) output** for a two-way ANOVA — and know when a significant interaction makes main-effect comparisons misleading.
+```
+
+```{admonition} Key concepts at a glance
+:class: note
+[The two-way ANOVA model, main effects, and interaction](ch9-model) · [Inference: three F tests, one ANOVA table](ch9-inference) · [Mean squares calculations (optional)](ch9-meansquares) · [Putting it all together](ch9-together)
+```
+
+```{admonition} Where are we? A question before we start
+:class: bridge
+One-way ANOVA told us the three diets differ. But suppose the best diet for men is the **worst** for women. Averaging over sex would hide — or fake — the effect: a "no difference" verdict when both sexes respond strongly, or an "overall winner" that is actually wrong for half the people. Studying two factors at once buys us something one-at-a-time studies can never see: the **interaction**. This chapter is about how to measure it, test it, and know when it changes the whole story.
+```
+
 One-way ANOVA examines the differences in a continuous response variable across groups defined by a **single** categorical factor. <span class="purdue-text">**Two-way ANOVA**</span> extends this framework to study the effects of **two** categorical factors on a continuous response variable, and it also allows for the evaluation of an <span class="purdue-text">**interaction effect**</span> between the two factors.
 
 
@@ -86,7 +106,13 @@ This example shows how two-way ANOVA combines two factors to provide a more comp
 :::
 
 
+(ch9-model)=
 ## The Two-Way ANOVA Model
+
+```{admonition} A question before this section
+:class: bridge
+The diet-and-exercise example said an interaction means "the effect of diet **depends on** the exercise level." That sounds intuitive — but what exactly does "depends on" mean *in numbers*? The answer turns out to be delightfully concrete: an interaction is a **difference of differences**. Compute the effect of one factor at each level of the other factor; if those effects are not equal, their gap *is* the interaction. This section builds the model, the notation, and the tables that make that idea precise.
+```
 
 For a two-way ANOVA model, we typically construct two-way tables to either display the sample sizes in each cell or present the measured response averages (cell means) for each combination of factor levels. Here are some examples:
 
@@ -293,7 +319,19 @@ $$
 
 ```
 
+:::{dropdown} How to read this figure (the interaction plot)
+:open:
+An interaction plot is a picture of the **cell means** — nothing more. Read it in this order:
 
+* **Axes:** the horizontal axis lists the levels of one factor (here Age Group); the vertical axis is the mean response (calories per day). The second factor (Year) does not get an axis — it gets **one line per level**: a blue line connecting the three 2010 cell means, a red line for 2016.
+* **Vertical gaps = the effect of the line factor.** At each age group, the vertical distance between the blue and red points is the effect of Year *for that group*: about 17.3 calories for preadolescents, 78.6 for adolescents, 26.6 for adults.
+* **Parallel lines = no interaction.** If the Year effect were the same for every age group, all three gaps would be equal and the two lines would be parallel. Then the picture would separate cleanly: line spacing shows one main effect, the common up-and-down shape shows the other.
+* **Non-parallel lines = interaction.** Here the gap balloons at Adolescents — the lines pinch together at the ends and spread apart in the middle. That non-parallelism *is* the interaction. Two flavors to recognize:
+  * **Diverging/converging lines** (this figure): both levels move in the same direction, but by different amounts — the effect changes *size* across groups.
+  * **Crossing lines** (the more dramatic case): the effect changes *sign* — the level that is best at one group is worst at another. Crossing is when averaging over a factor becomes truly dangerous.
+
+One caution: these are **sample** means, so small wiggles from perfect parallelism are expected even with no true interaction. The plot suggests; the $F$ test (next section) judges.
+:::
 
 ````
 
@@ -411,8 +449,53 @@ Two-way ANOVA relies on several key assumptions to ensure that the statistical t
 
 `````
 
+:::{dropdown} Example: heights by Sex × College — parallel vs. non-parallel, the heart of the chapter
+:open:
+Back to our favorite variable. Suppose we record mean heights (inches) of Purdue students cross-classified by **Sex** (Male/Female) and **College** (Engineering/Liberal Arts). Compare two possible worlds.
 
+**World 1 — no interaction (parallel).** Suppose the true cell means are:
+
+| | **Engineering** | **Liberal Arts** | **Marginal mean** |
+|---|---|---|---|
+| **Male** | 70.0 | 69.5 | 69.75 |
+| **Female** | 65.0 | 64.5 | 64.75 |
+| **Marginal mean** | 67.5 | 67.0 | 67.25 |
+
+* College effect **for men**: $70.0 - 69.5 = 0.5$. College effect **for women**: $65.0 - 64.5 = 0.5$. The same! The **interaction contrast** (difference of differences) is $0.5 - 0.5 = 0$.
+* Equivalently, the sex gap is $5.0$ inches in *both* colleges ($70.0-65.0 = 69.5-64.5 = 5.0$).
+* An interaction plot would show two **parallel** lines. The marginal means tell the whole story: men average $69.75 - 64.75 = 5.0$ inches taller, Engineering averages $67.5 - 67.0 = 0.5$ inches taller, and each statement holds *at every level* of the other factor.
+
+**World 2 — interaction (non-parallel).** Now suppose instead:
+
+| | **Engineering** | **Liberal Arts** | **Marginal mean** |
+|---|---|---|---|
+| **Male** | 70.0 | 68.5 | 69.25 |
+| **Female** | 64.5 | 66.0 | 65.25 |
+| **Marginal mean** | 67.25 | 67.25 | 67.25 |
+
+* College effect **for men**: $70.0 - 68.5 = +1.5$. College effect **for women**: $64.5 - 66.0 = -1.5$. Opposite signs! The **interaction contrast** is $1.5 - (-1.5) = 3.0$ inches.
+* Now look at the marginal means for College: $67.25$ vs. $67.25$ — the **main effect of College is exactly zero**, even though College clearly matters for each sex separately. Averaging over Sex made a real (opposite-direction) effect vanish.
+* The interaction plot would show **crossing-pattern** lines. Asking "what is *the* effect of College?" has no single answer — the honest answer is "$+1.5$ for men, $-1.5$ for women," which is a statement about **cell means**, not marginal means.
+
+This pair of tables is the entire chapter in miniature: **parallel $\Rightarrow$ main effects tell the story; non-parallel $\Rightarrow$ you must look at the cells.**
+:::
+
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "An interaction means both factors matter — if Diet and Exercise interact, then Diet matters and Exercise matters."
+
+**In fact:** interaction is about the effect of one factor **changing** across the levels of the other — it says nothing about whether the main effects are large, small, or zero. Both main effects can be exactly zero while the interaction is huge.
+
+**Quick check:** take cell means $\mu_{11} = 10$, $\mu_{12} = 20$, $\mu_{21} = 20$, $\mu_{22} = 10$. Every marginal mean is $\frac{10+20}{2} = 15$ — both main effects are **zero**. Yet the effect of Factor $B$ is $10 - 20 = -10$ at the first level of $A$ and $20 - 10 = +10$ at the second: a difference of differences of $20$. The interaction plot is a perfect X. (World 2 of the heights example is the same phenomenon: a zero College main effect hiding two real, opposite effects.)
+```
+
+(ch9-inference)=
 ## Inference for Two Way ANOVA 
+
+```{admonition} A question before this section
+:class: bridge
+The model section left us with **three** distinct questions about the same data set: does Factor $A$ matter? does Factor $B$ matter? do they interact? Three questions need **three $F$ tests** — but here is the elegant part: all three share **one error term**, the pooled within-cell variance $MSE$. Each test asks, "is the variation attributable to this source large *compared with the variation inside the cells*?" One denominator, three numerators — that is the entire architecture of the two-way ANOVA table below.
+```
 
 Inference for two-way ANOVA naturally includes an *F* statistic for each of the two main effects and the interaction. These are summarized in the table below:
 
@@ -508,6 +591,14 @@ Inference for two-way ANOVA naturally includes an *F* statistic for each of the 
 
 :::
 
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "The lines in my sample's interaction plot aren't perfectly parallel, so there must be an interaction."
+
+**In fact:** the plot shows **sample** cell means, and sample means always carry sampling variability — even when the true population lines are perfectly parallel, the plotted lines will wiggle apart by chance. Exact parallelism in data is essentially impossible. The question is never "are the lines parallel?" but "is the departure from parallelism **larger than chance would produce**?" — and that is precisely what the interaction $F$ test, $F_{AB} = MSAB/MSE$, judges: it compares the difference-of-differences variation against the within-cell noise.
+
+**Quick check:** two lines differ in slope by 0.3 inches in a heights sample with $n = 5$ students per cell and within-cell standard deviation near 3 inches. Convincing interaction? (No — with so few observations per cell, gaps that size arise routinely by chance; the $F$ test would return a large $P$-value. The same 0.3 with $n = 500$ per cell might well be significant — *and then you would still ask whether 0.3 inches matters practically*.)
+```
 
 This example comes from a study of cardiovascular risk factors that compared runners (who averaged at least 15 miles per week) with a control group described as "generally sedentary." Both men and women were included in the study. The design is a $2 \times 2$ ANOVA with the factors Group (Control vs. Runners) and Sex (Female vs. Male). There were 200 subjects in each of the four combinations, and one of the variables measured was the heart rate (HR) after six minutes of exercise on a treadmill.
 
@@ -517,6 +608,19 @@ This example comes from a study of cardiovascular risk factors that compared run
 :width: 70%
 
 ```
+
+:::{dropdown} How to read this figure (a guided tour of the JMP output)
+:open:
+Every number a two-way ANOVA question could ask for lives in one of the four panels. Here is where:
+
+* **Tabulate (top window) — the raw material.** One row per cell: the four cell means are Control/Female $148.000$, Control/Male $130.000$, Runners/Female $115.985$, Runners/Male $103.975$, each with $N = 200$. The "All" rows are **marginal means**: Control $139.000$, Runners $109.980$, and the grand mean $124.490$ in the bottom-right. You can already do interaction arithmetic from this panel alone: the sex gap is $148.000 - 130.000 = 18.0$ bpm among controls but $115.985 - 103.975 = 12.0$ bpm among runners — a difference of differences of about $6$ bpm.
+* **Summary of Fit — the model's report card.** RSquare $0.527607$: the two factors plus interaction explain about 53% of the variation in HR. Root Mean Square Error $15.5603 = \sqrt{MSE}$: the typical within-cell spread. Mean of Response $124.49$ and Observations $800$ echo the Tabulate panel.
+* **Analysis of Variance — the coarse split.** JMP first lumps all three effects into one "Model" row: $DF = 3$ ($= 1+1+1$), $SS = 215256.09$ ($= 45030.00 + 168432.08 + 1794.00$), tested against Error ($DF = 796 = 800 - 4$ cells, $MS = 242.1 = MSE$). "C. Total" is $SST = 407985.92$ with $DF = 799$.
+* **Effect Tests — the three $F$ tests you actually want.** Each row divides its Mean Square by the *same* $MSE$ (displayed as $242.1$; unrounded, $192729.83/796 = 242.12$): Sex $F = 45030.00/242.12 \approx 185.98$, Group $F = 168432.08/242.12 \approx 695.65$, Sex\*Group $F = 1794.00/242.12 \approx 7.41$ with $P = 0.0066$. Ranking the $SS$ column tells you which source dominates: Group ($168432$) $\gg$ Sex ($45030$) $\gg$ Interaction ($1794$).
+
+Reading order for any such output: **cells first** (Tabulate), **fit second** (Summary of Fit), **tests last** (Effect Tests) — and check the interaction row *before* interpreting the main effects.
+:::
+
 :::{dropdown} A Study of Cardiovascular Risk Factors
 
 
@@ -692,7 +796,22 @@ This example comes from a study of cardiovascular risk factors that compared run
 
 :::
 
+```{admonition} Common misunderstanding
+:class: warning
+**Students often think:** "The interaction test came out significant, but I'll still report the main effects the usual way — 'Factor $A$ raises the response by such-and-such.'"
+
+**In fact:** a main effect is an **average over the levels of the other factor**, and once the interaction is substantial, that average can describe *no actual group* — recall the heights World 2 table, where the College main effect was exactly $0$ while College mattered by $\pm 1.5$ inches for each sex. When the interaction is large, the honest summary is a comparison of **cell means** ("for men, Engineering runs $1.5$ inches taller; for women, $1.5$ inches shorter"), not marginal means. This is exactly the caution stated at the end of the heart-rate interpretation above: there, the interaction is significant but **small** relative to the main effects ($SSAB = 1794$ vs. $SSA = 45030$ and $SSB = 168432$), and the effects point the same direction in every subgroup — so the main effects remain interpretable, *with that justification stated*. Significance tells you the interaction is real; **size and direction** tell you whether main effects still mean anything.
+
+**Quick check:** in the heart-rate study, the sex gap is $18.0$ bpm among controls and $12.0$ bpm among runners. Is it misleading to say "women's HR runs about $15$ bpm higher"? (Not badly — the gap is positive and sizable in both groups, so the marginal statement is a fair summary, though the full story is "$18$ for controls, $12$ for runners." Now imagine the gaps had been $+18$ and $-12$: the same marginal average, $3$ bpm, would describe nobody.)
+```
+
+(ch9-meansquares)=
 ## Mean Squares Calculations in Two Way ANOVA (Optional)
+
+```{admonition} For the curious: a question before this appendix
+:class: bridge
+The ANOVA table handed us $SSA$, $SSB$, $SSAB$, and $SSE$ as if from a vending machine. But where do those formulas come from? Each one is the same recipe applied to a different set of means: **square the relevant deviations, and multiply by how many observations stand behind each mean.** $SSA$ squares the marginal-mean deviations of Factor $A$; $SSAB$ squares exactly the "difference of differences" leftovers ($\bar{x}_{ij} - \bar{x}_{i\cdot} - \bar{x}_{\cdot j} + \bar{x}_{\cdot\cdot}$) that neither main effect can explain. This optional section writes out each formula — read it once and the ANOVA table stops being a black box.
+```
 
 
 In a two-way ANOVA, the total variation in the data is partitioned into components due to the main effects of Factor $A$ and Factor $B$, their interaction, and random error. Under the assumption of equal variances (homoscedasticity), the pooled error variance is estimated by the Mean Squared Error (MSE). In a balanced design—where each cell has the same number of observations $n$—the formulas for the sums of squares and the corresponding mean squares are as follows.
@@ -804,6 +923,45 @@ In a two-way ANOVA, the total variation in the data is partitioned into componen
 
 
 These formulas form the backbone of the two-way ANOVA analysis, allowing us to determine whether the main effects and interaction are statistically significant.
+
+(ch9-together)=
+## Putting It All Together: The Heart-Rate Study, Start to Finish
+
+Let's run the whole chapter through one problem, the way an exam hands it to you.
+
+> *Researchers compare runners (at least 15 miles/week) with sedentary controls, for both men and women — 200 subjects in each of the four combinations. The response is heart rate (HR) after six minutes on a treadmill. Analyze the study.*
+
+**Step 1 — Identify the procedure.** One **continuous response** (HR) and **two categorical factors**: Group (Control/Runners, $I = 2$) and Sex (Female/Male, $J = 2$). That is a $2 \times 2$ **two-way ANOVA** with $N = 800$. Why not two separate one-way ANOVAs (one for Group, one for Sex)? Two reasons, and they are the reasons this chapter exists:
+* **The interaction is invisible to one-way designs.** A one-way ANOVA on Group averages over Sex; a one-way on Sex averages over Group. Neither can ever ask whether the training effect *differs* between men and women — the difference of differences simply does not appear in either analysis.
+* **Efficiency and error control.** The two-way analysis uses all 800 observations to estimate a single pooled $MSE$ for every test, removes the variation due to the *other* factor from the error term (a sharper yardstick), and answers all three questions from one model rather than inflating Type I error across piecemeal analyses.
+
+**Step 2 — State the three hypotheses.** No Group effect ($H_0: \alpha_1 = \alpha_2 = 0$); no Sex effect ($H_0: \beta_1 = \beta_2 = 0$); no interaction ($H_0:$ all $(\alpha\beta)_{ij} = 0$, i.e., the training effect is the same for both sexes).
+
+**Step 3 — Look at the cell means first.** From the Tabulate panel: Control/Female $148.0$, Control/Male $130.0$, Runners/Female $116.0$ (more precisely $115.985$), Runners/Male $104.0$ ($103.975$). Marginal means: Control $139.0$ vs. Runners $110.0$ (a $29.0$ bpm training effect); Female $132.0$ vs. Male $117.0$ (a $15.0$ bpm sex effect); grand mean $124.49$. The interaction contrast: the sex gap is $18.0$ bpm among controls and $12.0$ bpm among runners — a difference of differences of $6.0$ bpm. The lines are non-parallel but **do not cross**: runners are lower for both sexes, and women are higher in both groups.
+
+**Step 4 — The ANOVA table.** Degrees of freedom: Group $I - 1 = 1$, Sex $J - 1 = 1$, interaction $(I-1)(J-1) = 1$, Error $N - IJ = 800 - 4 = 796$, Total $799$. With $MSE = 192729.83 / 796 = 242.12$, the three $F$ ratios are $F_{Group} = 168432.08 / 242.12 \approx 695.65$, $F_{Sex} = 45030.00 / 242.12 \approx 185.98$, and $F_{Sex \times Group} = 1794.00 / 242.12 \approx 7.41$. All three $P$-values are below $0.01$ ($< 0.0001$, $< 0.0001$, and $0.0066$).
+
+**Step 5 — Interpret, interaction first.** The interaction is statistically significant: the sex gap genuinely shrinks (from $18$ to $12$ bpm) when both sexes train. But it is **small** relative to the main effects ($SSAB = 1794$ against $SSA = 45030$ and $SSB = 168432$) and both effects keep the same direction in every subgroup — so, per the caution in the inference section, the main effects remain directly interpretable: running is associated with substantially lower exercise HR (about $29$ bpm), women run higher than men (about $15$ bpm), and the training benefit is slightly larger for women. Had the interaction been large or sign-changing, we would have skipped the marginal statements and reported the four cell means instead.
+
+**The identification checklist** (use it on every ANOVA problem):
+1. How many **factors**, how many **levels** each, and is the response continuous? ($1$ factor $\to$ one-way; $2$ factors $\to$ two-way, $I \times J$ cells.)
+2. Compute or locate the **cell means and marginal means**; sketch the interaction plot mentally — parallel, diverging, or crossing?
+3. Read the ANOVA table **interaction row first**; only then decide whether marginal (main-effect) comparisons are honest.
+4. Check the assumptions: independence, normal residuals, equal cell variances, and note whether the design is balanced.
+
+## Check Your Understanding
+
+:::{dropdown} 1. A colleague says: "Skip the two-way ANOVA — just run a one-way ANOVA on Diet, then another on Exercise. Same information, simpler." What is lost?
+Two things. First, the **interaction**: each one-way analysis averages over the other factor, so the question "does the diet effect depend on exercise level?" can never even be asked — and if the best diet under high exercise is the worst under low exercise, the Diet one-way could show a diluted effect or none at all (recall the heights World 2 table, where averaging produced a College effect of exactly $0$). Second, **efficiency and error control**: the two-way model pools all the data into one $MSE$, removes the other factor's variation from the error term, and tests all three hypotheses in one framework instead of accumulating Type I error across separate analyses.
+:::
+
+:::{dropdown} 2. A $2 \times 2$ study of pain relief gives cell means: Drug X — young 8, old 2; Drug Y — young 4, old 6. Compute the interaction contrast. Are the marginal drug means a fair summary?
+The drug effect (X $-$ Y) is $8 - 4 = +4$ for the young and $2 - 6 = -4$ for the old: a difference of differences of $4 - (-4) = 8$, a large interaction with a **sign change** — the interaction plot would show crossing lines. The marginal means are X: $(8+2)/2 = 5$ and Y: $(4+6)/2 = 5$: they say the drugs are *identical*, which is true for no one. This is exactly when main effects must not be reported as the summary — compare cell means: X is better for younger patients, Y for older ones.
+:::
+
+:::{dropdown} 3. In the heart-rate study the interaction test gave $F = 7.41$, $P = 0.0066$ — significant. Why was it still acceptable to report the Group and Sex main effects?
+Significance says the interaction is real (the sex gap is $18.0$ bpm among controls but $12.0$ among runners); it does not say it is large. Here $SSAB = 1794$ is tiny next to $SSA = 45030$ and $SSB = 168432$, and both effects keep the **same direction** in every subgroup — runners are lower for both sexes, women are higher in both groups (the lines are non-parallel but never cross). So the marginal statements ("about $29$ bpm lower for runners, about $15$ bpm higher for women") describe every subgroup fairly, with the footnote that the training benefit is slightly larger for women. With a large or sign-changing interaction, the honest report would switch to the four cell means.
+:::
 
 
 

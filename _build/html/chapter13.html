@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -476,6 +476,8 @@
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model-and-estimation">13.1. The model and estimation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals-significant-tests-and-anova">13.2. Confidence intervals, significant tests and ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-which-procedure-and-in-what-order">13.3. Putting It All Together: Which Procedure, and in What Order?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">13.4. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -492,6 +494,25 @@
 <div class="seealso admonition">
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 11</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Write down the <strong>multiple linear regression model</strong> and identify <span class="math notranslate nohighlight">\(n\)</span> (cases), <span class="math notranslate nohighlight">\(p\)</span> (explanatory variables), the coefficients <span class="math notranslate nohighlight">\(\beta_j\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p></li>
+<li><p>Interpret each estimated coefficient <span class="math notranslate nohighlight">\(b_j\)</span> as a per-unit effect <strong>holding the other predictors fixed</strong> — and explain why a coefficient changes when the set of predictors changes.</p></li>
+<li><p>Explain how leaving a relevant predictor out of the model connects to Chapter 3’s <strong>confounding</strong> (omitted-variable bias).</p></li>
+<li><p>Read software output in the right order: the overall <strong>ANOVA <span class="math notranslate nohighlight">\(F\)</span> test</strong> first, then individual <strong><span class="math notranslate nohighlight">\(t\)</span> tests</strong>, then <span class="math notranslate nohighlight">\(R^2\)</span> and the regression standard error <span class="math notranslate nohighlight">\(s\)</span>.</p></li>
+<li><p>Given a study description, decide whether it calls for <strong>simple regression, multiple regression, or ANOVA</strong>.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch13-model"><span class="std std-ref">The model and estimation</span></a> · <a class="reference internal" href="#ch13-inference"><span class="std std-ref">Inference: <span class="math notranslate nohighlight">\(t\)</span> tests, the <span class="math notranslate nohighlight">\(F\)</span> test, and <span class="math notranslate nohighlight">\(R^2\)</span></span></a> · <a class="reference internal" href="#ch13-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>In Chapter 10 we predicted a student’s height from shoe size alone. But height surely also depends on parent height, on sex, on nutrition. Leaving real predictors <strong>out</strong> of the model does not make their effects disappear — it dumps them into the error term. And if a left-out variable is <strong>correlated with shoe size</strong>, its effect gets partly credited to shoe size, <strong>biasing</strong> the slope: part of what we called “the shoe-size effect” was really mother’s height in disguise. This is Chapter 3’s <strong>confounding</strong>, wearing regression clothes. The fix is as direct as it sounds: put the other predictors <strong>in</strong> the model. That is exactly what multiple regression does — and this chapter shows what happens to the coefficients when we do.</p>
 </div>
 <p>In Chapters 2 and 10, we studied methods for inference in the setting of a linear relationship between a quantitative response variable <span class="math notranslate nohighlight">\(y\)</span> and a <em>single</em> explanatory variable <span class="math notranslate nohighlight">\(x\)</span>. In this chapter, we investigate situations in which <em>multiple</em> explanatory variables work together to explain, or predict, the response variable.</p>
 <p>Here are some examples. See if you can identify the response and explanatory variables as well as determine whether each explanatory variable is quantitative or categorical.</p>
@@ -519,7 +540,11 @@
 <p>As in simple linear regression, we can also think of this model in terms of subpopulations of responses. Each subpopulation corresponds to a particular set of values for all the explanatory variables <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_p\)</span>.</p>
 <p>In each subpopulation, <span class="math notranslate nohighlight">\(y\)</span> varies Normally with a mean given by the population regression equation. The regression model assumes that the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> of the responses is the same in all subpopulations.</p>
 <section id="the-model-and-estimation">
-<h2><span class="section-number">13.1. </span>The model and estimation<a class="headerlink" href="#the-model-and-estimation" title="Link to this heading">#</a></h2>
+<span id="ch13-model"></span><h2><span class="section-number">13.1. </span>The model and estimation<a class="headerlink" href="#the-model-and-estimation" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>With one predictor, the slope had a clean reading: “one more shoe size, about <span class="math notranslate nohighlight">\(b_1\)</span> more inches of height.” With three predictors in the model at once, <strong>what does <span class="math notranslate nohighlight">\(b_1\)</span> even mean now?</strong> The crucial phrase — the one that appears in every correct interpretation in this chapter — is <strong>holding the others fixed</strong>. Watch for it in the model, in the coefficient interpretations, and again in the <span class="math notranslate nohighlight">\(t\)</span> tests.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
@@ -634,9 +659,112 @@ s = \sqrt{s^2}.\]</div>
 </div>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: the height study grows a second predictor</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Ten students report their shoe size (<span class="math notranslate nohighlight">\(x_1\)</span>), their mother’s height (<span class="math notranslate nohighlight">\(x_2\)</span>, inches), and their own height (<span class="math notranslate nohighlight">\(y\)</span>, inches):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Student</p></th>
+<th class="head"><p class="sd-card-text">Shoe size <span class="math notranslate nohighlight">\(x_1\)</span></p></th>
+<th class="head"><p class="sd-card-text">Mother’s height <span class="math notranslate nohighlight">\(x_2\)</span></p></th>
+<th class="head"><p class="sd-card-text">Height <span class="math notranslate nohighlight">\(y\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">1</p></td>
+<td><p class="sd-card-text">7</p></td>
+<td><p class="sd-card-text">61</p></td>
+<td><p class="sd-card-text">63</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">2</p></td>
+<td><p class="sd-card-text">7.5</p></td>
+<td><p class="sd-card-text">63</p></td>
+<td><p class="sd-card-text">66</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">3</p></td>
+<td><p class="sd-card-text">8</p></td>
+<td><p class="sd-card-text">62</p></td>
+<td><p class="sd-card-text">66</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">4</p></td>
+<td><p class="sd-card-text">8.5</p></td>
+<td><p class="sd-card-text">64</p></td>
+<td><p class="sd-card-text">68</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">5</p></td>
+<td><p class="sd-card-text">9</p></td>
+<td><p class="sd-card-text">63</p></td>
+<td><p class="sd-card-text">66</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">6</p></td>
+<td><p class="sd-card-text">9.5</p></td>
+<td><p class="sd-card-text">66</p></td>
+<td><p class="sd-card-text">70</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">7</p></td>
+<td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">64</p></td>
+<td><p class="sd-card-text">69</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">8</p></td>
+<td><p class="sd-card-text">11</p></td>
+<td><p class="sd-card-text">66</p></td>
+<td><p class="sd-card-text">70</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">9</p></td>
+<td><p class="sd-card-text">12</p></td>
+<td><p class="sd-card-text">67</p></td>
+<td><p class="sd-card-text">73</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">10</p></td>
+<td><p class="sd-card-text">13</p></td>
+<td><p class="sd-card-text">68</p></td>
+<td><p class="sd-card-text">74</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text"><strong>Fit 1 — simple regression</strong> (Chapter 10 style), height on shoe size alone:</p>
+<div class="math notranslate nohighlight">
+\[\hat{y} = 52.75 + 1.65\,x_1, \qquad r^2 = 0.903 .\]</div>
+<p class="sd-card-text">The slope is strongly significant (<span class="math notranslate nohighlight">\(P &lt; 0.0001\)</span>): each extra shoe size predicts about 1.65 more inches of height.</p>
+<p class="sd-card-text"><strong>Fit 2 — multiple regression</strong>, adding mother’s height:</p>
+<div class="math notranslate nohighlight">
+\[\hat{y} = -2.85 + 0.55\,x_1 + 1.03\,x_2, \qquad R^2 = 0.967 .\]</div>
+<p class="sd-card-text">Look at what happened to the shoe-size coefficient: it collapsed from <strong>1.65</strong> to <strong>0.55</strong>. Nothing about the students changed — only the model did.</p>
+<p class="sd-card-text"><strong>Why?</strong> In these data, shoe size and mother’s height are highly correlated (<span class="math notranslate nohighlight">\(r = 0.93\)</span>): students with bigger feet tend to have taller mothers. In Fit 1, mother’s height was an <em>omitted variable</em>, so shoe size collected the credit for its own effect <strong>plus</strong> much of the mother’s-height effect that traveled along with it — the omitted-variable bias promised in the chapter bridge, now visible in the numbers. Once mother’s height enters the model, each coefficient describes only its <em>own</em> per-unit contribution, <strong>holding the other predictor fixed</strong>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: reading the fitted coefficients — “holding the others fixed”</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Using the fitted equation <span class="math notranslate nohighlight">\(\hat{y} = -2.85 + 0.55\,x_1 + 1.03\,x_2\)</span>:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(b_1 = 0.55\)</span>: comparing two students <strong>whose mothers are the same height</strong>, the one whose shoe size is one size larger is predicted to be about 0.55 inches taller. (Check: shoe 10 and mom 65 gives <span class="math notranslate nohighlight">\(\hat{y} \approx 69.36\)</span>; shoe 11 and mom 65 gives <span class="math notranslate nohighlight">\(\hat{y} \approx 69.90\)</span> — a rise of 0.55.)</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(b_2 = 1.03\)</span>: comparing two students <strong>with the same shoe size</strong>, each extra inch of mother’s height predicts about 1.03 more inches of student height. (Shoe 10, mom 66: <span class="math notranslate nohighlight">\(\hat{y} \approx 70.39\)</span>.)</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(b_0 = -2.85\)</span>: the predicted height when shoe size = 0 and mother’s height = 0 inches — a meaningless extrapolation far outside the data, kept only to anchor the plane. Do not interpret it.</p></li>
+</ul>
+<p class="sd-card-text">The phrase <em>holding the others fixed</em> is not decoration — drop it and the interpretation is simply wrong, because in the raw data shoe size and mother’s height move together.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “A coefficient means the same thing in multiple regression as in simple regression — <span class="math notranslate nohighlight">\(b_1\)</span> is just ‘the effect of <span class="math notranslate nohighlight">\(x_1\)</span> on <span class="math notranslate nohighlight">\(y\)</span>.’”</p>
+<p><strong>In fact:</strong> in multiple regression, <span class="math notranslate nohighlight">\(b_1\)</span> is a per-unit effect <strong>holding all the other predictors in the model fixed</strong> — and its value depends on <em>which</em> other predictors those are. The example above just showed it: shoe size’s coefficient was 1.65 alone, but 0.55 once mother’s height entered. Neither number is “wrong”; they answer different questions.</p>
+<p><strong>Quick check:</strong> if we added <em>father’s</em> height as a third predictor, should we expect the shoe-size coefficient to stay at 0.55? (No — any new predictor correlated with shoe size can shift it again. A coefficient is only defined relative to its model.)</p>
+</div>
 </section>
 <section id="confidence-intervals-significant-tests-and-anova">
-<h2><span class="section-number">13.2. </span>Confidence intervals, significant tests and ANOVA<a class="headerlink" href="#confidence-intervals-significant-tests-and-anova" title="Link to this heading">#</a></h2>
+<span id="ch13-inference"></span><h2><span class="section-number">13.2. </span>Confidence intervals, significant tests and ANOVA<a class="headerlink" href="#confidence-intervals-significant-tests-and-anova" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>We now have <span class="math notranslate nohighlight">\(p\)</span> coefficients, so it is tempting to run <span class="math notranslate nohighlight">\(p\)</span> individual <span class="math notranslate nohighlight">\(t\)</span> tests and simply see which predictors “win.” But didn’t we learn in the ANOVA chapter what’s wrong with running many tests at once — each test brings its own chance of a false alarm? The overall <strong><span class="math notranslate nohighlight">\(F\)</span> test</strong> asks one question first: <em>does this set of predictors, as a group, explain anything at all?</em> Only after that gate do the individual <span class="math notranslate nohighlight">\(t\)</span> tests — each one answering “does this predictor add value, <strong>given</strong> the others?” — earn their turn.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-4">
@@ -745,8 +873,10 @@ H_a\!: \text{at least one } \beta_j \ne 0.\]</div>
 <p>and the <span class="math notranslate nohighlight">\(P\)</span>-value is <span class="math notranslate nohighlight">\(P\bigl(F(p,\,n - p - 1)\,\ge\,F_{\text{obs}}\bigr)\)</span>.</p>
 <p><strong>Common Misinterpretation of the <span class="math notranslate nohighlight">\(F\)</span> Test</strong></p>
 <div class="warning admonition">
-<p class="admonition-title">Warning</p>
-<p>A common error in multiple regression is to assume that <strong>all</strong> coefficients are nonzero whenever <span class="math notranslate nohighlight">\(F\)</span> has a small <span class="math notranslate nohighlight">\(P\)</span>-value.</p>
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The overall <span class="math notranslate nohighlight">\(F\)</span> test came back significant, so every predictor in the model matters.”</p>
+<p><strong>In fact:</strong> a common error in multiple regression is to assume that <strong>all</strong> coefficients are nonzero whenever <span class="math notranslate nohighlight">\(F\)</span> has a small <span class="math notranslate nohighlight">\(P\)</span>-value. A significant <span class="math notranslate nohighlight">\(F\)</span> only says that <em>at least one</em> <span class="math notranslate nohighlight">\(\beta_j\)</span> is nonzero.</p>
+<p><strong>Quick check:</strong> in the two-predictor height example, <span class="math notranslate nohighlight">\(F = 103.0\)</span> with <span class="math notranslate nohighlight">\(P &lt; 0.0001\)</span> — yet the individual <span class="math notranslate nohighlight">\(t\)</span> test for shoe size gives <span class="math notranslate nohighlight">\(P = 0.13\)</span>. Which predictors matter is a question for the individual <span class="math notranslate nohighlight">\(t\)</span> tests (each one <em>given</em> the others), not for <span class="math notranslate nohighlight">\(F\)</span>.</p>
 </div>
 <p>The <span class="math notranslate nohighlight">\(F\)</span> test provides an <strong>overall</strong> assessment of the regression model in explaining <span class="math notranslate nohighlight">\(y\)</span>, while the <strong>individual <span class="math notranslate nohighlight">\(t\)</span> tests</strong> look at each variable’s importance <strong>given</strong> the others. Especially with correlated explanatory variables, a small <span class="math notranslate nohighlight">\(P\)</span>-value for <span class="math notranslate nohighlight">\(F\)</span> does not guarantee each <span class="math notranslate nohighlight">\(\beta_j\)</span> is statistically significant.</p>
 </div>
@@ -774,6 +904,53 @@ Tests</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </section>
+<section id="putting-it-all-together-which-procedure-and-in-what-order">
+<span id="ch13-together"></span><h2><span class="section-number">13.3. </span>Putting It All Together: Which Procedure, and in What Order?<a class="headerlink" href="#putting-it-all-together-which-procedure-and-in-what-order" title="Link to this heading">#</a></h2>
+<p><strong>Part 1 — identify the procedure.</strong> When a problem hands you a quantitative response variable, ask two questions about the explanatory side: <em>how many</em> explanatory variables, and are they <em>quantitative or categorical</em>?</p>
+<ul class="simple">
+<li><p><strong>One quantitative predictor</strong> → <strong>simple linear regression</strong> (Chapter 10): one slope, one <span class="math notranslate nohighlight">\(t\)</span> test.</p></li>
+<li><p><strong>Two or more quantitative predictors</strong> → <strong>multiple regression</strong> (this chapter): several slopes, an overall <span class="math notranslate nohighlight">\(F\)</span> test, then individual <span class="math notranslate nohighlight">\(t\)</span> tests.</p></li>
+<li><p><strong>One categorical predictor</strong> (group membership) → <strong>ANOVA</strong>: compare group means with an <span class="math notranslate nohighlight">\(F\)</span> test.</p></li>
+<li><p>(<strong>Both variables categorical?</strong> Then there are no means to compare at all — that is the next chapter’s territory: two-way tables.)</p></li>
+</ul>
+<p>Three quick drills:</p>
+<ol class="arabic simple">
+<li><p>Predict exam score from hours studied. (<em>One quantitative predictor → simple regression.</em>)</p></li>
+<li><p>Predict exam score from hours studied, hours slept, and prior GPA. (<em>Three quantitative predictors → multiple regression.</em>)</p></li>
+<li><p>Compare mean exam scores across three lecture sections. (<em>One categorical predictor with three levels → ANOVA.</em>)</p></li>
+</ol>
+<p><strong>Part 2 — the two-predictor height model, start to finish.</strong> Here is the full analysis of the model <span class="math notranslate nohighlight">\(\text{height} = \beta_0 + \beta_1\,\text{shoe} + \beta_2\,\text{mom} + \epsilon\)</span> with <span class="math notranslate nohighlight">\(n = 10\)</span> and <span class="math notranslate nohighlight">\(p = 2\)</span>, in the order a statistician reads the output.</p>
+<p><strong>Step 1 — the overall <span class="math notranslate nohighlight">\(F\)</span> test first.</strong> From the ANOVA table: <span class="math notranslate nohighlight">\(\text{SSM} = 101.07\)</span> with <span class="math notranslate nohighlight">\(\text{DFM} = p = 2\)</span>, <span class="math notranslate nohighlight">\(\text{SSE} = 3.43\)</span> with <span class="math notranslate nohighlight">\(\text{DFE} = n - p - 1 = 7\)</span>, <span class="math notranslate nohighlight">\(\text{SST} = 104.50\)</span> with <span class="math notranslate nohighlight">\(\text{DFT} = 9\)</span>. So <span class="math notranslate nohighlight">\(\text{MSM} = 50.53\)</span>, <span class="math notranslate nohighlight">\(\text{MSE} = 0.49\)</span>, and</p>
+<div class="math notranslate nohighlight">
+\[F = \frac{\text{MSM}}{\text{MSE}} = \frac{50.53}{0.49} = 103.0 ,\]</div>
+<p>compared with the <span class="math notranslate nohighlight">\(F(2, 7)\)</span> distribution (<span class="math notranslate nohighlight">\(P &lt; 0.0001\)</span>; the 0.05 critical value is 4.74). We reject <span class="math notranslate nohighlight">\(H_0\!: \beta_1 = \beta_2 = 0\)</span>: the two predictors, as a group, explain height. The gate is open.</p>
+<p><strong>Step 2 — individual <span class="math notranslate nohighlight">\(t\)</span> tests, each “given the other.”</strong> With <span class="math notranslate nohighlight">\(\text{df} = 7\)</span> (so <span class="math notranslate nohighlight">\(t^* = 2.365\)</span> for 95% confidence):</p>
+<ul class="simple">
+<li><p>Mother’s height: <span class="math notranslate nohighlight">\(b_2 = 1.03\)</span>, <span class="math notranslate nohighlight">\(\text{SE}_{b_2} = 0.28\)</span>, <span class="math notranslate nohighlight">\(t = 3.69\)</span>, <span class="math notranslate nohighlight">\(P = 0.008\)</span> — significant <em>given shoe size</em>. A 95% confidence interval is <span class="math notranslate nohighlight">\(1.03 \pm 2.365 \times 0.28\)</span>, i.e., about <span class="math notranslate nohighlight">\((0.37,\ 1.69)\)</span>.</p></li>
+<li><p>Shoe size: <span class="math notranslate nohighlight">\(b_1 = 0.55\)</span>, <span class="math notranslate nohighlight">\(\text{SE}_{b_1} = 0.32\)</span>, <span class="math notranslate nohighlight">\(t = 1.70\)</span>, <span class="math notranslate nohighlight">\(P = 0.13\)</span> — <strong>not</strong> significant <em>given mother’s height</em>. Its 95% interval, about <span class="math notranslate nohighlight">\((-0.22,\ 1.31)\)</span>, contains 0.</p></li>
+</ul>
+<p>Note carefully what Step 2 does <strong>not</strong> say: shoe size is not “unrelated to height” — the simple regression showed a strong relationship (<span class="math notranslate nohighlight">\(P &lt; 0.0001\)</span>). It says shoe size adds little <em>once mother’s height is already in the model</em>, exactly the pattern the correlated-predictors warning anticipated.</p>
+<p><strong>Step 3 — how much is explained.</strong> <span class="math notranslate nohighlight">\(R^2 = \text{SSM}/\text{SST} = 101.07/104.50 = 0.967\)</span>: the two predictors together explain about 96.7% of the variation in these students’ heights. The regression standard error is <span class="math notranslate nohighlight">\(s = \sqrt{\text{MSE}} = 0.70\)</span> inches — the typical size of a prediction miss.</p>
+<p>The order matters: <span class="math notranslate nohighlight">\(F\)</span> first (<em>is there anything here?</em>), then the <span class="math notranslate nohighlight">\(t\)</span>’s (<em>which predictors, given the others?</em>), then <span class="math notranslate nohighlight">\(R^2\)</span> and <span class="math notranslate nohighlight">\(s\)</span> (<em>how much, and how precisely?</em>).</p>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">13.4. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. In the multiple model, shoe size’s <span class="math notranslate nohighlight">\(t\)</span> test gives <span class="math notranslate nohighlight">\(P = 0.13\)</span>. A student concludes “shoe size is unrelated to height.” What is wrong?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The <span class="math notranslate nohighlight">\(t\)</span> test in multiple regression is conditional: it asks whether shoe size adds predictive value <strong>given that mother’s height is already in the model</strong>. In the simple regression, shoe size was strongly related to height (<span class="math notranslate nohighlight">\(P &lt; 0.0001\)</span>). Because the two predictors are highly correlated (<span class="math notranslate nohighlight">\(r = 0.93\)</span>), mother’s height already carries most of the information shoe size would contribute. “Not significant given the others” is not “unrelated.”</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. A model uses <span class="math notranslate nohighlight">\(p = 4\)</span> predictors with <span class="math notranslate nohighlight">\(n = 30\)</span> cases. What are the degrees of freedom for the individual <span class="math notranslate nohighlight">\(t\)</span> tests and for the overall <span class="math notranslate nohighlight">\(F\)</span> test?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The error degrees of freedom are <span class="math notranslate nohighlight">\(n - p - 1 = 30 - 4 - 1 = 25\)</span>. Each <span class="math notranslate nohighlight">\(t\)</span> test uses the <span class="math notranslate nohighlight">\(t(25)\)</span> distribution; the overall <span class="math notranslate nohighlight">\(F\)</span> test uses the <span class="math notranslate nohighlight">\(F(4,\ 25)\)</span> distribution (<span class="math notranslate nohighlight">\(\text{DFM} = p = 4\)</span>, <span class="math notranslate nohighlight">\(\text{DFE} = 25\)</span>).</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. A friend argues: “<span class="math notranslate nohighlight">\(R^2\)</span> rose from 0.903 to 0.967 when we added mother’s height, and <span class="math notranslate nohighlight">\(R^2\)</span> always rises when you add a variable — so the increase proves nothing.” Is the increase meaningful here?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The friend’s premise is right: <span class="math notranslate nohighlight">\(R^2\)</span> never decreases when a predictor is added, even a useless one, so an increase <em>by itself</em> proves nothing. That is exactly why we do not judge a new predictor by <span class="math notranslate nohighlight">\(R^2\)</span> alone — we test it. Here the <span class="math notranslate nohighlight">\(t\)</span> test for mother’s height (given shoe size) gives <span class="math notranslate nohighlight">\(t = 3.69\)</span>, <span class="math notranslate nohighlight">\(P = 0.008\)</span>: the improvement is real, not an automatic bookkeeping gain.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -844,6 +1021,8 @@ Tests</label><div class="sd-tab-content docutils">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model-and-estimation">13.1. The model and estimation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals-significant-tests-and-anova">13.2. Confidence intervals, significant tests and ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-which-procedure-and-in-what-order">13.3. Putting It All Together: Which Procedure, and in What Order?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">13.4. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

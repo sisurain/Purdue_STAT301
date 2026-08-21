@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-one-way-anova">8.1. Inference for One-way ANOVA</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-materials-from-the-textbook">8.2. Additional Materials from the Textbook</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supplementary-analyses-following-one-way-anova">8.3. Supplementary Analyses Following One-Way ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-do-heights-differ-across-colleges">8.4. Putting It All Together: Do Heights Differ Across Colleges?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">8.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -494,9 +496,29 @@
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 12</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Explain why running <strong>many two-sample t tests</strong> inflates the chance of a false positive (the <strong>familywise error rate</strong>), and compute that rate for a given number of tests.</p></li>
+<li><p>State the one-way ANOVA <strong>model, hypotheses, and assumptions</strong>, and check the <strong>2:1 rule</strong> for standard deviations.</p></li>
+<li><p>Decompose total variation into <strong>between-group</strong> (<span class="math notranslate nohighlight">\(SSG\)</span>) and <strong>within-group</strong> (<span class="math notranslate nohighlight">\(SSE\)</span>) pieces, and build the <strong>ANOVA table</strong> (df, SS, MS).</p></li>
+<li><p>Compute and interpret the <strong>F statistic</strong> and its P-value, plus <span class="math notranslate nohighlight">\(R^2\)</span> and the pooled estimate <span class="math notranslate nohighlight">\(s_p\)</span>.</p></li>
+<li><p>Read software ANOVA output (e.g., JMP) and state a conclusion <strong>in context</strong>.</p></li>
+<li><p>Explain why a significant F test must be followed by <strong>adjusted multiple comparisons</strong> (or planned <strong>contrasts</strong>), not unadjusted pairwise t tests.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch8-fwer"><span class="std std-ref">Why not many two-sample tests?</span></a> · <a class="reference internal" href="#ch8-anova"><span class="std std-ref">The ANOVA idea and the F test</span></a> · <a class="reference internal" href="#ch8-textbook"><span class="std std-ref">Reading figures and ANOVA output</span></a> · <a class="reference internal" href="#ch8-followup"><span class="std std-ref">Which means differ? Follow-up analyses</span></a> · <a class="reference internal" href="#ch8-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>Chapter 7 gave us a complete toolkit for comparing the means of <strong>two</strong> populations. Now a nutrition researcher hands you <strong>three</strong> diets — A, B, and C — and asks the natural question: <em>do the diets differ in average weight loss?</em> Your first instinct is probably to reuse the tool you have: test A vs. B, then A vs. C, then B vs. C. Three familiar two-sample tests — what could go wrong? <strong>Quite a lot, it turns out:</strong> even if the diets are truly identical, running three tests at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> pushes the chance of at least one false positive to about <strong>14.3%</strong> (the example below does the arithmetic, and with 10 diets it climbs to about 90%). This chapter builds the fix: <strong>one single test</strong> — the ANOVA F test — that asks “are the means all equal?” while keeping the error rate at 5%.</p>
+</div>
 <p>In the previous chapter (Chapter 7), we learned the statistical procedure for comparing the means of two populations. Naturally, the next step is to consider what to do when there are more than two populations. For example, suppose we have three diets—Diet A, Diet B, and Diet C—administered to three independent groups drawn from different populations. The study then measures a response variable to determine whether at least one group mean differs <strong>statistically significantly</strong> from the others.</p>
 <p>One approach is to use the two-sample procedure and perform multiple pairwise tests between the groups. In the case of three groups, this involves testing the following pairs: (Diet A, Diet B), (Diet B, Diet C), and (Diet A, Diet C). However, from our understanding of probability, each test carries a risk of a Type I error, and these errors can compound when multiple tests are conducted.</p>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="ch8-fwer" open="open">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Example: The Risk of Multiple Two-Sample Tests</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Consider a scenario where a researcher wants to compare the effectiveness of three different diets on weight loss. The three groups are:</p>
@@ -569,9 +591,23 @@
 <li><p>The alternative hypothesis is <span class="math notranslate nohighlight">\(H_a\)</span>: not all of the <span class="math notranslate nohighlight">\(\mu_i\)</span> are equal (i.e., at least two of the means differ).</p></li>
 <li><p>The <strong>F-statistic</strong> is then compared against a critical value from the F-distribution (taking into account the degrees of freedom) to decide whether to reject the null hypothesis.</p></li>
 </ol>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The F test came out significant, so all of the group means are different from each other.”</p>
+<p><strong>In fact:</strong> rejecting <span class="math notranslate nohighlight">\(H_0: \mu_1 = \mu_2 = \dots = \mu_I\)</span> only supports <span class="math notranslate nohighlight">\(H_a\)</span>: <strong>not all</strong> of the means are equal — i.e., <em>at least two</em> differ. It is entirely possible (and common) that one group stands apart while the others are indistinguishable.</p>
+<p><strong>Quick check:</strong> with three diets, suppose <span class="math notranslate nohighlight">\(\mu_A = \mu_B\)</span> exactly but <span class="math notranslate nohighlight">\(\mu_C\)</span> is much larger. Is <span class="math notranslate nohighlight">\(H_0\)</span> false? (Yes — so a significant F is expected. Do all three means differ? No — only the pairs involving C.) Which pairs differ is a <em>separate</em> question, answered by the follow-up procedures at the end of this chapter.</p>
+</div>
 <section id="inference-for-one-way-anova">
-<h2><span class="section-number">8.1. </span>Inference for One-way ANOVA<a class="headerlink" href="#inference-for-one-way-anova" title="Link to this heading">#</a></h2>
+<span id="ch8-anova"></span><h2><span class="section-number">8.1. </span>Inference for One-way ANOVA<a class="headerlink" href="#inference-for-one-way-anova" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>Suppose the three diet groups really do have different population means. <strong>Where in the data would that evidence live?</strong> Each group’s sample mean would drift toward its own <span class="math notranslate nohighlight">\(\mu_i\)</span>, so the group means would spread apart — but sample means <em>always</em> differ somewhat, just by sampling variability. The trick is to compare two spreads: the spread <strong>between</strong> the group means against the spread <strong>within</strong> each group (the natural person-to-person noise). If the between-spread is large <em>relative to</em> the within-spread, chance alone is a poor explanation. Making that comparison precise is exactly what “analysis of variance” means.</p>
+</div>
 <p>To concretely see how we decompose the variation of the data points in our group that leads to the variation in the sample mean (or group mean), it is best to start with a statistical model and make some assumptions. For example, consider the one-way ANOVA model:</p>
+<div class="bridge admonition">
+<p class="admonition-title">Bridge: from two spreads to one number</p>
+<p>A hypothesis test needs a <strong>single</strong> test statistic with a known distribution under <span class="math notranslate nohighlight">\(H_0\)</span> — we cannot hand the F table two separate spreads. So the plan of the three tabs below is: (1) write down the <strong>model</strong> that defines “between” (the <span class="math notranslate nohighlight">\(\mu_i\)</span>’s) and “within” (the <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>’s); (2) <strong>decompose</strong> the total variation into a between-group piece and a within-group piece; (3) turn their <strong>ratio</strong> into one number, the <strong>F statistic</strong>, whose value near 1 means “nothing but noise” and whose large values signal real differences among the means.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
@@ -682,9 +718,113 @@ F = \frac{\text{Mean Square Between Groups (MSB)}}{\text{Mean Square Within Grou
 </ul>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: three dice and the logic of F</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Three dice are claimed to be identical fair dice. You suspect one is <strong>loaded toward 6</strong>. Roll each die 6 times:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Die A:</strong> 6, 5, 6, 4, 6, 3 — group mean <span class="math notranslate nohighlight">\(\bar{x}_A = 5.0\)</span></p></li>
+<li><p class="sd-card-text"><strong>Die B:</strong> 2, 4, 3, 5, 1, 6 — group mean <span class="math notranslate nohighlight">\(\bar{x}_B = 3.5\)</span></p></li>
+<li><p class="sd-card-text"><strong>Die C:</strong> 3, 2, 5, 4, 1, 6 — group mean <span class="math notranslate nohighlight">\(\bar{x}_C = 3.5\)</span></p></li>
+</ul>
+<p class="sd-card-text">Die A’s mean has drifted up, just as a loaded die’s would — its rolls pile toward 6, pulling <span class="math notranslate nohighlight">\(\bar{x}_A\)</span> above the fair-die center of 3.5, which inflates the <strong>between-group</strong> spread (<span class="math notranslate nohighlight">\(SSG\)</span>). But before crying “loaded!”, look at the <strong>within-group</strong> spread: a die is intrinsically noisy (a fair die’s standard deviation is <span class="math notranslate nohighlight">\(\sqrt{35/12} \approx 1.71\)</span> per roll), so even a fair die’s 6-roll mean bounces around a lot. Running the ANOVA on these 18 rolls gives</p>
+<div class="math notranslate nohighlight">
+\[
+F = 1.57, \qquad \text{df} = (2, 15), \qquad P\text{-value} \approx 0.24.
+\]</div>
+<p class="sd-card-text"><strong>Not significant</strong> — the drift in Die A’s mean is not large <em>relative to</em> the within-die noise, so chance is still a plausible explanation. This is the whole logic of F in one example: the between-group signal must be judged against the within-group noise.</p>
+<p class="sd-card-text">And here is the flip side: because <span class="math notranslate nohighlight">\(SSG = \sum_i n_i(\bar{x}_i - \bar{x}_{\cdot\cdot})^2\)</span> grows with the sample sizes <span class="math notranslate nohighlight">\(n_i\)</span> while <span class="math notranslate nohighlight">\(MSE\)</span> keeps estimating the same per-roll variance, <strong>more data sharpens the comparison</strong>. If each die showed the same means and spreads after 24 rolls instead of 6, the F statistic would rise to about <span class="math notranslate nohighlight">\(7.2\)</span> with a P-value of about <span class="math notranslate nohighlight">\(0.0014\)</span> — the same drift, now unmistakable. (Both analyses verified by software.)</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: do average heights differ across three Purdue colleges?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let’s run one complete ANOVA by hand on our favorite variable. Take independent random samples of 5 students from each of three colleges and record heights (inches):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">College</p></th>
+<th class="head"><p class="sd-card-text">Heights</p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(\bar{x}_i\)</span></p></th>
+<th class="head"><p class="sd-card-text"><span class="math notranslate nohighlight">\(s_i\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Engineering</p></td>
+<td><p class="sd-card-text">71, 69, 72, 70, 73</p></td>
+<td><p class="sd-card-text">71.0</p></td>
+<td><p class="sd-card-text">1.58</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Liberal Arts</p></td>
+<td><p class="sd-card-text">66, 68, 67, 69, 65</p></td>
+<td><p class="sd-card-text">67.0</p></td>
+<td><p class="sd-card-text">1.58</p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">Agriculture</p></td>
+<td><p class="sd-card-text">68, 70, 69, 71, 67</p></td>
+<td><p class="sd-card-text">69.0</p></td>
+<td><p class="sd-card-text">1.58</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sd-card-text">Here <span class="math notranslate nohighlight">\(I = 3\)</span>, <span class="math notranslate nohighlight">\(n_1 = n_2 = n_3 = 5\)</span>, <span class="math notranslate nohighlight">\(N = 15\)</span>, and the grand mean is <span class="math notranslate nohighlight">\(\bar{x}_{\cdot\cdot} = 69.0\)</span>. The hypotheses: <span class="math notranslate nohighlight">\(H_0: \mu_1 = \mu_2 = \mu_3\)</span> versus <span class="math notranslate nohighlight">\(H_a\)</span>: not all <span class="math notranslate nohighlight">\(\mu_i\)</span> are equal.</p>
+<p class="sd-card-text"><strong>Between-group sum of squares</strong> — how far the college means sit from the grand mean:</p>
+<div class="math notranslate nohighlight">
+\[
+SSG = 5(71-69)^2 + 5(67-69)^2 + 5(69-69)^2 = 20 + 20 + 0 = 40.
+\]</div>
+<p class="sd-card-text"><strong>Within-group sum of squares</strong> — add up each observation’s squared deviation from <em>its own</em> college mean (each column contributes 10):</p>
+<div class="math notranslate nohighlight">
+\[
+SSE = 10 + 10 + 10 = 30, \qquad SST = SSG + SSE = 70.
+\]</div>
+<p class="sd-card-text"><strong>Mean squares and F</strong> — divide by the degrees of freedom, <span class="math notranslate nohighlight">\(DFG = I - 1 = 2\)</span> and <span class="math notranslate nohighlight">\(DFE = N - I = 12\)</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p class="sd-card-text">Source</p></th>
+<th class="head"><p class="sd-card-text">df</p></th>
+<th class="head"><p class="sd-card-text">SS</p></th>
+<th class="head"><p class="sd-card-text">MS</p></th>
+<th class="head"><p class="sd-card-text">F</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="sd-card-text">Groups</p></td>
+<td><p class="sd-card-text">2</p></td>
+<td><p class="sd-card-text">40</p></td>
+<td><p class="sd-card-text">20.0</p></td>
+<td><p class="sd-card-text">8.0</p></td>
+</tr>
+<tr class="row-odd"><td><p class="sd-card-text">Error</p></td>
+<td><p class="sd-card-text">12</p></td>
+<td><p class="sd-card-text">30</p></td>
+<td><p class="sd-card-text">2.5</p></td>
+<td><p class="sd-card-text"></p></td>
+</tr>
+<tr class="row-even"><td><p class="sd-card-text">Total</p></td>
+<td><p class="sd-card-text">14</p></td>
+<td><p class="sd-card-text">70</p></td>
+<td><p class="sd-card-text"></p></td>
+<td><p class="sd-card-text"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[
+F = \frac{MSG}{MSE} = \frac{20.0}{2.5} = 8.0.
+\]</div>
+<p class="sd-card-text">Comparing to the <span class="math notranslate nohighlight">\(F(2, 12)\)</span> distribution, the critical value at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> is about <span class="math notranslate nohighlight">\(3.89\)</span>, and the P-value is <span class="math notranslate nohighlight">\(P(F \geq 8.0) \approx 0.006\)</span> (computed with software). <strong>Reject <span class="math notranslate nohighlight">\(H_0\)</span></strong>: the data give strong evidence that average heights are not all equal across the three colleges.</p>
+<p class="sd-card-text">Two bonus quantities fall out for free: <span class="math notranslate nohighlight">\(s_p = \sqrt{MSE} = \sqrt{2.5} \approx 1.58\)</span> estimates the common <span class="math notranslate nohighlight">\(\sigma\)</span>, and <span class="math notranslate nohighlight">\(R^2 = SSG/SST = 40/70 \approx 0.57\)</span> — about 57% of the total variation in these heights is explained by college membership. We will return to this example (including <em>which</em> colleges differ) in the wrap-up section.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “ANOVA only works when every group has the same sample size.”</p>
+<p><strong>In fact:</strong> nothing in the machinery requires equal <span class="math notranslate nohighlight">\(n_i\)</span> — look back at the formulas: <span class="math notranslate nohighlight">\(SSG = \sum_i n_i(\bar{x}_i - \bar{x}_{\cdot\cdot})^2\)</span> and <span class="math notranslate nohighlight">\(DFE = N - I\)</span> handle unequal group sizes automatically. A <strong>balanced</strong> design (equal <span class="math notranslate nohighlight">\(n_i\)</span>) is <em>nice to have</em> — it maximizes power for a given <span class="math notranslate nohighlight">\(N\)</span> and makes the F test more robust to unequal standard deviations — but it is not a requirement.</p>
+<p><strong>Quick check:</strong> samples of 12, 15, and 9 students from three colleges — can you run one-way ANOVA? (Yes. <span class="math notranslate nohighlight">\(N = 36\)</span>, <span class="math notranslate nohighlight">\(I = 3\)</span>, so <span class="math notranslate nohighlight">\(DFG = 2\)</span> and <span class="math notranslate nohighlight">\(DFE = 33\)</span>; every formula goes through unchanged.)</p>
+</div>
 </section>
 <section id="additional-materials-from-the-textbook">
-<h2><span class="section-number">8.2. </span>Additional Materials from the Textbook<a class="headerlink" href="#additional-materials-from-the-textbook" title="Link to this heading">#</a></h2>
+<span id="ch8-textbook"></span><h2><span class="section-number">8.2. </span>Additional Materials from the Textbook<a class="headerlink" href="#additional-materials-from-the-textbook" title="Link to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
@@ -694,7 +834,17 @@ Observed Difference in Sample Mean</label><div class="sd-tab-content docutils">
 <a class="reference internal image-reference" href="_images/0801.png"><img alt="Line plot of mean completion time in seconds for three controller types; type 2 is lowest near 243 while types 1 and 3 are near 278 and 259" src="_images/0801.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (three means, one question)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This plot shows only the <strong>three group means</strong> — average task-completion time for each game-controller type. Read it in three steps:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>The axes:</strong> the horizontal axis is the <em>categorical</em> explanatory variable (controller type 1, 2, 3); the vertical axis is the mean of the <em>quantitative</em> response (time in seconds). This variable structure — one categorical group variable, one quantitative response — is precisely the setting where one-way ANOVA applies.</p></li>
+<li><p class="sd-card-text"><strong>The pattern:</strong> type 1 averages about 278 seconds, type 2 about 243, and type 3 about 259. Type 2 looks fastest — a spread of roughly 35 seconds between the best and worst means. The connecting line segments are just a visual aid; there is no “in-between” controller type.</p></li>
+<li><p class="sd-card-text"><strong>What the plot hides:</strong> everything about the <strong>within-group</strong> spread. Are individual times tightly clustered around each mean, or scattered over hundreds of seconds? Without that, you cannot judge whether a 35-second gap in means is impressive or routine. That is the exact question printed above the figure — <em>is the observed difference just chance variation?</em> — and it is why the next tab pairs the same centers with boxplots showing the spread.</p></li>
+</ul>
 </div>
+</details></div>
 <input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-4">
 Large and Small Within-Group Variation</label><div class="sd-tab-content docutils">
@@ -702,7 +852,17 @@ Large and Small Within-Group Variation</label><div class="sd-tab-content docutil
 <a class="reference internal image-reference" href="_images/0802.png"><img alt="Side by side boxplots in two panels with the same group centers; large within-group spread in panel a, small spread in panel b makes group differences clearer" src="_images/0802.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure: the between-vs-within intuition in one picture</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This is the single most important picture in the chapter. The two panels are a deliberate trick: <strong>the group centers are identical in (a) and (b)</strong> — the between-group spread is exactly the same. Only the <em>within-group</em> spread differs.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Panel (a) — large within-group variation:</strong> the boxes are tall and overlap heavily. The differences among the medians are small compared to the noise inside each group, so they could easily be chance variation. Here <span class="math notranslate nohighlight">\(MSE\)</span> is large, the denominator of <span class="math notranslate nohighlight">\(F\)</span> swells, and <span class="math notranslate nohighlight">\(F\)</span> stays near 1: no evidence.</p></li>
+<li><p class="sd-card-text"><strong>Panel (b) — small within-group variation:</strong> same centers, but now the boxes are short and barely overlap. Against this quiet background, the same differences among centers stand out clearly. <span class="math notranslate nohighlight">\(MSE\)</span> is small, <span class="math notranslate nohighlight">\(F\)</span> is large: strong evidence.</p></li>
+</ul>
+<p class="sd-card-text">The moral: <strong>a difference in means is never significant or insignificant on its own</strong> — only relative to the within-group noise. This is also the dice example in picture form: die A’s mean of 5.0 looked dramatic, but 6 rolls of a die produce panel-(a)-style noise. When you look at any set of side-by-side boxplots, mentally ask panel (a) or panel (b)? — you will usually anticipate the F test’s verdict before computing anything.</p>
 </div>
+</details></div>
 <input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-5">
 Pooled Estimator of <span class="math notranslate nohighlight">\(\sigma\)</span></label><div class="sd-tab-content docutils">
@@ -741,17 +901,48 @@ JMP ANOVA Output</label><div class="sd-tab-content docutils">
 <a class="reference internal image-reference" href="_images/0806.png"><img alt="JMP one-way ANOVA output for Score by Grp with R square 0.0135, F ratio 3.04 on 2 and 444 degrees of freedom, and P-value 0.0489" src="_images/0806.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure: every number in the JMP output</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Software prints the whole chapter in one box. Here the response is <strong>Score</strong> and the group variable is <strong>Grp</strong>. Start with the <em>Analysis of Variance</em> table at the bottom — it is exactly our <span class="math notranslate nohighlight">\(SST = SSG + SSE\)</span> decomposition — then work up. (Every derived value below can be reproduced from the others; verify a couple yourself.)</p>
+<p class="sd-card-text"><strong>The ANOVA table (bottom):</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>DF column:</strong> Grp has <span class="math notranslate nohighlight">\(2 = I - 1\)</span> degrees of freedom, so there are <span class="math notranslate nohighlight">\(I = 3\)</span> groups. Error has <span class="math notranslate nohighlight">\(444 = N - I\)</span>, and C. Total has <span class="math notranslate nohighlight">\(446 = N - 1\)</span> — so <span class="math notranslate nohighlight">\(N = 447\)</span> observations. Check: <span class="math notranslate nohighlight">\(2 + 444 = 446\)</span>; the df add up, just like the sums of squares.</p></li>
+<li><p class="sd-card-text"><strong>Sum of Squares column:</strong> Grp (between-group) <span class="math notranslate nohighlight">\(SSG = 116.4167\)</span>; Error (within-group) <span class="math notranslate nohighlight">\(SSE = 8505.1314\)</span>; C. Total <span class="math notranslate nohighlight">\(SST = 8621.5481\)</span>. Check: <span class="math notranslate nohighlight">\(116.4167 + 8505.1314 = 8621.5481\)</span> exactly.</p></li>
+<li><p class="sd-card-text"><strong>Mean Square column:</strong> each SS divided by its df. <span class="math notranslate nohighlight">\(MSG = 116.4167/2 = 58.2084\)</span> and <span class="math notranslate nohighlight">\(MSE = 8505.1314/444 = 19.1557\)</span>. (No mean square is printed for the Total row — it is not used.)</p></li>
+<li><p class="sd-card-text"><strong>F Ratio:</strong> <span class="math notranslate nohighlight">\(F = MSG/MSE = 58.2084/19.1557 = 3.0387\)</span>. Bigger than 1, but is it big <em>enough</em>?</p></li>
+<li><p class="sd-card-text"><strong>Prob &gt; F:</strong> the P-value, <span class="math notranslate nohighlight">\(P(F_{2,444} \geq 3.0387) = 0.0489\)</span> — the upper-tail area under the <span class="math notranslate nohighlight">\(F(2, 444)\)</span> curve (the shaded region in the previous tab’s figure). At <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> this squeaks under the line: reject <span class="math notranslate nohighlight">\(H_0\)</span>, with evidence that is significant but hardly overwhelming. JMP flags it with an asterisk.</p></li>
+</ul>
+<p class="sd-card-text"><strong>Summary of Fit (top) — every line comes from the table below it:</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>RSquare</strong> <span class="math notranslate nohighlight">\(= 0.013503 = SSG/SST = 116.4167/8621.5481\)</span>: group membership explains only about <strong>1.4%</strong> of the variation in scores. A useful lesson — a result can be statistically significant (P <span class="math notranslate nohighlight">\(&lt; 0.05\)</span>) while the group effect is tiny in practical terms. Contrast our heights example, where <span class="math notranslate nohighlight">\(R^2 \approx 0.57\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>RSquare Adj</strong> <span class="math notranslate nohighlight">\(= 0.009059\)</span>: <span class="math notranslate nohighlight">\(R^2\)</span> with a small penalty for the number of groups used to earn it (it adjusts each SS by its df); always slightly below RSquare. It is more relevant when comparing models in regression (Chapter 9).</p></li>
+<li><p class="sd-card-text"><strong>Root Mean Square Error</strong> <span class="math notranslate nohighlight">\(= 4.376723 = \sqrt{MSE} = \sqrt{19.1557}\)</span>: this is exactly our pooled standard deviation <span class="math notranslate nohighlight">\(s_p\)</span> — the estimate of the common within-group <span class="math notranslate nohighlight">\(\sigma\)</span>, in the same units as Score.</p></li>
+<li><p class="sd-card-text"><strong>Mean of Response</strong> <span class="math notranslate nohighlight">\(= 18.14541\)</span>: the grand mean <span class="math notranslate nohighlight">\(\bar{x}_{\cdot\cdot}\)</span> of all 447 scores.</p></li>
+<li><p class="sd-card-text"><strong>Observations</strong> <span class="math notranslate nohighlight">\(= 447\)</span>: our <span class="math notranslate nohighlight">\(N\)</span>, matching <span class="math notranslate nohighlight">\(446 + 1\)</span> from the Total df.</p></li>
+</ul>
 </div>
+</details></div>
 </div>
 </section>
 <section id="supplementary-analyses-following-one-way-anova">
-<h2><span class="section-number">8.3. </span>Supplementary Analyses Following One-Way ANOVA<a class="headerlink" href="#supplementary-analyses-following-one-way-anova" title="Link to this heading">#</a></h2>
+<span id="ch8-followup"></span><h2><span class="section-number">8.3. </span>Supplementary Analyses Following One-Way ANOVA<a class="headerlink" href="#supplementary-analyses-following-one-way-anova" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The F test has delivered its verdict: “not all of the means are equal.” Satisfying — and maddeningly vague. <strong>Which ones differ?</strong> Is Diet A better than both B and C, or is C merely worse than the other two? Your instinct is again the obvious one: now that ANOVA gave permission, run all the pairwise t tests at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>. Careful — that is <em>exactly</em> the multiple-testing cliff this chapter opened with, and a significant F does not repeal the arithmetic of the familywise error rate. This section shows how to ask “which pairs?” honestly: pairwise comparisons with <strong>adjusted</strong> critical values, or <strong>planned contrasts</strong> for questions you posed before seeing the data.</p>
+</div>
 <p>Once the overall F-test in a one-way ANOVA indicates that not all group means are equal, further analysis is needed to identify <strong>where</strong> the differences lie. Two common approaches are:</p>
 <ol class="arabic simple">
 <li><p><strong>Multiple Comparisons Procedures</strong></p></li>
 <li><p><strong>Contrasts</strong></p></li>
 </ol>
 <p>Below is an explanation of each method, why they are necessary, and their underlying logic.</p>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “The F test was significant, so I’m now allowed to run all the pairwise two-sample t tests, each at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>.”</p>
+<p><strong>In fact:</strong> that resurrects the very problem ANOVA was built to avoid. With <span class="math notranslate nohighlight">\(I\)</span> groups there are <span class="math notranslate nohighlight">\(\binom{I}{2}\)</span> pairs — 3 pairs for 3 groups, 45 pairs for 10 — and unadjusted tests inflate the familywise error rate just as in the opening example. The overall F test controls the error rate for <em>one</em> question (“are they all equal?”); the moment you ask many pairwise questions, you need procedures that <strong>adjust</strong> for multiplicity — a larger critical value <span class="math notranslate nohighlight">\(t^{**}\)</span> (Bonferroni, Tukey’s HSD, and similar methods), as described in the tab below.</p>
+<p><strong>Quick check:</strong> after a significant F among 5 teaching methods, a student runs all <span class="math notranslate nohighlight">\(\binom{5}{2} = 10\)</span> pairwise t tests at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> and finds exactly one significant pair. Roughly what is the chance of at least one false positive across 10 independent tests if no methods truly differ? (<span class="math notranslate nohighlight">\(1 - 0.95^{10} \approx 40\%\)</span> — that lone “discovery” deserves heavy skepticism.)</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-9">
@@ -857,6 +1048,102 @@ Instead of performing all possible pairwise comparisons, contrasts let you focus
 </div>
 </div>
 </section>
+<section id="putting-it-all-together-do-heights-differ-across-colleges">
+<span id="ch8-together"></span><h2><span class="section-number">8.4. </span>Putting It All Together: Do Heights Differ Across Colleges?<a class="headerlink" href="#putting-it-all-together-do-heights-differ-across-colleges" title="Link to this heading">#</a></h2>
+<p>Let’s run the entire chapter through one problem, exactly the way an exam (or a real dataset) hands it to you.</p>
+<blockquote>
+<div><p><em>A university researcher takes independent random samples of 5 students from each of three colleges — Engineering, Liberal Arts, and Agriculture — and records their heights. Do average heights differ across the colleges?</em> (The data are in the worked example earlier in this chapter.)</p>
+</div></blockquote>
+<p><strong>Step 0 — Why is this an ANOVA problem at all?</strong> Identify the variable structure before reaching for any procedure. The response (height) is <strong>quantitative</strong>; the explanatory variable (college) is <strong>categorical with <span class="math notranslate nohighlight">\(I = 3\)</span> levels</strong>; the groups are <strong>independent</strong> samples. That combination is one-way ANOVA territory. Contrast the near-misses: two colleges would be a Chapter 7 two-sample t problem (ANOVA with <span class="math notranslate nohighlight">\(I = 2\)</span> actually agrees with it); if <em>both</em> variables were categorical (say, college vs. yes/no “over 6 feet”), we would need a chi-square test; if the explanatory variable were quantitative (say, hours of sleep vs. height), that is regression (Chapter 9). And running three separate two-sample t tests at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> is the trap from the opening of the chapter — a familywise error rate of about 14.3%.</p>
+<p><strong>Step 1 — State the hypotheses.</strong></p>
+<div class="math notranslate nohighlight">
+\[
+H_0: \mu_E = \mu_L = \mu_A \qquad \text{vs.} \qquad H_a: \text{not all of the } \mu_i \text{ are equal},
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>. Note carefully what <span class="math notranslate nohighlight">\(H_a\)</span> does <em>not</em> say: it does not claim all three means differ.</p>
+<p><strong>Step 2 — Check the conditions.</strong></p>
+<ul class="simple">
+<li><p><strong>Independence:</strong> three separate random samples, no student in two groups. ✓</p></li>
+<li><p><strong>Similar standard deviations (the 2:1 rule):</strong> <span class="math notranslate nohighlight">\(s_E = s_L = s_A \approx 1.58\)</span>, so the largest is certainly less than twice the smallest. ✓ (Real data will rarely be this tidy — just check <span class="math notranslate nohighlight">\(\max s_i &lt; 2 \min s_i\)</span>.)</p></li>
+<li><p><strong>Normal-ish groups:</strong> with only 5 observations per group we cannot verify Normality convincingly, but the heights show no outliers or skewness, and heights are a textbook example of an approximately Normal measurement. ✓ (with the usual small-sample caution)</p></li>
+</ul>
+<p><strong>Step 3 — Compute the ANOVA table and the F statistic.</strong> From the worked example: <span class="math notranslate nohighlight">\(SSG = 40\)</span>, <span class="math notranslate nohighlight">\(SSE = 30\)</span>, <span class="math notranslate nohighlight">\(SST = 70\)</span>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>df</p></th>
+<th class="head"><p>SS</p></th>
+<th class="head"><p>MS</p></th>
+<th class="head"><p>F</p></th>
+<th class="head"><p>P-value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Groups (college)</p></td>
+<td><p>2</p></td>
+<td><p>40</p></td>
+<td><p>20.0</p></td>
+<td><p>8.0</p></td>
+<td><p><span class="math notranslate nohighlight">\(\approx 0.006\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Error</p></td>
+<td><p>12</p></td>
+<td><p>30</p></td>
+<td><p>2.5</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Total</p></td>
+<td><p>14</p></td>
+<td><p>70</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here <span class="math notranslate nohighlight">\(F = 20.0/2.5 = 8.0\)</span> on <span class="math notranslate nohighlight">\((2, 12)\)</span> degrees of freedom, well beyond the <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> critical value of about <span class="math notranslate nohighlight">\(3.89\)</span>, giving <span class="math notranslate nohighlight">\(P \approx 0.006\)</span> (software-verified). Along the way we also get <span class="math notranslate nohighlight">\(s_p = \sqrt{2.5} \approx 1.58\)</span> and <span class="math notranslate nohighlight">\(R^2 = 40/70 \approx 0.57\)</span>.</p>
+<p><strong>Step 4 — Conclude in context.</strong> Since <span class="math notranslate nohighlight">\(P \approx 0.006 &lt; 0.05\)</span>, reject <span class="math notranslate nohighlight">\(H_0\)</span>: there is strong evidence that the mean heights of students are <strong>not all equal</strong> across the three colleges. College membership explains about 57% of the variation in these heights.</p>
+<p><strong>Step 5 — The honest follow-up: <em>which</em> colleges differ?</strong> The F test alone does not say. Using the pairwise statistic <span class="math notranslate nohighlight">\(t_{ij} = (\bar{x}_i - \bar{x}_j) / \left(s_p \sqrt{\tfrac{1}{n_i} + \tfrac{1}{n_j}}\right)\)</span> with <span class="math notranslate nohighlight">\(s_p \approx 1.58\)</span>, each pairwise standard error is <span class="math notranslate nohighlight">\(1.58\sqrt{2/5} = 1.00\)</span>, so:</p>
+<ul class="simple">
+<li><p>Engineering vs. Liberal Arts: <span class="math notranslate nohighlight">\(t = (71 - 67)/1.00 = 4.0\)</span></p></li>
+<li><p>Engineering vs. Agriculture: <span class="math notranslate nohighlight">\(t = (71 - 69)/1.00 = 2.0\)</span></p></li>
+<li><p>Agriculture vs. Liberal Arts: <span class="math notranslate nohighlight">\(t = (69 - 67)/1.00 = 2.0\)</span></p></li>
+</ul>
+<p>With a Bonferroni adjustment for 3 comparisons at overall <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>, the critical value is <span class="math notranslate nohighlight">\(t^{**} \approx 2.78\)</span> (df <span class="math notranslate nohighlight">\(= 12\)</span>), <em>not</em> the unadjusted <span class="math notranslate nohighlight">\(2.18\)</span>. Only Engineering vs. Liberal Arts clears the adjusted bar (<span class="math notranslate nohighlight">\(t = 4.0\)</span>; adjusted <span class="math notranslate nohighlight">\(P \approx 0.005\)</span>); the other two pairs (<span class="math notranslate nohighlight">\(t = 2.0\)</span>; adjusted <span class="math notranslate nohighlight">\(P \approx 0.21\)</span>) do not. So the defensible summary is: <strong>Engineering students average taller than Liberal Arts students; Agriculture is not reliably distinguishable from either.</strong> Notice how much more modest — and more honest — that is than “all three colleges differ.”</p>
+<p><strong>The procedure-identification checklist</strong> (use it on every problem):</p>
+<ol class="arabic simple">
+<li><p>Response quantitative? Explanatory variable categorical with <span class="math notranslate nohighlight">\(I \geq 3\)</span> independent groups? → one-way ANOVA. (Two groups → two-sample t; two categorical → chi-square; quantitative explanatory → regression.)</p></li>
+<li><p>Conditions: independent samples, 2:1 rule on the <span class="math notranslate nohighlight">\(s_i\)</span>, no wild non-Normality.</p></li>
+<li><p>Build the table: df (<span class="math notranslate nohighlight">\(I-1\)</span>, <span class="math notranslate nohighlight">\(N-I\)</span>, <span class="math notranslate nohighlight">\(N-1\)</span>), SS, MS, <span class="math notranslate nohighlight">\(F = MSG/MSE\)</span>, P-value from <span class="math notranslate nohighlight">\(F(I-1, N-I)\)</span>.</p></li>
+<li><p>Conclude in context — “not all equal,” never “all differ.”</p></li>
+<li><p>If significant, follow up with <strong>adjusted</strong> comparisons (or planned contrasts) to say which means differ.</p></li>
+</ol>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">8.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. A one-way ANOVA on four teaching methods gives a significant F test (<span class="math notranslate nohighlight">\(P = 0.01\)</span>). A student concludes: “all four methods produce different mean scores.” What is right and what is wrong?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Right: rejecting <span class="math notranslate nohighlight">\(H_0\)</span> at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> is justified, so there is good evidence the four means are <strong>not all equal</strong>. Wrong: that is the <em>only</em> conclusion the F test licenses — it does not say all four differ, or even which pair differs. Perhaps one method stands apart while the other three are indistinguishable. To locate the differences, use a multiple comparisons procedure with an adjusted critical value (e.g., Bonferroni or Tukey), <em>not</em> six unadjusted pairwise t tests — the latter re-inflates the familywise error rate the ANOVA was designed to control.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. An experiment compares <span class="math notranslate nohighlight">\(I = 4\)</span> fertilizers with <span class="math notranslate nohighlight">\(N = 24\)</span> plants total and yields <span class="math notranslate nohighlight">\(SSG = 60\)</span> and <span class="math notranslate nohighlight">\(SSE = 100\)</span>. Complete the ANOVA table and carry out the test at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Degrees of freedom: <span class="math notranslate nohighlight">\(DFG = I - 1 = 3\)</span>, <span class="math notranslate nohighlight">\(DFE = N - I = 20\)</span>, <span class="math notranslate nohighlight">\(DFT = 23\)</span>. Mean squares: <span class="math notranslate nohighlight">\(MSG = 60/3 = 20\)</span> and <span class="math notranslate nohighlight">\(MSE = 100/20 = 5\)</span>. So</p>
+<div class="math notranslate nohighlight">
+\[
+F = \frac{20}{5} = 4.0,
+\]</div>
+<p class="sd-card-text">compared against <span class="math notranslate nohighlight">\(F(3, 20)\)</span>, whose <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> critical value is about <span class="math notranslate nohighlight">\(3.10\)</span>; the P-value is about <span class="math notranslate nohighlight">\(0.022\)</span> (software-verified). Since <span class="math notranslate nohighlight">\(4.0 &gt; 3.10\)</span>, reject <span class="math notranslate nohighlight">\(H_0\)</span>: not all fertilizer means are equal. Bonus checks: <span class="math notranslate nohighlight">\(SST = 160\)</span>, <span class="math notranslate nohighlight">\(R^2 = 60/160 = 0.375\)</span>, and <span class="math notranslate nohighlight">\(s_p = \sqrt{5} \approx 2.24\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. Three groups have sample standard deviations <span class="math notranslate nohighlight">\(s_1 = 12\)</span>, <span class="math notranslate nohighlight">\(s_2 = 5\)</span>, and <span class="math notranslate nohighlight">\(s_3 = 7\)</span>. Is the standard one-way ANOVA appropriate here? Why is this condition needed at all?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Apply the 2:1 rule: the largest standard deviation is 12 and the smallest is 5, and <span class="math notranslate nohighlight">\(12 &gt; 2 \times 5 = 10\)</span>, so the equal-standard-deviation assumption is <em>not</em> reasonably met — the standard pooled ANOVA is suspect (options include transforming the data or using procedures that do not pool). The condition matters because ANOVA pools all the within-group variability into one estimate, <span class="math notranslate nohighlight">\(s_p^2 = MSE\)</span>, of a <em>common</em> <span class="math notranslate nohighlight">\(\sigma^2\)</span>. If the true <span class="math notranslate nohighlight">\(\sigma_i\)</span> differ substantially, the spread among sample means mixes “the <span class="math notranslate nohighlight">\(\mu_i\)</span> differ” with “some groups are just measured more noisily,” and the F statistic no longer has its advertised <span class="math notranslate nohighlight">\(F(I-1, N-I)\)</span> distribution under <span class="math notranslate nohighlight">\(H_0\)</span>.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -928,6 +1215,8 @@ Instead of performing all possible pairwise comparisons, contrasts let you focus
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-for-one-way-anova">8.1. Inference for One-way ANOVA</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-materials-from-the-textbook">8.2. Additional Materials from the Textbook</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supplementary-analyses-following-one-way-anova">8.3. Supplementary Analyses Following One-Way ANOVA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-do-heights-differ-across-colleges">8.4. Putting It All Together: Do Heights Differ Across Colleges?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">8.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 

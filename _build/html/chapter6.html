@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43bc0368" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=69d7297e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -477,6 +477,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-with-confidence">6.1. Estimating with Confidence</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-of-significance">6.2. Tests of Significance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-as-a-decision">6.3. Inference as a Decision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-a-complete-test-the-way-you-ll-write-it">6.4. Putting It All Together: A Complete Test, the Way You’ll Write It</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">6.5. Check Your Understanding</a></li>
 </ul>
             </nav>
         </div>
@@ -493,6 +495,25 @@
 <div class="seealso admonition">
 <p class="admonition-title">Textbook reference</p>
 <p>This chapter corresponds to <strong>Chapter 6</strong> of <em>Introduction to the Practice of Statistics</em> (Moore, McCabe &amp; Craig, 10th ed.). Note that the course chapter numbers (shown in the sidebar) follow our teaching order, which differs from the textbook order.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Learning objectives</p>
+<p>After this chapter, you will be able to:</p>
+<ul class="simple">
+<li><p>Construct a level <span class="math notranslate nohighlight">\(C\)</span> <strong>confidence interval</strong> <span class="math notranslate nohighlight">\(\bar{x} \pm z^* \sigma/\sqrt{n}\)</span> for a population mean, and state correctly what the confidence level does — and does not — mean.</p></li>
+<li><p>Explain how the <strong>margin of error</strong> responds to changes in confidence level and sample size, and find the sample size needed for a desired margin of error.</p></li>
+<li><p>Set up the <strong>null and alternative hypotheses</strong> for a significance test, compute the <span class="math notranslate nohighlight">\(z\)</span> <strong>test statistic</strong>, and find one-sided and two-sided <strong>p-values</strong>.</p></li>
+<li><p>Interpret a p-value correctly, avoid the classic misreadings, and state conclusions in context at a given significance level <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+<li><p>Distinguish <strong>Type I</strong> and <strong>Type II errors</strong>, relate <span class="math notranslate nohighlight">\(\alpha\)</span> to Type I error, and describe the idea of <strong>power</strong>.</p></li>
+</ul>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Key concepts at a glance</p>
+<p><a class="reference internal" href="#ch6-ci"><span class="std std-ref">Estimating with confidence</span></a> · <a class="reference internal" href="#ch6-tests"><span class="std std-ref">Tests of significance and p-values</span></a> · <a class="reference internal" href="#ch6-decision"><span class="std std-ref">Inference as a decision, error types</span></a> · <a class="reference internal" href="#ch6-together"><span class="std std-ref">Putting it all together</span></a></p>
+</div>
+<div class="bridge admonition">
+<p class="admonition-title">Where are we? A question before we start</p>
+<p>Chapter 5 handed us a guarantee about the <em>procedure</em>: <span class="math notranslate nohighlight">\(\bar{x}\)</span> falls within <span class="math notranslate nohighlight">\(2\,\sigma/\sqrt{n}\)</span> of <span class="math notranslate nohighlight">\(\mu\)</span> in about 95% of samples. Useful — but it describes where <span class="math notranslate nohighlight">\(\bar{x}\)</span> lands around a <span class="math notranslate nohighlight">\(\mu\)</span> we don’t know. Now flip it around: <strong>if my <span class="math notranslate nohighlight">\(\bar{x}\)</span> is within 2 standard errors of <span class="math notranslate nohighlight">\(\mu\)</span>, then <span class="math notranslate nohighlight">\(\mu\)</span> is within 2 standard errors of my <span class="math notranslate nohighlight">\(\bar{x}\)</span>.</strong> The same distance, read from the other end. So take the one <span class="math notranslate nohighlight">\(\bar{x}\)</span> you actually observed and ask: <em>which values of <span class="math notranslate nohighlight">\(\mu\)</span> are believable, given that most samples land close?</em> That flip — from “where does <span class="math notranslate nohighlight">\(\bar{x}\)</span> fall around <span class="math notranslate nohighlight">\(\mu\)</span>” to “which <span class="math notranslate nohighlight">\(\mu\)</span>’s are compatible with my <span class="math notranslate nohighlight">\(\bar{x}\)</span>” — <strong>is</strong> the confidence interval, and the same logic run as a challenge (“could <span class="math notranslate nohighlight">\(\mu\)</span> really be <span class="math notranslate nohighlight">\(\mu_0\)</span>?”) is the significance test. This chapter builds both.</p>
 </div>
 <p>Last chapter, we learned that the sampling distribution of the sample mean <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately <span class="math notranslate nohighlight">\(\mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)\)</span> under mild conditions, thanks to the Central Limit Theorem (CLT). The mean of this sampling distribution is <span class="math notranslate nohighlight">\(\mu\)</span>, making the sample mean <span class="math notranslate nohighlight">\(\bar{X}\)</span> an excellent candidate for a <em>point estimator</em> of the population mean <span class="math notranslate nohighlight">\(\mu\)</span>.<a class="footnote-reference brackets" href="#footnote01" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <p>However, in reality, we typically only observe <strong>one sample</strong>, and the sample mean <span class="math notranslate nohighlight">\(\bar{X}\)</span> itself is <strong>random</strong>. Using our knowledge of the sampling distribution, we want to assess how far the observed <span class="math notranslate nohighlight">\(\bar{x}\)</span> is from the population mean <span class="math notranslate nohighlight">\(\mu\)</span>, or equivalently, how far the population mean <span class="math notranslate nohighlight">\(\mu\)</span> might be from our observed <span class="math notranslate nohighlight">\(\bar{x}\)</span>. This motivates the need to address <strong>uncertainty</strong> in our estimates of population parameters.</p>
@@ -528,7 +549,11 @@ The second perspective arises from our understanding of the sampling distributio
 <p>A <strong>pivot</strong>, such as <span class="math notranslate nohighlight">\(Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}\)</span>, is a function of the sample and parameters that has a distribution independent of the unknown parameter. Its distribution remains invariant regardless of the value of <span class="math notranslate nohighlight">\(\mu\)</span>. This property allows us to connect the sample statistic and the population parameter with probability statements, as the distribution of the pivot is known even if the parameter values are not.</p>
 <p>Designing or identifying appropriate pivots is a non-trivial task, but they are essential tools for statistical inference. In this course, we will encounter several examples of pivotal quantities, each playing a crucial role in hypothesis testing and confidence interval construction.</p>
 <section id="estimating-with-confidence">
-<h2><span class="section-number">6.1. </span>Estimating with Confidence<a class="headerlink" href="#estimating-with-confidence" title="Link to this heading">#</a></h2>
+<span id="ch6-ci"></span><h2><span class="section-number">6.1. </span>Estimating with Confidence<a class="headerlink" href="#estimating-with-confidence" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>“The average Purdue height is <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches” sounds precise — suspiciously precise. Nobody believes <span class="math notranslate nohighlight">\(\mu\)</span> is <em>exactly</em> 67.1; the honest claim is “67.1, give or take a bit.” <strong>But how big, exactly, is ‘a bit’? And how sure are we of it?</strong> This section replaces the vague “give or take” with a number that has a guarantee attached: the margin of error, and the confidence level that backs it.</p>
+</div>
 <p>Let’s begin with the simplest case: we are working with the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, and our goal is to construct a confidence interval for the population mean <span class="math notranslate nohighlight">\(\mu\)</span>. Additionally, we assume that the population standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is known-a scenario that is rarely true in practice.</p>
 <p>Using our knowledge of the sampling distribution of sample means, we know that <span class="math notranslate nohighlight">\(\bar{X}\)</span> is approximately distributed as <span class="math notranslate nohighlight">\(\mathcal{N}\left(\mu, \frac{\sigma}{\sqrt{n}}\right)\)</span> under the Central Limit Theorem. Leveraging our understanding of probability and the properties of the normal distribution (such as the 68-95-99.7 rule), we can determine the probability of <span class="math notranslate nohighlight">\(\bar{x}\)</span> falling within specific intervals under the normal density curve.</p>
 <p>For example, the 68-95-99.7 rule tells us that 95% of the area under the normal curve lies within 2 standard deviations from the mean. Therefore, if we repeatedly took samples and calculated <span class="math notranslate nohighlight">\(\bar{x}\)</span> for each sample, approximately 95% of these <span class="math notranslate nohighlight">\(\bar{x}\)</span> values would lie within the interval:</p>
@@ -561,6 +586,23 @@ The second perspective arises from our understanding of the sampling distributio
 <p><span class="caption-number">Fig. 6.2 </span><span class="caption-text">Example 6.3, 25 Samples</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (the most misread figure in the course)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Twenty-five samples, twenty-five confidence intervals, stacked as horizontal bars under the sampling distribution of <span class="math notranslate nohighlight">\(\bar{x}\)</span>. Read it by sorting every element into “varies” or “fixed”:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>What varies (sample to sample):</strong> the <strong>intervals</strong>. Each horizontal bar is one sample’s <span class="math notranslate nohighlight">\(\bar{x} \pm m\)</span> — a new sample gives a new center <span class="math notranslate nohighlight">\(\bar{x}\)</span>, so the bar slides left or right. The bars are the random objects in this picture.</p></li>
+<li><p class="sd-card-text"><strong>What is fixed:</strong> <span class="math notranslate nohighlight">\(\mu\)</span> — the single vertical line down the middle. The population mean does not move, does not know about our samples, and is not random. The intervals hunt for <span class="math notranslate nohighlight">\(\mu\)</span>; <span class="math notranslate nohighlight">\(\mu\)</span> never hunts for the intervals.</p></li>
+<li><p class="sd-card-text"><strong>What “95%” counts:</strong> the fraction of <em>bars</em> that cross the vertical line, <strong>in the long run over repeated samples</strong>. In any batch of 25 you’d typically see about 24 hits and 1 miss (a bar lying entirely to one side of <span class="math notranslate nohighlight">\(\mu\)</span>) — but 23 or 25 hits are perfectly possible. The 95% describes the <em>bar-producing procedure</em>, not any single bar.</p></li>
+</ul>
+<p class="sd-card-text">The trap: in real life you get exactly <strong>one</strong> bar and the vertical line is invisible. Your bar either crosses <span class="math notranslate nohighlight">\(\mu\)</span> or it doesn’t — there is no 95% left <em>for your bar</em>; the 95% was spent on the method that drew it.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “My 95% CI is <span class="math notranslate nohighlight">\((65.5, 68.7)\)</span>, so there’s a 95% chance that <span class="math notranslate nohighlight">\(\mu\)</span> is in this interval.”</p>
+<p><strong>In fact:</strong> <span class="math notranslate nohighlight">\(\mu\)</span> is a fixed number, not a random one — it is either in <span class="math notranslate nohighlight">\((65.5, 68.7)\)</span> or it isn’t; no coin is left to flip. The randomness was in the <em>sampling</em>, and it’s over. The correct reading: this interval was produced by a <strong>procedure</strong> that captures <span class="math notranslate nohighlight">\(\mu\)</span> in 95% of samples — we are “95% confident” in the method, and this interval is one output of that method.</p>
+<p><strong>Quick check:</strong> in the 25-intervals figure, pick the one bar that misses <span class="math notranslate nohighlight">\(\mu\)</span>. Before you knew it missed, was there “a 95% chance <span class="math notranslate nohighlight">\(\mu\)</span> was inside it”? (No — <span class="math notranslate nohighlight">\(\mu\)</span> was never inside it. Probability statements attach to the repeatable procedure, not to one already-computed interval.)</p>
+</div>
 <p>Of course, we are not limited to a <strong>95% confidence level</strong>-we can choose any other confidence level. However, adjusting the confidence level requires modifying our interval. Instead of using:</p>
 <div class="math notranslate nohighlight">
 \[\text{Margin of Error} = 2 \cdot \frac{\sigma}{\sqrt{n}},\]</div>
@@ -596,9 +638,29 @@ The second perspective arises from our understanding of the sampling distributio
 <p><span class="caption-number">Fig. 6.3 </span><span class="caption-text"><span class="math notranslate nohighlight">\(C\)</span> level CI</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: a 95% CI for Purdue heights, start to finish</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">An SRS of <span class="math notranslate nohighlight">\(n = 25\)</span> Purdue students gives <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches; take the population standard deviation as known, <span class="math notranslate nohighlight">\(\sigma = 4\)</span> inches.</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Critical value:</strong> for <span class="math notranslate nohighlight">\(C = 95\%\)</span>, <span class="math notranslate nohighlight">\(z^* = 1.960\)</span> (the “2” of the 68–95–99.7 rule, made exact).</p></li>
+<li><p class="sd-card-text"><strong>Margin of error:</strong> <span class="math notranslate nohighlight">\(m = z^* \dfrac{\sigma}{\sqrt{n}} = 1.960 \times \dfrac{4}{\sqrt{25}} = 1.960 \times 0.8 = 1.568\)</span> inches.</p></li>
+<li><p class="sd-card-text"><strong>Interval:</strong> <span class="math notranslate nohighlight">\(\bar{x} \pm m = 67.1 \pm 1.568 = (65.53,\ 68.67)\)</span> inches.</p></li>
+</ol>
+<p class="sd-card-text"><strong>In context:</strong> we are 95% confident that the mean height of all Purdue students is between 65.5 and 68.7 inches — where “95% confident” refers to the procedure, as the previous figure made vivid.</p>
+<p class="sd-card-text">Two follow-ups worth doing in your head:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>More confidence costs width:</strong> at <span class="math notranslate nohighlight">\(C = 99\%\)</span>, <span class="math notranslate nohighlight">\(z^* = 2.576\)</span>, so <span class="math notranslate nohighlight">\(m = 2.061\)</span> — the interval widens to <span class="math notranslate nohighlight">\((65.04, 69.16)\)</span>. Certainty is purchased with vagueness.</p></li>
+<li><p class="sd-card-text"><strong>More data buys precision:</strong> with <span class="math notranslate nohighlight">\(n = 100\)</span> (so <span class="math notranslate nohighlight">\(\sigma/\sqrt{n} = 0.4\)</span>), the 95% margin drops to <span class="math notranslate nohighlight">\(0.784\)</span>. To <em>halve</em> the margin, you must <em>quadruple</em> the sample — the <span class="math notranslate nohighlight">\(\sqrt{n}\)</span> tax from Chapter 5, again.</p></li>
+</ul>
+</div>
+</details></section>
 <section id="tests-of-significance">
-<h2><span class="section-number">6.2. </span>Tests of Significance<a class="headerlink" href="#tests-of-significance" title="Link to this heading">#</a></h2>
+<span id="ch6-tests"></span><h2><span class="section-number">6.2. </span>Tests of Significance<a class="headerlink" href="#tests-of-significance" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>The die from Chapter 0 comes back. A stranger hands you their die; you roll it 100 times and <strong>never see a single 6</strong>. For a fair die that has probability <span class="math notranslate nohighlight">\((5/6)^{100} \approx 0.000000012\)</span> — about one in 80 million. Nobody hesitates here: the die is loaded. But suppose instead you saw sixes a bit <em>less often</em> than expected, or an average of the 100 rolls of 3.9 instead of 3.5 — bad luck, or bad die? <strong>At what point does “surprising if fair” become “too surprising to believe it’s fair”?</strong> A significance test is nothing more than this instinct made precise: assume fairness, compute how surprising your data would then be, and reject fairness when the surprise crosses a preset line.</p>
+</div>
 <p>The second classical statistical method for using sample information to make inferences about the population-<strong>generalization</strong>-is the <span class="purdue-text"><strong>hypothesis test</strong></span>. This method is also closely related to the <strong>pivotal quantity</strong> mentioned earlier. However, in this context, we refer to it as a <strong>pivot statistic</strong>, <strong>test statistic</strong>, or <strong>observed pivot</strong>.</p>
 <p><strong>Logic of Hypothesis Testing:</strong></p>
 <ul class="simple">
@@ -695,7 +757,18 @@ Different <span class="math notranslate nohighlight">\(H_a\)</span></label><div 
 <a class="reference internal image-reference" href="_images/0604.png"><img alt="Three Normal curves shading p-value areas, upper tail for mu greater than mu0, lower tail for mu less than mu0, both tails for the two sided test" src="_images/0604.png" style="width: 70%;" />
 </a>
 </figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">How to read this figure (three curves, three alternatives)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">All three curves are the <strong>same</strong> standard Normal — the distribution of the <span class="math notranslate nohighlight">\(z\)</span> statistic <em>if <span class="math notranslate nohighlight">\(H_0\)</span> is true</em>. What differs is only <strong>which region counts as “as extreme or more extreme,”</strong> and that is dictated entirely by <span class="math notranslate nohighlight">\(H_a\)</span>, which you chose <em>before</em> seeing the data:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Upper-tail curve</strong> (<span class="math notranslate nohighlight">\(H_a: \mu &gt; \mu_0\)</span>): the p-value is the shaded area to the <strong>right</strong> of your observed <span class="math notranslate nohighlight">\(z\)</span>. Only large positive <span class="math notranslate nohighlight">\(z\)</span>’s count as evidence.</p></li>
+<li><p class="sd-card-text"><strong>Lower-tail curve</strong> (<span class="math notranslate nohighlight">\(H_a: \mu &lt; \mu_0\)</span>): the shaded area to the <strong>left</strong> of <span class="math notranslate nohighlight">\(z\)</span>. Only large negative <span class="math notranslate nohighlight">\(z\)</span>’s count.</p></li>
+<li><p class="sd-card-text"><strong>Two-sided curve</strong> (<span class="math notranslate nohighlight">\(H_a: \mu \neq \mu_0\)</span>): <strong>both</strong> tails beyond <span class="math notranslate nohighlight">\(\pm|z|\)</span> are shaded — surprise in either direction counts, so the p-value is twice the one-tail area.</p></li>
+</ul>
+<p class="sd-card-text">Reading tips: the tick mark on the axis is <em>your</em> <span class="math notranslate nohighlight">\(z\)</span>, computed from data; the shaded area is a probability computed <em>under <span class="math notranslate nohighlight">\(H_0\)</span>’s</em> curve. And note what a two-sided test costs: the same <span class="math notranslate nohighlight">\(z = 2.34\)</span> gives <span class="math notranslate nohighlight">\(p = 0.0096\)</span> one-sided but <span class="math notranslate nohighlight">\(p = 0.019\)</span> two-sided. Choosing the alternative after peeking at the data — “the mean came out high, so I’ll test <span class="math notranslate nohighlight">\(\mu &gt; \mu_0\)</span>” — silently halves your p-value and is a classic form of cheating.</p>
 </div>
+</details></div>
 <input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-5">
 Two-sided Significance Tests and Confidence Intervals</label><div class="sd-tab-content docutils">
@@ -735,9 +808,39 @@ Cautions When Using p-values</label><div class="sd-tab-content docutils">
 </ol>
 </div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Example: is the stranger’s die fair? A complete z test</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Back to the stranger’s die — this time with a subtler dataset than “no sixes at all.” You roll it <span class="math notranslate nohighlight">\(n = 100\)</span> times and the <strong>average of the faces</strong> is <span class="math notranslate nohighlight">\(\bar{x} = 3.9\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Hypotheses.</strong> A fair die has mean <span class="math notranslate nohighlight">\(\mu_0 = 3.5\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma = 1.708\)</span> (computed in Chapter 5). Before rolling, we had no idea <em>how</em> the die might be loaded — high or low — so the alternative is two-sided:
+$<span class="math notranslate nohighlight">\(H_0: \mu = 3.5 \qquad \text{vs.} \qquad H_a: \mu \neq 3.5.\)</span>$</p></li>
+<li><p class="sd-card-text"><strong>Test statistic.</strong> Under <span class="math notranslate nohighlight">\(H_0\)</span>, the CLT says <span class="math notranslate nohighlight">\(\bar{X} \approx \mathcal{N}\left(3.5,\ \tfrac{1.708}{\sqrt{100}}\right) = \mathcal{N}(3.5,\ 0.171)\)</span>. So
+$<span class="math notranslate nohighlight">\(z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{3.9 - 3.5}{1.708/10} = \frac{0.4}{0.1708} = 2.34.\)</span>$</p></li>
+<li><p class="sd-card-text"><strong>P-value.</strong> Two-sided: <span class="math notranslate nohighlight">\(p = 2\,\mathbb{P}(Z \geq 2.34) = 0.019\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Conclusion in context.</strong> If the die were fair, only about 1.9% of all 100-roll experiments would produce an average this far from 3.5 (in either direction). At <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>, we reject <span class="math notranslate nohighlight">\(H_0\)</span>: the data give good evidence that the die is not fair, tilted toward high faces. At the stricter <span class="math notranslate nohighlight">\(\alpha = 0.01\)</span>, the same data would <em>not</em> clear the bar — the verdict depends on where we set the line, which is exactly why the p-value itself (0.019) is more informative than “reject/don’t reject.”</p></li>
+</ul>
+<p class="sd-card-text">Compare the two die stories: “no sixes in 100 rolls” had <span class="math notranslate nohighlight">\(p \approx 0.000000012\)</span> — beyond argument. Here <span class="math notranslate nohighlight">\(p = 0.019\)</span> — suspicious, but a 1-in-50 fluke under fairness is not unthinkable. The p-value is the ruler that puts both on one scale of surprise.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “<span class="math notranslate nohighlight">\(p = 0.019\)</span> means there’s a 1.9% chance the null hypothesis is true — so a 98.1% chance the die is loaded.”</p>
+<p><strong>In fact:</strong> the p-value is computed <em>assuming <span class="math notranslate nohighlight">\(H_0\)</span> is true</em> — it is <span class="math notranslate nohighlight">\(\mathbb{P}(\text{data this extreme} \mid H_0)\)</span>, which cannot also be <span class="math notranslate nohighlight">\(\mathbb{P}(H_0 \mid \text{data})\)</span>. Those are different conditional probabilities, and frequentist inference treats <span class="math notranslate nohighlight">\(\mu\)</span> as fixed, so “the probability <span class="math notranslate nohighlight">\(H_0\)</span> is true” isn’t even a defined quantity here. The p-value measures how <em>surprising the data</em> are under <span class="math notranslate nohighlight">\(H_0\)</span> — not how probable <span class="math notranslate nohighlight">\(H_0\)</span> is.</p>
+<p><strong>Quick check:</strong> a friend’s home pregnancy test logic — “only 1% of non-pregnant users get a positive, I got a positive, so there’s a 99% chance I’m pregnant” — makes the same swap. Can you see why the answer also depends on how common pregnancy is among users in the first place? (Swapping <span class="math notranslate nohighlight">\(\mathbb{P}(A \mid B)\)</span> for <span class="math notranslate nohighlight">\(\mathbb{P}(B \mid A)\)</span> ignores the base rate.)</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Common misunderstanding</p>
+<p><strong>Students often think:</strong> “We tested <span class="math notranslate nohighlight">\(H_0\)</span> and got <span class="math notranslate nohighlight">\(p = 0.40\)</span> — not significant. So we’ve shown the null hypothesis is true.”</p>
+<p><strong>In fact:</strong> failing to reject <span class="math notranslate nohighlight">\(H_0\)</span> means the data are <em>consistent</em> with <span class="math notranslate nohighlight">\(H_0\)</span> — not that <span class="math notranslate nohighlight">\(H_0\)</span> is proved. Absence of evidence is not evidence of absence, especially when the test had little chance of detecting a real effect (<strong>low power</strong>). Roll the stranger’s die only <span class="math notranslate nohighlight">\(n = 4\)</span> times: almost no loading could ever be detected, so “not significant” would be guaranteed — and meaningless.</p>
+<p><strong>Quick check:</strong> with <span class="math notranslate nohighlight">\(n = 4\)</span> rolls of a die actually loaded to <span class="math notranslate nohighlight">\(\mu = 3.9\)</span>, the standard error is <span class="math notranslate nohighlight">\(1.708/\sqrt{4} = 0.854\)</span> — the true 0.4 shift is less than half a standard error. Would you expect this test to reject a fair-die <span class="math notranslate nohighlight">\(H_0\)</span>? (Almost never. A non-significant result here says more about the tiny sample than about the die. This is why a confidence interval — showing the whole range of believable <span class="math notranslate nohighlight">\(\mu\)</span>’s — beats a bare “not significant.”)</p>
+</div>
 </section>
 <section id="inference-as-a-decision">
-<h2><span class="section-number">6.3. </span>Inference as a Decision<a class="headerlink" href="#inference-as-a-decision" title="Link to this heading">#</a></h2>
+<span id="ch6-decision"></span><h2><span class="section-number">6.3. </span>Inference as a Decision<a class="headerlink" href="#inference-as-a-decision" title="Link to this heading">#</a></h2>
+<div class="bridge admonition">
+<p class="admonition-title">A question before this section</p>
+<p>You rejected “the die is fair” at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> with <span class="math notranslate nohighlight">\(p = 0.019\)</span>. But pause: <strong>could the die be fair after all — and you just drew a 1-in-50 unlucky sample?</strong> Absolutely. And the reverse can happen too: a genuinely loaded die can produce an innocent-looking 100 rolls. Any procedure that turns noisy data into a yes/no verdict will sometimes give the wrong verdict. The question is not <em>whether</em> we can err — we can — but whether we can <strong>name the two ways of erring, control their rates, and choose the trade-off deliberately.</strong> That is this section.</p>
+</div>
 <p>From the last section, we saw that after conducting a <strong>hypothesis test</strong>, we must make a <strong>binary decision</strong> based on the p-value:</p>
 <ul class="simple">
 <li><p><strong>Reject</strong> <span class="math notranslate nohighlight">\(H_0\)</span></p></li>
@@ -816,7 +919,44 @@ Cautions When Using p-values</label><div class="sd-tab-content docutils">
 </li>
 </ul>
 </div>
-<hr class="footnotes docutils" />
+</section>
+<section id="putting-it-all-together-a-complete-test-the-way-you-ll-write-it">
+<span id="ch6-together"></span><h2><span class="section-number">6.4. </span>Putting It All Together: A Complete Test, the Way You’ll Write It<a class="headerlink" href="#putting-it-all-together-a-complete-test-the-way-you-ll-write-it" title="Link to this heading">#</a></h2>
+<p>Let’s run one problem through the full four-step format that homework and exams expect — with the step most students skip made explicit up front.</p>
+<blockquote>
+<div><p><em>Historical records say the average height of Purdue students is 70 inches. You suspect that’s no longer accurate. An SRS of <span class="math notranslate nohighlight">\(n = 25\)</span> current students gives <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span> inches; assume heights are approximately Normal with known <span class="math notranslate nohighlight">\(\sigma = 4\)</span> inches. Test at <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>.</em></p>
+</div></blockquote>
+<p><strong>Step 0 — Identify the procedure (before any formula).</strong> Ask three questions: <em>What parameter?</em> A population <strong>mean</strong> <span class="math notranslate nohighlight">\(\mu\)</span> (heights are quantitative). <em>How many samples?</em> <strong>One</strong>. <em>Is <span class="math notranslate nohighlight">\(\sigma\)</span> known?</em> <strong>Yes</strong> (given as 4). One sample + mean + known <span class="math notranslate nohighlight">\(\sigma\)</span> → the <strong>one-sample <span class="math notranslate nohighlight">\(z\)</span> test</strong>. This identification step is the whole game later in the course, when <span class="math notranslate nohighlight">\(t\)</span> tests, proportion tests, and two-sample procedures all crowd onto the menu; practice it now while there is only one dish.</p>
+<p><strong>Step 1 — Hypotheses.</strong> “No longer accurate” gives no direction — taller or shorter would both matter — so the alternative is two-sided:</p>
+<div class="math notranslate nohighlight">
+\[H_0: \mu = 70 \qquad \text{vs.} \qquad H_a: \mu \neq 70.\]</div>
+<p>(Write the hypotheses about <span class="math notranslate nohighlight">\(\mu\)</span>, never about <span class="math notranslate nohighlight">\(\bar{x}\)</span> — we already <em>know</em> <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span>; there is nothing to test about it.)</p>
+<p><strong>Step 2 — Conditions.</strong> We have an SRS (stated); the population is approximately Normal, so <span class="math notranslate nohighlight">\(\bar{X}\)</span> is exactly Normal even at <span class="math notranslate nohighlight">\(n = 25\)</span>; <span class="math notranslate nohighlight">\(\sigma\)</span> is known. The <span class="math notranslate nohighlight">\(z\)</span> procedure applies.</p>
+<p><strong>Step 3 — Calculation.</strong> Under <span class="math notranslate nohighlight">\(H_0\)</span>, <span class="math notranslate nohighlight">\(\bar{X} \sim \mathcal{N}(70,\ 4/\sqrt{25}) = \mathcal{N}(70, 0.8)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{67.1 - 70}{0.8} = -3.63, \qquad p = 2\,\mathbb{P}(Z \leq -3.63) = 0.0003.\]</div>
+<p><strong>Step 4 — Conclusion in context.</strong> Since <span class="math notranslate nohighlight">\(p = 0.0003 &lt; \alpha = 0.05\)</span>, reject <span class="math notranslate nohighlight">\(H_0\)</span>. If the mean were still 70 inches, essentially no 25-student samples (about 3 in 10,000) would average this far from 70. The data give very strong evidence that the average height of current Purdue students differs from the historical 70 inches — and the direction of the data says it is lower.</p>
+<p><strong>The duality check.</strong> Our 95% confidence interval from earlier was <span class="math notranslate nohighlight">\((65.53,\ 68.67)\)</span> — and sure enough, <span class="math notranslate nohighlight">\(70\)</span> lies <strong>outside</strong> it. A level <span class="math notranslate nohighlight">\(\alpha\)</span> two-sided test rejects <span class="math notranslate nohighlight">\(\mu_0\)</span> exactly when <span class="math notranslate nohighlight">\(\mu_0\)</span> falls outside the level <span class="math notranslate nohighlight">\(1 - \alpha\)</span> interval: the test and the interval are the same mathematics wearing different clothes. The interval actually says <em>more</em>: not just “not 70,” but “the believable values run from about 65.5 to 68.7.”</p>
+<p><strong>The chapter in one sentence:</strong> Chapter 5’s sampling distribution, read in reverse, answers both inference questions — <em>which <span class="math notranslate nohighlight">\(\mu\)</span>’s are believable</em> (a confidence interval) and <em>is this particular <span class="math notranslate nohighlight">\(\mu_0\)</span> believable</em> (a significance test) — with the p-value measuring surprise under <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span> naming the two ways our verdict can be wrong.</p>
+</section>
+<section id="check-your-understanding">
+<h2><span class="section-number">6.5. </span>Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">1. Two 95% confidence intervals for mean height are reported: <span class="math notranslate nohighlight">\((65.53, 68.67)\)</span> from <span class="math notranslate nohighlight">\(n = 25\)</span> and <span class="math notranslate nohighlight">\((66.32, 67.88)\)</span> from <span class="math notranslate nohighlight">\(n = 100\)</span> (same <span class="math notranslate nohighlight">\(\bar{x} = 67.1\)</span>, <span class="math notranslate nohighlight">\(\sigma = 4\)</span>). A student says the second interval is “more confident.” Fix the language.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Both intervals carry <em>exactly</em> 95% confidence — the same procedure-level guarantee. What the second interval is, is more <strong>precise</strong>: quadrupling <span class="math notranslate nohighlight">\(n\)</span> halves <span class="math notranslate nohighlight">\(\sigma/\sqrt{n}\)</span> from 0.8 to 0.4, so the margin shrinks from 1.568 to 0.784. Confidence level is chosen; precision is earned with sample size. (To become “more confident” — say 99% — you would <em>widen</em> the interval, not narrow it.)</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">2. For the stranger’s die (<span class="math notranslate nohighlight">\(p = 0.019\)</span>, two-sided), your friend concludes: “There’s a 98.1% probability that the die is loaded.” Give the correct one-sentence interpretation.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Correct version: “<strong>If</strong> the die were fair, only 1.9% of all 100-roll experiments would give an average at least as far from 3.5 as ours — so the data are quite surprising under fairness, which is evidence against it.” The p-value conditions on <span class="math notranslate nohighlight">\(H_0\)</span>; it is not the probability of <span class="math notranslate nohighlight">\(H_0\)</span> (or of <span class="math notranslate nohighlight">\(H_a\)</span>) being true. No probability attaches to “the die is loaded” in this framework — the die either is or isn’t.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">3. A campus lab tests a memory supplement on <span class="math notranslate nohighlight">\(n = 6\)</span> students and reports “no significant improvement (<span class="math notranslate nohighlight">\(p = 0.31\)</span>); the supplement does not work.” Name <em>two</em> distinct problems with this conclusion.</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">First, “not significant” never <em>proves</em> <span class="math notranslate nohighlight">\(H_0\)</span> — the data being consistent with “no effect” is not evidence of no effect. Second, with only 6 subjects the test has very <strong>low power</strong>: even a genuinely helpful supplement would rarely produce a significant result, so the non-rejection was nearly preordained (a Type II error waiting to happen). Better reporting: give a confidence interval for the improvement — if it spans from “slightly harmful” to “hugely helpful,” the honest conclusion is “this study was too small to tell,” not “it doesn’t work.”</p>
+</div>
+</details><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote01" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -900,6 +1040,8 @@ Cautions When Using p-values</label><div class="sd-tab-content docutils">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-with-confidence">6.1. Estimating with Confidence</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-of-significance">6.2. Tests of Significance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-as-a-decision">6.3. Inference as a Decision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-a-complete-test-the-way-you-ll-write-it">6.4. Putting It All Together: A Complete Test, the Way You’ll Write It</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">6.5. Check Your Understanding</a></li>
 </ul>
   </nav></div>
 
